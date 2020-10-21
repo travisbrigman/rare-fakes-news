@@ -18,14 +18,14 @@ export const PostProvider = (props) => {
     }
 
     // ? CHECK FETCH CALL FOR THESE SPECIAL ONES
-    const getPostByUser = () => {
-        return fetch("http://localhost:8088/posts")
+    const getPostByUser = (user) => {
+        return fetch(`http://localhost:8088/posts?user_id=${user.id}`)
             .then(res => res.json())
             .then(setPosts)
     }
 
     const getPostByTag = () => {
-        return fetch("http://localhost:8088/posts")
+        return fetch("http://localhost:8088/posts?tag_id=${}")
             .then(res => res.json())
             .then(setPosts)
     }
@@ -77,8 +77,8 @@ export const PostProvider = (props) => {
 
     return (
         <PostContext.Provider value={{
-            Posts, addPost, getPosts, getPostById,
-            searchTerms, setTerms, releasePost, updatePost,
+            post, setPost, posts, addPost, getPosts, setPosts,
+            getPostById, releasePost, updatePost,
             getPostBySub, getPostByTag, getPostByCat, getPostByUser
             
         }}>
