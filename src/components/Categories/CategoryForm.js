@@ -17,6 +17,25 @@ export const CategoryForm = (props) => {
     getCategories();
   }, []);
 
+  const constructNewCategory = () => {
+    const categoryId = parseInt(category.id)
+
+    if (categoryId === 0) {
+        window.alert("Please select a category")
+    } else {
+
+            addAnimal({
+                name: animal.name,
+                breed: animal.breed,
+                categoryId: categoryId,
+                status: animal.status,
+                customerId: parseInt(localStorage.getItem("kennel_customer"))
+            })
+                .then(() => props.history.push("/animals"))
+        }
+    }
+
+
   return (
     <form className="categoryForm">
       <label>
@@ -28,6 +47,14 @@ export const CategoryForm = (props) => {
           onChange={handleChange}
         />
       </label>
+      <button type="submit"
+                onClick={evt => {
+                    evt.preventDefault()
+                    constructNewAnimal()
+                }}
+                className="btn btn-primary">
+                {editMode ? "Save Updates" : "Make Reservation"}
+            </button>
     </form>
   );
 };
