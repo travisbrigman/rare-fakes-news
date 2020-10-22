@@ -5,7 +5,7 @@ import { TagContext } from "./TagProvider"
 
 export const TagForm = (props) => {
     // Use the required context providers for data
-    const { tags, getTags, createTag } = useContext(LocationContext)
+    const { tags, getTags, createTag } = useContext(TagContext)
 
     // Component state
     const [tag, setTag] = useState({})
@@ -22,8 +22,7 @@ export const TagForm = (props) => {
 
     // Get animals from API when component initializes
     useEffect(() => {
-        getAnimals()
-        getLocations()
+        getTags()
     }, [])
 
 
@@ -34,12 +33,11 @@ export const TagForm = (props) => {
                 })
                     .then(() => props.history.push("/tags")) //takes user to tag list page
             }
-        }
     
 
     return (
         <form className="tagForm">
-            <h2 className="tagForm__title">Create a tag</h2>
+            <h2 className="tagForm__title">Tag form</h2>
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="tag">Enter tag name: </label>
@@ -56,7 +54,7 @@ export const TagForm = (props) => {
                     constructNewTag()
                 }}
                 className="btn btn-primary">
-                "Save Updates"
+                Create Tag
             </button>
         </form>
     )
