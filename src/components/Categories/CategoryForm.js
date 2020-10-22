@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 
 import { CategoryContext } from "./CategoryProvider";
 
 export const CategoryForm = (props) => {
-  const { categories, category, getCategories, createCategory } = useContext(
+  const { categories, category, getCategories, createCategory, setCategory } = useContext(
     CategoryContext
   );
 
-  const [state, setState] = useState({});
-
   function handleChange(evt) {
-    setState({ category: evt.target.value });
+    setCategory({ type: evt.target.value });
   }
 
   useEffect(() => {
@@ -18,23 +16,9 @@ export const CategoryForm = (props) => {
   }, []);
 
   const constructNewCategory = () => {
-    const categoryId = parseInt(category.id)
-
-    if (categoryId === 0) {
-        window.alert("Please select a category")
-    } else {
-
-            addAnimal({
-                name: animal.name,
-                breed: animal.breed,
-                categoryId: categoryId,
-                status: animal.status,
-                customerId: parseInt(localStorage.getItem("kennel_customer"))
-            })
-                .then(() => props.history.push("/animals"))
-        }
-    }
-
+      createCategory(category)
+      .then(() => props.history.push("/categories"));
+  };
 
   return (
     <form className="categoryForm">
@@ -43,18 +27,20 @@ export const CategoryForm = (props) => {
         <input
           type="text"
           name="category"
-          value={state.category}
+          value={category.category}
           onChange={handleChange}
         />
       </label>
-      <button type="submit"
-                onClick={evt => {
-                    evt.preventDefault()
-                    constructNewAnimal()
-                }}
-                className="btn btn-primary">
-                {editMode ? "Save Updates" : "Make Reservation"}
-            </button>
+      <button
+        type="submit"
+        onClick={(evt) => {
+          evt.preventDefault();
+          constructNewCategory();
+        }}
+        className="btn btn-primary"
+      >
+        Save Update
+      </button>
     </form>
   );
 };
