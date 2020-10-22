@@ -5,8 +5,8 @@ import "./Auth.css"
 export const Register = (props) => {
     const firstName = useRef()
     const lastName = useRef()
+    const displayName = useRef()
     const email = useRef()
-    const bio = useRef()
     const password = useRef()
     const verifyPassword = useRef()
     const passwordDialog = useRef()
@@ -19,9 +19,10 @@ export const Register = (props) => {
                 "username": email.current.value,
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
-                "bio": bio.current.value,
+                "display_name": displayName.current.value,
                 "email": email.current.value,
-                "password": password.current.value
+                "password": password.current.value,
+                "avatar": "default.png"
             }
 
             return fetch("http://127.0.0.1:8088/register", {
@@ -56,36 +57,35 @@ export const Register = (props) => {
                 <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
                 <fieldset>
                     <label htmlFor="firstName"> First Name </label>
-                    <input ref={firstName} type="text" name="firstName" className="form-control" placeholder="First name" required autoFocus />
+                    <input ref={firstName} type="text" name="firstName" className="form-control" placeholder="first name" required autoFocus />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="lastName"> Last Name </label>
-                    <input ref={lastName} type="text" name="lastName" className="form-control" placeholder="Last name" required />
+                    <input ref={lastName} type="text" name="lastName" className="form-control" placeholder="last name" required />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="inputEmail"> Email address </label>
-                    <input ref={email} type="email" name="email" className="form-control" placeholder="Email address" required />
+                    <label htmlFor="displayName"> Display Name (optional) </label>
+                    <input ref={displayName} type="text" name="displayName" className="form-control" placeholder="display name" />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="inputEmail"> email Address</label>
+                    <input ref={email} type="email" name="email" className="form-control" placeholder="email address" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="inputPassword"> Password </label>
-                    <input ref={password} type="password" name="password" className="form-control" placeholder="Password" required />
+                    <input ref={password} type="password" name="password" className="form-control" placeholder="password" required />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="verifyPassword"> Verify Password </label>
-                    <input ref={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="Verify password" required />
+                    <input ref={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="re-enter password" required />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="verifyPassword"> Verify Password </label>
-                    <textarea ref={bio} name="bio" className="form-control" placeholder="Let other gamers know a little bit about you..." />
-                </fieldset>
-                <fieldset style={{
-                    textAlign: "center"
-                }}>
                     <button className="btn btn-1 btn-sep icon-send" type="submit">Register</button>
                 </fieldset>
             </form>
             <section className="link--register">
-                Already registered? <Link to="/login">Login</Link>
+                <div>Already Registered?</div>
+                <Link to="/login">Login</Link>
             </section>
         </main>
     )
