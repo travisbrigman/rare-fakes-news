@@ -12,6 +12,7 @@ export const Login = (props) => {
     const existingUserCheck = () => {
         return fetch(`http://localhost:8088/users?email=${email.current.value}`)
             .then(res => {
+                console.log(res)
                 return res.json()
             })
             .then(user => {
@@ -50,7 +51,7 @@ export const Login = (props) => {
                     <h1>Rare</h1>
                     <h2>Sign In</h2>
                     <fieldset>
-                        <label htmlFor="inputEmail"> email ddress </label>
+                        <label htmlFor="inputEmail"> email address </label>
                         <input ref={email} type="email" id="email" className="form-control" defaultValue="me@me.com" placeholder="Email address" required autoFocus />
                     </fieldset>
                     <fieldset>
