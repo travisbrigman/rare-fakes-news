@@ -1,14 +1,13 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useEffect } from "react"
 import { TagContext } from "./TagProvider"
 
 
 
 export const TagForm = (props) => {
     // Use the required context providers for data
-    const { tags, getTags, createTag } = useContext(TagContext)
+    const { tags, getTags, createTag, tag, setTag } = useContext(TagContext)
 
-    // Component state
-    const [tag, setTag] = useState({})
+
 
     const handleControlledInputChange = (event) => {
         /*
@@ -29,10 +28,11 @@ export const TagForm = (props) => {
     const constructNewTag = () => {
                 // POST
                 createTag({
-                    tag: tag
+                    tag: tag.tag
                 })
                     .then(() => props.history.push("/tags")) //takes user to tag list page
             }
+    
     
 
     return (

@@ -3,7 +3,7 @@ import React from "react"
 
 export default ({ tag }) => (
     <section className="tag">
-        <div className="animal__name">
+        <div className="tag_name">
                 { tag.tag }
            
         </div>    
