@@ -3,35 +3,40 @@ import { Link, useHistory } from "react-router-dom"
 import "./Auth.css"
 
 
-export const Login = () => {
+export const Login = (props) => {
     const email = useRef()
     const password = useRef()
     const invalidDialog = useRef()
     const history = useHistory()
 
+    const existingUserCheck = () => {
+        return fetch(`http://localhost:8088/users?email=${email.current.value}`)
+            .then(res => {
+                console.log(res)
+                return res.json()
+            })
+            .then(user => {
+                console.log(user)
+               return user !== undefined ? user : false
+            })
+    }
+
     const handleLogin = (e) => {
         e.preventDefault()
+        //props.history.push("/main")
 
-        return fetch("http://127.0.0.1:8088/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify({
-                username: email.current.value,
-                password: password.current.value
-            })
-        })
-            .then(res => res.json())
-            .then(res => {
-                if ("valid" in res && res.valid) {
-                    localStorage.setItem("rare_user_id", res.token )
-                    history.push("/")
-                }
-                else {
+        existingUserCheck()
+            .then(exists => {
+                console.log(exists)
+                if (exists && exists.password === password.current.value) {
+                    localStorage.setItem("rare_user_id", exists.id)
+                    props.history.push("/home")
+                } else if (exists && exists.password !== password.current.value) {
                     invalidDialog.current.showModal()
+                } else if (!exists) {
+                   invalidDialog.current.showModal()
                 }
+                
             })
     }
 
@@ -46,7 +51,7 @@ export const Login = () => {
                     <h1>Rare</h1>
                     <h2>Sign In</h2>
                     <fieldset>
-                        <label htmlFor="inputEmail"> email ddress </label>
+                        <label htmlFor="inputEmail"> email address </label>
                         <input ref={email} type="email" id="email" className="form-control" defaultValue="me@me.com" placeholder="Email address" required autoFocus />
                     </fieldset>
                     <fieldset>
