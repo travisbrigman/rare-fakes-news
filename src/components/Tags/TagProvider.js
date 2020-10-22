@@ -36,29 +36,3 @@ export const TagProvider = (props) => {
         </TagContext.Provider>
     )
 }
-
-
-//? I don't think we need this one
-// const getTagById = (id) => {
-//     return fetch(`http://localhost:8088/tags/${id}`)
-//         .then(res => res.json())
-// }
-
-//TODO FOR WHEN/IF WE HAVE ADMIN SHTUFF
-// const updateTag = Tag => {
-//     return fetch(`http://localhost:8088/Tags/${Tag.id}`, {
-//         method: "PUT",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(Tag)
-//     })
-//         .then(getTags)
-// }
-
-// const deleteTag = (TagId) => {
-//     return fetch(`http://localhost:8088/Tags/${TagId}`, {
-//         method: "DELETE"
-//     })
-//         .then(getTags)
-// }
