@@ -2,6 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { CategoryForm } from "./Categories/CategoryForm";
 import { CategoryProvider } from "./Categories/CategoryProvider";
+import { CategoryList } from "./Categories/CategoryList"
 import { HomeList } from "./Profiles/HomeList";
 
 export const ApplicationViews = () => {
@@ -19,8 +20,13 @@ export const ApplicationViews = () => {
       <CategoryProvider>
         <Route
           exact
-          path="/categories"
+          path="/newCategory"
           render={(props) => <CategoryForm {...props} />}
+        />
+        <Route
+          exact
+          path="/categories"
+          render={(props) => <CategoryList {...props} />}
         />
       </CategoryProvider>
     </>
