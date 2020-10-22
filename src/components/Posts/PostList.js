@@ -15,6 +15,9 @@ export const PostList = (props) => {
     return (
         <>
         <h2>Posts</h2>
+        <Link to={{pathname:`posts/create`}}>
+        create post
+        </Link>
         {
             posts.map(p => {
                 return <div>
