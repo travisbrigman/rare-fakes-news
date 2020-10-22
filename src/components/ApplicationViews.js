@@ -1,22 +1,44 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import { CategoryForm } from "./Categories/CategoryForm";
-import { CategoryProvider } from "./Categories/CategoryProvider";
-import { CategoryList } from "./Categories/CategoryList"
+import { TagProvider } from "./Tags/TagProvider";
+import { TagForm } from "./Tags/TagForm";
+import { TagList } from "./Tags/TagList";
 import { HomeList } from "./Profiles/HomeList";
+import { CategoryProvider } from "./Categories/CategoryProvider";
+import { CategoryForm } from "./Categories/CategoryForm";
+import { CategoryList } from "./Categories/CategoryList";
 
 export const ApplicationViews = () => {
   return (
     <>
-      {/* <main
+      <main
         style={{
           margin: "5rem 2rem",
           lineHeight: "1.75rem",
         }}
-      ></main> */}
+      ></main>
+
+      <TagProvider>
+        <Route
+          exact
+          path="/tags/create"
+          render={(props) => {
+            return <TagForm {...props} />;
+          }}
+        />
+        <Route
+          exact
+          path="/tags"
+          render={(props) => {
+            return <TagList {...props} />;
+          }}
+        />
+      </TagProvider>
+      
       <Route exact path="/home">
         <HomeList />
       </Route>
+
       <CategoryProvider>
         <Route
           exact
