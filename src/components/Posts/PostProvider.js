@@ -17,21 +17,20 @@ export const PostProvider = (props) => {
             .then(res => res.json())
     }
 
-    // ? CHECK FETCH CALL FOR THESE SPECIAL ONES
     const getPostByUser = (user) => {
         return fetch(`http://localhost:8088/posts?user_id=${user.id}`)
             .then(res => res.json())
             .then(setPosts)
     }
 
-    const getPostByTag = () => {
-        return fetch("http://localhost:8088/posts?tag_id=${}")
+    const getPostByTag = (tag) => {
+        return fetch(`http://localhost:8088/posts?tag_id=${tag.id}`)
             .then(res => res.json())
             .then(setPosts)
     }
 
-    const getPostByCat = () => {
-        return fetch("http://localhost:8088/posts")
+    const getPostByCat = (category) => {
+        return fetch(`http://localhost:8088/posts?category_id=${category.id}`)
             .then(res => res.json())
             .then(setPosts)
     }
@@ -41,45 +40,45 @@ export const PostProvider = (props) => {
             .then(res => res.json())
             .then(setPosts)
     }
-    //? ^^^^^^^^^ THESE SPECIAL ONES
 
-    // const addPost = post => {
-    //     return fetch("http://localhost:8088/posts", {
-    //         method: "POST",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(Post)
-    //     })
-    //        .then(res => res.json())
-    //         .then(newPost => {
-    //             getPosts()
-    //            return newPost.id })      
-    // }
+    const addPost = post => {
+        return fetch("http://localhost:8088/posts", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(Post)
+        })
+           .then(res => res.json())
+            .then(newPost => {
+                getPosts()
+               return newPost.id })      
+    }
 
-    // const updatePost = post => {
-    //     return fetch(`http://localhost:8088/Posts/${post.id}`, {
-    //         method: "PUT",
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(post)
-    //     })
-    //         .then(getPosts)
-    // }
+    const updatePost = post => {
+        return fetch(`http://localhost:8088/Posts/${post.id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(post)
+        })
+            .then(getPosts)
+    }
 
-    // const deletePost = (postId) => {
-    //     return fetch(`http://localhost:8088/Posts/${postId}`, {
-    //         method: "DELETE"
-    //     })
-    //         .then(getPosts)
-    // }
+    const deletePost = (postId) => {
+        return fetch(`http://localhost:8088/Posts/${postId}`, {
+            method: "DELETE"
+        })
+            .then(getPosts)
+    }
 
     return (
         <PostContext.Provider value={{
             post, setPost, posts, addPost, getPosts, setPosts,
             getPostById, releasePost, updatePost,
-            getPostBySub, getPostByTag, getPostByCat, getPostByUser
+            getPostBySub, getPostByTag, getPostByCat, getPostByUser,
+            deletePost
             
         }}>
             {props.children}

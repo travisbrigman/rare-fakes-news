@@ -10,29 +10,27 @@ export const TagProvider = (props) => {
         return fetch("http://localhost:8088/tags")
             .then(res => res.json())
             .then(setTags)
-    }
-
+    }    
     
-    
-    // const createTag = tag => {
-        //     return fetch("http://localhost:8088/tags", {
-            //         method: "POST",
-            //         headers: {
-                //             "Content-Type": "application/json"
-                //         },
-                //         body: JSON.stringify(Tag)
-                //     })
-                //        .then(res => res.json())
-                //         .then(newTag => {
-                    //             getTags()
-                    //            return newTag.id })      
-                    // }
+    const createTag = tag => {
+            return fetch("http://localhost:8088/tags", {
+                    method: "POST",
+                    headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(Tag)
+                    })
+                       .then(res => res.json())
+                        .then(newTag => {
+                                getTags()
+                               return newTag.id })      
+                    }
                     
                     
                     return (
                         <TagContext.Provider value={{
-                            tag, setTag, tags, getTags, setTags,
-                             
+                            tag, setTag, tags, getTags, 
+                            setTags, createTag    
                         }}>
             {props.children}
         </TagContext.Provider>
