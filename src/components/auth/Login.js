@@ -12,10 +12,12 @@ export const Login = (props) => {
     const existingUserCheck = () => {
         return fetch(`http://localhost:8088/users?email=${email.current.value}`)
             .then(res => {
-                console.log(res)
-                res.json()
+                return res.json()
             })
-            .then(user => user !== undefined ? user : false)
+            .then(user => {
+                console.log(user)
+               return user !== undefined ? user : false
+            })
     }
 
     const handleLogin = (e) => {
