@@ -3,8 +3,6 @@ import { Link } from "react-router-dom"
 import "./Auth.css"
 
 export const Register = (props) => {
-    const firstName = useRef()
-    const lastName = useRef()
     const displayName = useRef()
     const email = useRef()
     const password = useRef()
@@ -16,16 +14,16 @@ export const Register = (props) => {
 
         if (password.current.value === verifyPassword.current.value) {
             const newUser = {
-                "username": email.current.value,
-                "first_name": firstName.current.value,
-                "last_name": lastName.current.value,
+                "avatar": "default.png",
                 "display_name": displayName.current.value,
-                "email": email.current.value,
                 "password": password.current.value,
-                "avatar": "default.png"
+                "email": email.current.value,
+                "creation": Date.now(),
+                "active": 1
+
             }
 
-            return fetch("http://127.0.0.1:8088/register", {
+            return fetch("http://localhost:8088/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,11 +33,10 @@ export const Register = (props) => {
             })
                 .then(res => res.json())
                 .then(res => {
-                    if ("valid" in res && res.valid) {
                         localStorage.setItem("rare_user_id", res.token)
-                        props.history.push("/")
-                    }
-                })
+                        props.history.push("/home")
+                    })
+                
         } else {
             passwordDialog.current.showModal()
         }
@@ -56,19 +53,11 @@ export const Register = (props) => {
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
                 <fieldset>
-                    <label htmlFor="firstName"> First Name </label>
-                    <input ref={firstName} type="text" name="firstName" className="form-control" placeholder="first name" required autoFocus />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="lastName"> Last Name </label>
-                    <input ref={lastName} type="text" name="lastName" className="form-control" placeholder="last name" required />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="displayName"> Display Name (optional) </label>
+                    <label htmlFor="displayName"> Display Name </label>
                     <input ref={displayName} type="text" name="displayName" className="form-control" placeholder="display name" />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="inputEmail"> email Address</label>
+                    <label htmlFor="inputEmail"> Email Address</label>
                     <input ref={email} type="email" name="email" className="form-control" placeholder="email address" required />
                 </fieldset>
                 <fieldset>

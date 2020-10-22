@@ -3,6 +3,7 @@ import { Route } from "react-router-dom"
 import { TagProvider } from "./Tags/TagProvider"
 import { TagForm } from "./Tags/TagForm"
 import { TagList } from "./Tags/TagList"
+import {HomeList} from "./Profiles/HomeList"
 
 export const ApplicationViews = () => {
     return <>
@@ -21,5 +22,8 @@ export const ApplicationViews = () => {
             }} />
             
         </TagProvider>
+        <Route exact path="/home">
+            <HomeList />
+        </Route>
     </>
 }
