@@ -1,6 +1,8 @@
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { CategoryProvider } from "../Categories/CategoryProvider"
 import "./Auth.css"
+
 
 
 export const Login = () => {
@@ -8,6 +10,7 @@ export const Login = () => {
     const password = useRef()
     const invalidDialog = useRef()
     const history = useHistory()
+
 
     const handleLogin = (e) => {
         e.preventDefault()
