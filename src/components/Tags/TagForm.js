@@ -43,7 +43,6 @@ export const TagForm = (props) => {
                     <label htmlFor="tag">Enter tag name: </label>
                     <input type="text" name="tag" required autoFocus className="form-control"
                         placeholder="ex: sports, politics, etc"
-                        defaultValue={tag.tag}
                         onChange={handleControlledInputChange}
                     />
                 </div>
