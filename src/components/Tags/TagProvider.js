@@ -18,7 +18,7 @@ export const TagProvider = (props) => {
                     headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(Tag)
+                        body: JSON.stringify(tag)
                     })
                        .then(res => res.json())
                         .then(newTag => {
