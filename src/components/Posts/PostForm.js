@@ -44,6 +44,7 @@ export const PostForm = () => {
         })
         .then((postId) => {
             const submittedTagsList = TagPost.split(",")
+            //? will I eventually need a Promise.all ?
             const test = submittedTagsList.map(t => {
             console.log(t)
             const findTagObject = tags.find(tagObj => tagObj.tag === t.tag)
@@ -70,36 +71,6 @@ export const PostForm = () => {
             )
         })
     }
-
-    // const constructTagPost = (postId) => {
-    //     debugger
-    //     const submittedTagsList = TagPost.split(",")
-    //     const test = submittedTagsList.map(t => {
-    //         console.log(t)
-    //         const findTagObject = tags.find(tagObj => tagObj.tag === t.tag)
-    //                     //tags that already exist to make a relationship obj
-    //                     if(findTagObject !== undefined){
-    //                                 createTagPost({
-    //                                     tag_id: findTagObject.id,
-    //                                     post_id: postId
-    //                                         })
-    //                     } else {
-    //                         //create tags then save relationship objects
-    //                             createTag({
-    //                                 tag: t.tag
-    //                                 })
-    //                                 .then(new_tag => {
-    //                                 createTagPost({
-    //                                     tag_id: new_tag.id,
-    //                                     post_id: postId
-    //                                     })
-    //                                 })
-
-    //                     }
-    //             }
-    //         )
-    //     }
-
 
 return (
     <>
@@ -145,9 +116,10 @@ return (
 
         <button onClick={(evt) => {
                 constructPost()
-                // .then(postId => {
+                //? .then(postId => {
                 //     debugger
                 //     constructTagPost(postId)})
+                //? .then(props.history.push('/home'))
             }}>add post</button>
         </form>
     </>

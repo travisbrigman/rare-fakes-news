@@ -1,8 +1,8 @@
 import React from "react"
 import { Route } from "react-router-dom"
 import { HomeList } from "./Profiles/HomeList"
-import {PostProvider} from "./Posts/PostProvider"
-import {PostForm} from "./Posts/PostForm"
+import { PostProvider } from "./Posts/PostProvider"
+import { PostForm } from "./Posts/PostForm"
 import { CategoryProvider } from "./Categories/CategoryProvider"
 import { TagPostProvider } from "./Tags/TagPostProvider"
 import { TagProvider } from "./Tags/TagProvider"
@@ -20,22 +20,22 @@ export const ApplicationViews = (props) => {
             <CategoryProvider>
                 <TagPostProvider>
                     <TagProvider>
-            <Route exact path="/home" render={
-                props => <HomeList {...props} />} />
-            <Route exact path="/posts/create" render={
-                props => <PostForm {...props} />} />
+                        <Route exact path="/home" render={
+                            props => <HomeList {...props} />} />
+                        <Route exact path="/posts/create" render={
+                            props => <PostForm {...props} />} />
                     </TagProvider>
                 </TagPostProvider>
             </CategoryProvider>
         </PostProvider>
         <TagProvider>
             <Route exact path="/tags/create" render={(props) => {
-                return <TagForm {...props}/>
+                return <TagForm {...props} />
             }} />
             <Route exact path="/tags" render={(props) => {
                 return <TagList {...props} />
             }} />
-            
+
         </TagProvider>
     </>
 }
