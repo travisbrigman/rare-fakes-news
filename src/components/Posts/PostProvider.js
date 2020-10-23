@@ -47,12 +47,9 @@ export const PostProvider = (props) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(Post)
+            body: JSON.stringify(post)
         })
-           .then(res => res.json())
-            .then(newPost => {
-                getPosts()
-               return newPost.id })      
+           .then(res => res.json())     
     }
 
     const updatePost = post => {
@@ -76,7 +73,7 @@ export const PostProvider = (props) => {
     return (
         <PostContext.Provider value={{
             post, setPost, posts, addPost, getPosts, setPosts,
-            getPostById, releasePost, updatePost,
+            getPostById, updatePost,
             getPostBySub, getPostByTag, getPostByCat, getPostByUser,
             deletePost
             
