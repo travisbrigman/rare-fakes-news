@@ -26,10 +26,13 @@ export const UserDetail = () => {
     return (
         <>
             <h1>My Profile</h1>
+            <div>User Full Name:</div>
             <div>{activeUserObj.avatar}</div>
-            <div>User ID: {activeUserObj.id}</div>
             <div>Display Name: {activeUserObj.display_name}</div>
             <div>email: {activeUserObj.email}</div>
+            <div>Creation Date: {new Date(activeUserObj.creation).toLocaleDateString('en-US')}</div>
+            <div>Profile Type: </div>
+
         </>
     )
 }
