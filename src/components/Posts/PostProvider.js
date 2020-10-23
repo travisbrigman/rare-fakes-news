@@ -1,10 +1,11 @@
+import { DateTime } from "luxon"
 import React, { useState } from "react"
 
 export const PostContext = React.createContext()
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([])
-    const [post, setPost] = useState({user:{}})
+    const [post, setPost] = useState({user:{}, date:DateTime.local()})
 
     const getPosts = () => {
         return fetch("http://localhost:8088/posts")
