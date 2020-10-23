@@ -2,12 +2,14 @@ import React, { useEffect, useContext } from "react"
 import {PostContext} from "./PostProvider"
 import {CategoryContext} from "../Categories/CategoryProvider"
 import { TagContext } from "../Tags/TagProvider"
+import { TagPostContext } from "../Tags/TagPostProvider"
 
 
 export const PostForm = () => {
     const {post, setPost, addPost} = useContext(PostContext)
     const {categories, getCategories} = useContext(CategoryContext)
     const {tags, getTags} = useContext(TagContext)
+    const {TagPosts, TagPost, setTagPost, getTagPosts} = useContext(TagPostContext)
 
     useEffect(() => {
         getCategories()

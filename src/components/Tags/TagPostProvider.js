@@ -4,12 +4,12 @@ export const TagPostContext = React.createContext()
 
 export const TagPostProvider = (props) => {
     const [TagPosts, setTagPosts] = useState([])
-    const [TagPost, setTagPosts] = useState({})
+    const [TagPost, setTagPost] = useState({})
 
     const getTagPosts = () => {
         return fetch("http://localhost:8088/tagPosts")
             .then(res => res.json())
-            .then(setTags)
+            .then(setTagPosts)
     }    
     
     const createTagPost = TagPost => {
@@ -18,21 +18,21 @@ export const TagPostProvider = (props) => {
                     headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(tag)
+                        body: JSON.stringify(TagPost)
                     })
                        .then(res => res.json())
-                        .then(newTag => {
-                                getTags()
-                               return newTag.id })      
+                        .then(newTagPost => {
+                                getTagPosts()
+                               return newTagPost.id })      
                     }
                     
                     
                     return (
-                        <TagContext.Provider value={{
+                        <TagPostContext.Provider value={{
                             TagPost, setTagPost, TagPosts, getTagPosts, 
                             setTagPosts, createTagPost    
                         }}>
             {props.children}
-        </TagContext.Provider>
+        </TagPostContext.Provider>
     )
 }
