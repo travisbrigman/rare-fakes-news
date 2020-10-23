@@ -34,8 +34,8 @@ export const ApplicationViews = (props) => {
     </PostProvider>
     {/*********************************** */}
     <UserProvider>
-      <Route exact path="/profile" render={(props) => {
-        return <UserDetail {...props} /> }}/>
+      <Route exact path="/profile" render={ 
+          props => <UserDetail {...props}/>} />
     </UserProvider>
     {/*********************************** */}       
     <TagProvider>
