@@ -1,14 +1,17 @@
 import React, { useEffect, useContext } from "react"
 import {PostContext} from "./PostProvider"
 import {CategoryContext} from "../Categories/CategoryProvider"
+import { TagContext } from "../Tags/TagProvider"
 
 
 export const PostForm = () => {
     const {post, setPost, addPost} = useContext(PostContext)
     const {categories, getCategories} = useContext(CategoryContext)
+    const {tags, getTags} = useContext(TagContext)
 
     useEffect(() => {
         getCategories()
+        getTags()
     },[])
 
     const handleControlledInputChange = (browserEvent) => {
@@ -27,7 +30,6 @@ export const PostForm = () => {
             approved: 1
         })
     }
-    console.log(categories)
 
 return (
     <>
@@ -56,8 +58,20 @@ return (
                         <option value="0">select a category</option>
                         {
                             categories.map(c =>{
-                                console.log("c", c)
                                 return <option key={c.id} value={c.id}>{c.type}</option>
+                            })
+                        }
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="status">Tags: </label>
+                    <select name="status_id" value={TagPost.tag_id} className="form-control" onChange={handleControlledInputChange} >
+                        <option value="0">select some tags</option>
+                        {
+                            tags.map(t =>{
+                                return <option key={t.id} value={t.id}>{t.tag}</option>
                             })
                         }
                     </select>
