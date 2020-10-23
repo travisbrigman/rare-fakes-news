@@ -67,9 +67,7 @@ export const PostForm = (props) => {
             
         })
     }       
-
-    console.log(stateTagIDArr, "IDs")
-    console.log(stateTagObjArr, "OBJ")
+    
 return (
     <>
     <h2>hey</h2>
