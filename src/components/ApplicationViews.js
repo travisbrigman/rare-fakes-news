@@ -7,6 +7,8 @@ import { HomeList } from "./Profiles/HomeList";
 import { CategoryProvider } from "./Categories/CategoryProvider";
 import { CategoryForm } from "./Categories/CategoryForm";
 import { CategoryList } from "./Categories/CategoryList";
+import { ReactionProvider } from "./Reactions/ReactionProvider";
+import {ReactionList} from "./Reactions/ReactionList";
 
 export const ApplicationViews = () => {
   return (
@@ -56,6 +58,12 @@ export const ApplicationViews = () => {
           render={(props) => <CategoryForm {...props} />}
         />
       </CategoryProvider>
+      <ReactionProvider>
+        <Route exact path = "/home">
+        <ReactionList />
+        </Route>
+        
+      </ReactionProvider>
     </>
   );
 };
