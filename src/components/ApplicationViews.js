@@ -34,7 +34,7 @@ export const ApplicationViews = () => {
           }}
         />
       </TagProvider>
-      
+
       <Route exact path="/home">
         <HomeList />
       </Route>
@@ -49,6 +49,11 @@ export const ApplicationViews = () => {
           exact
           path="/categories"
           render={(props) => <CategoryList {...props} />}
+        />
+        <Route
+          exact
+          path="/categories/create"
+          render={(props) => <CategoryForm {...props} />}
         />
       </CategoryProvider>
     </>

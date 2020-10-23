@@ -11,5 +11,24 @@ export const CategoryList = (props) => {
     setCategory,
   } = useContext(CategoryContext);
 
-  return <h1>HELLO</h1>;
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  const toCreateCreateCategory = () => {
+    props.history.push("/categories/create");
+    console.log("💥")
+  };
+
+  return (
+    <div style={{ marginTop: "2rem"}}>
+      <h3>Categories</h3>
+      <div className="categoryList">
+        {categories.map((categoryObject) => {
+          return <div key={categoryObject.id}>{categoryObject.type}</div>;
+        })}
+      </div>
+      <button onClick={toCreateCreateCategory}>+ Category</button>
+    </div>
+  );
 };
