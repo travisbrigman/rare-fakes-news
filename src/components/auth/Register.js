@@ -14,7 +14,7 @@ export const Register = (props) => {
 
         if (password.current.value === verifyPassword.current.value) {
             const newUser = {
-                "avatar": "default.png",
+                "avatar": "",
                 "display_name": displayName.current.value,
                 "password": password.current.value,
                 "email": email.current.value,
