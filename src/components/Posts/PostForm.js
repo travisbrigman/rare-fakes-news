@@ -9,30 +9,35 @@ export const PostForm = (props) => {
     const {post, setPost, addPost} = useContext(PostContext)
     const { categories, getCategories} = useContext(CategoryContext)
     const {tag, tags, getTags} = useContext(TagContext)
-    const {getTagPosts, createTagPost} = useContext(TagPostContext)
-    const [stateTagIDArr] = useState([])
+    const {createTagPost} = useContext(TagPostContext)
+    const [stateTagIDArr, setTagIDArr] = useState([])
     const [stateTagObjArr, setTagObjArr] = useState([])
-
-    const tagSelect = useRef()
 
     useEffect(() => {
         getCategories()
         getTags()
-        getTagPosts()
-    },[])
+    },[]) 
 
-    const doneAddingTags = () => {
-        const currentTags = stateTagIDArr.map(t => {
-           return tags.find(tag => tag.id === t)
-       })
-       setTagObjArr(currentTags)
-    }   
- 
+    useEffect(() => {
+        const stateCopyObj = stateTagObjArr.slice()
+        const tagItems = stateTagIDArr.map(t => {
+            return tags.find(tag => tag.id === t)
+        })
+        stateCopyObj.push(tagItems)
+        setTagObjArr(stateCopyObj)
+    },[stateTagIDArr])
 
     const handleControlledInputChange = (browserEvent) => {
         const newPost = Object.assign({}, post)          
         newPost[browserEvent.target.name] = browserEvent.target.value 
         setPost(newPost)                                 
+    }
+
+    const handleTags = (browserEvent) => {  
+        const stateCopyID = stateTagIDArr.slice()
+        let newTagItem = parseInt(browserEvent.target.value)
+         stateCopyID.push(newTagItem)
+        setTagIDArr(stateCopyID)    
     }
 
     const constructPost = (evt) => {
@@ -62,7 +67,7 @@ export const PostForm = (props) => {
             
         })
     }       
-
+    
 return (
     <>
     <h2>hey</h2>
@@ -100,7 +105,7 @@ return (
                 <div className="form-group">
                     <label htmlFor="status">Tags: </label>
                     <select name="id" value={tag.id} className="form-control" 
-                            ref={tagSelect} >
+                            onChange={handleTags} >
                                 <option value="0">add some tags...</option>
                                 {
                                     tags.map(t => {
@@ -108,20 +113,21 @@ return (
                                     })
                                 }
                     </select>
-                    <button onClick={(evt)=> {
-                        evt.preventDefault()
-                        stateTagIDArr.push(parseInt(tagSelect.current.value))
-                        console.log(stateTagIDArr, "in onClick")
-                        }}>add tag</button>
-                    <button onClick={(evt) => {
-                        evt.preventDefault()
-                        doneAddingTags()
-                    }}>done adding tags</button>
                 </div>
             </fieldset>
             <div>
-                { stateTagObjArr.map(t => {
-                return <p>{t.tag}</p>
+                { stateTagIDArr.length === 0 ? "" : 
+                stateTagIDArr.map(t => {
+                    const tagObj = tags.find(tag => tag.id === t)
+                return <div>{tagObj.tag}
+                <button onClick={(evt) =>{
+                    evt.preventDefault()
+                    const arrCopyID = stateTagIDArr.slice()
+                    const index = arrCopyID.indexOf(tagObj.id)
+                    arrCopyID.splice(index, 1)
+                    setTagIDArr(arrCopyID)  
+                }}>x</button>
+                </div>
                 })
                 }
             </div>
