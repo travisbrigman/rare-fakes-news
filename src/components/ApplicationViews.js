@@ -4,7 +4,10 @@ import { HomeList } from "./Profiles/HomeList"
 import {PostProvider} from "./Posts/PostProvider"
 import {PostForm} from "./Posts/PostForm"
 import { CategoryProvider } from "./Categories/CategoryProvider"
-import { TagPostContext } from "./Tags/TagPostProvider"
+import { TagPostProvider } from "./Tags/TagPostProvider"
+import { TagProvider } from "./Tags/TagProvider"
+import { TagForm } from "./Tags/TagForm"
+import { TagList } from "./Tags/TagList"
 
 export const ApplicationViews = (props) => {
     return <>
@@ -15,13 +18,22 @@ export const ApplicationViews = (props) => {
         </main>
         <PostProvider>
             <CategoryProvider>
-                <TagPostContext>
+                <TagPostProvider>
             <Route exact path="/home" render={
                 props => <HomeList {...props} />} />
             <Route exact path="/posts/create" render={
                 props => <PostForm {...props} />} />
-                </TagPostContext>
+                </TagPostProvider>
             </CategoryProvider>
         </PostProvider>
+        <TagProvider>
+            <Route exact path="/tags/create" render={(props) => {
+                return <TagForm {...props}/>
+            }} />
+            <Route exact path="/tags" render={(props) => {
+                return <TagList {...props} />
+            }} />
+            
+        </TagProvider>
     </>
 }
