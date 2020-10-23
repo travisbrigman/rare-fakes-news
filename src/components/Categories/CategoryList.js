@@ -17,7 +17,6 @@ export const CategoryList = (props) => {
 
   const toCreateCreateCategory = () => {
     props.history.push("/categories/create");
-    console.log("💥")
   };
 
   return (

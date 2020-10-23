@@ -13,7 +13,6 @@ export const CategoryProvider = (props) => {
   };
 
   const createCategory = (category) => {
-      console.log(category)
     return fetch("http://localhost:8088/categories", {
       method: "POST",
       headers: {
