@@ -49,10 +49,7 @@ export const PostProvider = (props) => {
             },
             body: JSON.stringify(post)
         })
-           .then(res => res.json())
-            .then(newPost => {
-                getPosts()
-               return newPost.id })      
+           .then(res => res.json())     
     }
 
     const updatePost = post => {

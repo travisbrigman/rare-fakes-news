@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react"
+import React, { useEffect, useContext, useState, useRef } from "react"
 import {PostContext} from "./PostProvider"
 import {CategoryContext} from "../Categories/CategoryProvider"
 import { TagContext } from "../Tags/TagProvider"
@@ -10,6 +10,12 @@ export const PostForm = () => {
     const { categories, getCategories} = useContext(CategoryContext)
     const {tag, tags, getTags, createTag} = useContext(TagContext)
     const {TagPosts, TagPost, setTagPost, getTagPosts, createTagPost} = useContext(TagPostContext)
+    const [stateTagIDArr, setTagIDArr] = useState([])
+    const [stateTagObjArr, setTagObjArr] = useState([])
+
+    let tagsArr = []
+
+    const tagSelect = useRef()
 
     useEffect(() => {
         getCategories()
@@ -17,23 +23,21 @@ export const PostForm = () => {
         getTagPosts()
     },[])
 
+    useEffect(() => {
+        const currentTags = stateTagIDArr.map(t => {
+            return tags.find(tag => tag.id === t.id)
+        })
+        setTagObjArr(currentTags)
+    },[stateTagIDArr])
+
     const handleControlledInputChange = (browserEvent) => {
         const newPost = Object.assign({}, post)          
         newPost[browserEvent.target.name] = browserEvent.target.value 
         setPost(newPost)                                 
     }
 
-    const handleTPControlledInputChange = (browserEvent) => {
-        const newTagPost = Object.assign({}, TagPost)          
-        newTagPost[browserEvent.target.name] = browserEvent.target.value 
-        setTagPost(newTagPost)                                 
-    }
-
-    console.log(TagPost, "TP")
-    console.log(post)
-
-    const constructPost = () => {
-        debugger
+    const constructPost = (evt) => {
+        evt.preventDefault()
         addPost({
             title: post.title,
             content: post.content,
@@ -41,36 +45,14 @@ export const PostForm = () => {
             date: Date.now(),
             user_id: parseInt(localStorage.getItem("rare_user_id")),
             approved: 1
-        })
-        .then((postId) => {
-            const submittedTagsList = TagPost.split(",")
-            //? will I eventually need a Promise.all ?
-            const test = submittedTagsList.map(t => {
-            console.log(t)
-            const findTagObject = tags.find(tagObj => tagObj.tag === t.tag)
-                        //tags that already exist to make a relationship obj
-                        if(findTagObject !== undefined){
-                                    createTagPost({
-                                        tag_id: findTagObject.id,
-                                        post_id: postId
-                                            })
-                        } else {
-                            //create tags then save relationship objects
-                                createTag({
-                                    tag: t.tag
-                                    })
-                                    .then(new_tag => {
-                                    createTagPost({
-                                        tag_id: new_tag.id,
-                                        post_id: postId
-                                        })
-                                    })
+        }).then((post) => {
+            tagsArr.map(t => {
 
-                        }
-                }
-            )
+            })
+            console.log(post.id)
         })
     }
+
 
 return (
     <>
@@ -108,18 +90,32 @@ return (
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="status">Tags: </label>
-                    <input name="tag" value={tag.tag} className="form-control" 
-                            onChange={handleTPControlledInputChange} >
-                    </input>
+                    <select name="id" value={tag.id} className="form-control" 
+                            ref={tagSelect} >
+                                <option value="0">add some tags...</option>
+                                {
+                                    tags.map(t => {
+                                        return <option value={t.id}>{t.tag}</option>
+                                    })
+                                }
+                    </select>
+                    <button onClick={(evt)=> {
+                        evt.preventDefault()
+                        tagsArr.push(tagSelect.current.value)
+                        setTagIDArr(tagsArr)
+                        //console.log(tagsArr)
+                        }}>add tag</button>
                 </div>
             </fieldset>
+            <div>
+                { stateTagObjArr.map(t => {
+                return <p>{t.tag}</p>
+                })
+                }
+            </div>
 
         <button onClick={(evt) => {
-                constructPost()
-                //? .then(postId => {
-                //     debugger
-                //     constructTagPost(postId)})
-                //? .then(props.history.push('/home'))
+                constructPost(evt)
             }}>add post</button>
         </form>
     </>
