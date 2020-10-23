@@ -7,13 +7,14 @@ import { TagPostContext } from "../Tags/TagPostProvider"
 
 export const PostForm = () => {
     const {post, setPost, addPost} = useContext(PostContext)
-    const {categories, getCategories} = useContext(CategoryContext)
-    const {tags, getTags} = useContext(TagContext)
-    const {TagPosts, TagPost, setTagPost, getTagPosts} = useContext(TagPostContext)
+    const { categories, getCategories} = useContext(CategoryContext)
+    const {tag, tags, getTags, createTag} = useContext(TagContext)
+    const {TagPosts, TagPost, setTagPost, getTagPosts, createTagPost} = useContext(TagPostContext)
 
     useEffect(() => {
         getCategories()
         getTags()
+        getTagPosts()
     },[])
 
     const handleControlledInputChange = (browserEvent) => {
@@ -22,7 +23,17 @@ export const PostForm = () => {
         setPost(newPost)                                 
     }
 
+    const handleTPControlledInputChange = (browserEvent) => {
+        const newTagPost = Object.assign({}, TagPost)          
+        newTagPost[browserEvent.target.name] = browserEvent.target.value 
+        setTagPost(newTagPost)                                 
+    }
+
+    console.log(TagPost, "TP")
+    console.log(post)
+
     const constructPost = () => {
+        debugger
         addPost({
             title: post.title,
             content: post.content,
@@ -31,7 +42,64 @@ export const PostForm = () => {
             user_id: parseInt(localStorage.getItem("rare_user_id")),
             approved: 1
         })
+        .then((postId) => {
+            const submittedTagsList = TagPost.split(",")
+            const test = submittedTagsList.map(t => {
+            console.log(t)
+            const findTagObject = tags.find(tagObj => tagObj.tag === t.tag)
+                        //tags that already exist to make a relationship obj
+                        if(findTagObject !== undefined){
+                                    createTagPost({
+                                        tag_id: findTagObject.id,
+                                        post_id: postId
+                                            })
+                        } else {
+                            //create tags then save relationship objects
+                                createTag({
+                                    tag: t.tag
+                                    })
+                                    .then(new_tag => {
+                                    createTagPost({
+                                        tag_id: new_tag.id,
+                                        post_id: postId
+                                        })
+                                    })
+
+                        }
+                }
+            )
+        })
     }
+
+    // const constructTagPost = (postId) => {
+    //     debugger
+    //     const submittedTagsList = TagPost.split(",")
+    //     const test = submittedTagsList.map(t => {
+    //         console.log(t)
+    //         const findTagObject = tags.find(tagObj => tagObj.tag === t.tag)
+    //                     //tags that already exist to make a relationship obj
+    //                     if(findTagObject !== undefined){
+    //                                 createTagPost({
+    //                                     tag_id: findTagObject.id,
+    //                                     post_id: postId
+    //                                         })
+    //                     } else {
+    //                         //create tags then save relationship objects
+    //                             createTag({
+    //                                 tag: t.tag
+    //                                 })
+    //                                 .then(new_tag => {
+    //                                 createTagPost({
+    //                                     tag_id: new_tag.id,
+    //                                     post_id: postId
+    //                                     })
+    //                                 })
+
+    //                     }
+    //             }
+    //         )
+    //     }
+
 
 return (
     <>
@@ -56,7 +124,7 @@ return (
         <fieldset>
                 <div className="form-group">
                     <label htmlFor="status">Category: </label>
-                    <select name="status_id" value={post.category_id} className="form-control" onChange={handleControlledInputChange} >
+                    <select name="category_id" value={post.category_id} className="form-control" onChange={handleControlledInputChange} >
                         <option value="0">select a category</option>
                         {
                             categories.map(c =>{
@@ -69,20 +137,17 @@ return (
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="status">Tags: </label>
-                    <select name="status_id" value={TagPost.tag_id} className="form-control" onChange={handleControlledInputChange} >
-                        <option value="0">select some tags</option>
-                        {
-                            tags.map(t =>{
-                                return <option key={t.id} value={t.id}>{t.tag}</option>
-                            })
-                        }
-                    </select>
+                    <input name="tag" value={tag.tag} className="form-control" 
+                            onChange={handleTPControlledInputChange} >
+                    </input>
                 </div>
             </fieldset>
 
         <button onClick={(evt) => {
-                // evt.preventDefault()
                 constructPost()
+                // .then(postId => {
+                //     debugger
+                //     constructTagPost(postId)})
             }}>add post</button>
         </form>
     </>
