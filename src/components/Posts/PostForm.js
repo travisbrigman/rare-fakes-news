@@ -5,15 +5,13 @@ import { TagContext } from "../Tags/TagProvider"
 import { TagPostContext } from "../Tags/TagPostProvider"
 
 
-export const PostForm = () => {
+export const PostForm = (props) => {
     const {post, setPost, addPost} = useContext(PostContext)
     const { categories, getCategories} = useContext(CategoryContext)
-    const {tag, tags, getTags, createTag} = useContext(TagContext)
-    const {TagPosts, TagPost, setTagPost, getTagPosts, createTagPost} = useContext(TagPostContext)
-    const [stateTagIDArr, setTagIDArr] = useState([])
+    const {tag, tags, getTags} = useContext(TagContext)
+    const {getTagPosts, createTagPost} = useContext(TagPostContext)
+    const [stateTagIDArr] = useState([])
     const [stateTagObjArr, setTagObjArr] = useState([])
-
-    let tagsArr = []
 
     const tagSelect = useRef()
 
@@ -23,12 +21,13 @@ export const PostForm = () => {
         getTagPosts()
     },[])
 
-    useEffect(() => {
+    const doneAddingTags = () => {
         const currentTags = stateTagIDArr.map(t => {
-            return tags.find(tag => tag.id === t.id)
-        })
-        setTagObjArr(currentTags)
-    },[stateTagIDArr])
+           return tags.find(tag => tag.id === t)
+       })
+       setTagObjArr(currentTags)
+    }   
+ 
 
     const handleControlledInputChange = (browserEvent) => {
         const newPost = Object.assign({}, post)          
@@ -46,13 +45,23 @@ export const PostForm = () => {
             user_id: parseInt(localStorage.getItem("rare_user_id")),
             approved: 1
         }).then((post) => {
-            tagsArr.map(t => {
+            const tagPostPromises = []
 
+            stateTagIDArr.map(t => {
+                tagPostPromises.push(
+                createTagPost({
+                    tag_id: t,
+                    post_id: post.id
+                })
+                )
             })
-            console.log(post.id)
+            Promise.all(tagPostPromises)
+            .then(() => {
+                props.history.push(`/home`)
+            })
+            
         })
-    }
-
+    }       
 
 return (
     <>
@@ -101,10 +110,13 @@ return (
                     </select>
                     <button onClick={(evt)=> {
                         evt.preventDefault()
-                        tagsArr.push(tagSelect.current.value)
-                        setTagIDArr(tagsArr)
-                        //console.log(tagsArr)
+                        stateTagIDArr.push(parseInt(tagSelect.current.value))
+                        console.log(stateTagIDArr, "in onClick")
                         }}>add tag</button>
+                    <button onClick={(evt) => {
+                        evt.preventDefault()
+                        doneAddingTags()
+                    }}>done adding tags</button>
                 </div>
             </fieldset>
             <div>
