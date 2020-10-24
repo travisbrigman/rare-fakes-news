@@ -13,17 +13,18 @@ export const HomeList = (props) => {
   } = useContext(CategoryContext);
 
   const { getPosts, posts, setPosts } = useContext(PostContext);
-
   const [categorySelected, setCategorySelected] = useState("");
 
+
   useEffect(() => {
-    getPosts()
-    .then(getCategories)
+    getPosts().then(getCategories);
   }, []);
 
   useEffect(() => {
-    setPosts(posts)
-  }, [posts])
+    setPosts(posts);
+  }, [posts]);
+
+
 
   const filterAllPosts = (event) => {
     const filteredPostsByCategory = posts.filter(
@@ -32,6 +33,7 @@ export const HomeList = (props) => {
     setPosts(filteredPostsByCategory);
     setCategorySelected(parseInt(event.target.value));
   };
+
 
   return (
     <>
@@ -49,6 +51,15 @@ export const HomeList = (props) => {
           </>
         );
       })}
+
+<div >
+        <button onClick={() => {
+            getPosts().then(
+          setPosts(posts)
+            )
+          setCategorySelected("")
+        }}>Clear Filter</button>
+      </div>
       <h1>Dashboard</h1>
       <PostList {...props} />
     </>
