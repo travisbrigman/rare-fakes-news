@@ -6,10 +6,7 @@ import { CategoryContext } from "../Categories/CategoryProvider";
 export const HomeList = (props) => {
   const {
     categories,
-    category,
     getCategories,
-    createCategory,
-    setCategory,
   } = useContext(CategoryContext);
 
   const { getPosts, posts, setPosts } = useContext(PostContext);
