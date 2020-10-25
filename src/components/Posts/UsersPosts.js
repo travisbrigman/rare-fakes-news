@@ -32,7 +32,7 @@ export const UsersPosts = (props) => {
             <p>{p.category.type}</p>
           </div>
         );
-      })}
+      }).reverse()}
     </>
   );
 };
