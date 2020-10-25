@@ -13,33 +13,29 @@ export const HomeList = (props) => {
   } = useContext(CategoryContext);
 
   const { getPosts, posts, setPosts } = useContext(PostContext);
-  const [categorySelected, setCategorySelected] = useState("");
-
+  const [categorySelected, setCategorySelected] = useState(0);
 
   useEffect(() => {
-    getPosts().then(getCategories);
+    getPosts().then(getCategories());
   }, []);
 
   useEffect(() => {
     setPosts(posts);
   }, [posts]);
 
-
-
   const filterAllPosts = (event) => {
     const filteredPostsByCategory = posts.filter(
       (post) => post.category_id === parseInt(event.target.value)
     );
     setPosts(filteredPostsByCategory);
-    setCategorySelected(parseInt(event.target.value));
+    setCategorySelected(parseInt(event.target.value));  
   };
-
 
   return (
     <>
       {categories.map((category) => {
         return (
-          <>
+          <div key={category.id}>
             <input
               type="radio"
               value={category.id}
@@ -48,17 +44,19 @@ export const HomeList = (props) => {
               onClick={filterAllPosts}
             />{" "}
             {category.type}
-          </>
+          </div>
         );
       })}
 
-<div >
-        <button onClick={() => {
-            getPosts().then(
-          setPosts(posts)
-            )
-          setCategorySelected("")
-        }}>Clear Filter</button>
+      <div>
+        <button
+          onClick={() => {
+            getPosts().then(setPosts(posts));
+            setCategorySelected("");
+          }}
+        >
+          Clear Filter
+        </button>
       </div>
       <h1>Dashboard</h1>
       <PostList {...props} />

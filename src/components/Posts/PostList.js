@@ -20,7 +20,7 @@ export const PostList = (props) => {
         </Link>
         {
             posts.map(p => {
-                return <div>
+                return <div key={p.id}>
                     <Link to={{pathname:`/posts/${p.id}`}}>
                     <p>{p.title}</p>
                     </Link>
