@@ -13,8 +13,8 @@ import { CategoryProvider } from "./Categories/CategoryProvider";
 import { CategoryForm } from "./Categories/CategoryForm";
 import { CategoryList } from "./Categories/CategoryList";
 import { ReactionProvider } from "./Reactions/ReactionProvider";
-import {ReactionList} from "./Reactions/ReactionList";
-import {PostDetails} from "./Posts/PostDetail";
+import { PostDetails } from "./Posts/PostDetail";
+import { ReactionPostProvider } from "./Reactions/ReactionPostProvider"
 
 export const ApplicationViews = (props) => {
   return (<>
@@ -25,32 +25,31 @@ export const ApplicationViews = (props) => {
     </main>
     <PostProvider>
       <CategoryProvider>
-        <TagPostProvider>
-          <TagProvider>
-            <Route exact path="/home" render={
-              props => <HomeList {...props} />} />
-            <Route exact path="/posts/create" render={
-              props => <PostForm {...props} />} />
+        <ReactionProvider>
+          <ReactionPostProvider>
+            <TagPostProvider>
+              <TagProvider>
+                <Route exact path="/home" render={
+                  props => <HomeList {...props} />} />
+                <Route exact path="/posts/create" render={
+                  props => <PostForm {...props} />} />
                 <Route path="/posts/:postId(\d+)" render={
-                            props => <PostDetails {...props} />
-                        } />
-          </TagProvider>
-        </TagPostProvider>
+                  props => <PostDetails {...props} />
+                } />
+              </TagProvider>
+            </TagPostProvider>
+          </ReactionPostProvider>
+        </ReactionProvider>
       </CategoryProvider>
-      <ReactionProvider>
-        <Route exact path = "/home">
-        <ReactionList />
-        </Route>
-        
-      </ReactionProvider>
-   
+
+
     </PostProvider>
-    {/*********************************** */}
+
     <UserProvider>
-      <Route exact path="/profile" render={ 
-          props => <UserDetail {...props}/>} />
+      <Route exact path="/profile" render={
+        props => <UserDetail {...props} />} />
     </UserProvider>
-    {/*********************************** */}       
+
     <TagProvider>
       <Route exact path="/tags/create" render={(props) => {
         return <TagForm {...props} />
@@ -59,11 +58,8 @@ export const ApplicationViews = (props) => {
         return <TagList {...props} />
       }} />
     </TagProvider>
-    {/*********************************** */}
+
     <CategoryProvider>
-      {/* I think the Route below is unnecessary? -eh */}
-      <Route exact path="/newCategory" render={
-        (props) => <CategoryForm {...props} />} />
       <Route
         exact path="/categories" render={
           (props) => <CategoryList {...props} />} />

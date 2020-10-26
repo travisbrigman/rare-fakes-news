@@ -34,7 +34,7 @@ export const ReactionProvider = (props) => {
                     return (
                         <ReactionContext.Provider value={{
                             reaction, setReaction, reactions, 
-                            getReactions, setReactions,
+                            getReactions, setReactions, 
                             getReactionByPost    
                         }}>
             {props.children}
