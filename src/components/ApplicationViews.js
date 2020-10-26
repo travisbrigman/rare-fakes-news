@@ -12,6 +12,7 @@ import { UserDetail } from "./Profiles/UserDetail"
 import { CategoryProvider } from "./Categories/CategoryProvider";
 import { CategoryForm } from "./Categories/CategoryForm";
 import { CategoryList } from "./Categories/CategoryList";
+import { UsersPosts } from "./Posts/UsersPosts"
 import { ReactionProvider } from "./Reactions/ReactionProvider";
 import { PostDetails } from "./Posts/PostDetail";
 import { ReactionPostProvider } from "./Reactions/ReactionPostProvider"
@@ -33,6 +34,9 @@ export const ApplicationViews = (props) => {
                   props => <HomeList {...props} />} />
                 <Route exact path="/posts/create" render={
                   props => <PostForm {...props} />} />
+     
+            <Route exact path="/myposts" render={
+              (props) => <UsersPosts {...props} />} />
                 <Route path="/posts/:postId(\d+)" render={
                   props => <PostDetails {...props} />
                 } />
@@ -41,8 +45,6 @@ export const ApplicationViews = (props) => {
           </ReactionPostProvider>
         </ReactionProvider>
       </CategoryProvider>
-
-
     </PostProvider>
 
     <UserProvider>

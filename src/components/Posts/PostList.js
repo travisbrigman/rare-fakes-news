@@ -19,15 +19,15 @@ export const PostList = (props) => {
         create post
         </Link>
         {
-            posts.map(p => {
-                return <div>
+            posts !== [] ? posts.map(p => {
+                return <div key={p.id}>
                     <Link to={{pathname:`/posts/${p.id}`}}>
                     <p>{p.title}</p>
                     </Link>
                     <p>{p.user.display_name}</p>
                     <p>{p.category.type}</p>
                 </div>
-            })
+            }) : null
         }
         </>
     )
