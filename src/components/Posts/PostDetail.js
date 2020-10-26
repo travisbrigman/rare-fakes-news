@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "./PostProvider"
-
+import {Link} from "react-router-dom"
 
 
 
@@ -13,9 +13,9 @@ export const PostDetails = (props) => {
         const postId = parseInt(props.match.params.postId)
         getPostById(postId)
             .then(setPost)
-
-
     }, [])
+
+    console.log(post)
 
     return (
         <section className="post">
@@ -23,7 +23,10 @@ export const PostDetails = (props) => {
             <div className="post__content">{post.content}</div>
             <div className="post_date">Published on: {new Date(post.date).toLocaleDateString('en-US')}</div>
 
+
+            <Link to={{pathname:`/profiles/${post.user.id}`}}>
             <div className="post_author">Author: {post.user.display_name}</div>
+            </Link>
 
         
         </section>
