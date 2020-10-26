@@ -29,14 +29,14 @@ export const ApplicationViews = (props) => {
       <CategoryProvider>
         <TagPostProvider>
           <TagProvider>
-          <UserProvider>
+            <UserProvider>
               <SubscriptionProvider>
-            <Route exact path="/home" render={
-              props => <HomeList {...props} />} />
-            <Route exact path="/posts/create" render={
-              props => <PostForm {...props} />} />
-            <Route exact path="/myposts" render={
-              (props) => <UsersPosts {...props} />} />
+                <Route exact path="/home" render={
+                  props => <HomeList {...props} />} />
+                <Route exact path="/posts/create" render={
+                  props => <PostForm {...props} />} />
+                <Route exact path="/myposts" render={
+                  (props) => <UsersPosts {...props} />} />
                 <Route path="/posts/:postId(\d+)" render={
                   props => <PostDetails {...props} />
                 } />
@@ -57,8 +57,8 @@ export const ApplicationViews = (props) => {
     {/*********************************** */}
     <UserProvider>
       <SubscriptionProvider>
-      <Route exact path="/profile" render={
-        props => <UserDetail {...props} />} />
+        <Route exact path="/profile" render={
+          props => <UserDetail {...props} />} />
       </SubscriptionProvider>
     </UserProvider>
     {/*********************************** */}

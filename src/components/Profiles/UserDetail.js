@@ -32,8 +32,6 @@ export const UserDetail = (props) => {
         }
     }, [subscriptions])
 
-    console.log(subscription)
-
     return (
         <>
             <div>
