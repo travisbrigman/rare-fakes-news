@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { PostList } from "../Posts/PostList";
 import { PostContext } from "../Posts/PostProvider";
 import { CategoryContext } from "../Categories/CategoryProvider";
+import { TagContext } from "../Tags/TagProvider";
 
 export const HomeList = (props) => {
   const {
@@ -10,10 +11,11 @@ export const HomeList = (props) => {
   } = useContext(CategoryContext);
 
   const { getPosts, posts, setPosts, getPostByCat } = useContext(PostContext);
+  const { tags, getTags } = useContext(TagContext)
   const [categorySelected, setCategorySelected] = useState(0);
 
   useEffect(() => {
-    getPosts().then(getCategories());
+    getPosts().then(getCategories()).then(getTags);
   }, []);
 
   useEffect(() => {
@@ -27,6 +29,8 @@ export const HomeList = (props) => {
     setCategorySelected(catId) 
     console.log(posts)
   };
+
+  // const deleteButton = () => {}
 
   return (
     <>
@@ -45,6 +49,7 @@ export const HomeList = (props) => {
         );
       })}
 
+
       <div>
         <button
           onClick={() => {
@@ -55,8 +60,30 @@ export const HomeList = (props) => {
           Clear Filter
         </button>
       </div>
+
+      <div>
+        <h3>Filter by Tag</h3>
+        {tags.map((tag) => {
+          return (
+            <div>
+              <input
+              type="radio"
+              value={tag.id}
+              name="categories"
+              // checked={tagSelected === tag.id}
+              // onClick={()=>{filterAllPostsByTag(tag.id)}}
+            />{" "}
+            #{tag.tag}
+            </div>
+          )
+        })}
+
+      </div>
+
+
       <h1>Dashboard</h1>
       <PostList {...props} />
     </>
   );
+  
 };
