@@ -25,11 +25,7 @@ export const PostDetails = (props) => {
 
             <div className="post_author">Author: {post.user.display_name}</div>
 
-            {/* <button onClick={() => releaseAnimal(animal.id).then(() => props.history.push("/animals"))} >Release Animal</button>
-
-            <button onClick={() => {
-                props.history.push(`/animals/edit/${animal.id}`)
-            }}>Edit</button> */}
+        
         </section>
     )
 }
