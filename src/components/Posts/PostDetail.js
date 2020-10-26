@@ -1,18 +1,13 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "./PostProvider"
-import { DateTime } from "luxon"
-import { }
+
+
 
 
 export const PostDetails = (props) => {
     const { getPosts, getPostById, post, setPost } = useContext(PostContext)
 
-
-    // const dateTimeObj = DateTime.fromMillis(post.date) || {}
-    // console.log(dateTimeObj)
-    // console.log(typeof post.date)
-
-    const dt = DateTime
+   
 
     useEffect(() => {
         const postId = parseInt(props.match.params.postId)
@@ -26,10 +21,7 @@ export const PostDetails = (props) => {
         <section className="post">
             <h3 className="post__title">{post.title}</h3>
             <div className="post__content">{post.content}</div>
-            {post ? <div className="post_date">Published on: {dt.fromMillis(post.date).toLocaleString()}</div> : ""}
-
-
-            {/* <div className="post_date">Published on: {dt.fromMillis(post.date).toLocaleString({DATETIME_FULL: Object}) || {}}</div> */}
+            <div className="post_date">Published on: {new Date(post.date).toLocaleDateString('en-US')}</div>
 
             <div className="post_author">Author: {post.user.display_name}</div>
 
