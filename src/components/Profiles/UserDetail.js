@@ -24,15 +24,15 @@ export const UserDetail = (props) => {
         const found = subscriptions.find(s => {
             return s.user_id === myID && s.subscribe_id === authorID
         })
-        if(found !== undefined && found.end === null ) {
+        if (found !== undefined && found.end === null) {
             setSubStatus(true)
             setSubscription(found)
         } else {
             setSubStatus(false)
         }
-    },[subscriptions])
+    }, [subscriptions])
 
-console.log(subscription)
+    console.log(subscription)
 
     return (
         <>
@@ -52,20 +52,26 @@ console.log(subscription)
             </div>
             <div>
                 {props.match.params.hasOwnProperty("userId") ?
-                    subStatus ? 
-                        <button onClick={unSubscribe(subscription.id)} >unsubscribe!</button> :
-                        <button onClick={createSubscription({
-                                            user_id: parseInt(localStorage.getItem("rare_user_id")),
-                                            subscribe_id: user.id,
-                                            begin: Date.now(),
-                                            end: null
-                                            })}>subscribe</button> 
+                    subStatus ?
+                        <button onClick={() => {
+                            console.log('unsub')
+                            // unSubscribe(subscription.id)
+                        }} >unsubscribe!</button> :
+                        <button onClick={() => {
+                            console.log('sub')
+                            // createSubscription({
+                            //     user_id: parseInt(localStorage.getItem("rare_user_id")),
+                            //     subscribe_id: user.id,
+                            //     begin: Date.now(),
+                            //     end: null
+                            // })
+                        }}>subscribe</button>
                     : ""
-                    }
+                }
             </div>
         </>
     )
 }
 
 
-//onClick={}
+

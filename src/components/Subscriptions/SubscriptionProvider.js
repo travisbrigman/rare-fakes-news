@@ -22,7 +22,6 @@ export const SubscriptionProvider = (props) => {
                     })
                        .then(res => res.json())
                        .then(getSubscriptions)
-      
                     }
 
     const unSubscribe = (subscriptionId) => {
