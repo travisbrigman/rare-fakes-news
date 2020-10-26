@@ -1,11 +1,62 @@
-import React from "react"
-import {PostList} from "../Posts/PostList"
+import React, { useContext, useEffect, useState } from "react";
+import { PostList } from "../Posts/PostList";
+import { PostContext } from "../Posts/PostProvider";
+import { CategoryContext } from "../Categories/CategoryProvider";
 
+export const HomeList = (props) => {
+  const {
+    categories,
+    getCategories,
+  } = useContext(CategoryContext);
 
+  const { getPosts, posts, setPosts, getPostByCat } = useContext(PostContext);
+  const [categorySelected, setCategorySelected] = useState(0);
 
-export const HomeList = (props) => (
+  useEffect(() => {
+    getPosts().then(getCategories());
+  }, []);
+
+  useEffect(() => {
+    setPosts(posts);
+  }, [posts]);
+
+  
+  const filterAllPosts = (catId) => {
+    getPostByCat(catId)
+    //setPosts(filteredPostsByCategory)
+    setCategorySelected(catId) 
+    console.log(posts)
+  };
+
+  return (
     <>
-    <h1>Dashboard</h1>
-    <PostList {...props} />
+      {categories.map((category) => {
+        return (
+          <div key={category.id}>
+            <input
+              type="radio"
+              value={category.id}
+              name="categories"
+              checked={categorySelected === category.id}
+              onClick={()=>{filterAllPosts(category.id)}}
+            />{" "}
+            {category.type}
+          </div>
+        );
+      })}
+
+      <div>
+        <button
+          onClick={() => {
+            getPosts().then(setPosts(posts));
+            setCategorySelected("");
+          }}
+        >
+          Clear Filter
+        </button>
+      </div>
+      <h1>Dashboard</h1>
+      <PostList {...props} />
     </>
-)
+  );
+};
