@@ -27,6 +27,7 @@ export const ApplicationViews = (props) => {
       <CategoryProvider>
         <TagPostProvider>
           <TagProvider>
+            <UserProvider>
             <Route exact path="/home" render={
               props => <HomeList {...props} />} />
             <Route exact path="/posts/create" render={
@@ -34,6 +35,10 @@ export const ApplicationViews = (props) => {
             <Route path="/posts/:postId(\d+)" render={
               props => <PostDetails {...props} />
             } />
+            <Route path="/profiles/:userId(\d+)" render={
+              props => <UserDetail {...props} />
+            } />
+            </UserProvider>
           </TagProvider>
         </TagPostProvider>
       </CategoryProvider>
