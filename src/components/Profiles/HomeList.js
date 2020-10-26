@@ -2,6 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { PostList } from "../Posts/PostList";
 import { PostContext } from "../Posts/PostProvider";
 import { CategoryContext } from "../Categories/CategoryProvider";
+import { DeleteItem } from "../utils/DeleteItem";
+
 
 export const HomeList = (props) => {
   const {
@@ -57,6 +59,8 @@ export const HomeList = (props) => {
       </div>
       <h1>Dashboard</h1>
       <PostList {...props} />
+
+      <DeleteItem {...props} />
     </>
   );
 };

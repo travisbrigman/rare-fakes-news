@@ -1,16 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
+import { UserContext } from "../Profiles/UserProvider"
 
 export const UsersPosts = (props) => {
   const { getPosts, posts, setPosts } = useContext(PostContext);
+  const { loggedInUser } = useContext(UserContext);
+  
   const [usersPosts, setUsersPosts] = useState([]);
 
   useEffect(() => {
     getPosts();
   }, []);
 
-  const loggedInUser = parseInt(localStorage.getItem("rare_user_id"));
+  
 
   useEffect(() => {
     const filteredPostsByUser = posts.filter(
