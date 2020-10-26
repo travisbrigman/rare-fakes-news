@@ -7,7 +7,7 @@ import { DeleteItem } from "../utils/DeleteItem";
 export const UsersPosts = (props) => {
   const { getPosts, posts, setPosts, getPostByUser } = useContext(PostContext);
   const { loggedInUser } = useContext(UserContext);
-  console.log(loggedInUser);
+
 
   const [usersPosts, setUsersPosts] = useState([]);
 
