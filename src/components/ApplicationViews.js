@@ -7,6 +7,8 @@ import { TagPostProvider } from "./Tags/TagPostProvider"
 import { TagProvider } from "./Tags/TagProvider"
 import { TagForm } from "./Tags/TagForm"
 import { TagList } from "./Tags/TagList"
+import { UserProvider } from "./Profiles/UserProvider"
+import { UserDetail } from "./Profiles/UserDetail"
 import { CategoryProvider } from "./Categories/CategoryProvider";
 import { CategoryForm } from "./Categories/CategoryForm";
 import { CategoryList } from "./Categories/CategoryList";
@@ -44,6 +46,11 @@ export const ApplicationViews = (props) => {
    
     </PostProvider>
     {/*********************************** */}
+    <UserProvider>
+      <Route exact path="/profile" render={ 
+          props => <UserDetail {...props}/>} />
+    </UserProvider>
+    {/*********************************** */}       
     <TagProvider>
       <Route exact path="/tags/create" render={(props) => {
         return <TagForm {...props} />

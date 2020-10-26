@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+ 
 
 export const UserContext = React.createContext()
 
@@ -16,7 +17,7 @@ export const UserProvider = (props) => {
             .then(response => response.json())
             .then(setUsers)
     }
-
+    
     return (
         <UserContext.Provider value={{
             users, getUsers, setUsers, getUserByEmail
