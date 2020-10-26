@@ -18,11 +18,11 @@ export const SubscriptionProvider = (props) => {
                     headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(Subscription)
+                        body: JSON.stringify(subscription)
                     })
                        .then(res => res.json())
                         .then(newSubscription => {
-                                getsubscriptions()
+                                getSubscriptions()
                                return newSubscription.id })      
                     }
 
@@ -30,7 +30,7 @@ export const SubscriptionProvider = (props) => {
         return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
             method: "DELETE"
         })
-            .then(getsubscriptions)
+            .then(getSubscriptions)
     }
                     
                     return (
