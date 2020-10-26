@@ -4,20 +4,26 @@ import defaultImg from "./Images/default.png"
 
 
 export const UserDetail = (props) => {
-    const { users, getUsers } = useContext(UserContext)
+    const { user, users, getUsers, getUserById } = useContext(UserContext)
     const activeUserId = parseInt(localStorage.getItem("rare_user_id"))
     const activeUserObj = users.find(u => u.id === activeUserId) || {}
 
-    console.log(props)
+    console.log(props, "props")
+    console.log(user , "user")
+
     useEffect(() => {
-        getUsers()
+        if( props.match.params.hasOwnProperty("userId") ){
+            getUserById(parseInt(props.match.params.userId))
+        } else {
+            getUserById(parseInt(localStorage.getItem("rare_user_id")))
+        }
     }, [])
     
     return (
         <>
         {props.match.params.hasOwnProperty("userId") ? <h1>USER ID</h1> : <h2>NOPE</h2>}
-        
-        <div>
+
+        {/* <div>
             <h1>My Profile</h1>
             <div>Full Name: {activeUserObj.first_name} {activeUserObj.last_name}</div>
 
@@ -30,7 +36,7 @@ export const UserDetail = (props) => {
             <div>Display Name: {activeUserObj.display_name}</div>
             <div>email: {activeUserObj.email}</div>
             <div>Creation Date: {new Date(activeUserObj.creation).toLocaleDateString('en-US')}</div>
-        </div>
+        </div> */}
         </>
     )
 }
