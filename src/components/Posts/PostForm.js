@@ -111,7 +111,6 @@ return (
                     <button onClick={(evt)=> {
                         evt.preventDefault()
                         stateTagIDArr.push(parseInt(tagSelect.current.value))
-                        console.log(stateTagIDArr, "in onClick")
                         }}>add tag</button>
                     <button onClick={(evt) => {
                         evt.preventDefault()
