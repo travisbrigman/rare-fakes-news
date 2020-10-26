@@ -3,7 +3,7 @@ import React, { useState } from "react"
 export const PostContext = React.createContext()
 
 export const PostProvider = (props) => {
-    const [posts, setPosts] = useState([])
+    const [posts, setPosts] = useState([])  
     const [post, setPost] = useState({user:{}})
 
     const getPosts = () => {
@@ -29,8 +29,8 @@ export const PostProvider = (props) => {
             .then(setPosts)
     }
 
-    const getPostByCat = (category) => {
-        return fetch(`http://localhost:8088/posts?category_id=${category.id}`)
+    const getPostByCat = (categoryId) => {
+        return fetch(`http://localhost:8088/posts?category_id=${categoryId}`)
             .then(res => res.json())
             .then(setPosts)
     }
