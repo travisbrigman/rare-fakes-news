@@ -23,7 +23,7 @@ export const ReactionProvider = (props) => {
                     headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify(Reaction)
+                        body: JSON.stringify(reaction)
                     })
                        .then(res => res.json())
                         .then(newReaction => {
