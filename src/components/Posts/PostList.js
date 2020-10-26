@@ -22,7 +22,7 @@ export const PostList = (props) => {
         create post
         </Link>
         {
-            posts.map(p => {
+            posts !== [] ? posts.map(p => {
                 return <div key={p.id}>
                     <Link to={{pathname:`/posts/${p.id}`}}>
                     <p>{p.title}</p>
@@ -31,7 +31,7 @@ export const PostList = (props) => {
                     <p>{p.category.type}</p>
                     {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
                 </div>
-            })
+            }) : null
         }
         </>
     )
