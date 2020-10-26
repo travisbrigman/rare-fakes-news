@@ -59,8 +59,6 @@ export const HomeList = (props) => {
       </div>
       <h1>Dashboard</h1>
       <PostList {...props} />
-
-      <DeleteItem {...props} />
     </>
   );
 };

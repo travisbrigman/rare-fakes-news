@@ -3,7 +3,7 @@ import { PostContext } from "../Posts/PostProvider";
 import { UserContext } from "../Profiles/UserProvider";
 import "./DeleteItem.css"
 
-export const DeleteItem = () => {
+export const DeleteItem = ( {postId} ) => {
   const { getPosts, posts, setPosts, deletePost } = useContext(PostContext);
 
   const { loggedInUser } = useContext(UserContext);
@@ -15,7 +15,7 @@ export const DeleteItem = () => {
   const showHideClassName = open ? "modal display-block" : "modal display-none";
 
   const deleteThisPost = () => {
-    deletePost();
+    deletePost(postId);
     onClose();
   };
 

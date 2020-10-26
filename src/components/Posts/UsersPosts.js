@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
 import { UserContext } from "../Profiles/UserProvider"
+import { DeleteItem } from "../utils/DeleteItem";
 
 export const UsersPosts = (props) => {
   const { getPosts, posts, setPosts } = useContext(PostContext);
   const { loggedInUser } = useContext(UserContext);
-  
+
   const [usersPosts, setUsersPosts] = useState([]);
 
   useEffect(() => {
@@ -33,6 +34,7 @@ export const UsersPosts = (props) => {
             </p>
             <p>{p.user.display_name}</p>
             <p>{p.category.type}</p>
+            {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
           </div>
         );
       }).reverse()}
