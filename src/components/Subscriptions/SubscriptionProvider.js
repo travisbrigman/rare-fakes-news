@@ -21,9 +21,8 @@ export const SubscriptionProvider = (props) => {
                         body: JSON.stringify(subscription)
                     })
                        .then(res => res.json())
-                        .then(newSubscription => {
-                                getSubscriptions()
-                               return newSubscription.id })      
+                       .then(getSubscriptions)
+      
                     }
 
     const deleteSubscription = (subscriptionId) => {
@@ -36,7 +35,7 @@ export const SubscriptionProvider = (props) => {
                     return (
                         <SubscriptionContext.Provider value={{
                             subscription, setSubscription, subscriptions, 
-                            getSubscriptions, setSubscriptions, 
+                            getSubscriptions, setSubscriptions, createSubscription
                         }}>
             {props.children}
         </SubscriptionContext.Provider>

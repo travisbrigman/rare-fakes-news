@@ -5,17 +5,13 @@ import {Link} from "react-router-dom"
 
 
 export const PostDetails = (props) => {
-    const { getPosts, getPostById, post, setPost } = useContext(PostContext)
-
-   
+    const { getPostById, post, setPost } = useContext(PostContext)
 
     useEffect(() => {
         const postId = parseInt(props.match.params.postId)
         getPostById(postId)
             .then(setPost)
     }, [])
-
-    console.log(post)
 
     return (
         <section className="post">
