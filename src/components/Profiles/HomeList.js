@@ -20,10 +20,12 @@ export const HomeList = (props) => {
     setPosts(posts);
   }, [posts]);
 
+  
   const filterAllPosts = (catId) => {
-    const filteredPostsByCategory = getPostByCat(catId)
-    setPosts(filteredPostsByCategory);
-    setCategorySelected(catId);  
+    getPostByCat(catId)
+    //setPosts(filteredPostsByCategory)
+    setCategorySelected(catId) 
+    console.log(posts)
   };
 
   return (
@@ -36,7 +38,7 @@ export const HomeList = (props) => {
               value={category.id}
               name="categories"
               checked={categorySelected === category.id}
-              onClick={filterAllPosts(category.id)}
+              onClick={()=>{filterAllPosts(category.id)}}
             />{" "}
             {category.type}
           </div>
