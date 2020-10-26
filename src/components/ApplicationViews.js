@@ -15,6 +15,7 @@ import { CategoryList } from "./Categories/CategoryList";
 import { ReactionProvider } from "./Reactions/ReactionProvider";
 import { ReactionList } from "./Reactions/ReactionList";
 import { PostDetails } from "./Posts/PostDetail";
+import { SubscriptionProvider } from "./Subscriptions/SubscriptionProvider"
 
 export const ApplicationViews = (props) => {
   return (<>
@@ -28,16 +29,18 @@ export const ApplicationViews = (props) => {
         <TagPostProvider>
           <TagProvider>
             <UserProvider>
-            <Route exact path="/home" render={
-              props => <HomeList {...props} />} />
-            <Route exact path="/posts/create" render={
-              props => <PostForm {...props} />} />
-            <Route path="/posts/:postId(\d+)" render={
-              props => <PostDetails {...props} />
-            } />
-            <Route path="/profiles/:userId(\d+)" render={
-              props => <UserDetail {...props} />
-            } />
+              <SubscriptionProvider>
+                <Route exact path="/home" render={
+                  props => <HomeList {...props} />} />
+                <Route exact path="/posts/create" render={
+                  props => <PostForm {...props} />} />
+                <Route path="/posts/:postId(\d+)" render={
+                  props => <PostDetails {...props} />
+                } />
+                <Route path="/profiles/:userId(\d+)" render={
+                  props => <UserDetail {...props} />
+                } />
+              </SubscriptionProvider>
             </UserProvider>
           </TagProvider>
         </TagPostProvider>
@@ -50,8 +53,10 @@ export const ApplicationViews = (props) => {
     </PostProvider>
     {/*********************************** */}
     <UserProvider>
+      <SubscriptionProvider>
       <Route exact path="/profile" render={
         props => <UserDetail {...props} />} />
+      </SubscriptionProvider>
     </UserProvider>
     {/*********************************** */}
     <TagProvider>

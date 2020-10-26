@@ -11,7 +11,7 @@ export const SubscriptionProvider = (props) => {
             .then(res => res.json())
             .then(setSubscriptions)
     }
- 
+
     const createSubscription = subscription => {
             return fetch("http://localhost:8088/subscriptions", {
                     method: "POST",
@@ -25,17 +25,25 @@ export const SubscriptionProvider = (props) => {
       
                     }
 
-    const deleteSubscription = (subscriptionId) => {
-        return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
-            method: "DELETE"
-        })
+    const unSubscribe = (subscriptionId) => {
+            const subscription = {
+                end: Date.now()
+            }
+            return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(subscription)
+            })     
             .then(getSubscriptions)
     }
                     
                     return (
                         <SubscriptionContext.Provider value={{
                             subscription, setSubscription, subscriptions, 
-                            getSubscriptions, setSubscriptions, createSubscription
+                            getSubscriptions, setSubscriptions, createSubscription,
+                            unSubscribe
                         }}>
             {props.children}
         </SubscriptionContext.Provider>
