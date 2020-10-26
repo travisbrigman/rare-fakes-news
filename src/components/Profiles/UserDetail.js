@@ -26,7 +26,6 @@ export const UserDetail = () => {
             <div>Display Name: {activeUserObj.display_name}</div>
             <div>email: {activeUserObj.email}</div>
             <div>Creation Date: {new Date(activeUserObj.creation).toLocaleDateString('en-US')}</div>
-            <div>Profile Type: </div>
         </div>
     )
 
