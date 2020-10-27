@@ -18,17 +18,16 @@ export const HomeList = (props) => {
   const [tagSelected, setTagSelected] = useState(0);
 
   useEffect(() => {
-    getPosts().then(getCategories());
-  }, []);
-
-  useEffect(() => {
-    getTags()
-    getTagPosts()
+    getPosts().then(getCategories()).then(getTags()).then(getTagPosts());
   }, []);
 
   useEffect(() => {
     setPosts(posts);
   }, [posts]);
+
+  useEffect(() => {
+    console.log(tagPosts, "tagPosts>>")
+  }, [tagPosts]);
 
   const filterAllPostsByCat = (catId) => {
     getPostByCat(catId)
@@ -41,11 +40,13 @@ export const HomeList = (props) => {
     filterAllPostsByTag(tagSelected)
   }, [tagSelected]);
   
-  // when user selects a Tag to filter by, ...
+  // when user selects a Tag to filter by,...
   const filterAllPostsByTag = (tagId) => {
     getTagPostByTag(tagId)
-    console.log(setTagPosts,"setTagPosts>>")
-    setTagSelected(tagId)
+    .then(console.log(tagId,"tagId"))
+    .then(console.log(tagPosts,"tagPosts>>"))
+    
+    // setTagSelected(tagId)
     // getPostByTag(tagId)
   }
 

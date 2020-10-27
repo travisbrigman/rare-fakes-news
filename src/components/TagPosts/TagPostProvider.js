@@ -28,8 +28,8 @@ export const TagPostProvider = (props) => {
                     })
                        .then(res => res.json())
                         .then(newTagPost => {
-                                getTagPosts()
-                               return newTagPost.id })      
+                            getTagPosts()
+                            return newTagPost.id })      
                     }
                     
                     
