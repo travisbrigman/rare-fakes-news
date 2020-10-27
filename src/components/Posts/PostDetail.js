@@ -13,9 +13,6 @@ export const PostDetails = (props) => {
             .then(setPost)
     }, [])
 
-    console.log(post.user)
-    console.log(localStorage.getItem("rare_user_id"))
-
     return (
         <section className="post">
             <h3 className="post__title">{post.title}</h3>

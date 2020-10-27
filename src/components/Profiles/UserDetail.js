@@ -24,7 +24,7 @@ export const UserDetail = (props) => {
         const found = subscriptions.find(s => {
             return s.user_id === myID && s.subscribe_id === authorID
         })
-        console.log(found)
+        console.log(found, "found or nah")
         if (found !== undefined && found.end === null) {
             setSubStatus(true)
             setSubscription(found)
@@ -32,6 +32,20 @@ export const UserDetail = (props) => {
             setSubStatus(false)
         }
     }, [subscriptions])
+
+
+    // const changeSubStatus = () => {
+    //     if(/*  no object */) {
+    //         //subscribe (createSubscription())
+    //     } else if (/* yes object, end === null */) {
+    //         //unSubscribe()
+    //     } else {
+    //         //subscribeAgain()
+    //     }
+    // }
+
+    console.log(subscription, "above return")
+    console.log(subStatus, "subStatus")
 
 
     return (
@@ -57,11 +71,13 @@ export const UserDetail = (props) => {
 
                         <button onClick={() => {
                             console.log('unsub')
+                            console.log(subscription, "in click")
                         }} >unsubscribe!</button> :
 
 
                         <button onClick={() => {
                             console.log('sub')
+                            console.log(subscription, "in click")
                         }}>subscribe</button>
                     : ""
                 }
