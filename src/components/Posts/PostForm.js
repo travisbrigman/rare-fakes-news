@@ -70,7 +70,7 @@ export const PostForm = (props) => {
     
 return (
     <>
-    <h2>hey</h2>
+    <h2>Tell the World How You Really Feel</h2>
     <form>
         <fieldset>
             <div className="form-group">

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "./PostProvider"
-
+import {Link} from "react-router-dom"
 
 
 
@@ -25,13 +25,17 @@ export const PostDetails = (props) => {
             <div className="post__content">{post.content}</div>
             <div className="post_date">Published on: {new Date(post.date).toLocaleDateString('en-US')}</div>
 
-            <div className="post_author">Author: {post.user.display_name}</div>
-            {postTags.map(postTag => {
-              return  <div>{postTag.tag}</div>
-            })
-            }
-
-        
+           <div>
+                {post.user.id === parseInt(localStorage.getItem("rare_user_id")) ?
+                <div className="post_author">Author: {post.user.display_name} (you!)</div>
+                : <Link to={{pathname:`/profiles/${post.user.id}`}}>
+                 <div className="post_author">Author: {post.user.display_name}</div>
+                 </Link>}
+            </div>        
+                    {postTags.map(postTag => {
+                      return  <div>{postTag.tag}</div>
+                    })
+                    }
         </section>
     )
 }
