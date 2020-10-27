@@ -24,11 +24,11 @@ export const SubscriptionProvider = (props) => {
                        .then(getSubscriptions)
                     }
 
-    const unSubscribe = (subscriptionObj) => {
+    const unSubscribe = (subscriptionId) => {
             const subscription = {
                 end: Date.now()
             }
-            return fetch(`http://localhost:8088/subscriptions/${subscriptionObj.id}`, {
+            return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -42,7 +42,7 @@ export const SubscriptionProvider = (props) => {
         const subscription = {
             end: null
         }
-        return fetch(`http://localhost:8088/subscriptions/${subscription.id}`, {
+        return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

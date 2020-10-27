@@ -6,7 +6,10 @@ import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 
 export const UserDetail = (props) => {
     const { user, getUserById } = useContext(UserContext)
-    const { subscription, setSubscription, subscriptions, getSubscriptions, unSubscribe, createSubscription, subscribeAgain } = useContext(SubscriptionContext)
+    const { subscription, setSubscription, 
+            subscriptions, getSubscriptions, 
+            unSubscribe, createSubscription, 
+                    subscribeAgain } = useContext(SubscriptionContext)
     const [subStatus, setSubStatus] = useState(false)
 
     useEffect(() => {
@@ -25,28 +28,47 @@ export const UserDetail = (props) => {
             return s.user_id === myID && s.subscribe_id === authorID
         })
         console.log(found, "found or nah")
-        if (found !== undefined && found.end === null) {
+        if (found !== undefined && subscription.end === null) {
             setSubStatus(true)
+            setSubscription(found)
+        } else if(found !== undefined && subscription.end !== null) {
+            setSubStatus(false)
             setSubscription(found)
         } else {
             setSubStatus(false)
+            setSubscription({found: false})
         }
     }, [subscriptions])
 
+    const changeSubStatus = (subscription) => {
+        const myID = parseInt(localStorage.getItem("rare_user_id"))
+        const authorID = parseInt(props.match.params.userId)
+        if(subscription.hasOwnProperty("id") && subscription.end === null) {
 
-    // const changeSubStatus = () => {
-    //     if(/*  no object */) {
-    //         //subscribe (createSubscription())
-    //     } else if (/* yes object, end === null */) {
-    //         //unSubscribe()
-    //     } else {
-    //         //subscribeAgain()
-    //     }
-    // }
-
-    console.log(subscription, "above return")
-    console.log(subStatus, "subStatus")
-
+            unSubscribe(subscription.id)
+            .then(() => {
+                props.history.push('/home')
+                window.alert("You are now UNsubscribed!")
+            })
+        } else if (subscription.hasOwnProperty("id") && subscription.end !== null) {
+            subscribeAgain(subscription.id)
+            .then(() => {
+                props.history.push('/home')
+                window.alert("You are now subscribed!")
+            })
+        } else {
+            createSubscription({
+                user_id: myID,
+                subscribe_id: authorID,
+                begin: Date.now(),
+                end: null
+            })
+            .then(() => {
+                props.history.push('/home')
+                window.alert("You are now subscribed!")
+            })
+        }
+    }
 
     return (
         <>
@@ -67,17 +89,11 @@ export const UserDetail = (props) => {
             <div>
                 {props.match.params.hasOwnProperty("userId") ?
                     subStatus ?
-
-
                         <button onClick={() => {
-                            console.log('unsub')
-                            console.log(subscription, "in click")
+                            changeSubStatus(subscription)
                         }} >unsubscribe!</button> :
-
-
                         <button onClick={() => {
-                            console.log('sub')
-                            console.log(subscription, "in click")
+                            changeSubStatus(subscription)
                         }}>subscribe</button>
                     : ""
                 }
