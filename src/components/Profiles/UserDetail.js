@@ -24,6 +24,7 @@ export const UserDetail = (props) => {
         const found = subscriptions.find(s => {
             return s.user_id === myID && s.subscribe_id === authorID
         })
+        console.log(found)
         if (found !== undefined && found.end === null) {
             setSubStatus(true)
             setSubscription(found)
@@ -31,6 +32,10 @@ export const UserDetail = (props) => {
             setSubStatus(false)
         }
     }, [subscriptions])
+
+    // const subscribe = () => {
+    //     if()
+    // }
 
     return (
         <>
@@ -57,12 +62,7 @@ export const UserDetail = (props) => {
                         }} >unsubscribe!</button> :
                         <button onClick={() => {
                             console.log('sub')
-                            // createSubscription({
-                            //     user_id: parseInt(localStorage.getItem("rare_user_id")),
-                            //     subscribe_id: user.id,
-                            //     begin: Date.now(),
-                            //     end: null
-                            // })
+                            //subscribe()
                         }}>subscribe</button>
                     : ""
                 }
