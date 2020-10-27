@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { PostContext } from "../Posts/PostProvider";
 
 export const TagPostContext = React.createContext();
 
+
 export const TagPostProvider = (props) => {
-  const [TagPosts, setTagPosts] = useState([]);
-  const [TagPost, setTagPost] = useState({});
+    const [TagPosts, setTagPosts] = useState([]);
+    const [TagPost, setTagPost] = useState({});
+    
+    const { getTagsByPost  } = useContext(PostContext)
+
 
   const getTagPosts = () => {
     return fetch("http://localhost:8088/tagPosts")
@@ -32,6 +37,7 @@ export const TagPostProvider = (props) => {
         method: "DELETE"
     })
     .then(getTagPosts)
+    .then(getTagsByPost())
 }
 
 
