@@ -6,7 +6,7 @@ import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 
 export const UserDetail = (props) => {
     const { user, getUserById } = useContext(UserContext)
-    const { subscription, setSubscription, subscriptions, getSubscriptions, unSubscribe, createSubscription } = useContext(SubscriptionContext)
+    const { subscription, setSubscription, subscriptions, getSubscriptions, unSubscribe, createSubscription, subscribeAgain } = useContext(SubscriptionContext)
     const [subStatus, setSubStatus] = useState(false)
 
     useEffect(() => {
@@ -33,9 +33,6 @@ export const UserDetail = (props) => {
         }
     }, [subscriptions])
 
-    // const subscribe = () => {
-    //     if()
-    // }
 
     return (
         <>
@@ -56,13 +53,15 @@ export const UserDetail = (props) => {
             <div>
                 {props.match.params.hasOwnProperty("userId") ?
                     subStatus ?
+
+
                         <button onClick={() => {
                             console.log('unsub')
-                            // unSubscribe(subscription.id)
                         }} >unsubscribe!</button> :
+
+
                         <button onClick={() => {
                             console.log('sub')
-                            //subscribe()
                         }}>subscribe</button>
                     : ""
                 }
