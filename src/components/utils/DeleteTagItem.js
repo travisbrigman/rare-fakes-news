@@ -1,12 +1,10 @@
 import React, { useState, useContext } from "react";
-import { PostContext } from "../Posts/PostProvider";
-import { UserContext } from "../Profiles/UserProvider";
+import { TagPostContext } from "../Tags/TagPostProvider";
 import "./DeleteItem.css"
 
-export const DeleteItem = ( {postId} ) => {
-  const { getPosts, posts, setPosts, deletePost } = useContext(PostContext);
+export const DeleteTagItem = ( {postTagId} ) => {
+  const { deleteTagPost } = useContext(TagPostContext);
 
-  const { loggedInUser } = useContext(UserContext);
   
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
@@ -14,8 +12,8 @@ export const DeleteItem = ( {postId} ) => {
 
   const showHideClassName = open ? "modal display-block" : "modal display-none";
 
-  const deleteThisPost = () => {
-    deletePost(postId);
+  const deleteThisTag = () => {
+    deleteTagPost(postTagId)
     onClose();
   };
 
@@ -30,7 +28,7 @@ export const DeleteItem = ( {postId} ) => {
             </h3>
             <p>Are you sure you want to delete?</p>
             <div>
-              <button onClick={deleteThisPost}> <strong>Delete</strong></button>
+              <button onClick={deleteThisTag}> <strong>Delete</strong></button>
               <button onClick={onClose}> Cancel </button>
             </div>
           </div>

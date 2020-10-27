@@ -18,12 +18,6 @@ export const PostProvider = (props) => {
             .then(res => res.json())
     }
 
-    // const getTagsOnPost = (id) => {
-    //     return fetch(`http://localhost:8088/posts/${id}`)
-    //         .then(res => res.json())
-    //         .then(setPostTags)
-    // }
-
     const getPostByUser = (userId) => {
         return fetch(`http://localhost:8088/posts?user_id=${userId}`)
             .then(res => res.json())

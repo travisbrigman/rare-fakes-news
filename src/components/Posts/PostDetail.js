@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "./PostProvider"
 import {Link} from "react-router-dom"
+import { DeleteTagItem } from "../utils/DeleteTagItem";
 
 
 
@@ -17,7 +18,11 @@ export const PostDetails = (props) => {
         .then(setPostTags)
     }, [])
 
-    console.log(post)
+const handleChange = (e) => {
+    console.log(postTags, e.target.value);
+    const foundTag = postTags.find(tag => tag.id === parseInt(e.target.value))
+
+}
 
     return (
         <section className="post">
@@ -32,10 +37,27 @@ export const PostDetails = (props) => {
                  <div className="post_author">Author: {post.user.display_name}</div>
                  </Link>}
             </div>        
+            <div>
                     {postTags.map(postTag => {
                       return  <div>{postTag.tag}</div>
                     })
                     }
+            </div>
+            <select name="locationId" className="form-control"
+                        proptype="int"
+                        value={postTags.id}
+                        onChange={handleChange} >
+
+                        <option value="0">Select a Tag</option>
+                        {postTags.map(tag => (
+                            <option key={tag.id} value={tag.id}>
+                                {tag.tag}
+                            </option>
+                        ))}
+                    </select>
+
+                    <DeleteTagItem tagPostId= {foundTag.tagPost.id}/>
         </section>
     )
 }
+
