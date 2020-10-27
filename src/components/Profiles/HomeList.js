@@ -13,6 +13,7 @@ export const HomeList = (props) => {
   const { getPosts, posts, setPosts, getPostByCat } = useContext(PostContext);
   const { tags, getTags } = useContext(TagContext)
   const [categorySelected, setCategorySelected] = useState(0);
+  const [tagSelected, setTagSelected] = useState(0);
 
   useEffect(() => {
     getPosts().then(getCategories()).then(getTags);
@@ -23,14 +24,31 @@ export const HomeList = (props) => {
   }, [posts]);
 
   
-  const filterAllPosts = (catId) => {
+  const filterAllPostsByCat = (catId) => {
     getPostByCat(catId)
     //setPosts(filteredPostsByCategory)
     setCategorySelected(catId) 
     console.log(posts)
   };
 
-  // const deleteButton = () => {}
+  const filterAllPostsByTag = (tagId) => {
+    // getPostByTag(tagId)
+    setTagSelected(tagId)
+  }
+
+  const clearFilterButton = () => {
+    return (
+      <button
+        onClick={() => {
+          getPosts().then(setPosts(posts));
+          setCategorySelected("");
+          setTagSelected("");
+        }}
+      >
+        Clear Filter
+      </button>
+    )
+  }
 
   return (
     <>
@@ -42,7 +60,7 @@ export const HomeList = (props) => {
               value={category.id}
               name="categories"
               checked={categorySelected === category.id}
-              onClick={()=>{filterAllPosts(category.id)}}
+              onClick={()=>{filterAllPostsByCat(category.id)}}
             />{" "}
             {category.type}
           </div>
@@ -51,16 +69,10 @@ export const HomeList = (props) => {
 
 
       <div>
-        <button
-          onClick={() => {
-            getPosts().then(setPosts(posts));
-            setCategorySelected("");
-          }}
-        >
-          Clear Filter
-        </button>
+        {clearFilterButton()}
       </div>
 
+      
       <div>
         <h3>Filter by Tag</h3>
         {tags.map((tag) => {
@@ -69,15 +81,18 @@ export const HomeList = (props) => {
               <input
               type="radio"
               value={tag.id}
-              name="categories"
-              // checked={tagSelected === tag.id}
-              // onClick={()=>{filterAllPostsByTag(tag.id)}}
+              name="tags"
+              checked={tagSelected === tag.id}
+              onClick={()=>{filterAllPostsByTag(tag.id)}}
             />{" "}
             #{tag.tag}
             </div>
           )
         })}
 
+        <div>
+            {clearFilterButton()}
+        </div>
       </div>
 
 
