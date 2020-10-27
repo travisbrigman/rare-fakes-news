@@ -12,6 +12,7 @@ export const PostList = (props) => {
 
     useEffect(() => {
         getPosts()
+     
     },[])
 
 

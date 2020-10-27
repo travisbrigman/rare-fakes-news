@@ -14,8 +14,8 @@ import { CategoryForm } from "./Categories/CategoryForm";
 import { CategoryList } from "./Categories/CategoryList";
 import { UsersPosts } from "./Posts/UsersPosts";
 import { ReactionProvider } from "./Reactions/ReactionProvider";
-import { ReactionList } from "./Reactions/ReactionList";
 import { PostDetails } from "./Posts/PostDetail";
+import { ReactionPostProvider } from "./Reactions/ReactionPostProvider";
 import { SubscriptionProvider } from "./Subscriptions/SubscriptionProvider"
 
 export const ApplicationViews = (props) => {
@@ -28,40 +28,39 @@ export const ApplicationViews = (props) => {
         }}
       ></main>
       {/****** HOME ***** POST FORM & DETAILS ******* MY POSTS ******* */}
-      <UserProvider>
-        <PostProvider>
-          <CategoryProvider>
-            <TagPostProvider>
-              <TagProvider>
-                <SubscriptionProvider>
-                  <Route exact path="/home"
-                    render={(props) => <HomeList {...props} />}
-                  />
-                  <Route exact path="/posts/create"
-                    render={(props) => <PostForm {...props} />}
-                  />
-                  <Route exact path="/myposts"
-                    render={(props) => <UsersPosts {...props} />}
-                  />
-                  <Route path="/posts/:postId(\d+)"
-                    render={(props) => <PostDetails {...props} />}
-                  />
-                  <Route path="/profiles/:userId(\d+)" 
-                    render={props => <UserDetail {...props} />}
-                  />
-                </SubscriptionProvider>
-              </TagProvider>
-            </TagPostProvider>
-          </CategoryProvider>
-        </PostProvider>
-      </UserProvider>
-      {/****** TEMPORARY REACTION LIST ********/}
-      <ReactionProvider>
-        <Route exact path="/home">
-          <ReactionList />
-        </Route>
-      </ReactionProvider>
-      {/*************** TAG MANAGEMENT ******************** */}
+      <ReactionPostProvider>
+        <ReactionProvider>
+          <UserProvider>
+            <PostProvider>
+              <CategoryProvider>
+                <TagPostProvider>
+                  <TagProvider>
+                    <SubscriptionProvider>
+                      <Route exact path="/home"
+                        render={(props) => <HomeList {...props} />}
+                      />
+                      <Route exact path="/posts/create"
+                        render={(props) => <PostForm {...props} />}
+                      />
+                      <Route exact path="/myposts"
+                        render={(props) => <UsersPosts {...props} />}
+                      />
+                      <Route path="/posts/:postId(\d+)"
+                        render={(props) => <PostDetails {...props} />}
+                      />
+                      <Route path="/profiles/:userId(\d+)" 
+                        render={props => <UserDetail {...props} />}
+                      />
+                    </SubscriptionProvider>
+                  </TagProvider>
+                </TagPostProvider>
+              </CategoryProvider>
+            </PostProvider>
+          </UserProvider>
+        </ReactionProvider>
+      </ReactionPostProvider>
+   
+   
       <TagProvider>
         <Route exact path="/tags/create" render={(props) => {
           return <TagForm {...props} /> }}
@@ -70,6 +69,7 @@ export const ApplicationViews = (props) => {
           return <TagList {...props} /> }}
         />
       </TagProvider>
+
       {/**************** MY PROFILE ******************* */}
       <UserProvider>
         <SubscriptionProvider>
@@ -77,6 +77,7 @@ export const ApplicationViews = (props) => {
             props => <UserDetail {...props} />} />
         </SubscriptionProvider>
       </UserProvider>
+
       {/************** CATEGORY MANAGEMENT ************* */ }
       <CategoryProvider>
         <Route exact path="/categories" render={
