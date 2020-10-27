@@ -20,7 +20,6 @@ export const PostProvider = (props) => {
     const getPostByUser = (userId) => {
         return fetch(`http://localhost:8088/posts?user_id=${userId}`)
             .then(res => res.json())
-            .then(setPosts)
     }
 
     const getPostByTag = (tag) => {

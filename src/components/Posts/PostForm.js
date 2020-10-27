@@ -6,7 +6,7 @@ import { TagPostContext } from "../Tags/TagPostProvider"
 
 
 export const PostForm = (props) => {
-    const {post, setPost, addPost} = useContext(PostContext)
+    const {post, setPost, addPost, updatePost, getPostById} = useContext(PostContext)
     const { categories, getCategories} = useContext(CategoryContext)
     const {tag, tags, getTags} = useContext(TagContext)
     const {createTagPost} = useContext(TagPostContext)
@@ -20,6 +20,11 @@ export const PostForm = (props) => {
     useEffect(() => {
         getCategories()
         getTags()
+        if(editMode){
+            getPostById(parseInt(props.match.params.postId))
+            .then(setPostObj)
+
+        }
     },[]) 
 
     useEffect(() => {
@@ -48,15 +53,18 @@ export const PostForm = (props) => {
         evt.preventDefault()
 
         if(editMode) {
-            // updatePost({
-            //     id: postObj.id,
-            //     title: postObj.title,
-            //     content: postObj.content,
-            //     category_id: postObj.category_id,
-            //     date: postObj.date,
-            //     user_id: parseInt(localStorage.getItem("rare_user_id")),
-            //     approved: 1
-            // })
+            updatePost({
+                id: postObj.id,
+                title: postObj.title,
+                content: postObj.content,
+                category_id: postObj.category_id,
+                date: postObj.date,
+                user_id: parseInt(localStorage.getItem("rare_user_id")),
+                approved: 1
+            })
+            .then(() => {
+                props.history.push(`/home`)
+            })
         } else {
             addPost({
                 title: postObj.title,
