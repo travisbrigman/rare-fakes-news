@@ -1,16 +1,21 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
+import { UserContext } from "../Profiles/UserProvider"
+import { DeleteItem } from "../utils/DeleteItem";
 
 export const UsersPosts = (props) => {
-  const { getPosts, posts, setPosts } = useContext(PostContext);
+  const { getPosts, posts, setPosts, getPostByUser } = useContext(PostContext);
+  const { loggedInUser } = useContext(UserContext);
+
+
   const [usersPosts, setUsersPosts] = useState([]);
 
   useEffect(() => {
-    getPosts();
+    getPostByUser(loggedInUser)
   }, []);
 
-  const loggedInUser = parseInt(localStorage.getItem("rare_user_id"));
+  
 
   useEffect(() => {
     const filteredPostsByUser = posts.filter(
@@ -22,7 +27,7 @@ export const UsersPosts = (props) => {
   return (
     <>
       <h2>My Posts</h2>
-      {usersPosts.map((p) => {
+      {posts.map((p) => {
         return (
           <div key={p.id}>
             <p>
@@ -30,6 +35,7 @@ export const UsersPosts = (props) => {
             </p>
             <p>{p.user.display_name}</p>
             <p>{p.category.type}</p>
+            {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
           </div>
         );
       }).reverse()}
