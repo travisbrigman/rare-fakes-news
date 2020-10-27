@@ -84,28 +84,30 @@ export const ApplicationViews = (props) => {
         />
       </TagProvider>
      
-     <PostProvider>
-      <CategoryProvider>
-        <ReactionProvider>
-          <ReactionPostProvider>
-            <TagPostProvider>
-              <TagProvider>
-                <Route exact path="/home" render={
-                  props => <HomeList {...props} />} />
-                <Route exact path="/posts/create" render={
-                  props => <PostForm {...props} />} />
-     
-            <Route exact path="/myposts" render={
-              (props) => <UsersPosts {...props} />} />
-                <Route path="/posts/:postId(\d+)" render={
-                  props => <PostDetails {...props} />
-                } />
-              </TagProvider>
-            </TagPostProvider>
-          </ReactionPostProvider>
-        </ReactionProvider>
-      </CategoryProvider>
-    </PostProvider>
+     <UserProvider>
+      <PostProvider>
+        <CategoryProvider>
+          <ReactionProvider>
+            <ReactionPostProvider>
+              <TagPostProvider>
+                <TagProvider>
+                  <Route exact path="/home" render={
+                    props => <HomeList {...props} />} />
+                  <Route exact path="/posts/create" render={
+                    props => <PostForm {...props} />} />
+      
+                  <Route exact path="/myposts" render={
+                    (props) => <UsersPosts {...props} />} />
+                  <Route path="/posts/:postId(\d+)" render={
+                    props => <PostDetails {...props} />
+                  } />
+                </TagProvider>
+              </TagPostProvider>
+            </ReactionPostProvider>
+          </ReactionProvider>
+        </CategoryProvider>
+      </PostProvider>
+    </UserProvider>
 
     <UserProvider>
       <Route exact path="/profile" render={
