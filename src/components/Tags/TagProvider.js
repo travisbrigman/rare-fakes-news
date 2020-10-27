@@ -5,7 +5,6 @@ export const TagContext = React.createContext()
 export const TagProvider = (props) => {
     const [tags, setTags] = useState([])
     const [tag, setTag] = useState({})
-    const [tagSelected, setTagSelected] = useState({})
 
     const getTags = () => {
         return fetch("http://localhost:8088/tags")
@@ -32,7 +31,6 @@ export const TagProvider = (props) => {
     return (
         <TagContext.Provider value={{
             tag, setTag, tags, getTags, setTags, createTag,
-            tagSelected, setTagSelected
         }}>
             {props.children}
         </TagContext.Provider>

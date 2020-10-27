@@ -1,63 +1,71 @@
-import React, { useContext, useEffect, useState } from "react";
-import { PostList } from "../Posts/PostList";
-import { PostContext } from "../Posts/PostProvider";
-import { CategoryContext } from "../Categories/CategoryProvider";
-import { TagContext } from "../Tags/TagProvider";
-import { TagPostContext } from "../TagPosts/TagPostProvider";
+import React, { useContext, useEffect, useState } from "react"
+import { PostList } from "../Posts/PostList"
+import { PostContext } from "../Posts/PostProvider"
+import { CategoryContext } from "../Categories/CategoryProvider"
+import { TagContext } from "../Tags/TagProvider"
+import { TagPostContext } from "../TagPosts/TagPostProvider"
+import { UserContext } from "../Profiles/UserProvider"
 
 export const HomeList = (props) => {
   const {
     categories,
     getCategories,
-  } = useContext(CategoryContext);
+  } = useContext(CategoryContext)
 
-  const { getPosts, posts, setPosts, getPostByCat } = useContext(PostContext);
-  const { tags, getTags } = useContext(TagContext);
-  const { tagPosts, getTagPosts, getTagPostByTag } = useContext(TagPostContext);
-  const [categorySelected, setCategorySelected] = useState(0);
-  const [tagSelected, setTagSelected] = useState(0);
+  const { getPosts, posts, setPosts, getPostByCat, getPostByUser } = useContext(PostContext)
+  const { tags, getTags } = useContext(TagContext)
+  const { tagPosts, getTagPosts, getTagPostByTag } = useContext(TagPostContext)
+  const [categorySelected, setCategorySelected] = useState(0)
+  const [tagSelected, setTagSelected] = useState(0)
 
-  useEffect(() => {
-    getPosts().then(getCategories()).then(getTags()).then(getTagPosts());
-  }, []);
-
-  useEffect(() => {
-    setPosts(posts);
-  }, [posts]);
+  const { users, getUsers } = useContext(UserContext)
+  const [userSelected, setUserSelected] = useState(0)
 
   useEffect(() => {
-    console.log(tagPosts, "tagPosts>>")
-  }, [tagPosts]);
+    getPosts().then(getCategories())
+    getTags()
+    getTagPosts()
+    getUsers()
+  }, [])
+
+  useEffect(() => {
+    setPosts(posts)
+  }, [posts])
+
 
   const filterAllPostsByCat = (catId) => {
     getPostByCat(catId)
-    setCategorySelected(catId) 
-  };
+    setCategorySelected(catId)
+  }
   
+useEffect(() => {
 
-  // when a tag filter is selected, invokes function to filter All Posts
-  useEffect(() => {
-    filterAllPostsByTag(tagSelected)
-  }, [tagSelected]);
-  
-  // when user selects a Tag to filter by,...
+}, [tagPosts])
+ 
   const filterAllPostsByTag = (tagId) => {
     getTagPostByTag(tagId)
-    .then(console.log(tagId,"tagId"))
-    .then(console.log(tagPosts,"tagPosts>>"))
+    .then(console.log("tagPosts>>",tagPosts))
+    //displays radio button as "selected"
+    setTagSelected(tagId)
     
-    // setTagSelected(tagId)
     // getPostByTag(tagId)
   }
 
-  // refactored "Clear Filter" button as a function to be used to reset Category AND Tag filters
+  
+  const filterAllPostsByUser = (userId) => {
+    getPostByUser(userId)
+    setUserSelected(userId)
+  }
+  
+  // refactored "Clear Filter" button as a function to be used to reset all filters
   const clearFilterButton = () => {
     return (
       <button
         onClick={() => {
-          getPosts().then(setPosts(posts));
-          setCategorySelected("");
-          setTagSelected("");
+          getPosts().then(setPosts(posts))
+          setCategorySelected("")
+          setTagSelected("")
+          setUserSelected("")
         }}
       >
         Clear Filter
@@ -65,9 +73,10 @@ export const HomeList = (props) => {
     )
   }
 
+
   return (
     <>
-      <div className="container--filter">        
+      <div className="container--filter">
         <h3>Filter by Category</h3>
         {categories.map((category) => {
           return (
@@ -77,11 +86,11 @@ export const HomeList = (props) => {
                 value={category.id}
                 name="categories"
                 checked={categorySelected === category.id}
-                onClick={()=>{filterAllPostsByCat(category.id)}}
+                onClick={() => { filterAllPostsByCat(category.id) }}
               />{" "}
               {category.type}
             </div>
-          );
+          )
         })}
 
 
@@ -101,7 +110,7 @@ export const HomeList = (props) => {
               value={tag.id}
               name="tags"
               checked={tagSelected === tag.id}
-              onClick={()=>{filterAllPostsByTag(tag.id)}}
+              onClick={() => { filterAllPostsByTag(tag.id) }}
             />{" "}
             #{tag.tag}
             </div>
@@ -114,9 +123,32 @@ export const HomeList = (props) => {
       </div>
 
 
+      <div className="container--filter">
+        <h3>Filter by User</h3>
+        {users.map((user) => {
+          return (
+            <div key={user.id}>
+              <input
+                type="radio"
+                value={user.id}
+                name="users"
+                checked={userSelected === user.id}
+                onClick={() => { filterAllPostsByUser(user.id) }}
+              />{" "}
+              {user.display_name}
+            </div>
+          )
+        })}
+
+        <div>
+          {clearFilterButton()}
+        </div>
+      </div>
+
+
       <h1>Dashboard</h1>
       <PostList {...props} />
     </>
-  );
+  )
   
-};
+}
