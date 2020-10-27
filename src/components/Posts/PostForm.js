@@ -109,7 +109,7 @@ return (
                                 <option value="0">add some tags...</option>
                                 {
                                     tags.map(t => {
-                                        return <option value={t.id}>{t.tag}</option>
+                                        return <option key={t.id} value={t.id}>{t.tag}</option>
                                     })
                                 }
                     </select>
@@ -119,7 +119,7 @@ return (
                 { stateTagIDArr.length === 0 ? "" : 
                 stateTagIDArr.map(t => {
                     const tagObj = tags.find(tag => tag.id === t)
-                return <div>{tagObj.tag}
+                return <div key={tagObj.id}>{tagObj.tag}
                 <button onClick={(evt) =>{
                     evt.preventDefault()
                     const arrCopyID = stateTagIDArr.slice()

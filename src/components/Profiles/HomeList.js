@@ -26,9 +26,7 @@ export const HomeList = (props) => {
   
   const filterAllPostsByCat = (catId) => {
     getPostByCat(catId)
-    //setPosts(filteredPostsByCategory)
     setCategorySelected(catId) 
-    console.log(posts)
   };
 
   const filterAllPostsByTag = (tagId) => {
