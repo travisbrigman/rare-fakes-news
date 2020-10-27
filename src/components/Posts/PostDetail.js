@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from "react"
 import { PostContext } from "./PostProvider"
+import { ReactionList } from "../Reactions/ReactionList"
+
 import {Link} from "react-router-dom"
 
 
 
 export const PostDetails = (props) => {
-    const { getPostById, post, setPost } = useContext(PostContext)
+    const { getPosts, getPostById, post, setPost } = useContext(PostContext)
 
     useEffect(() => {
         const postId = parseInt(props.match.params.postId)
@@ -13,7 +15,10 @@ export const PostDetails = (props) => {
             .then(setPost)
     }, [])
 
+
+
     return (
+        <>
         <section className="post">
             <h3 className="post__title">{post.title}</h3>
             <div className="post__content">{post.content}</div>
@@ -27,5 +32,7 @@ export const PostDetails = (props) => {
                  </Link>}
             </div>        
         </section>
+        <ReactionList {...props}/>
+        </>
     )
 }
