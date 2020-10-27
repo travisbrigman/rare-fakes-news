@@ -28,10 +28,10 @@ export const TagPostProvider = (props) => {
   };
 
   const deleteTagPost = (tagPostId) => {
-    return fetch(`http://localhost:8088/TagPosts/${tagPostId}`, {
+    return fetch(`http://localhost:8088/tagPosts/${tagPostId}`, {
         method: "DELETE"
-        .then(getTagPosts)
     })
+    .then(getTagPosts)
 }
 
 

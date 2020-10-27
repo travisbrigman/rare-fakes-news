@@ -1,5 +1,7 @@
-import React, { useContext, useEffect, useState } from "react"
+import React, { useContext, useEffect, useState, useRef } from "react"
 import { PostContext } from "./PostProvider"
+import { ReactionList } from "../Reactions/ReactionList"
+
 import {Link} from "react-router-dom"
 import { DeleteTagItem } from "../utils/DeleteTagItem";
 
@@ -8,7 +10,8 @@ import { DeleteTagItem } from "../utils/DeleteTagItem";
 export const PostDetails = (props) => {
     const { getPosts, getPostById, post, setPost, getTagsByPost, postTags, setPostTags } = useContext(PostContext)
 
-   
+   const [ selectedTagPostId, setSelectedTagPostId ] = useState(0)
+    const tagPostId = useRef(null)
 
     useEffect(() => {
         const postId = parseInt(props.match.params.postId)
@@ -20,11 +23,11 @@ export const PostDetails = (props) => {
 
 const handleChange = (e) => {
     console.log(postTags, e.target.value);
-    const foundTag = postTags.find(tag => tag.id === parseInt(e.target.value))
-
+    setSelectedTagPostId(parseInt(e.target.value))
 }
 
     return (
+        <>
         <section className="post">
             <h3 className="post__title">{post.title}</h3>
             <div className="post__content">{post.content}</div>
@@ -44,20 +47,20 @@ const handleChange = (e) => {
                     }
             </div>
             <select name="tagManagement" className="form-control"
-                        proptype="int"
-                        value={postTags.id}
+                        ref={tagPostId}
                         onChange={handleChange} >
-
                         <option value="0">Select a Tag</option>
                         {postTags.map(tag => (
-                            <option key={tag.id} value={tag.id}>
+                            <option key={tag.id}  value={tag.tagPost.id}>
                                 {tag.tag}
                             </option>
                         ))}
                     </select>
 
-                    <DeleteTagItem tagPostId= {foundTag.tagPost.id}/>
+                    <DeleteTagItem tagPostId= {selectedTagPostId}/>
         </section>
+        <ReactionList {...props}/>
+        </>
     )
 }
 

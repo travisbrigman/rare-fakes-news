@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { TagPostContext } from "../Tags/TagPostProvider";
 import "./DeleteItem.css"
 
-export const DeleteTagItem = ( {postTagId} ) => {
+export const DeleteTagItem = ( props ) => {
   const { deleteTagPost } = useContext(TagPostContext);
 
   
@@ -13,7 +13,8 @@ export const DeleteTagItem = ( {postTagId} ) => {
   const showHideClassName = open ? "modal display-block" : "modal display-none";
 
   const deleteThisTag = () => {
-    deleteTagPost(postTagId)
+      console.log(props);
+    deleteTagPost(props.tagPostId)
     onClose();
   };
 
