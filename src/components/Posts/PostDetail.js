@@ -17,6 +17,8 @@ export const PostDetails = (props) => {
 
     }, [])
 
+    console.log(post)
+
     return (
         <section className="post">
             <h3 className="post__title">{post.title}</h3>
