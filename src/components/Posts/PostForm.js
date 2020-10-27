@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState, useRef } from "react"
 import {PostContext} from "./PostProvider"
 import {CategoryContext} from "../Categories/CategoryProvider"
 import { TagContext } from "../Tags/TagProvider"
-import { TagPostContext } from "../Tags/TagPostProvider"
+import { TagPostContext } from "../TagPosts/TagPostProvider"
 
 
 export const PostForm = (props) => {

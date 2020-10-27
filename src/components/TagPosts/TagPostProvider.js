@@ -3,8 +3,8 @@ import React, { useState } from "react"
 export const TagPostContext = React.createContext()
 
 export const TagPostProvider = (props) => {
-    const [TagPosts, setTagPosts] = useState([])
-    const [TagPost, setTagPost] = useState({})
+    const [tagPosts, setTagPosts] = useState([])
+    const [tagPost, setTagPost] = useState({})
 
     const getTagPosts = () => {
         return fetch("http://localhost:8088/tagPosts")
@@ -12,7 +12,7 @@ export const TagPostProvider = (props) => {
             .then(setTagPosts)
     }
     
-    const getTagPostsByTag = (tagId) => {
+    const getTagPostByTag = (tagId) => {
         return fetch(`http://localhost:8088/tagPosts?tag_id=${tagId}`)
             .then(res => res.json())
             .then(setTagPosts)
@@ -33,11 +33,11 @@ export const TagPostProvider = (props) => {
                     }
                     
                     
-                    return (
-                        <TagPostContext.Provider value={{
-                            TagPost, setTagPost, TagPosts, getTagPosts, getTagPostsByTag, 
-                            setTagPosts, createTagPost    
-                        }}>
+    return (
+        <TagPostContext.Provider value={{
+            tagPost, setTagPost, tagPosts, getTagPosts, getTagPostByTag, 
+            setTagPosts, createTagPost    
+        }}>
             {props.children}
         </TagPostContext.Provider>
     )

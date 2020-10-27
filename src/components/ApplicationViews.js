@@ -3,7 +3,7 @@ import { Route } from "react-router-dom";
 import { HomeList } from "./Profiles/HomeList";
 import { PostProvider } from "./Posts/PostProvider";
 import { PostForm } from "./Posts/PostForm";
-import { TagPostProvider } from "./Tags/TagPostProvider";
+import { TagPostProvider } from "./TagPosts/TagPostProvider";
 import { TagProvider } from "./Tags/TagProvider";
 import { TagForm } from "./Tags/TagForm";
 import { TagList } from "./Tags/TagList";

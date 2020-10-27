@@ -3,6 +3,7 @@ import { PostList } from "../Posts/PostList";
 import { PostContext } from "../Posts/PostProvider";
 import { CategoryContext } from "../Categories/CategoryProvider";
 import { TagContext } from "../Tags/TagProvider";
+import { TagPostContext } from "../TagPosts/TagPostProvider";
 
 export const HomeList = (props) => {
   const {
@@ -11,29 +12,44 @@ export const HomeList = (props) => {
   } = useContext(CategoryContext);
 
   const { getPosts, posts, setPosts, getPostByCat } = useContext(PostContext);
-  const { tags, getTags } = useContext(TagContext)
+  const { tags, getTags } = useContext(TagContext);
+  const { tagPosts, setTagPosts, getTagPosts, getTagPostByTag } = useContext(TagPostContext);
   const [categorySelected, setCategorySelected] = useState(0);
   const [tagSelected, setTagSelected] = useState(0);
 
   useEffect(() => {
-    getPosts().then(getCategories()).then(getTags);
+    getPosts().then(getCategories());
+  }, []);
+
+  useEffect(() => {
+    getTags()
+    getTagPosts()
   }, []);
 
   useEffect(() => {
     setPosts(posts);
   }, [posts]);
 
-  
   const filterAllPostsByCat = (catId) => {
     getPostByCat(catId)
     setCategorySelected(catId) 
   };
+  
 
+  // when a tag filter is selected, invokes function to filter All Posts
+  useEffect(() => {
+    filterAllPostsByTag(tagSelected)
+  }, [tagSelected]);
+  
+  // when user selects a Tag to filter by, ...
   const filterAllPostsByTag = (tagId) => {
-    // getPostByTag(tagId)
+    getTagPostByTag(tagId)
+    console.log(setTagPosts,"setTagPosts>>")
     setTagSelected(tagId)
+    // getPostByTag(tagId)
   }
 
+  // refactored "Clear Filter" button as a function to be used to reset Category AND Tag filters
   const clearFilterButton = () => {
     return (
       <button
@@ -50,28 +66,31 @@ export const HomeList = (props) => {
 
   return (
     <>
-      {categories.map((category) => {
-        return (
-          <div key={category.id}>
-            <input
-              type="radio"
-              value={category.id}
-              name="categories"
-              checked={categorySelected === category.id}
-              onClick={()=>{filterAllPostsByCat(category.id)}}
-            />{" "}
-            {category.type}
-          </div>
-        );
-      })}
+      <div className="container--filter">        
+        <h3>Filter by Category</h3>
+        {categories.map((category) => {
+          return (
+            <div key={category.id}>
+              <input
+                type="radio"
+                value={category.id}
+                name="categories"
+                checked={categorySelected === category.id}
+                onClick={()=>{filterAllPostsByCat(category.id)}}
+              />{" "}
+              {category.type}
+            </div>
+          );
+        })}
 
 
-      <div>
-        {clearFilterButton()}
+        <div>
+          {clearFilterButton()}
+        </div>
       </div>
 
       
-      <div>
+      <div className="container--filter">
         <h3>Filter by Tag</h3>
         {tags.map((tag) => {
           return (
