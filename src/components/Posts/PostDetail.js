@@ -43,7 +43,7 @@ const handleChange = (e) => {
                     })
                     }
             </div>
-            <select name="locationId" className="form-control"
+            <select name="tagManagement" className="form-control"
                         proptype="int"
                         value={postTags.id}
                         onChange={handleChange} >
