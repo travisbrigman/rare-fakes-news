@@ -13,7 +13,7 @@ export const HomeList = (props) => {
 
   const { getPosts, posts, setPosts, getPostByCat } = useContext(PostContext);
   const { tags, getTags } = useContext(TagContext);
-  const { tagPosts, setTagPosts, getTagPosts, getTagPostByTag } = useContext(TagPostContext);
+  const { tagPosts, getTagPosts, getTagPostByTag } = useContext(TagPostContext);
   const [categorySelected, setCategorySelected] = useState(0);
   const [tagSelected, setTagSelected] = useState(0);
 
