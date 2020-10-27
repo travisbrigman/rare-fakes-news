@@ -33,7 +33,7 @@ export const Reaction = (props) => {
 
     return (
         <section className="reaction">
-            <button title={reaction.reaction_description} onClick={() => {
+            <button title={props.reaction.reaction_description} onClick={() => {
                
                 createReactionPost({
                     reaction_id: props.reaction.id,
