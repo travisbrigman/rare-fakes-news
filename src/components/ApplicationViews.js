@@ -16,8 +16,6 @@ import { UsersPosts } from "./Posts/UsersPosts";
 import { ReactionProvider } from "./Reactions/ReactionProvider";
 import { PostDetails } from "./Posts/PostDetail";
 import { ReactionPostProvider } from "./Reactions/ReactionPostProvider";
-
-
 import { SubscriptionProvider } from "./Subscriptions/SubscriptionProvider"
 
 export const ApplicationViews = (props) => {
@@ -62,14 +60,6 @@ export const ApplicationViews = (props) => {
         </ReactionProvider>
       </ReactionPostProvider>
    
-      
-      <UserProvider>
-        <Route
-          exact
-          path="/profile"
-          render={(props) => <UserDetail {...props} />}
-        />
-      </UserProvider>
    
       <TagProvider>
         <Route exact path="/tags/create" render={(props) => {
@@ -79,29 +69,6 @@ export const ApplicationViews = (props) => {
           return <TagList {...props} /> }}
         />
       </TagProvider>
-  
-
-    <UserProvider>
-      <Route exact path="/profile" render={
-        props => <UserDetail {...props} />} />
-    </UserProvider>
-
-    <TagProvider>
-      <Route exact path="/tags/create" render={(props) => {
-        return <TagForm {...props} />
-      }} />
-      <Route exact path="/tags" render={(props) => {
-        return <TagList {...props} />
-      }} />
-    </TagProvider>
-
-    <CategoryProvider>
-      <Route
-        exact path="/categories" render={
-          (props) => <CategoryList {...props} />} />
-      <Route exact path="/categories/create" render={
-        (props) => <CategoryForm {...props} />} />
-    </CategoryProvider>
 
       {/**************** MY PROFILE ******************* */}
       <UserProvider>
