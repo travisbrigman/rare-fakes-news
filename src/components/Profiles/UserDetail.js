@@ -27,7 +27,6 @@ export const UserDetail = (props) => {
         const found = subscriptions.find(s => {
             return s.user_id === myID && s.subscribe_id === authorID
         })
-        console.log(found, "found or nah")
         if (found !== undefined && subscription.end === null) {
             setSubStatus(true)
             setSubscription(found)
