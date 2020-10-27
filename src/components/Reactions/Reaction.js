@@ -9,33 +9,39 @@ export const Reaction = (props) => {
     const { reaction, getReactions } = useContext(ReactionContext)
     const { createReactionPost, getReactionPosts, ReactionPosts } = useContext(ReactionPostContext)
 
-    const [reactionCount, setReactionCount] = useState()
-
+    const [reactionCount, setReactionCount] = useState([])
+ 
     const postId = parseInt(props.match.params.postId)
 
     useEffect(() => {
-        getReactions()
+      
         getReactionPosts()
         getPosts()
+      
     }, [])
 
     useEffect(() => {
-        const matchingReactionCount = ReactionPosts.filter(rp => rp.reaction_id === reaction.id) || []
+        const matchingReactionCount = ReactionPosts.filter(rp => {
+           
+            return rp.reaction_id === props.reaction.id
+        }) || []
         setReactionCount(matchingReactionCount)
 
-    }, [reactionCount])
+    }, [ReactionPosts])
 
 
 
     return (
         <section className="reaction">
             <button title={reaction.reaction_description} onClick={() => {
+               
                 createReactionPost({
-                    reaction_id: reaction.reaction_id,
+                    reaction_id: props.reaction.id,
                     post_id: postId,
                     user_id: parseInt(localStorage.getItem("rare_user_id")),
                 })
-            }}>{reaction.reaction}</button>
+
+            }}>{props.reaction.reaction}</button>
             <div>{reactionCount.length}</div>
 
         </section>

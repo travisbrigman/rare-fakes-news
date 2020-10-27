@@ -21,6 +21,7 @@ export const ReactionPostProvider = (props) => {
             body: JSON.stringify(ReactionPost)
         })
             .then(res => res.json())
+            .then(getReactionPosts)
            
     }
 

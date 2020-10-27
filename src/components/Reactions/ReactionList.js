@@ -11,6 +11,7 @@ export const ReactionList = (props) => {
     // Initialization effect hook -> Go get tag data
     useEffect(() => {
         getReactions()
+       
     }, [])
 
     return (
@@ -18,7 +19,7 @@ export const ReactionList = (props) => {
             <h3>Reactions:</h3>
             <div className="tags">
                 {
-                    reactions.map(reaction => <Reaction key={reaction.id} {...props} />)
+                    reactions.map(reaction => <Reaction key={reaction.id} {...props} reaction={reaction}/>)
                 }
             </div>
            
