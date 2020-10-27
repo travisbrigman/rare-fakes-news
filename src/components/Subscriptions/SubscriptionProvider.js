@@ -37,12 +37,26 @@ export const SubscriptionProvider = (props) => {
             })     
             .then(getSubscriptions)
     }
+
+    const subscribeAgain  = (subscriptionId) => {
+        const subscription = {
+            end: null
+        }
+        return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(subscription)
+        })     
+        .then(getSubscriptions)
+}
                     
                     return (
                         <SubscriptionContext.Provider value={{
                             subscription, setSubscription, subscriptions, 
                             getSubscriptions, setSubscriptions, createSubscription,
-                            unSubscribe
+                            unSubscribe, subscribeAgain
                         }}>
             {props.children}
         </SubscriptionContext.Provider>
