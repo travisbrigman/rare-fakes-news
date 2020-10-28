@@ -1,3 +1,4 @@
+//deleteTag component with confirmation modal
 import React, { useState, useContext } from "react";
 import { PostContext } from "../Posts/PostProvider";
 import { TagPostContext } from "../Tags/TagPostProvider";

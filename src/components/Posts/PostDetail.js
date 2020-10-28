@@ -1,3 +1,4 @@
+//displays details of a post, lets use add reactions (maximum one of each) to post, lets user edit post if they are the author, or see author's profile if it was written by another user
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "./PostProvider";
 import { ReactionList } from "../Reactions/ReactionList";
@@ -81,7 +82,7 @@ export const PostDetails = (props) => {
               <button onClick={onOpen}>Manage Post Tags</button>
             </>
           ) : (
-            <Link to={{ pathname: `/profiles/${post.user.id}` }}>
+            <Link to={{ pathname: `/profiles/${post.user_id}` }}>
               <div className="post_author">
                 Author: {post.user.display_name}
               </div>
@@ -155,7 +156,7 @@ export const PostDetails = (props) => {
           </>
         )}
       </section>
-      <ReactionList {...props} />
+      <ReactionList {...props} />{/*Renders ReactionList*/}
     </>
   );
 };

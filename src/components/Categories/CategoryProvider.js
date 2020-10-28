@@ -1,7 +1,6 @@
+//module to handle all category data manipulation- getting categories, and creating categories
 import React, { useState } from "react";
-
 export const CategoryContext = React.createContext();
-
 export const CategoryProvider = (props) => {
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState({});

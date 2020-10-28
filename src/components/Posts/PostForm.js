@@ -1,4 +1,5 @@
-import React, { useEffect, useContext, useState, useRef } from "react"
+//form that allows users to create and edit a post
+import React, { useEffect, useContext, useState } from "react"
 import {PostContext} from "./PostProvider"
 import {CategoryContext} from "../Categories/CategoryProvider"
 import { TagContext } from "../Tags/TagProvider"
@@ -11,11 +12,11 @@ export const PostForm = (props) => {
     const {tag, tags, getTags} = useContext(TagContext)
     const {createTagPost} = useContext(TagPostContext)
 
-    const [postObj, setPostObj] = useState({})
+    const [postObj, setPostObj] = useState({}) //defines and sets the state of the postObj in this module
     const [stateTagIDArr, setTagIDArr] = useState([])
     const [stateTagObjArr, setTagObjArr] = useState([])
 
-    const editMode = props.match.url.split("/")[2] === "edit"
+    const editMode = props.match.url.split("/")[2] === "edit" //checks url to see if editMode
 
     useEffect(() => {
         getCategories()
@@ -27,12 +28,12 @@ export const PostForm = (props) => {
     },[]) 
 
     useEffect(() => {
-        const stateCopyObj = stateTagObjArr.slice()
+        const stateCopyObj = stateTagObjArr.slice() //make a copy of the TagObjArr
         const tagItems = stateTagIDArr.map(t => {
-            return tags.find(tag => tag.id === t)
+            return tags.find(tag => tag.id === t) //map through tagIDArr and return the tag object whose ID === t
         })
         stateCopyObj.push(tagItems)
-        setTagObjArr(stateCopyObj)
+        setTagObjArr(stateCopyObj) //set the state of the TagObjArr to what was pushed into stateCopyObj array
     },[stateTagIDArr])
 
     const handleControlledInputChange = (browserEvent) => {
@@ -42,9 +43,9 @@ export const PostForm = (props) => {
     }
 
     const handleTags = (browserEvent) => {  
-        const stateCopyID = stateTagIDArr.slice()
-        let newTagItem = parseInt(browserEvent.target.value)
-         stateCopyID.push(newTagItem)
+        const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
+        let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
+        stateCopyID.push(newTagItem) //push into copy
         setTagIDArr(stateCopyID)    
     }
 
@@ -73,7 +74,7 @@ export const PostForm = (props) => {
                 user_id: parseInt(localStorage.getItem("rare_user_id")),
                 approved: 1
             }).then((postObj) => {
-                const tagPostPromises = []
+                const tagPostPromises = [] //empty array of possible TagPosts
     
                 stateTagIDArr.map(t => {
                     tagPostPromises.push(
@@ -81,7 +82,7 @@ export const PostForm = (props) => {
                         tag_id: t,
                         post_id: postObj.id
                     })
-                    )
+                    ) //push any newly created tags to promises array
                 })
                 Promise.all(tagPostPromises)
                 .then(() => {

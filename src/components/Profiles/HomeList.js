@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState } from "react"
-import { PostList } from "../Posts/PostList"
-import { PostContext } from "../Posts/PostProvider"
-import { CategoryContext } from "../Categories/CategoryProvider"
+//list of posts that renders on /home and lets user filter by category, tag, and user
+import React, { useContext, useEffect, useState } from "react";
+import { PostList } from "../Posts/PostList";
+import { PostContext } from "../Posts/PostProvider";
+import { CategoryContext } from "../Categories/CategoryProvider";
 import { TagContext } from "../Tags/TagProvider"
 import { UserContext } from "../Profiles/UserProvider"
 
@@ -45,6 +46,7 @@ export const HomeList = (props) => {
     setTagSelected(tagId)   //displays radio button as "selected"
   }
 
+  //fetches posts by user id, changes state variable of userSelected
   
   const filterAllPostsByUser = (userId) => {
     getPostByUser(userId)

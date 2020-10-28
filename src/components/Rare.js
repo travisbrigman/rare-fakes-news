@@ -1,3 +1,4 @@
+//main module that renders NavBar and ApplicationViews if user is logged in, or redirects to login or registration form
 import React from "react"
 import { Route, Redirect } from "react-router-dom"
 import { ApplicationViews } from "./ApplicationViews"

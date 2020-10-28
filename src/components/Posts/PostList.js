@@ -1,3 +1,4 @@
+//child of HomeList, list of all posts, user can delete only their own post
 import React, { useContext, useEffect } from "react"
 import {Link} from "react-router-dom"
 import { PostContext } from "./PostProvider"

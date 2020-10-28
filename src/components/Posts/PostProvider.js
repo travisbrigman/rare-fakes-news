@@ -1,3 +1,4 @@
+//handles all Post data- getPosts, getPostsById, getPostsByUser, getPostByTag, getTagsByPost, getPostByCat, addPost, updatePost, deletePost
 import React, { useState } from "react"
 
 export const PostContext = React.createContext()
@@ -42,12 +43,6 @@ export const PostProvider = (props) => {
             .then(setPosts)
     }
 
-    const getPostBySub = () => {
-        return fetch("http://localhost:8088/posts")
-            .then(res => res.json())
-            .then(setPosts)
-    }
-
     const addPost = post => {
         return fetch("http://localhost:8088/posts", {
             method: "POST",
@@ -80,8 +75,7 @@ export const PostProvider = (props) => {
     return (
         <PostContext.Provider value={{
             post, setPost, posts, addPost, getPosts, setPosts,
-            getPostById, updatePost,
-            getPostBySub, getPostByTag, getPostByCat, getPostByUser,
+            getPostById, updatePost, getPostByTag, getPostByCat, getPostByUser,
             deletePost, postTags, getTagsByPost
             
         }}>

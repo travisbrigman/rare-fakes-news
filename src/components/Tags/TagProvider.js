@@ -1,3 +1,4 @@
+//handles all tag data- getTags, createTag
 import React, { useState } from "react"
 
 export const TagContext = React.createContext()
