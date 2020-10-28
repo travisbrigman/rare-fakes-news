@@ -3,7 +3,6 @@ import { PostList } from "../Posts/PostList"
 import { PostContext } from "../Posts/PostProvider"
 import { CategoryContext } from "../Categories/CategoryProvider"
 import { TagContext } from "../Tags/TagProvider"
-import { TagPostContext } from "../TagPosts/TagPostProvider"
 import { UserContext } from "../Profiles/UserProvider"
 
 export const HomeList = (props) => {
@@ -12,9 +11,8 @@ export const HomeList = (props) => {
     getCategories,
   } = useContext(CategoryContext)
 
-  const { getPosts, posts, setPosts, getPostByCat, getPostByUser, getPostById } = useContext(PostContext)
+  const { getPosts, posts, setPosts, getPostByCat, getPostByUser, getPostByTag } = useContext(PostContext)
   const { tags, getTags } = useContext(TagContext)
-  const { tagPosts, getTagPosts, getTagPostByTag } = useContext(TagPostContext)
   const [categorySelected, setCategorySelected] = useState(0)
   const [tagSelected, setTagSelected] = useState(0)
 
@@ -24,7 +22,6 @@ export const HomeList = (props) => {
   useEffect(() => {
     getPosts().then(getCategories())
     getTags()
-    getTagPosts()
     getUsers()
   }, [])
 
@@ -39,35 +36,10 @@ export const HomeList = (props) => {
   }
   
    
-  const filterTagPostsByTag = (tagId) => {
-    getTagPostByTag(tagId)  //filters All TagPosts by TagId, then setTagPosts
+  const filterAllPostsByTag = (tagId) => {
+    getPostByTag(tagId)
     setTagSelected(tagId)   //displays radio button as "selected"
   }
-  
-  useEffect(() => {
-    const selectedPostIds = tagPosts.map(tp => tp.post_id)
-    const filteredPosts = posts.filter(p => p.id === 14) || {}
-
-    // const filteredPostsArray = tagPosts.map(tp => {
-    //   const postObj = posts.find(p => p.id === tp.post_id)
-    // })
-
-    let filteredPostsArray = []
-    for (tp of tagPosts) { 
-      posts.filter(p => p.id === tp.post_id)
-      filteredPostsArray.push() 
-    }
-
-    
-
-    setPosts(filteredPosts)
-
-    console.log("all posts>>",posts)
-    console.log("tagPosts>>",tagPosts)
-    console.log("selectedPostIds>",selectedPostIds)
-    console.log("filteredPosts>",filteredPosts)
-    
-}, [tagPosts])
 
   
   const filterAllPostsByUser = (userId) => {
@@ -75,6 +47,19 @@ export const HomeList = (props) => {
     setUserSelected(userId)
   }
 
+const clearFilterButton = () => {
+  return (
+    <button
+      onClick={() => {
+        getPosts().then(setPosts(posts))
+        setCategorySelected("")
+        setTagSelected("")
+        setUserSelected("")
+      }}
+    >
+      Clear Filter
+    </button>
+  )}
 
 
   return (
@@ -95,6 +80,8 @@ export const HomeList = (props) => {
             </div>
           )
         })}
+
+        <div>{clearFilterButton()}</div>
       </div>
 
       
@@ -108,12 +95,14 @@ export const HomeList = (props) => {
               value={tag.id}
               name="tags"
               checked={tagSelected === tag.id}
-              onClick={() => { filterTagPostsByTag(tag.id) }}
+              onClick={() => { filterAllPostsByTag(tag.id) }}
             />{" "}
             #{tag.tag}
             </div>
           )
         })}
+      
+        <div>{clearFilterButton()}</div>
       </div>
 
 
@@ -133,23 +122,8 @@ export const HomeList = (props) => {
             </div>
           )
         })}
-
-
-        <br></br>
-
-
-        <div>
-          <button
-            onClick={() => {
-              getPosts().then(setPosts(posts))
-              setCategorySelected("")
-              setTagSelected("")
-              setUserSelected("")
-            }}
-          >
-            Clear Filters
-          </button>
-        </div>
+      
+        <div>{clearFilterButton()}</div>
       </div>
 
 

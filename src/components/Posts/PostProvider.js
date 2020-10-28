@@ -20,10 +20,11 @@ export const PostProvider = (props) => {
     const getPostByUser = (userId) => {
         return fetch(`http://localhost:8088/posts?user_id=${userId}`)
             .then(res => res.json())
+            .then(setPosts)
     }
 
-    const getPostByTag = (tag) => {
-        return fetch(`http://localhost:8088/posts?tag_id=${tag.id}`)
+    const getPostByTag = (tagId) => {
+        return fetch(`http://localhost:8088/posts?tag_id=${tagId}`)
             .then(res => res.json())
             .then(setPosts)
     }
@@ -52,7 +53,7 @@ export const PostProvider = (props) => {
     }
 
     const updatePost = post => {
-        return fetch(`http://localhost:8088/posts/${post.id}`, {
+        return fetch(`http://localhost:8088/Posts/${post.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

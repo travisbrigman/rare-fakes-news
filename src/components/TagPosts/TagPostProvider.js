@@ -12,11 +12,11 @@ export const TagPostProvider = (props) => {
             .then(setTagPosts)
     }
     
-    const getTagPostByTag = (tagId) => {
-        return fetch(`http://localhost:8088/tagPosts?tag_id=${tagId}`)
-            .then(res => res.json())
-            .then(setTagPosts)
-    }
+    // const getTagPostByTag = (tagId) => {
+    //     return fetch(`http://localhost:8088/tagPosts?tag_id=${tagId}`)
+    //         .then(res => res.json())
+    //         .then(setTagPosts)
+    // }
     
     const createTagPost = TagPost => {
             return fetch("http://localhost:8088/tagPosts", {
@@ -35,7 +35,7 @@ export const TagPostProvider = (props) => {
                     
     return (
         <TagPostContext.Provider value={{
-            tagPost, setTagPost, tagPosts, getTagPosts, getTagPostByTag, 
+            tagPost, setTagPost, tagPosts, getTagPosts, 
             setTagPosts, createTagPost    
         }}>
             {props.children}
