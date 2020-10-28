@@ -71,7 +71,10 @@ const clearFilterButton = () => {
 
   return (
     <>
-      <div className="container--filter">
+    <section className="threeFilterContainer" 
+    style={{display: "flex", 
+    }}>
+      <div className="container--filter" style={{margin: "1rem"}}>
         <h3>Filter by Category</h3>
         {categories.map((category) => {
           return (
@@ -92,7 +95,7 @@ const clearFilterButton = () => {
       </div>
 
       
-      <div className="container--filter">
+      <div className="container--filter" style={{margin: "1rem"}}>
         <h3>Filter by Tag</h3>
         {tags.map((tag) => {
           return (
@@ -113,7 +116,7 @@ const clearFilterButton = () => {
       </div>
 
 
-      <div className="container--filter">
+      <div className="container--filter" style={{margin: "1rem"}}>
         <h3>Filter by User</h3>
         {users.map((user) => {
           return (
@@ -132,9 +135,10 @@ const clearFilterButton = () => {
       
         <div>{clearFilterButton()}</div>
       </div>
+      </section>
 
 
-      <h1>Dashboard</h1>
+      <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>Dashboard</h1>
       <PostList {...props} />
     </>
   )

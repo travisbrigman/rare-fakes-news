@@ -75,7 +75,7 @@ export const UserDetail = (props) => {
             <div>
                 {props.match.params.hasOwnProperty("userId") ?
                     <h1>{user.display_name}'s Profile</h1> :
-                    <h1>My Profile</h1>}
+                    <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</h1>}
                 <div>Full Name: {user.first_name} {user.last_name}</div>
                 {user.avatar === "" || user.avatar === undefined
                     ? <img src={defaultImg} style={{ width: `150px` }}></img>

@@ -2,6 +2,7 @@
 import React, { useContext, useEffect } from "react"
 import { ReactionContext } from "./ReactionProvider"
 import { Reaction } from "./Reaction"
+import "./Reaction.css"
 
 
 export const ReactionList = (props) => {
@@ -17,7 +18,7 @@ export const ReactionList = (props) => {
     return (
         <div style={{ margin: "1rem" }} className="reactionContainer">
             <h3>Reactions:</h3>
-            <div className="tags">
+            <div className="reactions">
                 {
                     reactions.map(reaction => <Reaction key={reaction.id} {...props} reaction={reaction} />)
                 }
