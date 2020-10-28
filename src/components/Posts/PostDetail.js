@@ -26,7 +26,12 @@ export const PostDetails = (props) => {
 
            <div>
                 {post.user.id === parseInt(localStorage.getItem("rare_user_id")) ?
+                <>
                 <div className="post_author">Author: {post.user.display_name} (you!)</div>
+                <button
+                onClick={() => props.history.push(`/posts/edit/${post.id}`)}
+                >edit</button>
+                </>
                  : <Link to={{pathname:`/profiles/${post.user.id}`}}>
                  <div className="post_author">Author: {post.user.display_name}</div>
                  </Link>}
