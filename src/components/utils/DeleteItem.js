@@ -1,19 +1,21 @@
 import React, { useState, useContext } from "react";
 import { PostContext } from "../Posts/PostProvider";
-import { UserContext } from "../Profiles/UserProvider";
 import "./DeleteItem.css"
 
 export const DeleteItem = ( {postId} ) => {
-  const { getPosts, posts, setPosts, deletePost } = useContext(PostContext);
+  const { deletePost } = useContext(PostContext);
 
-  const { loggedInUser } = useContext(UserContext);
-  
+  //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(undefined);
 
+  //toggles the CSS class name depending on if the modal is open or not
   const showHideClassName = open ? "modal display-block" : "modal display-none";
 
+  //function that is called when the delete button is clicked. 
+  //This function deletes an entry in the Post table.
+  //Lastly the function calls the close function which resets our modal state.
   const deleteThisPost = () => {
     deletePost(postId);
     onClose();

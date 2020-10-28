@@ -4,6 +4,7 @@ import { ReactionList } from "../Reactions/ReactionList";
 
 import { Link } from "react-router-dom";
 import { DeleteTagItem } from "../utils/DeleteTagItem";
+import { TagPostContext } from "../Tags/TagPostProvider";
 
 export const PostDetails = (props) => {
   const {
@@ -12,25 +13,34 @@ export const PostDetails = (props) => {
     setPost,
     getTagsByPost,
     postTags,
-    setPostTags,
   } = useContext(PostContext);
 
+  const { TagPosts } = useContext(TagPostContext)
+
+  //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
   const tagPostId = useRef(null);
   const postId = parseInt(props.match.params.postId);
 
+  //gets a post by the post ID and gets the tags associated with that post
   useEffect(() => {
     getPostById(postId).then(setPost);
-    getTagsByPost(postId).then(setPostTags);
-  }, []);
+    getTagsByPost(postId)
+  }, [TagPosts]);
 
+  //takes what is selected in the tag management dropdown and sets the state variable with that value
   const handleChange = (e) => {
-    console.log(postTags, e.target.value);
     setSelectedTagPostId(parseInt(e.target.value));
   };
 
+  //state variable and functions to show/hide the tag management feature
+  const [open, setOpen] = useState();
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(undefined);
+
   return (
     <>
+    {/* Post Detail JSX */}
       <section className="post">
         <h3 className="post__title">{post.title}</h3>
         <div className="post__content">{post.content}</div>
@@ -56,6 +66,10 @@ export const PostDetails = (props) => {
             return <div>{postTag.tag}</div>;
           })}
         </div>
+          {/* Tag Management JSX */}
+        <button onClick={onOpen}>Manage Post Tags</button>
+        {open && (
+            <>
         <select
           name="tagManagement"
           className="form-control"
@@ -69,8 +83,10 @@ export const PostDetails = (props) => {
             </option>
           ))}
         </select>
-
+        <button onClick={onClose}>Cancel</button>
         <DeleteTagItem tagPostId={selectedTagPostId} postId={postId} />
+        </>
+        )}
       </section>
       <ReactionList {...props} />
     </>
