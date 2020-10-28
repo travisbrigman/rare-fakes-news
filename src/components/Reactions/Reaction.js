@@ -4,6 +4,7 @@ import { ReactionPostContext } from "../Reactions/ReactionPostProvider"
 import { PostContext } from "../Posts/PostProvider"
 
 
+
 export const Reaction = (props) => {
     const { posts, getPosts } = useContext(PostContext)
     const { createReactionPost, getReactionPosts, ReactionPosts } = useContext(ReactionPostContext)
@@ -62,7 +63,7 @@ export const Reaction = (props) => {
 
 
             }}>{props.reaction.reaction}</button>
-            <div>{reactionCount.length}</div>
+            <div className="reactionCount">{reactionCount.length}</div>
 
         </section>
     )

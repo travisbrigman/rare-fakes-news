@@ -1,0 +1,14 @@
+.reactions{
+    display: flex;
+    flex-direction: row;
+    
+}
+.reaction {
+    margin: 1rem;
+    display: flex;
+    
+}
+
+.reactionCount{
+    margin: 0.5rem;
+}
