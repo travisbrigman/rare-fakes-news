@@ -7,7 +7,7 @@ import { TagPostContext } from "../Tags/TagPostProvider"
 
 
 export const PostForm = (props) => {
-    const {post, setPost, addPost, updatePost, getPostById} = useContext(PostContext)
+    const { addPost, updatePost, getPostById} = useContext(PostContext)
     const { categories, getCategories} = useContext(CategoryContext)
     const {tag, tags, getTags} = useContext(TagContext)
     const {createTagPost} = useContext(TagPostContext)
@@ -24,7 +24,6 @@ export const PostForm = (props) => {
         if(editMode){
             getPostById(parseInt(props.match.params.postId))
             .then(setPostObj)
-
         }
     },[]) 
 
@@ -64,7 +63,7 @@ export const PostForm = (props) => {
                 approved: 1
             })
             .then(() => {
-                props.history.push(`/home`)
+                props.history.push(`/posts/${postObj.id}`)
             })
         } else {
             addPost({
@@ -87,7 +86,7 @@ export const PostForm = (props) => {
                 })
                 Promise.all(tagPostPromises)
                 .then(() => {
-                    props.history.push(`/home`) //when complete, redirect to home
+                    props.history.push(`/posts/${postObj.id}`)
                 })
             })
         }

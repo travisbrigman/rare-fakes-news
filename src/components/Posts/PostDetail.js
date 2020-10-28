@@ -5,13 +5,12 @@ import { ReactionList } from "../Reactions/ReactionList";
 import { Link } from "react-router-dom";
 import { DeleteTagItem } from "../utils/DeleteTagItem";
 import { TagPostContext } from "../Tags/TagPostProvider";
+import { TagContext } from "../Tags/TagProvider";
 
 export const PostDetails = (props) => {
-  const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(
-    PostContext
-  );
-
-  const { TagPosts } = useContext(TagPostContext);
+  const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(PostContext);
+  const {tag, tags, getTags} = useContext(TagContext)
+  const { TagPosts, createTagPost } = useContext(TagPostContext);
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
@@ -20,6 +19,7 @@ export const PostDetails = (props) => {
 
   //gets a post by the post ID and gets the tags associated with that post
   useEffect(() => {
+    getTags()
     getPostById(postId).then(setPost);
     getTagsByPost(postId);
   }, [TagPosts]);
@@ -29,10 +29,34 @@ export const PostDetails = (props) => {
     setSelectedTagPostId(parseInt(e.target.value));
   };
 
+
+  //filters tags that haven't been selected yet to be options for adding
+
+  const [filteredTags, setFilteredTags] = useState([])
+  useEffect(() => {
+    const tagIDs = tags.map(t => t.id)
+    const postTagIDs = postTags.map(pt => pt.id)
+    const diffIDs = tagIDs.filter(t => !postTagIDs.includes(t))
+    const filteredTagObjs = diffIDs.map(id => {
+        return tags.find(t => t.id === id)
+        })
+    setFilteredTags(filteredTagObjs)
+  },[postTags])
+
   //state variable and functions to show/hide the tag management feature
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(undefined);
+
+  //IDs of tags to be added get stored in this variable
+  const [stateTagIDArr, setTagIDArr] = useState([])
+
+  const handleAddTags = (browserEvent) => {  
+    const stateCopyID = stateTagIDArr.slice()
+    let newTagItem = parseInt(browserEvent.target.value)
+     stateCopyID.push(newTagItem)
+    setTagIDArr(stateCopyID)    
+}
 
   return (
     <>
@@ -80,7 +104,7 @@ export const PostDetails = (props) => {
               ref={tagPostId}
               onChange={handleChange}
             >
-              <option value="0">Select a Tag</option>
+              <option value="0">Select a Tag To Delete</option>
               {postTags.map((tag) => (
                 <option key={tag.id} value={tag.tagPost.id}>
                   {tag.tag}
@@ -89,6 +113,46 @@ export const PostDetails = (props) => {
             </select>
             <button onClick={onClose}>Cancel</button>
             <DeleteTagItem tagPostId={selectedTagPostId} postId={postId} />
+            <select
+              name="tagManagement"
+              className="form-control"
+              value={tag.id}
+              onChange={handleAddTags}
+            >
+              <option value="0">Select a Tag To Add</option>
+              {filteredTags.map(t => (
+                <option key={t.id} value={t.id}>
+                  {t.tag}
+                </option>
+              ))}
+            </select>
+            <div>
+                { stateTagIDArr.length === 0 ? "" : 
+                stateTagIDArr.map(t => {
+                    const tagObj = tags.find(tag => tag.id === t)
+                return <div key={tagObj.id}>{tagObj.tag}
+                <button onClick={(evt) =>{
+                    evt.preventDefault()
+                    const arrCopyID = stateTagIDArr.slice()
+                    const index = arrCopyID.indexOf(tagObj.id)
+                    arrCopyID.splice(index, 1)
+                    setTagIDArr(arrCopyID)  
+                }}>x</button>
+                </div>
+                })
+                }
+            </div>
+            <button onClick={onClose}>Cancel</button>
+            <button onClick={(evt) => {
+                evt.preventDefault()
+                stateTagIDArr.map(t => {
+                    createTagPost({
+                       tag_id: t,
+                       post_id: post.id
+                   })
+               })
+               onClose()
+            }}>ADD</button>
           </>
         )}
       </section>
