@@ -27,7 +27,7 @@ export const ApplicationViews = (props) => {
           margin: "5rem 2rem",
           lineHeight: "1.75rem",
         }}
-      ></main>
+      >
       {/****** HOME ***** POST FORM & DETAILS ******* MY POSTS ******* */}
       <ReactionPostProvider>
         <ReactionProvider>
@@ -91,6 +91,8 @@ export const ApplicationViews = (props) => {
         <Route exact path="/categories/create" render={
           (props) => <CategoryForm {...props} />} />
       </CategoryProvider>
+      </main>
     </>
+    
   );
 };

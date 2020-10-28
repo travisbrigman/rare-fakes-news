@@ -58,7 +58,7 @@ export const PostDetails = (props) => {
               <button onClick={onOpen}>Manage Post Tags</button>
             </>
           ) : (
-            <Link to={{ pathname: `/profiles/${post.user.id}` }}>
+            <Link to={{ pathname: `/profiles/${post.user_id}` }}>
               <div className="post_author">
                 Author: {post.user.display_name}
               </div>
