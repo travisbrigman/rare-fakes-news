@@ -5,7 +5,7 @@ import { UserContext } from "../Profiles/UserProvider"
 import { DeleteItem } from "../utils/DeleteItem";
 
 export const UsersPosts = (props) => {
-  const { getPosts, posts, setPosts, getPostByUser } = useContext(PostContext);
+  const { posts, getPostByUser } = useContext(PostContext);
   const { loggedInUser } = useContext(UserContext);
 
 
@@ -13,12 +13,20 @@ export const UsersPosts = (props) => {
 
   useEffect(() => {
     getPostByUser(loggedInUser)
-  }, [posts]);
+  }, []);
+
+
+  useEffect(() => {
+    const filteredPostsByUser = posts.filter(
+      (post) => post.user_id === loggedInUser
+    );
+    setUsersPosts(filteredPostsByUser);
+  }, [posts, loggedInUser]);
 
   return (
     <>
       <h2>My Posts</h2>
-      {posts.map((p) => {
+      {usersPosts.map((p) => {
         return (
           <div key={p.id}>
             <p>
