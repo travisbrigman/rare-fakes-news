@@ -48,9 +48,17 @@ export const HomeList = (props) => {
     const selectedPostIds = tagPosts.map(tp => tp.post_id)
     const filteredPosts = posts.filter(p => p.id === 14) || {}
 
-    const filteredPostsArray = tagPosts.map(tp => {
-      const postObj = posts.find(p => p.id === tp.post_id)
-    })
+    // const filteredPostsArray = tagPosts.map(tp => {
+    //   const postObj = posts.find(p => p.id === tp.post_id)
+    // })
+
+    let filteredPostsArray = []
+    for (tp of tagPosts) { 
+      posts.filter(p => p.id === tp.post_id)
+      filteredPostsArray.push() 
+    }
+
+    
 
     setPosts(filteredPosts)
 
