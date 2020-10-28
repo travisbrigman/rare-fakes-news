@@ -86,7 +86,7 @@ export const PostForm = (props) => {
                 })
                 Promise.all(tagPostPromises)
                 .then(() => {
-                    props.history.push(`/home`)
+                    props.history.push(`/posts/${postObj.id}`)
                 })
             })
         }
