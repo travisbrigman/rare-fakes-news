@@ -20,7 +20,6 @@ export const PostProvider = (props) => {
     const getPostByUser = (userId) => {
         return fetch(`http://localhost:8088/posts?user_id=${userId}`)
             .then(res => res.json())
-            .then(setPosts)
     }
 
     const getPostByTag = (tag) => {
@@ -53,7 +52,7 @@ export const PostProvider = (props) => {
     }
 
     const updatePost = post => {
-        return fetch(`http://localhost:8088/Posts/${post.id}`, {
+        return fetch(`http://localhost:8088/posts/${post.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
