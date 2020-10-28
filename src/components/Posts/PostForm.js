@@ -6,7 +6,7 @@ import { TagPostContext } from "../Tags/TagPostProvider"
 
 
 export const PostForm = (props) => {
-    const {post, setPost, addPost, updatePost, getPostById} = useContext(PostContext)
+    const { addPost, updatePost, getPostById} = useContext(PostContext)
     const { categories, getCategories} = useContext(CategoryContext)
     const {tag, tags, getTags} = useContext(TagContext)
     const {createTagPost} = useContext(TagPostContext)
