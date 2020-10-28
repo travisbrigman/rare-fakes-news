@@ -5,7 +5,7 @@ export const PostContext = React.createContext()
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([])  
     const [post, setPost] = useState({user:{}})
-    const [postTags, setPostTags] = useState([])
+    const [postTags, setPostTags] = useState([{tagPost:{}}])
 
     const getPosts = () => {
         return fetch("http://localhost:8088/posts")

@@ -5,7 +5,7 @@ import { UserContext } from "../Profiles/UserProvider"
 import { DeleteItem } from "../utils/DeleteItem";
 
 export const UsersPosts = (props) => {
-  const { getPosts, posts, setPosts, getPostByUser } = useContext(PostContext);
+  const { posts, getPostByUser } = useContext(PostContext);
   const { loggedInUser } = useContext(UserContext);
 
 
@@ -15,7 +15,6 @@ export const UsersPosts = (props) => {
     getPostByUser(loggedInUser)
   }, []);
 
-  
 
   useEffect(() => {
     const filteredPostsByUser = posts.filter(
@@ -27,11 +26,13 @@ export const UsersPosts = (props) => {
   return (
     <>
       <h2>My Posts</h2>
-      {posts.map((p) => {
+      {usersPosts.map((p) => {
         return (
           <div key={p.id}>
             <p>
+              <Link to={{pathname:`posts/${p.id}`}}>
               <strong>{p.title}</strong>
+              </Link>
             </p>
             <p>{p.user.display_name}</p>
             <p>{p.category.type}</p>
