@@ -7,15 +7,11 @@ import { DeleteTagItem } from "../utils/DeleteTagItem";
 import { TagPostContext } from "../Tags/TagPostProvider";
 
 export const PostDetails = (props) => {
-  const {
-    getPostById,
-    post,
-    setPost,
-    getTagsByPost,
-    postTags,
-  } = useContext(PostContext);
+  const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(
+    PostContext
+  );
 
-  const { TagPosts } = useContext(TagPostContext)
+  const { TagPosts } = useContext(TagPostContext);
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
@@ -25,7 +21,7 @@ export const PostDetails = (props) => {
   //gets a post by the post ID and gets the tags associated with that post
   useEffect(() => {
     getPostById(postId).then(setPost);
-    getTagsByPost(postId)
+    getTagsByPost(postId);
   }, [TagPosts]);
 
   //takes what is selected in the tag management dropdown and sets the state variable with that value
@@ -40,7 +36,7 @@ export const PostDetails = (props) => {
 
   return (
     <>
-    {/* Post Detail JSX */}
+      {/* Post Detail JSX */}
       <section className="post">
         <h3 className="post__title">{post.title}</h3>
         <div className="post__content">{post.content}</div>
@@ -49,10 +45,17 @@ export const PostDetails = (props) => {
         </div>
 
         <div>
-          {post.user.id === parseInt(localStorage.getItem("rare_user_id")) ? (
-            <div className="post_author">
-              Author: {post.user.display_name} (you!)
-            </div>
+          {post.user_id === parseInt(localStorage.getItem("rare_user_id")) ? (
+            <>
+              <div className="post_author">
+                Author: {post.user.display_name} (you!)
+              </div>
+              <button
+                onClick={() => props.history.push(`/posts/edit/${post.id}`)}
+              >
+                edit
+              </button>
+            </>
           ) : (
             <Link to={{ pathname: `/profiles/${post.user.id}` }}>
               <div className="post_author">
@@ -66,26 +69,26 @@ export const PostDetails = (props) => {
             return <div>{postTag.tag}</div>;
           })}
         </div>
-          {/* Tag Management JSX */}
+        {/* Tag Management JSX */}
         <button onClick={onOpen}>Manage Post Tags</button>
         {open && (
-            <>
-        <select
-          name="tagManagement"
-          className="form-control"
-          ref={tagPostId}
-          onChange={handleChange}
-        >
-          <option value="0">Select a Tag</option>
-          {postTags.map((tag) => (
-            <option key={tag.id} value={tag.tagPost.id}>
-              {tag.tag}
-            </option>
-          ))}
-        </select>
-        <button onClick={onClose}>Cancel</button>
-        <DeleteTagItem tagPostId={selectedTagPostId} postId={postId} />
-        </>
+          <>
+            <select
+              name="tagManagement"
+              className="form-control"
+              ref={tagPostId}
+              onChange={handleChange}
+            >
+              <option value="0">Select a Tag</option>
+              {postTags.map((tag) => (
+                <option key={tag.id} value={tag.tagPost.id}>
+                  {tag.tag}
+                </option>
+              ))}
+            </select>
+            <button onClick={onClose}>Cancel</button>
+            <DeleteTagItem tagPostId={selectedTagPostId} postId={postId} />
+          </>
         )}
       </section>
       <ReactionList {...props} />
