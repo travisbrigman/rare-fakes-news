@@ -1,38 +1,60 @@
-import React, { useState } from "react"
+import React, { useState, useContext } from "react";
+import { PostContext } from "../Posts/PostProvider";
 
-export const TagPostContext = React.createContext()
+export const TagPostContext = React.createContext();
+
 
 export const TagPostProvider = (props) => {
-    const [TagPosts, setTagPosts] = useState([])
-    const [TagPost, setTagPost] = useState({})
+    const [TagPosts, setTagPosts] = useState([]);
+    const [TagPost, setTagPost] = useState({});
 
-    const getTagPosts = () => {
-        return fetch("http://localhost:8088/tagPosts")
-            .then(res => res.json())
-            .then(setTagPosts)
-    }    
+    const { getTagsByPost } = useContext(PostContext);
     
-    const createTagPost = TagPost => {
-            return fetch("http://localhost:8088/tagPosts", {
-                    method: "POST",
-                    headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(TagPost)
-                    })
-                       .then(res => res.json())
-                        .then(newTagPost => {
-                                getTagPosts()
-                               return newTagPost.id })      
-                    }
-                    
-                    
-                    return (
-                        <TagPostContext.Provider value={{
-                            TagPost, setTagPost, TagPosts, getTagPosts, 
-                            setTagPosts, createTagPost    
-                        }}>
-            {props.children}
-        </TagPostContext.Provider>
-    )
+
+  const getTagPosts = () => {
+    return fetch("http://localhost:8088/tagPosts")
+      .then((res) => res.json())
+      .then(setTagPosts);
+  };
+
+  const createTagPost = (TagPost) => {
+    return fetch("http://localhost:8088/tagPosts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(TagPost),
+    })
+      .then((res) => res.json())
+      .then((newTagPost) => {
+        getTagPosts();
+        return newTagPost.id;
+      });
+  };
+
+  const deleteTagPost = (tagPostId, postId) => {
+    return fetch(`http://localhost:8088/TagPosts/${tagPostId}`, {
+        method: "DELETE"
+    })
+    .then(getTagPosts)
+    .then(getTagsByPost(postId))
 }
+
+
+
+  return (
+    <TagPostContext.Provider
+      value={{
+        TagPost,
+        setTagPost,
+        TagPosts,
+        getTagPosts,
+        setTagPosts,
+        createTagPost,
+        deleteTagPost
+      }}
+    >
+      {props.children}
+    </TagPostContext.Provider>
+  );
+};

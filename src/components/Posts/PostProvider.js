@@ -5,6 +5,7 @@ export const PostContext = React.createContext()
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([])  
     const [post, setPost] = useState({user:{}})
+    const [postTags, setPostTags] = useState([])
 
     const getPosts = () => {
         return fetch("http://localhost:8088/posts")
@@ -20,12 +21,19 @@ export const PostProvider = (props) => {
     const getPostByUser = (userId) => {
         return fetch(`http://localhost:8088/posts?user_id=${userId}`)
             .then(res => res.json())
+            .then(setPosts)
     }
 
     const getPostByTag = (tag) => {
         return fetch(`http://localhost:8088/posts?tag_id=${tag.id}`)
             .then(res => res.json())
             .then(setPosts)
+    }
+
+    const getTagsByPost = (postId) => {
+        return fetch(`http://localhost:8088/tags?post_id=${postId}`)
+            .then(res => res.json())
+            .then(setPostTags)
     }
 
     const getPostByCat = (categoryId) => {
@@ -74,7 +82,7 @@ export const PostProvider = (props) => {
             post, setPost, posts, addPost, getPosts, setPosts,
             getPostById, updatePost,
             getPostBySub, getPostByTag, getPostByCat, getPostByUser,
-            deletePost
+            deletePost, postTags, getTagsByPost
             
         }}>
             {props.children}

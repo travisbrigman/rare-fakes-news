@@ -11,7 +11,6 @@ export const UserDetail = (props) => {
             unSubscribe, createSubscription, 
                     subscribeAgain } = useContext(SubscriptionContext)
     const [subStatus, setSubStatus] = useState(false)
-
     useEffect(() => {
         if (props.match.params.hasOwnProperty("userId")) {
             getUserById(parseInt(props.match.params.userId))

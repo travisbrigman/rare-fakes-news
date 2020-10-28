@@ -3,21 +3,28 @@ import React, { useEffect, useContext } from "react";
 import { CategoryContext } from "./CategoryProvider";
 
 export const CategoryForm = (props) => {
-  const { categories, category, getCategories, createCategory, setCategory } = useContext(
+  const { category, getCategories, createCategory, setCategory } = useContext(
     CategoryContext
   );
 
+  //function that is called when a change happens in the form. It sets the state variable that is imported via context.
+  //whatever the value that goes in the input (the evt) is being written as single property object with a key of 'type'
+  //and the value of the form input
   function handleChange(evt) {
     setCategory({ type: evt.target.value });
   }
 
+  //gets the categories from the database
   useEffect(() => {
     getCategories();
   }, []);
 
+  //function that is called on click of the submit button
+  //create category writes a new category object to the database.
+  //the category it writes is derived from the state variable that is imported from context
+  //lastly, once the category is created, we are redirected to the categories page
   const constructNewCategory = () => {
-      createCategory(category)
-      .then(() => props.history.push("/categories"));
+    createCategory(category).then(() => props.history.push("/categories"));
   };
 
   return (

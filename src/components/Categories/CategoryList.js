@@ -11,16 +11,19 @@ export const CategoryList = (props) => {
     setCategory,
   } = useContext(CategoryContext);
 
+  //gets the categories from the database
   useEffect(() => {
     getCategories();
   }, []);
 
+  //this function is called on the click of the '+category' button
+  // it takes us to a new route where a category creation form is rendered
   const toCreateCreateCategory = () => {
     props.history.push("/categories/create");
   };
 
   return (
-    <div style={{ marginTop: "2rem"}}>
+    <div style={{ marginTop: "2rem" }}>
       <h3>Categories</h3>
       <div className="categoryList">
         {categories.map((categoryObject) => {
