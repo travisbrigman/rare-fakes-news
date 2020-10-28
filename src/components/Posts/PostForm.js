@@ -23,7 +23,6 @@ export const PostForm = (props) => {
         if(editMode){
             getPostById(parseInt(props.match.params.postId))
             .then(setPostObj)
-
         }
     },[]) 
 
@@ -63,7 +62,7 @@ export const PostForm = (props) => {
                 approved: 1
             })
             .then(() => {
-                props.history.push(`/home`)
+                props.history.push(`/posts/${postObj.id}`)
             })
         } else {
             addPost({
