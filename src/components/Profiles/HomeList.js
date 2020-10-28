@@ -12,7 +12,7 @@ export const HomeList = (props) => {
     getCategories,
   } = useContext(CategoryContext)
 
-  const { getPosts, posts, setPosts, getPostByCat, getPostByUser } = useContext(PostContext)
+  const { getPosts, posts, setPosts, getPostByCat, getPostByUser, getPostById } = useContext(PostContext)
   const { tags, getTags } = useContext(TagContext)
   const { tagPosts, getTagPosts, getTagPostByTag } = useContext(TagPostContext)
   const [categorySelected, setCategorySelected] = useState(0)
@@ -38,40 +38,35 @@ export const HomeList = (props) => {
     setCategorySelected(catId)
   }
   
-useEffect(() => {
-
-}, [tagPosts])
- 
-  const filterAllPostsByTag = (tagId) => {
-    getTagPostByTag(tagId)
-    .then(console.log("tagPosts>>",tagPosts))
-    //displays radio button as "selected"
-    setTagSelected(tagId)
-    
-    // getPostByTag(tagId)
+   
+  const filterTagPostsByTag = (tagId) => {
+    getTagPostByTag(tagId)  //filters All TagPosts by TagId, then setTagPosts
+    setTagSelected(tagId)   //displays radio button as "selected"
   }
+  
+  useEffect(() => {
+    const selectedPostIds = tagPosts.map(tp => tp.post_id)
+    const filteredPosts = posts.filter(p => p.id === 14) || {}
+
+    const filteredPostsArray = tagPosts.map(tp => {
+      const postObj = posts.find(p => p.id === tp.post_id)
+    })
+
+    setPosts(filteredPosts)
+
+    console.log("all posts>>",posts)
+    console.log("tagPosts>>",tagPosts)
+    console.log("selectedPostIds>",selectedPostIds)
+    console.log("filteredPosts>",filteredPosts)
+    
+}, [tagPosts])
 
   
   const filterAllPostsByUser = (userId) => {
     getPostByUser(userId)
     setUserSelected(userId)
   }
-  
-  // refactored "Clear Filter" button as a function to be used to reset all filters
-  const clearFilterButton = () => {
-    return (
-      <button
-        onClick={() => {
-          getPosts().then(setPosts(posts))
-          setCategorySelected("")
-          setTagSelected("")
-          setUserSelected("")
-        }}
-      >
-        Clear Filter
-      </button>
-    )
-  }
+
 
 
   return (
@@ -92,11 +87,6 @@ useEffect(() => {
             </div>
           )
         })}
-
-
-        <div>
-          {clearFilterButton()}
-        </div>
       </div>
 
       
@@ -110,16 +100,12 @@ useEffect(() => {
               value={tag.id}
               name="tags"
               checked={tagSelected === tag.id}
-              onClick={() => { filterAllPostsByTag(tag.id) }}
+              onClick={() => { filterTagPostsByTag(tag.id) }}
             />{" "}
             #{tag.tag}
             </div>
           )
         })}
-
-        <div>
-            {clearFilterButton()}
-        </div>
       </div>
 
 
@@ -140,8 +126,21 @@ useEffect(() => {
           )
         })}
 
+
+        <br></br>
+
+
         <div>
-          {clearFilterButton()}
+          <button
+            onClick={() => {
+              getPosts().then(setPosts(posts))
+              setCategorySelected("")
+              setTagSelected("")
+              setUserSelected("")
+            }}
+          >
+            Clear Filters
+          </button>
         </div>
       </div>
 
