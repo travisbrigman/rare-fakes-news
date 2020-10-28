@@ -19,6 +19,10 @@ export const DeleteTagItem = (props) => {
     onClose();
   };
 
+
+  //TODO- make tags react to change
+  //TODO- make tag management (dropdown and delete) appear when clicking on tag managment button
+  //TODO- add tag management button
   return (
     <>
       <button onClick={onOpen}>DELETE</button>
