@@ -55,6 +55,7 @@ export const PostDetails = (props) => {
               >
                 edit
               </button>
+              <button onClick={onOpen}>Manage Post Tags</button>
             </>
           ) : (
             <Link to={{ pathname: `/profiles/${post.user.id}` }}>
@@ -70,7 +71,7 @@ export const PostDetails = (props) => {
           })}
         </div>
         {/* Tag Management JSX */}
-        <button onClick={onOpen}>Manage Post Tags</button>
+       
         {open && (
           <>
             <select
