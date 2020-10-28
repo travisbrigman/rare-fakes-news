@@ -1,9 +1,11 @@
 import React, { useState, useContext } from "react";
 import { PostContext } from "../Posts/PostProvider";
-import "./DeleteItem.css"
+import { TagPostContext } from "../Tags/TagPostProvider";
+import "./DeleteItem.css";
 
-export const DeleteItem = ( {postId} ) => {
-  const { deletePost } = useContext(PostContext);
+export const DeleteTagItem = (props) => {
+  const { deleteTagPost } = useContext(TagPostContext);
+  const { setPostTags } = useContext(PostContext);
 
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
@@ -14,10 +16,10 @@ export const DeleteItem = ( {postId} ) => {
   const showHideClassName = open ? "modal display-block" : "modal display-none";
 
   //function that is called when the delete button is clicked. 
-  //This function deletes an entry in the Post table.
+  //This function deletes an entry in the TagPost table.
   //Lastly the function calls the close function which resets our modal state.
-  const deleteThisPost = () => {
-    deletePost(postId);
+  const deleteThisTag = () => {
+    deleteTagPost(props.tagPostId, props.postId ).then(setPostTags);
     onClose();
   };
 
@@ -27,12 +29,13 @@ export const DeleteItem = ( {postId} ) => {
       {open && (
         <div className={showHideClassName}>
           <div className="modal-main">
-            <h3>
-              Confirm
-            </h3>
+            <h3>Confirm</h3>
             <p>Are you sure you want to delete?</p>
             <div>
-              <button onClick={deleteThisPost}> <strong>Delete</strong></button>
+              <button onClick={deleteThisTag}>
+                {" "}
+                <strong>Delete</strong>
+              </button>
               <button onClick={onClose}> Cancel </button>
             </div>
           </div>

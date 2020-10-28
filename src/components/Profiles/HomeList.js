@@ -13,12 +13,14 @@ export const HomeList = (props) => {
 
   const { getPosts, posts, setPosts, getPostByCat, getPostByUser, getPostByTag } = useContext(PostContext)
   const { tags, getTags } = useContext(TagContext)
+  //state variable that tracks what category is selected in the radio buttons
   const [categorySelected, setCategorySelected] = useState(0)
   const [tagSelected, setTagSelected] = useState(0)
 
   const { users, getUsers } = useContext(UserContext)
   const [userSelected, setUserSelected] = useState(0)
 
+  //useEffects to fetch posts, categories, users
   useEffect(() => {
     getPosts().then(getCategories())
     getTags()
@@ -29,7 +31,9 @@ export const HomeList = (props) => {
     setPosts(posts)
   }, [posts])
 
-
+//triggered when a user clicks the various category radio buttons
+//fires off a database call that fetches posts by the category id associated with them
+//changes the state of the categorySelected state variable
   const filterAllPostsByCat = (catId) => {
     getPostByCat(catId)
     setCategorySelected(catId)
@@ -47,6 +51,7 @@ export const HomeList = (props) => {
     setUserSelected(userId)
   }
 
+//resets the state variables tracking the radio buttons
 const clearFilterButton = () => {
   return (
     <button
