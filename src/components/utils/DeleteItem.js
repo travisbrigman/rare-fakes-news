@@ -1,8 +1,9 @@
+//delete button component with confirmation modal
 import React, { useState, useContext } from "react";
 import { PostContext } from "../Posts/PostProvider";
 import "./DeleteItem.css"
 
-export const DeleteItem = ( {postId} ) => {
+export const DeleteItem = ({ postId }) => {
   const { deletePost } = useContext(PostContext);
 
   //state variable and functions that change state of the state variable

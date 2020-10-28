@@ -1,3 +1,4 @@
+//login page
 import React, { useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
 import "./Auth.css"
@@ -9,13 +10,14 @@ export const Login = (props) => {
     const invalidDialog = useRef()
     const history = useHistory()
 
+    // see if user already exists
     const existingUserCheck = () => {
         return fetch(`http://localhost:8088/users?email=${email.current.value}`)
             .then(res => {
                 return res.json()
             })
             .then(user => {
-               return user !== undefined ? user : false
+                return user !== undefined ? user : false
             })
     }
 
@@ -30,9 +32,9 @@ export const Login = (props) => {
                 } else if (exists && exists.password !== password.current.value) {
                     invalidDialog.current.showModal()
                 } else if (!exists) {
-                   invalidDialog.current.showModal()
+                    invalidDialog.current.showModal()
                 }
-                
+
             })
     }
 
@@ -61,7 +63,7 @@ export const Login = (props) => {
             </section>
             <section className="link--register">
                 <div>Not a member yet?</div>
-                <Link to="/register">Register Here</Link>
+                <Link to="/register">Register Here</Link> 
             </section>
         </main>
     )

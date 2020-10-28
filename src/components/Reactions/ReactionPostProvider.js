@@ -1,5 +1,5 @@
+//module to handle all data manipulation of ReactionPost objects- getReactionPosts, createReactionPosts
 import React, { useState } from "react"
-
 export const ReactionPostContext = React.createContext()
 
 export const ReactionPostProvider = (props) => {
@@ -22,7 +22,7 @@ export const ReactionPostProvider = (props) => {
         })
             .then(res => res.json())
             .then(getReactionPosts)
-           
+
     }
 
 

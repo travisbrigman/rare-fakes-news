@@ -1,6 +1,5 @@
+//module to handle all user data- getUsers, getUserById, getUserByEmail
 import React, { useState } from "react"
- 
-
 export const UserContext = React.createContext();
 
 export const UserProvider = (props) => {

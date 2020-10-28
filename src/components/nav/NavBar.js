@@ -1,3 +1,4 @@
+//renders nav links that redirect user to various paths
 import React from "react"
 import { Link, useHistory } from "react-router-dom"
 import "./NavBar.css"
@@ -19,9 +20,6 @@ export const NavBar = () => {
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/profile">My Profile</Link>
-            </li>
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/subscriptions">My Subscriptions</Link>
             </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/tags">Tag Management</Link>

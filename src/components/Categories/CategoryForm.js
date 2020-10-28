@@ -1,5 +1,5 @@
+//Form to let user create a new category
 import React, { useEffect, useContext } from "react";
-
 import { CategoryContext } from "./CategoryProvider";
 
 export const CategoryForm = (props) => {

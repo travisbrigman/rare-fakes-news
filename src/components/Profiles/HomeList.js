@@ -1,3 +1,4 @@
+//list of posts that renders on /home and lets user filter by category, tag, and user
 import React, { useContext, useEffect, useState } from "react";
 import { PostList } from "../Posts/PostList";
 import { PostContext } from "../Posts/PostProvider";
@@ -36,6 +37,7 @@ export const HomeList = (props) => {
     setCategorySelected(catId)
   };
 
+  //fetches posts by user id, changes state variable of userSelected
   const filterAllPostsByUser = (userId) => {
     getPostByUser(userId)
     setUserSelected(userId)

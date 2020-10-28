@@ -1,3 +1,4 @@
+//form to create a new tag
 import React, { useContext, useEffect } from "react"
 import { TagContext } from "./TagProvider"
 
@@ -6,8 +7,6 @@ import { TagContext } from "./TagProvider"
 export const TagForm = (props) => {
     // Use the required context providers for data
     const { tags, getTags, createTag, tag, setTag } = useContext(TagContext)
-
-
 
     const handleControlledInputChange = (event) => {
         /*
@@ -19,21 +18,21 @@ export const TagForm = (props) => {
         setTag(newTag)                                 // Set copy as new state
     }
 
-    // Get animals from API when component initializes
+    // Get tags from API when component initializes
     useEffect(() => {
         getTags()
     }, [])
 
 
     const constructNewTag = () => {
-                // POST
-                createTag({
-                    tag: tag.tag
-                })
-                    .then(() => props.history.push("/tags")) //takes user to tag list page
-            }
-    
-    
+        // POST
+        createTag({
+            tag: tag.tag
+        })
+            .then(() => props.history.push("/tags")) //takes user to tag list page
+    }
+
+
 
     return (
         <form className="tagForm">

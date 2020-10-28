@@ -1,28 +1,28 @@
-import React, { useState, useContext, useEffect } from "react"
+//child component of PostDetails, renders list of reactions by mapping through all found in the DB
+import React, { useContext, useEffect } from "react"
 import { ReactionContext } from "./ReactionProvider"
-import {Reaction} from "./Reaction"
-
+import { Reaction } from "./Reaction"
 
 
 export const ReactionList = (props) => {
-    const { getReactions, reactions} = useContext(ReactionContext)
-   
+    const { getReactions, reactions } = useContext(ReactionContext)
+
 
     // Initialization effect hook -> Go get tag data
     useEffect(() => {
         getReactions()
-       
+
     }, [])
 
     return (
-        <div style={{ margin: "1rem"}} className="reactionContainer">
+        <div style={{ margin: "1rem" }} className="reactionContainer">
             <h3>Reactions:</h3>
             <div className="tags">
                 {
-                    reactions.map(reaction => <Reaction key={reaction.id} {...props} reaction={reaction}/>)
+                    reactions.map(reaction => <Reaction key={reaction.id} {...props} reaction={reaction} />)
                 }
             </div>
-           
+
         </div>
     )
 }

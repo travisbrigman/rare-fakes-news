@@ -1,3 +1,4 @@
+//handles all TagPost object data- getTagPosts, createTagPost, deleteTagPost
 import React, { useState, useContext } from "react";
 import { PostContext } from "../Posts/PostProvider";
 

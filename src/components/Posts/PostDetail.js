@@ -1,7 +1,7 @@
+//displays details of a post, lets use add reactions (maximum one of each) to post, lets user edit post if they are the author, or see author's profile if it was written by another user
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "./PostProvider";
 import { ReactionList } from "../Reactions/ReactionList";
-
 import { Link } from "react-router-dom";
 import { DeleteTagItem } from "../utils/DeleteTagItem";
 import { TagPostContext } from "../Tags/TagPostProvider";
@@ -92,7 +92,7 @@ export const PostDetails = (props) => {
           </>
         )}
       </section>
-      <ReactionList {...props} />
+      <ReactionList {...props} />{/*Renders ReactionList*/}
     </>
   );
 };

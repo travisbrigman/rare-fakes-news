@@ -1,3 +1,4 @@
+//Register form for new user
 import React, { useRef } from "react"
 import { Link } from "react-router-dom"
 import "./Auth.css"
@@ -33,12 +34,12 @@ export const Register = (props) => {
                     "Content-Type": "application/json",
                     "Accept": "application/json"
                 },
-                body: JSON.stringify(newUser)
+                body: JSON.stringify(newUser) //adds new user to the db
             })
                 .then(res => res.json())
                 .then(res => {
                         localStorage.setItem("rare_user_id", res.id)
-                        props.history.push("/home")
+                        props.history.push("/home") //redirects to home page
                     })
                 
         } else {

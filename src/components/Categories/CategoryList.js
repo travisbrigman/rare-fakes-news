@@ -1,14 +1,11 @@
+//list of categories the user has created
 import React, { useEffect, useContext } from "react";
-
 import { CategoryContext } from "./CategoryProvider";
 
 export const CategoryList = (props) => {
   const {
     categories,
-    category,
-    getCategories,
-    createCategory,
-    setCategory,
+    getCategories
   } = useContext(CategoryContext);
 
   //gets the categories from the database

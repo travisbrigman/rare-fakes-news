@@ -1,3 +1,4 @@
+//renders each imported component depending on the URl path 
 import React from "react";
 import { Route } from "react-router-dom";
 import { HomeList } from "./Profiles/HomeList";
@@ -51,7 +52,7 @@ export const ApplicationViews = (props) => {
                       <Route path="/posts/:postId(\d+)"
                         render={(props) => <PostDetails {...props} />}
                       />
-                      <Route path="/profiles/:userId(\d+)" 
+                      <Route path="/profiles/:userId(\d+)"
                         render={props => <UserDetail {...props} />}
                       />
                     </SubscriptionProvider>
@@ -62,14 +63,16 @@ export const ApplicationViews = (props) => {
           </UserProvider>
         </ReactionProvider>
       </ReactionPostProvider>
-   
-   
+
+      {/************TAG MANAGEMENT****************** */}
       <TagProvider>
         <Route exact path="/tags/create" render={(props) => {
-          return <TagForm {...props} /> }}
+          return <TagForm {...props} />
+        }}
         />
         <Route exact path="/tags" render={(props) => {
-          return <TagList {...props} /> }}
+          return <TagList {...props} />
+        }}
         />
       </TagProvider>
 
@@ -81,13 +84,13 @@ export const ApplicationViews = (props) => {
         </SubscriptionProvider>
       </UserProvider>
 
-      {/************** CATEGORY MANAGEMENT ************* */ }
+      {/************** CATEGORY MANAGEMENT ************* */}
       <CategoryProvider>
         <Route exact path="/categories" render={
-            (props) => <CategoryList {...props} />} />
+          (props) => <CategoryList {...props} />} />
         <Route exact path="/categories/create" render={
           (props) => <CategoryForm {...props} />} />
       </CategoryProvider>
-  </>
+    </>
   );
 };
