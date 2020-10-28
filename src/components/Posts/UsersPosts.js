@@ -1,5 +1,6 @@
 //shows user their own posts in MyPosts view, allows them to delete a post
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
 import { UserContext } from "../Profiles/UserProvider"
 import { DeleteItem } from "../utils/DeleteItem";
