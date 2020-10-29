@@ -51,7 +51,7 @@ fieldset {
     min-height: 25rem;
     min-width: 45rem;
     padding: 0 5rem;
-    background-color: hsla(0,0%,100%,0.75);
+    background-color: #D4F7F0;
     background-blend-mode: overlay;
     background-repeat: no-repeat;
 }
