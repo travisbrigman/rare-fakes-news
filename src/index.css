@@ -2,6 +2,10 @@
 /*Typography
 --------------------------------------------------------------*/
 
+body {
+	background-color: #D4F7F0;
+}
+
 body, button, input, select, textarea {
     color: #404040;
     font-family: "Comfortaa", Arial, sans-serif;
@@ -19,23 +23,6 @@ h1, h2, h3, h4, h5, h6 {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
-
-.fakeLink {
-    color: -webkit-link;
-    cursor: pointer;
-    text-decoration: underline;
-    background: none!important;
-    border: none;
-    cursor: pointer;
-}
-
-.fakeLink:hover {
-    font-weight: bold;
-}
-
-.nav-item {
-    list-style-type: none;
 }
 
 /* General button style */
@@ -200,3 +187,31 @@ code {
 	content: "🔓";
 }
 
+button {
+	background: transparent;
+	padding: .2rem;
+	align-content: center;
+	justify-content: center;
+	border-radius:0.4em;
+	box-sizing: border-box;
+	margin: 3px;
+	font-size: medium;
+}
+
+button:hover {
+	background-color: #FAF3DD;
+
+}
+
+/* link buttons; makes links look like buttons
+a {
+	text-decoration: none;
+	padding: .25rem;
+
+} */
+
+.container__card {
+	background-color: #B8F2E6;
+	margin: 1rem;
+	padding: .5rem;
+}

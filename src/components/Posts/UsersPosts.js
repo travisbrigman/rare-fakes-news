@@ -29,7 +29,7 @@ export const UsersPosts = (props) => {
       <h2>My Posts</h2>
       {usersPosts.map((p) => {
         return (
-          <div key={p.id}>
+          <div key={p.id} className="container__card">
             <p>
               <Link to={{pathname:`posts/${p.id}`}}>
               <strong>{p.title}</strong>

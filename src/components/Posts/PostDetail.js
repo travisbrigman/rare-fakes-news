@@ -61,7 +61,7 @@ export const PostDetails = (props) => {
   return (
     <>
       {/* Post Detail JSX */}
-      <section className="post">
+      <section className="container__card">
         <h3 className="post__title">{post.title}</h3>
         <div className="post__content">{post.content}</div>
         <div className="post_date">
@@ -91,7 +91,7 @@ export const PostDetails = (props) => {
         </div>
         <div>
           {postTags.map((postTag) => {
-            return <div>{postTag.tag}</div>;
+            return <div>#{postTag.tag}</div>;
           })}
         </div>
         {/* Tag Management JSX */}

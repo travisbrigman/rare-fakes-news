@@ -72,20 +72,20 @@ export const UserDetail = (props) => {
 
     return (
         <>
-            <div>
+            <section>
                 {props.match.params.hasOwnProperty("userId") ?
                     <h1>{user.display_name}'s Profile</h1> :
                     <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</h1>}
-                <div>Full Name: {user.first_name} {user.last_name}</div>
+                <div>{user.first_name} {user.last_name}</div>
                 {user.avatar === "" || user.avatar === undefined
-                    ? <img src={defaultImg} style={{ width: `150px` }}></img>
-                    : <img src={user.avatar} style={{ width: `150px` }}></img>
+                    ? <img src={defaultImg} style={{ width: `115px` }}></img>
+                    : <img src={user.avatar} style={{ width: `115px` }}></img>
                 }
                 <div>{user.avatar}</div>
                 <div>Display Name: {user.display_name}</div>
                 <div>email: {user.email}</div>
                 <div>Creation Date: {new Date(user.creation).toLocaleDateString('en-US')}</div>
-            </div>
+            </section>
             <div>
                 {props.match.params.hasOwnProperty("userId") ?
                     subStatus ?
