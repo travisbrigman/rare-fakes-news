@@ -6,29 +6,30 @@ import "./Auth.css"
 export const Register = (props) => {
     const firstName = useRef()
     const lastName = useRef()
-    const displayName = useRef()
+    const userName = useRef()
     const email = useRef()
     const password = useRef()
     const verifyPassword = useRef()
     const passwordDialog = useRef()
+    const bio = useRef()
 
+    
     const handleRegister = (e) => {
         e.preventDefault()
-
+        
         if (password.current.value === verifyPassword.current.value) {
+
             const newUser = {
-                "avatar": "",
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
-                "display_name": displayName.current.value,
+                "username": userName.current.value,
+                "email" : email.current.value,
                 "password": password.current.value,
-                "email": email.current.value,
-                "creation": Date.now(),
-                "active": 1
-
+                "bio": bio.current.value
             }
 
-            return fetch("http://localhost:8088/users", {
+
+            return fetch("http://localhost:8000/register", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -66,8 +67,8 @@ export const Register = (props) => {
                     <input ref={lastName} type="text" name="lastName" className="form-control" placeholder="last name" />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="displayName"> Display Name </label>
-                    <input ref={displayName} type="text" name="displayName" className="form-control" placeholder="display name" />
+                    <label htmlFor="userName"> Display Name </label>
+                    <input ref={userName} type="text" name="userName" className="form-control" placeholder="display name" />
                 </fieldset>
                 <fieldset>
                     <label htmlFor="inputEmail"> Email Address</label>
@@ -80,6 +81,10 @@ export const Register = (props) => {
                 <fieldset>
                     <label htmlFor="verifyPassword"> Verify Password </label>
                     <input ref={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="re-enter password" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="bio"> Short Bio </label>
+                    <input ref={bio} type="text" name="bio" className="form-control" placeholder="A short bio about yourself" required />
                 </fieldset>
                 <fieldset>
                     <button className="btn btn-1 btn-sep icon-send" type="submit">Register</button>

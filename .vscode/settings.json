@@ -1,19 +1,27 @@
 {
     "workbench.colorCustomizations": {
-        "activityBar.activeBackground": "#a35d9d",
-        "activityBar.activeBorder": "#b5ba85",
-        "activityBar.background": "#a35d9d",
+        "activityBar.activeBackground": "#8359dc",
+        "activityBar.activeBorder": "#e39d7b",
+        "activityBar.background": "#8359dc",
         "activityBar.foreground": "#e7e7e7",
         "activityBar.inactiveForeground": "#e7e7e799",
-        "activityBarBadge.background": "#b5ba85",
+        "activityBarBadge.background": "#e39d7b",
         "activityBarBadge.foreground": "#15202b",
-        "statusBar.background": "#834a7e",
+        "statusBar.background": "#632fd3",
         "statusBar.foreground": "#e7e7e7",
-        "statusBarItem.hoverBackground": "#a35d9d",
-        "titleBar.activeBackground": "#834a7e",
+        "statusBarItem.hoverBackground": "#8359dc",
+        "titleBar.activeBackground": "#632fd3",
         "titleBar.activeForeground": "#e7e7e7",
-        "titleBar.inactiveBackground": "#834a7e99",
+        "titleBar.inactiveBackground": "#632fd399",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#834a7e"
+    "peacock.color": "#632fd3",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "rareapi",
+            "database": "db.sqlite3"
+        }
+    ]
 }
