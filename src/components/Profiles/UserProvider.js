@@ -6,22 +6,28 @@ export const UserProvider = (props) => {
     const [users, setUsers] = useState([])
     const [user, setUser] = useState({})
 
-    const loggedInUser = parseInt(localStorage.getItem("rare_user_id"));
+    const loggedInUser = localStorage.getItem("rare_user_id");
+    
 
   const getUsers = () => {
-    return fetch("http://localhost:8088/users")
+    return fetch("http://localhost:8000/users" , {
+        headers: {
+          Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+          "Content-Type": "application/json",
+        }
+      })
       .then((response) => response.json())
       .then(setUsers);
   };
 
     const getUserById = (id) => {
-        return fetch(`http://localhost:8088/users/${id}`)
+        return fetch(`http://localhost:8000/users/${id}`)
             .then(response => response.json())
             .then(setUser)
     }
 
     const getUserByEmail = (email) => {
-        return fetch(`http://localhost:8088/users?email=${email}`)
+        return fetch(`http://localhost:8000/users?email=${email}`)
             .then(response => response.json())
             .then(setUsers)
     }

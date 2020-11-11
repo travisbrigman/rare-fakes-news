@@ -9,13 +9,15 @@ import { DeleteItem } from "../utils/DeleteItem";
 
 export const PostList = (props) => {
     const {posts, getPosts} = useContext(PostContext)
-    const { loggedInUser } = useContext(UserContext);
+    const { loggedInUser, user, users, getUsers } = useContext(UserContext);
 
     useEffect(() => {
-        getPosts()
-     
+       getPosts()
     },[])
 
+    // console.log(loggedInUser)
+    // console.log(users, "u")
+    console.log(posts[0])
 
     return (
         <>
@@ -29,8 +31,8 @@ export const PostList = (props) => {
                     <Link to={{pathname:`/posts/${p.id}`}}>
                     <p>{p.title}</p>
                     </Link>
-                    <p>{p.user.display_name}</p>
-                    <p>{p.category.type}</p>
+                    <p>{p.user.user.first_name}</p>
+                    <p>{p.category.label}</p>
                     {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
                 </div>
             }) : null
