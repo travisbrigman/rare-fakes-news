@@ -28,7 +28,7 @@ export const Register = (props) => {
 
             }
 
-            return fetch("http://localhost:8088/users", {
+            return fetch("http://localhost:8000/users", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

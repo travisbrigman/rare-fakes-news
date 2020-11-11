@@ -11,8 +11,18 @@ export const Login = (props) => {
     const history = useHistory()
 
     // see if user already exists
+
     const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/users?email=${email.current.value}`)
+        return fetch(`http://localhost:8000/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: email.current.value,
+                password: password.current.value
+            })
+        })
             .then(res => {
                 return res.json()
             })
@@ -26,10 +36,10 @@ export const Login = (props) => {
 
         existingUserCheck()
             .then(exists => {
-                if (exists && exists.password === password.current.value) {
-                    localStorage.setItem("rare_user_id", exists.id)
+                if (exists.valid) {
+                    localStorage.setItem("rare_user_id", exists.token)
                     props.history.push("/home")
-                } else if (exists && exists.password !== password.current.value) {
+                } else if (exists.valid != true) {
                     invalidDialog.current.showModal()
                 } else if (!exists) {
                     invalidDialog.current.showModal()
