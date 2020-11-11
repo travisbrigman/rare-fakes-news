@@ -27,8 +27,6 @@ export const CategoryForm = (props) => {
     createCategory(category).then(() => props.history.push("/categories"));
   };
 
-  console.log(category)
-
   return (
     <form className="categoryForm">
       <label>
