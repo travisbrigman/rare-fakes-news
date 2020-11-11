@@ -15,5 +15,13 @@
         "titleBar.inactiveBackground": "#632fd399",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "#632fd3"
+    "peacock.color": "#632fd3",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "rareapi",
+            "database": "db.sqlite3"
+        }
+    ]
 }

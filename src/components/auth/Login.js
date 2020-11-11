@@ -5,7 +5,7 @@ import "./Auth.css"
 
 
 export const Login = (props) => {
-    const email = useRef()
+    const user = useRef()
     const password = useRef()
     const invalidDialog = useRef()
     const history = useHistory()
@@ -19,7 +19,7 @@ export const Login = (props) => {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                username: email.current.value,
+                username: user.current.value,
                 password: password.current.value
             })
         })
@@ -59,8 +59,8 @@ export const Login = (props) => {
                     <h1>Rare</h1>
                     <h2>Sign In</h2>
                     <fieldset>
-                        <label htmlFor="inputEmail"> email address </label>
-                        <input ref={email} type="email" id="email" className="form-control" defaultValue="me@me.com" placeholder="Email address" required autoFocus />
+                        <label htmlFor="inputUser"> User Name </label>
+                        <input ref={user} type="text" id="userName" className="form-control" defaultValue="me@me.com" placeholder="Email address" required autoFocus />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="inputPassword"> password </label>
