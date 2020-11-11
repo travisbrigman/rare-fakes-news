@@ -6,24 +6,26 @@ export const CategoryProvider = (props) => {
   const [category, setCategory] = useState({});
 
   const getCategories = () => {
-    return fetch("http://localhost:8088/categories")
+    return fetch("http://localhost:8000/categories", {
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
+    })
       .then((res) => res.json())
       .then(setCategories);
   };
 
   const createCategory = (category) => {
-    return fetch("http://localhost:8088/categories", {
+    return fetch("http://localhost:8000/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
       },
       body: JSON.stringify(category),
     })
       .then((res) => res.json())
-      .then((newCategory) => {
-        getCategories();
-        return newCategory.id;
-      });
+      .then(getCategories);
   };
 
   return (

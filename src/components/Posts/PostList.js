@@ -12,10 +12,8 @@ export const PostList = (props) => {
     const { loggedInUser } = useContext(UserContext);
 
     useEffect(() => {
-        getPosts()
-     
+       getPosts()
     },[])
-
 
     return (
         <>
@@ -29,8 +27,8 @@ export const PostList = (props) => {
                     <Link to={{pathname:`/posts/${p.id}`}}>
                     <p>{p.title}</p>
                     </Link>
-                    <p>{p.user.display_name}</p>
-                    <p>{p.category.type}</p>
+                    <p>{p.user.user.first_name}</p>
+                    <p>{p.category.label}</p>
                     {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
                 </div>
             }) : null
