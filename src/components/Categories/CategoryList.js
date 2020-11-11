@@ -19,12 +19,13 @@ export const CategoryList = (props) => {
     props.history.push("/categories/create");
   };
 
+  console.log(categories)
   return (
     <div style={{ marginTop: "2rem" }}>
       <h3>Categories</h3>
       <div className="categoryList">
         {categories.map((categoryObject) => {
-          return <div key={categoryObject.id}>{categoryObject.type}</div>;
+          return <div key={categoryObject.id}>{categoryObject.label}</div>;
         })}
       </div>
       <button onClick={toCreateCreateCategory}>+ Category</button>

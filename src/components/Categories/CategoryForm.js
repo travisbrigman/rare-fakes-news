@@ -11,7 +11,7 @@ export const CategoryForm = (props) => {
   //whatever the value that goes in the input (the evt) is being written as single property object with a key of 'type'
   //and the value of the form input
   function handleChange(evt) {
-    setCategory({ type: evt.target.value });
+    setCategory({ label: evt.target.value });
   }
 
   //gets the categories from the database
@@ -26,6 +26,8 @@ export const CategoryForm = (props) => {
   const constructNewCategory = () => {
     createCategory(category).then(() => props.history.push("/categories"));
   };
+
+  console.log(category)
 
   return (
     <form className="categoryForm">
