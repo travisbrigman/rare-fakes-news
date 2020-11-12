@@ -13,17 +13,18 @@ export const UserDetail = (props) => {
                     subscribeAgain } = useContext(SubscriptionContext)
     const [subStatus, setSubStatus] = useState(false) //subscription state set to false
 
+    
     useEffect(() => {
-        if (props.match.params.hasOwnProperty("userId")) {
+        if (props.match.params.hasOwnProperty("ru_user_id")) {
             getUserById(parseInt(props.match.params.userId))
             getSubscriptions()
         } else {
-            getUserById(parseInt(localStorage.getItem("rare_user_id")))
+            getUserById(parseInt(localStorage.getItem("ru_user_id")))
         }
     }, [])
 
     useEffect(() => {
-        const myID = parseInt(localStorage.getItem("rare_user_id"))
+        const myID = parseInt(localStorage.getItem("ru_user_id"))
         const authorID = parseInt(props.match.params.userId)
         const found = subscriptions.find(s => {
             return s.user_id === myID && s.subscribe_id === authorID //check to see if subscription exists
@@ -41,7 +42,7 @@ export const UserDetail = (props) => {
     }, [subscriptions])
 
     const changeSubStatus = (subscription) => {
-        const myID = parseInt(localStorage.getItem("rare_user_id"))
+        const myID = parseInt(localStorage.getItem("ru_user_id"))
         const authorID = parseInt(props.match.params.userId)
         if(subscription.hasOwnProperty("id") && subscription.end === null) { //if end === null, user is still subscribed and can unsubscribe
 

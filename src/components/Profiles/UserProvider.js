@@ -26,15 +26,10 @@ export const UserProvider = (props) => {
             .then(setUser)
     }
 
-    const getUserByEmail = (email) => {
-        return fetch(`http://localhost:8000/users?email=${email}`)
-            .then(response => response.json())
-            .then(setUsers)
-    }
     
     return (
         <UserContext.Provider value={{
-            users, getUsers, setUsers, getUserByEmail,
+            users, getUsers, setUsers, 
             user, setUser, getUserById, loggedInUser
         }}>
             {props.children}
