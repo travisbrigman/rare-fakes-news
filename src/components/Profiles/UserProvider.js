@@ -6,9 +6,8 @@ export const UserProvider = (props) => {
     const [users, setUsers] = useState([])
     const [user, setUser] = useState({})
 
-    const loggedInUser = localStorage.getItem("rare_user_id");
+    const loggedInUser = localStorage.getItem("ru_user_id");
     
-
   const getUsers = () => {
     return fetch("http://localhost:8000/users" , {
         headers: {

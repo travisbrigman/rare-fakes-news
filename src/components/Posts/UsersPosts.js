@@ -8,6 +8,7 @@ import { DeleteItem } from "../utils/DeleteItem";
 export const UsersPosts = (props) => {
   const { posts, getPostByUser } = useContext(PostContext);
   const { loggedInUser } = useContext(UserContext);
+  console.log(posts)
 
   const [usersPosts, setUsersPosts] = useState([]);
 
@@ -18,7 +19,7 @@ export const UsersPosts = (props) => {
 
   useEffect(() => {
     const filteredPostsByUser = posts.filter(
-      (post) => post.user_id === loggedInUser
+      (post) => post.user.id === loggedInUser
     );
     setUsersPosts(filteredPostsByUser);
   }, [posts, loggedInUser]);
