@@ -4,7 +4,7 @@ export const UserContext = React.createContext();
 
 export const UserProvider = (props) => {
     const [users, setUsers] = useState([])
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({user:{}})
 
     const loggedInUser = localStorage.getItem("rare_user_id");
     
@@ -21,7 +21,13 @@ export const UserProvider = (props) => {
   };
 
     const getUserById = (id) => {
-        return fetch(`http://localhost:8000/users/${id}`)
+        return fetch(`http://localhost:8000/users/${id}`, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                "Content-Type": "application/json",
+              }
+
+        })
             .then(response => response.json())
             .then(setUser)
     }

@@ -58,6 +58,7 @@ export const PostDetails = (props) => {
     setTagIDArr(stateCopyID)    
 }
 
+  
   return (
     <>
       {/* Post Detail JSX */}
@@ -83,7 +84,7 @@ export const PostDetails = (props) => {
               <button onClick={onOpen}>Manage Post Tags</button>
             </>
           ) : (
-            <Link to={{ pathname: `/profiles/${post.user_id}` }}>
+            <Link to={{ pathname: `/profiles/${post.user.id}` }}>
               <div className="post_author">
                 Author: {post.user.user.first_name}
               </div>
