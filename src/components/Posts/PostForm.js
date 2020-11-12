@@ -41,6 +41,7 @@ export const PostForm = (props) => {
         const newPost = Object.assign({}, postObj)          
         newPost[browserEvent.target.name] = browserEvent.target.value 
         setPostObj(newPost)
+        console.log("postObj>>",postObj)
     }
 
     const handleTags = (browserEvent) => {  
@@ -177,8 +178,9 @@ return (
                         }
                     </div>
 
-                    <button onClick={(evt) => {    
-                        console.log("postObj")                                          
+                    <button onClick={(evt) => {  
+                        console.log("Date.now()>>",Date.now())  
+                        console.log("DparseInt(localStorage.getItem(rare_user_id))>>",parseInt(localStorage.getItem("rare_user_id")))  
                         constructPost(evt)}}
                     >
                         Publish
