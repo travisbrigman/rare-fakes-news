@@ -4,7 +4,6 @@ import { PostContext } from "./PostProvider"
 import { CategoryContext } from "../Categories/CategoryProvider"
 import { TagContext } from "../Tags/TagProvider"
 import { TagPostContext } from "../Tags/TagPostProvider"
-import {DateTime} from "luxon"
 
 
 export const PostForm = (props) => {
@@ -66,12 +65,13 @@ export const PostForm = (props) => {
                     props.history.push(`/posts/${postObj.id}`)
                 })
         } else {
-            const DT = DateTime.local()
+            const jsonDate = ((new Date(Date.now())).toJSON()).slice(0,10)
             addPost({
                 title: postObj.title,
                 content: postObj.content,
                 category_id: parseInt(postObj.category_id),
-                publication_date: DT.toISODate(),
+                // publication_date: DT.toISODate(),
+                publication_date: jsonDate,
                 image_url: postObj.image_url
             }).then((postObj) => {
                 const tagPostPromises = [] //empty array of possible TagPosts
