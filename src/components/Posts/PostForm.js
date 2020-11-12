@@ -59,11 +59,9 @@ export const PostForm = (props) => {
                 id: postObj.id,
                 title: postObj.title,
                 content: postObj.content,
-                category_id: postObj.category_id,
+                category_id: parseInt(postObj.category_id),
                 date: postObj.date,
-                user_id: parseInt(localStorage.getItem("rare_user_id")),
                 image_url: postObj.image_url,
-                approved: 1
             })
             .then(() => {
                 props.history.push(`/posts/${postObj.id}`)
@@ -72,11 +70,9 @@ export const PostForm = (props) => {
             addPost({
                 title: postObj.title,
                 content: postObj.content,
-                category_id: postObj.category_id,
-                date: Date.now(),
-                user_id: parseInt(localStorage.getItem("rare_user_id")),
-                image_url: postObj.image_url,
-                approved: 1
+                category_id: parseInt(postObj.category_id),
+                date: Date.now().toLocaleDateString(),
+                image_url: postObj.image_url
             }).then((postObj) => {
                 const tagPostPromises = [] //empty array of possible TagPosts
     
@@ -128,6 +124,7 @@ return (
                     </textarea>
                 </div>
             </fieldset>
+
             <fieldset>
                     <div className="form-group">
                         <select name="category_id" value={postObj.category_id} className="form-control" onChange={handleControlledInputChange} >
@@ -179,8 +176,6 @@ return (
                     </div>
 
                     <button onClick={(evt) => {  
-                        console.log("Date.now()>>",Date.now())  
-                        console.log("DparseInt(localStorage.getItem(rare_user_id))>>",parseInt(localStorage.getItem("rare_user_id")))  
                         constructPost(evt)}}
                     >
                         Publish
