@@ -22,7 +22,6 @@ export const PostDetails = (props) => {
     getTags()
     getPostById(postId).then(setPost);
     getTagsByPost(postId);
-    console.log(post)
   }, [TagPosts]);
 
   //takes what is selected in the tag management dropdown and sets the state variable with that value
