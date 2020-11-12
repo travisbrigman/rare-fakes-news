@@ -6,7 +6,7 @@ export const PostContext = React.createContext()
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([{user:{user:{first_name: ""}}, category:{label:""}}])  
     const [post, setPost] = useState({user:{user:{}}})
-    const [postTags, setPostTags] = useState([{tagPost:{}}])
+    const [postTags, setPostTags] = useState([{tag:{}}])
 
     const getPosts = () => {
         return fetch("http://localhost:8000/posts" , {
@@ -52,7 +52,7 @@ export const PostProvider = (props) => {
     }
 
     const getTagsByPost = (postId) => {
-        return fetch(`http://localhost:8000/tags?post_id=${postId}` , {
+        return fetch(`http://localhost:8000/posttags?post_id=${postId}` , {
             headers: {
               Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
               "Content-Type": "application/json",   
