@@ -107,7 +107,7 @@ const clearFilterButton = () => {
               checked={tagSelected === tag.id}
               onClick={() => { filterAllPostsByTag(tag.id) }}
             />{" "}
-            #{tag.tag}
+            #{tag.label}
             </div>
           )
         })}

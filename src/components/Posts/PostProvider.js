@@ -5,7 +5,7 @@ export const PostContext = React.createContext()
 
 export const PostProvider = (props) => {
     const [posts, setPosts] = useState([{user:{user:{first_name: ""}}, category:{label:""}}])  
-    const [post, setPost] = useState({user:{}})
+    const [post, setPost] = useState({user:{user:{}}})
     const [postTags, setPostTags] = useState([{tagPost:{}}])
 
     const getPosts = () => {
