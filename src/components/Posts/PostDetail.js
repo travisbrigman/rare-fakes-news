@@ -22,6 +22,7 @@ export const PostDetails = (props) => {
     getTags()
     getPostById(postId).then(setPost);
     getTagsByPost(postId);
+    console.log(post)
   }, [TagPosts]);
 
   //takes what is selected in the tag management dropdown and sets the state variable with that value
@@ -65,15 +66,16 @@ export const PostDetails = (props) => {
         <h3 className="post__title">{post.title}</h3>
         <div className="post__content">{post.content}</div>
         <div className="post_date">
-          Published on: {new Date(post.date).toLocaleDateString("en-US")}
+          Published on: {new Date(post.publication_date).toLocaleDateString("en-US")}
         </div>
-
         <div>
           {post.user_id === parseInt(localStorage.getItem("rare_user_id")) ? (
             <>
+           
               <div className="post_author">
-                Author: {post.user.display_name} (you!)
+                Author: {post.user.user.first_name} (you!)
               </div>
+             
               <button
                 onClick={() => props.history.push(`/posts/edit/${post.id}`)}
               >
@@ -84,7 +86,7 @@ export const PostDetails = (props) => {
           ) : (
             <Link to={{ pathname: `/profiles/${post.user_id}` }}>
               <div className="post_author">
-                Author: {post.user.display_name}
+                Author: {post.user.user.first_name}
               </div>
             </Link>
           )}
