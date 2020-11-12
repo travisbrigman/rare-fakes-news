@@ -21,24 +21,26 @@ export const Reaction = (props) => {
 
     useEffect(() => {
         const reactionsForThisPost = ReactionPosts.filter(rp => { //find rp objects only for this post
-            return rp.post_id === postId
+            return rp.post.id === postId
         })
         setFilteredRP(reactionsForThisPost) //set state variable of RP object array
     }, [ReactionPosts])
 
     useEffect(() => {
-        const matchingReactionCount = filteredRP.filter(rp => { //filter through RP obj arr for this post to find the RP objs whose reaction_id matches the id of the reaction of this current module 
-            return rp.reaction_id === props.reaction.id
+        const matchingReactionCount = filteredRP.filter(rp => {
+            console.log(rp)//filter through RP obj arr for this post to find the RP objs whose reaction_id matches the id of the reaction of this current module 
+            return rp.reaction.id === props.reaction.id
 
         }) || []
         setReactionCount(matchingReactionCount)
+
     }, [filteredRP])
 
 
     const constructOneTimeReactionPostObj = () => { //create an RP object
         const checkForExistingReaction = filteredRP.find(rp => { //see if it already exists
             if (rp.user_id === parseInt(localStorage.getItem("rare_user_id"))) { //see if current user already had this reaction
-                return rp.reaction_id === props.reaction.id
+                return rp.reaction.id === props.reaction.id
             }
 
         })
@@ -46,8 +48,7 @@ export const Reaction = (props) => {
         if (checkForExistingReaction === undefined) { //if no RP obj found, let user add a reaction
             createReactionPost({
                 reaction_id: props.reaction.id,
-                post_id: postId,
-                user_id: parseInt(localStorage.getItem("rare_user_id")),
+                post_id: postId
             })
         }
         else {

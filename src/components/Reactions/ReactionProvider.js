@@ -7,7 +7,12 @@ export const ReactionProvider = (props) => {
     const [reaction, setReaction] = useState({})
 
     const getReactions = () => {
-        return fetch("http://localhost:8088/reactions")
+        return fetch("http://localhost:8000/reactions" , {
+        headers: {
+            Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+            "Content-Type": "application/json",
+        }
+        })
             .then(res => res.json())
             .then(setReactions)
     }
