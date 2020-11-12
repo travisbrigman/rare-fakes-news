@@ -9,7 +9,6 @@ export const UsersPosts = (props) => {
   const { posts, getPostByUser } = useContext(PostContext);
   const { loggedInUser } = useContext(UserContext);
 
-
   const [usersPosts, setUsersPosts] = useState([]);
 
   useEffect(() => {

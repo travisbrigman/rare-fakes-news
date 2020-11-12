@@ -57,7 +57,7 @@ export const PostForm = (props) => {
                 id: postObj.id,
                 title: postObj.title,
                 content: postObj.content,
-                category_id: postObj.category_id,
+                label: postObj.category.label,
                 date: postObj.date,
                 user_id: parseInt(localStorage.getItem("rare_user_id")),
                 approved: 1
@@ -69,7 +69,7 @@ export const PostForm = (props) => {
             addPost({
                 title: postObj.title,
                 content: postObj.content,
-                category_id: postObj.category_id,
+                label: postObj.category.label,
                 date: Date.now(),
                 user_id: parseInt(localStorage.getItem("rare_user_id")),
                 approved: 1
@@ -116,11 +116,11 @@ return (
         <fieldset>
                 <div className="form-group">
                     <label htmlFor="status">Category: </label>
-                    <select name="category_id" value={postObj.category_id} className="form-control" onChange={handleControlledInputChange} >
+                    <select name="category_id" value={postObj.label} className="form-control" onChange={handleControlledInputChange} >
                         <option value="0">select a category</option>
                         {
                             categories.map(c =>{
-                                return <option key={c.id} value={c.id}>{c.type}</option>
+                                return <option key={c.id} value={c.id}>{c.label}</option>
                             })
                         }
                     </select>
