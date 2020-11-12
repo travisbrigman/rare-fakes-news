@@ -12,6 +12,8 @@ export const PostDetails = (props) => {
   const {tag, tags, getTags} = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
 
+  console.log(postTags);
+
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
   const tagPostId = useRef(null);
@@ -93,7 +95,8 @@ export const PostDetails = (props) => {
         </div>
         <div>
           {postTags.map((postTag) => {
-            return <div>#{postTag.tag}</div>;
+            return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null
+             
           })}
         </div>
         {/* Tag Management JSX */}
