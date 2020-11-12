@@ -4,6 +4,7 @@ import {PostContext} from "./PostProvider"
 import {CategoryContext} from "../Categories/CategoryProvider"
 import { TagContext } from "../Tags/TagProvider"
 import { TagPostContext } from "../Tags/TagPostProvider"
+import { HumanDate } from "../utils/HumanDate"
 
 
 export const PostForm = (props) => {
@@ -39,7 +40,7 @@ export const PostForm = (props) => {
     const handleControlledInputChange = (browserEvent) => {
         const newPost = Object.assign({}, postObj)          
         newPost[browserEvent.target.name] = browserEvent.target.value 
-        setPostObj(newPost)                                 
+        setPostObj(newPost)
     }
 
     const handleTags = (browserEvent) => {  
@@ -60,6 +61,7 @@ export const PostForm = (props) => {
                 category_id: postObj.category_id,
                 date: postObj.date,
                 user_id: parseInt(localStorage.getItem("rare_user_id")),
+                image_url: postObj.image_url,
                 approved: 1
             })
             .then(() => {
@@ -72,6 +74,7 @@ export const PostForm = (props) => {
                 category_id: postObj.category_id,
                 date: Date.now(),
                 user_id: parseInt(localStorage.getItem("rare_user_id")),
+                image_url: postObj.image_url,
                 approved: 1
             }).then((postObj) => {
                 const tagPostPromises = [] //empty array of possible TagPosts
@@ -95,77 +98,94 @@ export const PostForm = (props) => {
     
 return (
     <>
-    <h2>Tell the World How You Really Feel</h2>
-    <form>
-        <fieldset>
-            <div className="form-group">
-                <label>Title:</label>
-                <input type="text" name="title" className="form-control" 
-                        placeholder="Post Title" value={postObj.title} 
-                        onChange={handleControlledInputChange}></input>
-            </div>
-        </fieldset>
-        <fieldset>
-            <div className="form-group">
-                <label>Content:</label>
-                <textarea type="text" name="content" className="form-control" 
-                        placeholder="write your thoughts and feelings" value={postObj.content}
-                        onChange={handleControlledInputChange}></textarea>
-            </div>
-        </fieldset>
-        <fieldset>
-                <div className="form-group">
-                    <label htmlFor="status">Category: </label>
-                    <select name="category_id" value={postObj.category_id} className="form-control" onChange={handleControlledInputChange} >
-                        <option value="0">select a category</option>
-                        {
-                            categories.map(c =>{
-                                return <option key={c.id} value={c.id}>{c.type}</option>
-                            })
-                        }
-                    </select>
-                </div>
-            </fieldset>
-            {editMode ? <button onClick={(evt) => {
-                    constructPost(evt)
-                }}>update post</button> :
-            <>
+        <h2>New Post</h2>
+        <form>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="status">Tags: </label>
-                    <select name="id" value={tag.id} className="form-control" 
-                            onChange={handleTags} >
-                                <option value="0">add some tags...</option>
-                                {
-                                    tags.map(t => {
-                                        return <option key={t.id} value={t.id}>{t.tag}</option>
-                                    })
-                                }
-                    </select>
+                    <input type="text" name="title" className="form-control" 
+                            placeholder="Title" value={postObj.title} 
+                            onChange={handleControlledInputChange}
+                    >
+                    </input>
                 </div>
             </fieldset>
-            <div>
-                { stateTagIDArr.length === 0 ? "" : 
-                stateTagIDArr.map(t => {
-                    const tagObj = tags.find(tag => tag.id === t)
-                return <div key={tagObj.id}>{tagObj.tag}
-                <button onClick={(evt) =>{
-                    evt.preventDefault()
-                    const arrCopyID = stateTagIDArr.slice()
-                    const index = arrCopyID.indexOf(tagObj.id)
-                    arrCopyID.splice(index, 1)
-                    setTagIDArr(arrCopyID)  
-                }}>x</button>
+            <fieldset>
+                <div className="form-group">
+                    <input type="text" name="imageURL" className="form-control" 
+                            placeholder="Image URL" value={postObj.image_url} 
+                            onChange={handleControlledInputChange}
+                    >
+                    </input>
                 </div>
-                })
-                }
-            </div>
-            <button onClick={(evt) => {
-                    constructPost(evt)
-                }}>add post</button>
-            </>
-             }
+            </fieldset>
+            <fieldset>
+                <div className="form-group">
+                    <textarea type="text" name="content" className="form-control" 
+                            placeholder="Article content" value={postObj.content}
+                            onChange={handleControlledInputChange}
+                    >
+                    </textarea>
+                </div>
+            </fieldset>
+            <fieldset>
+                    <div className="form-group">
+                        <select name="category_id" value={postObj.category_id} className="form-control" onChange={handleControlledInputChange} >
+                            <option value="0">Category Select</option>
+                            {
+                                categories.map(c =>{
+                                    return <option key={c.id} value={c.id}>{c.label}</option>})
+                            }
+                        </select>
+                    </div>
+            </fieldset>
             
+            {editMode 
+            ? <button onClick={(evt) => {
+                    constructPost(evt)
+                }}>update post</button> 
+            :                
+                <>
+                    <fieldset>
+                        <div className="form-group">
+                            <label htmlFor="status">Tags: </label>
+                            <select name="id" value={tag.id} className="form-control" 
+                                    onChange={handleTags} >
+                                        <option value="0">add some tags...</option>
+                                        {
+                                            tags.map(t => {
+                                                return <option key={t.id} value={t.id}>{t.tag}</option>
+                                            })
+                                        }
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <div>
+                        { stateTagIDArr.length === 0 ? "" : 
+                        stateTagIDArr.map(t => {
+                            const tagObj = tags.find(tag => tag.id === t)
+                            return <div key={tagObj.id}>{tagObj.tag}
+                            <button onClick={(evt) =>{
+                                evt.preventDefault()
+                                const arrCopyID = stateTagIDArr.slice()
+                                const index = arrCopyID.indexOf(tagObj.id)
+                                arrCopyID.splice(index, 1)
+                                setTagIDArr(arrCopyID)  
+                            }}>x</button>
+                            </div>
+                        })
+                        }
+                    </div>
+
+                    <button onClick={(evt) => {    
+                        console.log("postObj")                                          
+                        constructPost(evt)}}
+                    >
+                        Publish
+                    </button>
+                </>
+            }
+                
         </form>
     </>
 )
