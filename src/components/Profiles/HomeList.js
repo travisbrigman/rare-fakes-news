@@ -86,7 +86,7 @@ const clearFilterButton = () => {
                 checked={categorySelected === category.id}
                 onClick={() => { filterAllPostsByCat(category.id) }}
               />{" "}
-              {category.type}
+              {category.label}
             </div>
           )
         })}
