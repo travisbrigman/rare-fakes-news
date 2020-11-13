@@ -7,5 +7,21 @@
             "name": "rareapi",
             "database": "db.sqlite3"
         }
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#8359dc",
+        "activityBar.activeBorder": "#e39d7b",
+        "activityBar.background": "#8359dc",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#e39d7b",
+        "activityBarBadge.foreground": "#15202b",
+        "statusBar.background": "#632fd3",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.hoverBackground": "#8359dc",
+        "titleBar.activeBackground": "#632fd3",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#632fd399",
+        "titleBar.inactiveForeground": "#e7e7e799"
+    }
 }
