@@ -59,11 +59,11 @@ export const Reaction = (props) => {
 
     return (
         <section className="reaction">
-            <button title={props.reaction.reaction_description} onClick={() => {
+            <button title={props.reaction.label} onClick={() => {
                 constructOneTimeReactionPostObj()
 
 
-            }}>{props.reaction.reaction}</button>
+            }}>{props.reaction.image_url}</button>
             <div className="reactionCount">{reactionCount.length}</div>
 
         </section>
