@@ -12,7 +12,6 @@ export const PostDetails = (props) => {
   const {tag, tags, getTags} = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
 
- 
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);

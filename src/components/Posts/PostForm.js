@@ -153,7 +153,7 @@ export const PostForm = (props) => {
                                     <option value="0">add some tags...</option>
                                     {
                                         tags.map(t => {
-                                            return <option key={t.id} value={t.id}>{t.tag}</option>
+                                            return <option key={t.id} value={t.id}>{t.label}</option>
                                         })
                                     }
                                 </select>
@@ -164,7 +164,7 @@ export const PostForm = (props) => {
                             {stateTagIDArr.length === 0 ? "" :
                                 stateTagIDArr.map(t => {
                                     const tagObj = tags.find(tag => tag.id === t)
-                                    return <div key={tagObj.id}>{tagObj.tag}
+                                    return <div key={tagObj.id}>{tagObj.label}
                                         <button onClick={(evt) => {
                                             evt.preventDefault()
                                             const arrCopyID = stateTagIDArr.slice()
