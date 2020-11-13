@@ -28,7 +28,7 @@ export const Reaction = (props) => {
 
     useEffect(() => {
         const matchingReactionCount = filteredRP.filter(rp => {
-            console.log(rp)//filter through RP obj arr for this post to find the RP objs whose reaction_id matches the id of the reaction of this current module 
+            //filter through RP obj arr for this post to find the RP objs whose reaction_id matches the id of the reaction of this current module 
             return rp.reaction.id === props.reaction.id
 
         }) || []
