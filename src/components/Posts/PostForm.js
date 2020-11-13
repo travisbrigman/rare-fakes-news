@@ -127,7 +127,10 @@ export const PostForm = (props) => {
 
                 <fieldset>
                     <div className="form-group">
-                        <select name="category_id" value={postObj.category_id} className="form-control" onChange={handleControlledInputChange} >
+                        <select name="category_id" className="form-control"
+                            value={postObj.category_id} 
+                            onChange={handleControlledInputChange} 
+                        >
                             <option value="0">Category Select</option>
                             {
                                 categories.map(c => {
