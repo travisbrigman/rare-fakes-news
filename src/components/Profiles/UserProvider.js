@@ -30,7 +30,7 @@ export const UserProvider = (props) => {
 
         })
             .then(response => response.json())
-            .then(setUser)
+           
     }
 
     const getCurrentUser = () => {
@@ -42,7 +42,7 @@ export const UserProvider = (props) => {
 
         })
             .then(response => response.json())
-            .then(setUser)
+            
     }
 
     

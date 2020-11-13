@@ -7,7 +7,7 @@ import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 
 
 export const UserDetail = (props) => {
-    const { user, getUserById, getUsers, getCurrentUser, currentUser } = useContext(UserContext)
+    const { user, getUserById, getUsers, getCurrentUser, setUser } = useContext(UserContext)
   
     const { subscription, setSubscription, 
             subscriptions, getSubscriptions, 
@@ -25,8 +25,10 @@ export const UserDetail = (props) => {
         if (props.match.params.hasOwnProperty("userId")) {
             getUserById(parseInt(props.match.params.userId))
             getSubscriptions()
+            .then(setUser)
         } else {
            getCurrentUser()
+           .then(setUser)
         }
     }, [])
 
