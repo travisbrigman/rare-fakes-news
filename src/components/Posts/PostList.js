@@ -31,7 +31,7 @@ export const PostList = (props) => {
                     <p>{p.category.label}</p>
                     {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
                 </div>
-            }) : null
+            }).reverse() : null
         }
         </>
     )
