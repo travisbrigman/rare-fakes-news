@@ -5,8 +5,9 @@ export const UserContext = React.createContext();
 export const UserProvider = (props) => {
     const [users, setUsers] = useState([])
     const [user, setUser] = useState({user:{}})
+    const [currentUser, setCurrentUser] = useState({user:{}})
 
-    const loggedInUser = localStorage.getItem("rare_user_id");
+    
     
 
   const getUsers = () => {
@@ -32,11 +33,23 @@ export const UserProvider = (props) => {
             .then(setUser)
     }
 
+    const getCurrentUser = () => {
+        return fetch(`http://localhost:8000/currentuser`, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                "Content-Type": "application/json",
+              }
+
+        })
+            .then(response => response.json())
+            .then(setUser)
+    }
+
     
     return (
         <UserContext.Provider value={{
             users, getUsers, setUsers, 
-            user, setUser, getUserById, loggedInUser
+            user, setUser, getUserById, getCurrentUser
         }}>
             {props.children}
         </UserContext.Provider>

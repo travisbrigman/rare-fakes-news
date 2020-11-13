@@ -60,6 +60,7 @@ export const PostDetails = (props) => {
     setTagIDArr(stateCopyID)    
 }
 
+
   
   return (
     <>
@@ -71,7 +72,7 @@ export const PostDetails = (props) => {
           Published on: {new Date(post.publication_date).toLocaleDateString("en-US")}
         </div>
         <div>
-          {post.user.id === parseInt(localStorage.getItem("ru_user_id")) ? (
+          {post.created_by_current_user ? (
             <>
            
               <div className="post_author">

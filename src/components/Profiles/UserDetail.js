@@ -7,7 +7,7 @@ import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 
 
 export const UserDetail = (props) => {
-    const { user, getUserById, getUsers } = useContext(UserContext)
+    const { user, getUserById, getUsers, getCurrentUser, currentUser } = useContext(UserContext)
   
     const { subscription, setSubscription, 
             subscriptions, getSubscriptions, 
@@ -18,6 +18,7 @@ export const UserDetail = (props) => {
 
     useEffect(() => {
         getUsers()
+        getCurrentUser()
     }, [])
 
     useEffect(() => {
@@ -25,12 +26,12 @@ export const UserDetail = (props) => {
             getUserById(parseInt(props.match.params.userId))
             getSubscriptions()
         } else {
-            getUserById(parseInt(localStorage.getItem("ru_user_id")))
+           getCurrentUser()
         }
     }, [])
 
     useEffect(() => {
-        const myID = parseInt(localStorage.getItem("ru_user_id"))
+        const myID = parseInt(user.id)
         const authorID = parseInt(props.match.params.userId)
         const found = subscriptions.find(s => {
             return s.user_id === myID && s.subscribe_id === authorID //check to see if subscription exists
@@ -48,7 +49,7 @@ export const UserDetail = (props) => {
     }, [subscriptions])
 
     const changeSubStatus = (subscription) => {
-        const myID = parseInt(localStorage.getItem("ru_user_id"))
+        const myID = parseInt(user.id)
         const authorID = parseInt(props.match.params.userId)
         if(subscription.hasOwnProperty("id") && subscription.end === null) { //if end === null, user is still subscribed and can unsubscribe
 
@@ -76,6 +77,7 @@ export const UserDetail = (props) => {
             })
         }
     }
+    
    
     return (
         <>
@@ -84,6 +86,7 @@ export const UserDetail = (props) => {
                     <h1>{user.user.username}'s Profile</h1> :
                     <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</h1>}
                 <div>{user.user.first_name} {user.user.last_name}</div>
+                
                 {user.user.profile_image_url === "" || user.user.profile_image_url === undefined
                     ? <img src={defaultImg} style={{ width: `115px` }}></img>
                     : <img src={user.user.profile_image_url} style={{ width: `115px` }}></img>
