@@ -40,7 +40,6 @@ export const Register = (props) => {
                 .then(res => res.json())
                 .then(res => {
                         localStorage.setItem("rare_user_id", res.token)
-                        localStorage.setItem("ru_user_id", res.user_id)
                         props.history.push("/home") //redirects to home page
                 })
         } else {
