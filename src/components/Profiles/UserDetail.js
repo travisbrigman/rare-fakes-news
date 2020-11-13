@@ -17,20 +17,20 @@ export const UserDetail = (props) => {
   
 
     useEffect(() => {
-        getUsers()
-        getCurrentUser()
-    }, [])
-
-    useEffect(() => {
+      
         if (props.match.params.hasOwnProperty("userId")) {
             getUserById(parseInt(props.match.params.userId))
-            getSubscriptions()
+            // getSubscriptions()
             .then(setUser)
+            
         } else {
            getCurrentUser()
            .then(setUser)
         }
+       
     }, [])
+
+
 
     useEffect(() => {
         const myID = parseInt(user.id)
