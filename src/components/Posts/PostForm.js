@@ -58,7 +58,7 @@ export const PostForm = (props) => {
                 title: postObj.title,
                 content: postObj.content,
                 category_id: parseInt(postObj.category_id),
-                publication_date: postObj.date,
+                publication_date: postObj.publication_date,
                 image_url: postObj.image_url
             })
                 .then(() => {
@@ -70,7 +70,6 @@ export const PostForm = (props) => {
                 title: postObj.title,
                 content: postObj.content,
                 category_id: parseInt(postObj.category_id),
-                // publication_date: DT.toISODate(),
                 publication_date: jsonDate,
                 image_url: postObj.image_url
             }).then((postObj) => {
@@ -142,14 +141,15 @@ export const PostForm = (props) => {
                 {editMode
                     ? <button onClick={(evt) => {
                         constructPost(evt)
-                    }}>update post</button>
+                    }}>Save</button>
                     :
                     <>
                         <fieldset>
                             <div className="form-group">
                                 <label htmlFor="status">Tags: </label>
                                 <select name="id" value={tag.id} className="form-control"
-                                    onChange={handleTags} >
+                                    onChange={handleTags} 
+                                >
                                     <option value="0">add some tags...</option>
                                     {
                                         tags.map(t => {
