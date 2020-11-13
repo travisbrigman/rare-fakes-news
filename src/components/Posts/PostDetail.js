@@ -12,6 +12,7 @@ export const PostDetails = (props) => {
   const {tag, tags, getTags} = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
 
+  
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
@@ -59,6 +60,8 @@ export const PostDetails = (props) => {
     setTagIDArr(stateCopyID)    
 }
 
+
+  
   return (
     <>
       {/* Post Detail JSX */}
@@ -69,7 +72,7 @@ export const PostDetails = (props) => {
           Published on: {new Date(post.publication_date).toLocaleDateString("en-US")}
         </div>
         <div>
-          {post.user_id === parseInt(localStorage.getItem("rare_user_id")) ? (
+          {post.created_by_current_user ? (
             <>
            
               <div className="post_author">
@@ -84,7 +87,7 @@ export const PostDetails = (props) => {
               <button onClick={onOpen}>Manage Post Tags</button>
             </>
           ) : (
-            <Link to={{ pathname: `/profiles/${post.user_id}` }}>
+            <Link to={{ pathname: `/profiles/${post.user.id}` }}>
               <div className="post_author">
                 Author: {post.user.user.first_name}
               </div>

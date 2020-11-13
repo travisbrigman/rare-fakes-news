@@ -4,9 +4,10 @@ export const UserContext = React.createContext();
 
 export const UserProvider = (props) => {
     const [users, setUsers] = useState([])
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({user:{}})
+    const [currentUser, setCurrentUser] = useState({user:{}})
 
-    const loggedInUser = localStorage.getItem("rare_user_id");
+    
     
 
   const getUsers = () => {
@@ -21,21 +22,34 @@ export const UserProvider = (props) => {
   };
 
     const getUserById = (id) => {
-        return fetch(`http://localhost:8000/users/${id}`)
+        return fetch(`http://localhost:8000/users/${id}`, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                "Content-Type": "application/json",
+              }
+
+        })
             .then(response => response.json())
-            .then(setUser)
+           
     }
 
-    const getUserByEmail = (email) => {
-        return fetch(`http://localhost:8000/users?email=${email}`)
+    const getCurrentUser = () => {
+        return fetch(`http://localhost:8000/currentuser`, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                "Content-Type": "application/json",
+              }
+
+        })
             .then(response => response.json())
-            .then(setUsers)
+            
     }
+
     
     return (
         <UserContext.Provider value={{
-            users, getUsers, setUsers, getUserByEmail,
-            user, setUser, getUserById, loggedInUser
+            users, getUsers, setUsers, 
+            user, setUser, getUserById, getCurrentUser, setCurrentUser, currentUser
         }}>
             {props.children}
         </UserContext.Provider>

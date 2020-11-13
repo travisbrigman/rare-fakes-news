@@ -38,8 +38,6 @@ export const Login = (props) => {
             .then(exists => {
                 if (exists.valid) {
                     localStorage.setItem("rare_user_id", exists.token)
-                    console.log(exists)
-                    localStorage.setItem("ru_user_id", exists.user_id)
                     props.history.push("/home")
                 } else if (exists.valid != true) {
                     invalidDialog.current.showModal()
