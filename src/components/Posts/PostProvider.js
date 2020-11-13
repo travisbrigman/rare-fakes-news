@@ -4,61 +4,93 @@ import React, { useState } from "react"
 export const PostContext = React.createContext()
 
 export const PostProvider = (props) => {
-    const [posts, setPosts] = useState([])  
-    const [post, setPost] = useState({user:{}})
-    const [postTags, setPostTags] = useState([{tagPost:{}}])
+    const [posts, setPosts] = useState([{user:{user:{first_name: ""}}, category:{label:""}}])  
+    const [post, setPost] = useState({user:{user:{}}})
+    const [postTags, setPostTags] = useState([{tag:{}}])
 
     const getPosts = () => {
-        return fetch("http://localhost:8088/posts")
+        return fetch("http://localhost:8000/posts" , {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+              "Content-Type": "application/json",
+            }
+          })
             .then(res => res.json())
             .then(setPosts)
     }
 
     const getPostById = (id) => {
-        return fetch(`http://localhost:8088/posts/${id}`)
+        return fetch(`http://localhost:8000/posts/${id}` , {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+              "Content-Type": "application/json",
+            }
+          })
             .then(res => res.json())
     }
 
     const getPostByUser = (userId) => {
-        return fetch(`http://localhost:8088/posts?user_id=${userId}`)
+        return fetch(`http://localhost:8000/posts?user_id=${userId}` , {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+              "Content-Type": "application/json",   
+            }
+          })
             .then(res => res.json())
             .then(setPosts)
     }
 
     const getPostByTag = (tagId) => {
-        return fetch(`http://localhost:8088/posts?tag_id=${tagId}`)
+        return fetch(`http://localhost:8000/posts?tag_id=${tagId}` , {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+              "Content-Type": "application/json",   
+            }
+          })
             .then(res => res.json())
             .then(setPosts)
     }
 
     const getTagsByPost = (postId) => {
-        return fetch(`http://localhost:8088/tags?post_id=${postId}`)
+        return fetch(`http://localhost:8000/posttags?post_id=${postId}` , {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+              "Content-Type": "application/json",   
+            }
+          })
             .then(res => res.json())
             .then(setPostTags)
     }
 
     const getPostByCat = (categoryId) => {
-        return fetch(`http://localhost:8088/posts?category_id=${categoryId}`)
+        return fetch(`http://localhost:8000/posts?category_id=${categoryId}` , {
+            headers: {
+              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+              "Content-Type": "application/json",   
+            }
+          })
             .then(res => res.json())
             .then(setPosts)
     }
 
     const addPost = post => {
-        return fetch("http://localhost:8088/posts", {
+        return fetch("http://localhost:8000/posts", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
-            },
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+              },
             body: JSON.stringify(post)
         })
            .then(res => res.json())     
     }
 
     const updatePost = post => {
-        return fetch(`http://localhost:8088/posts/${post.id}`, {
+        return fetch(`http://localhost:8000/posts/${post.id}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(post)
         })
@@ -66,7 +98,7 @@ export const PostProvider = (props) => {
     }
 
     const deletePost = (postId) => {
-        return fetch(`http://localhost:8088/posts/${postId}`, {
+        return fetch(`http://localhost:8000/posts/${postId}`, {
             method: "DELETE"
         })
             .then(getPosts)

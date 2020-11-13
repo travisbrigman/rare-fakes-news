@@ -27,9 +27,10 @@ export const TagForm = (props) => {
     const constructNewTag = () => {
         // POST
         createTag({
-            tag: tag.tag
+            label: tag.tag
         })
             .then(() => props.history.push("/tags")) //takes user to tag list page
+            debugger
     }
 
 

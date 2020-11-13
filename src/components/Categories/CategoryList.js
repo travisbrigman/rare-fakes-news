@@ -24,7 +24,7 @@ export const CategoryList = (props) => {
       <h3>Categories</h3>
       <div className="categoryList">
         {categories.map((categoryObject) => {
-          return <div key={categoryObject.id}>{categoryObject.type}</div>;
+          return <div key={categoryObject.id}>{categoryObject.label}</div>;
         })}
       </div>
       <button onClick={toCreateCreateCategory}>+ Category</button>
