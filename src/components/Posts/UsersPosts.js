@@ -18,7 +18,7 @@ export const UsersPosts = (props) => {
 
   useEffect(() => {
     const filteredPostsByUser = posts.filter(
-      (post) => post.user_id === loggedInUser
+      (post) => post.user.id === loggedInUser
     );
     setUsersPosts(filteredPostsByUser);
   }, [posts, loggedInUser]);
