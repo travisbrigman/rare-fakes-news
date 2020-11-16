@@ -7,21 +7,29 @@ import { DeleteItem } from "../utils/DeleteItem";
 
 export const UsersPosts = (props) => {
   const { posts, getPostByUser } = useContext(PostContext);
-  const { loggedInUser } = useContext(UserContext);
+  // const { getCurrentUser } = useContext(UserContext)
+
 
   const [usersPosts, setUsersPosts] = useState([]);
+  // const [currentUser, setCurrentUser] = useState({})
 
-  useEffect(() => {
-    getPostByUser(loggedInUser)
-  }, []);
+  // useEffect(() => {
+  //   getCurrentUser()
+  //     .then(setCurrentUser)
+  // }, [])
+
+  // useEffect(() => {
+  //   getPostByUser(currentUser.id)
+  //   .then(setUsersPosts)
+  // }, [currentUser]);
 
 
   useEffect(() => {
     const filteredPostsByUser = posts.filter(
-      (post) => post.user_id === loggedInUser
+      (post) => post.created_by_current_user == true
     );
     setUsersPosts(filteredPostsByUser);
-  }, [posts, loggedInUser]);
+  }, [posts]);
 
   return (
     <>
@@ -30,13 +38,13 @@ export const UsersPosts = (props) => {
         return (
           <div key={p.id} className="container__card">
             <p>
-              <Link to={{pathname:`posts/${p.id}`}}>
-              <strong>{p.title}</strong>
+              <Link to={{ pathname: `posts/${p.id}` }}>
+                <strong>{p.title}</strong>
               </Link>
             </p>
-            <p>{p.user.display_name}</p>
-            <p>{p.category.type}</p>
-            {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
+            <p>{p.user.user.first_name}</p>
+            <p>{p.category.label}</p>
+            {p.created_by_current_user ? <DeleteItem postId={p.id} /> : <></>}
           </div>
         );
       }).reverse()}
