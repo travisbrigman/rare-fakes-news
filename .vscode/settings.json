@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
     "peacock.color": "#42b883",
     "sqltools.connections": [
         {
@@ -41,4 +42,7 @@
         "titleBar.inactiveForeground": "#15202b99"
 >>>>>>> main
     }
+=======
+    "peacock.color": "#834a7e"
+>>>>>>> main
 }

@@ -2,20 +2,25 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "./PostProvider";
 import { ReactionList } from "../Reactions/ReactionList";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { DeleteTagItem } from "../utils/DeleteTagItem";
 import { TagPostContext } from "../Tags/TagPostProvider";
 import { TagContext } from "../Tags/TagProvider";
+import { UserContext } from "../Profiles/UserProvider"
+import { DeleteItem } from "../utils/DeleteItem";
 
 export const PostDetails = (props) => {
-  const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(PostContext);
+  const { getPostById, post, setPost, getTagsByPost, postTags, deletePost, posts, getPostByUser } = useContext(PostContext);
   const {tag, tags, getTags} = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
-
+  const { getCurrentUser } = useContext(UserContext);
+  const history = useHistory()
   
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
+  const [usersPosts, setUsersPosts] = useState([]);
+  const [user, setCurrentUser] = useState({});
   const tagPostId = useRef(null);
   const postId = parseInt(props.match.params.postId);
 
@@ -24,7 +29,9 @@ export const PostDetails = (props) => {
     getTags()
     getPostById(postId).then(setPost);
     getTagsByPost(postId);
+    getCurrentUser().then(setCurrentUser)
   }, [TagPosts]);
+
 
   //takes what is selected in the tag management dropdown and sets the state variable with that value
   const handleChange = (e) => {
@@ -61,17 +68,18 @@ export const PostDetails = (props) => {
 }
 
 
-  
+
   return (
     <>
       {/* Post Detail JSX */}
       <section className="container__card">
         <h3 className="post__title">{post.title}</h3>
         <div className="post__content">{post.content}</div>
-        <div className="post_date">
+       <div key={post.id} className="post_date">
           Published on: {new Date(post.publication_date).toLocaleDateString("en-US")}
         </div>
         <div>
+        
           {post.created_by_current_user ? (
             <>
            
@@ -94,6 +102,7 @@ export const PostDetails = (props) => {
             </Link>
           )}
         </div>
+        {post.user.id === user.id ? <DeleteItem postId= {post.id}/> : <></>}
         <div>
           {postTags.map((postTag) => {
             return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null
