@@ -7,8 +7,8 @@ export const SubscriptionProvider = (props) => {
     const [subscriptions, setSubscriptions] = useState([])
     const [subscription, setSubscription] = useState({})
 
-    const getSubscriptions = () => {
-        return fetch("http://localhost:8000/subscriptions", {
+    const getSubscriptionsByAuthor = (id) => {
+        return fetch(`http://localhost:8000/subscriptions?author_id=${id}`, {
             headers: {
                 Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",

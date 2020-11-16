@@ -10,7 +10,7 @@ export const UserDetail = (props) => {
     const { user, getUserById, getUsers, getCurrentUser, setUser } = useContext(UserContext)
   
     const { subscription, setSubscription, 
-            subscriptions, getSubscriptions, 
+            subscriptions, getSubscriptionsByAuthor, 
             unSubscribe, createSubscription } = useContext(SubscriptionContext)
 
     const [subStatus, setSubStatus] = useState(false) //subscription state set to false
@@ -19,7 +19,7 @@ export const UserDetail = (props) => {
     useEffect(() => {
       
         if (props.match.params.hasOwnProperty("userId")) {
-            getSubscriptions()
+            getSubscriptionsByAuthor(parseInt(props.match.params.userId))
             getUserById(parseInt(props.match.params.userId))
             .then(setUser)
             
@@ -35,12 +35,10 @@ console.log(subscriptions)
     useEffect(() => {
         const myID = parseInt(user.id)
         const authorID = parseInt(props.match.params.userId)
-        const found = subscriptions.find(s => {
-            return s.user_id === myID && s.subscribe_id === authorID //check to see if subscription exists
-        })
-        if (found !== undefined && subscription.end === null) { 
+        const mostRecent = subscriptions.slice(-1)
+        if (mostRecent !== undefined && mostRecent.ended_on === null) { 
             setSubStatus(true)
-            setSubscription(found)
+            setSubscription(mostRecent)
         } else {
             setSubStatus(false)
             setSubscription({found: false})
