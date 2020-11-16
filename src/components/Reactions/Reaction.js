@@ -20,6 +20,7 @@ export const Reaction = (props) => {
     }, [])
 
     useEffect(() => {
+        debugger
         const reactionsForThisPost = ReactionPosts.filter(rp => { //find rp objects only for this post
             return rp.post.id === postId
         })

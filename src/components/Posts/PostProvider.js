@@ -99,7 +99,12 @@ export const PostProvider = (props) => {
 
     const deletePost = (postId) => {
         return fetch(`http://localhost:8000/posts/${postId}`, {
-            method: "DELETE"
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
+            },
+        body: JSON.stringify(postId)
         })
             .then(getPosts)
     }

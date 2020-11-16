@@ -8,7 +8,7 @@ import { TagPostContext } from "../Tags/TagPostProvider";
 import { TagContext } from "../Tags/TagProvider";
 
 export const PostDetails = (props) => {
-  const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(PostContext);
+  const { getPostById, post, setPost, getTagsByPost, postTags, deletePost } = useContext(PostContext);
   const {tag, tags, getTags} = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
 
