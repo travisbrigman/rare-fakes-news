@@ -11,8 +11,8 @@ export const UserDetail = (props) => {
   
     const { subscription, setSubscription, 
             subscriptions, getSubscriptions, 
-            unSubscribe, createSubscription, 
-                    subscribeAgain } = useContext(SubscriptionContext)
+            unSubscribe, createSubscription } = useContext(SubscriptionContext)
+
     const [subStatus, setSubStatus] = useState(false) //subscription state set to false
   
 
@@ -41,9 +41,6 @@ export const UserDetail = (props) => {
         if (found !== undefined && subscription.end === null) { 
             setSubStatus(true)
             setSubscription(found)
-        } else if(found !== undefined && subscription.end !== null) { //subscription exists but has an end date
-            setSubStatus(false)
-            setSubscription(found)
         } else {
             setSubStatus(false)
             setSubscription({found: false})
@@ -54,29 +51,24 @@ export const UserDetail = (props) => {
         const myID = parseInt(user.id)
         const authorID = parseInt(props.match.params.userId)
         if(subscription.hasOwnProperty("id") && subscription.end === null) { //if end === null, user is still subscribed and can unsubscribe
-
-            unSubscribe(subscription.id)
-            .then(() => {
-                props.history.push('/home')
-                window.alert("You are now UNsubscribed!")
-            })
-        } else if (subscription.hasOwnProperty("id") && subscription.end !== null) { //if end !== null, user has unsubscribed (but subscription still techincally exists) and can subscribeAgain
-            subscribeAgain(subscription.id)
-            .then(() => {
-                props.history.push('/home')
-                window.alert("You are now subscribed!")
-            })
+            console.log("I am going to UNSUBSCRIBE")
+            // unSubscribe(subscription.id)
+            // .then(() => {
+            //     props.history.push('/home')
+            //     window.alert("You are now UNsubscribed!")
+            // })
         } else {
-            createSubscription({ //user can create a subscription
-                user_id: myID,
-                subscribe_id: authorID,
-                begin: Date.now(),
-                end: null
-            })
-            .then(() => {
-                props.history.push('/home')
-                window.alert("You are now subscribed!")
-            })
+            console.log("I am going to SUBSCRIBE")
+            // createSubscription({ //user can create a subscription
+            //     user_id: myID,
+            //     subscribe_id: authorID,
+            //     begin: Date.now(),
+            //     end: null
+            // })
+            // .then(() => {
+            //     props.history.push('/home')
+            //     window.alert("You are now subscribed!")
+            // })
         }
     }
     
