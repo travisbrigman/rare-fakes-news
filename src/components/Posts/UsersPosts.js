@@ -12,7 +12,6 @@ export const UsersPosts = (props) => {
   const [usersPosts, setUsersPosts] = useState([]);
 
   useEffect(() => {
-    debugger
     getPostByUser(loggedInUser)
   }, []);
 
