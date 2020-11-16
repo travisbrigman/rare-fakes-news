@@ -72,7 +72,7 @@ export const PostDetails = (props) => {
           Published on: {new Date(post.publication_date).toLocaleDateString("en-US")}
         </div>
         <div>
-        <button onClick={() => deletePost(post.id).then(() => props.history.push("/home"))} >Delete Post</button>
+        
           {post.created_by_current_user ? (
             <>
            
@@ -95,6 +95,7 @@ export const PostDetails = (props) => {
             </Link>
           )}
         </div>
+        <button onClick={() => deletePost(post.id).then(() => props.history.push("/home"))} >Delete Post</button>
         <div>
           {postTags.map((postTag) => {
             return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null
