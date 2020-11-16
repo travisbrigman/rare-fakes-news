@@ -29,7 +29,6 @@ export const PostList = (props) => {
                     </Link>
                     <p>{p.user.user.first_name}</p>
                     <p>{p.category.label}</p>
-                    {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
                 </div>
             }).reverse() : null
         }
