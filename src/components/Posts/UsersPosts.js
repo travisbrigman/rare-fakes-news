@@ -7,34 +7,41 @@ import { DeleteItem } from "../utils/DeleteItem";
 
 export const UsersPosts = (props) => {
   const { posts, getPostByUser } = useContext(PostContext);
-  // const { getCurrentUser } = useContext(UserContext)
-
+  const { getCurrentUser } = useContext(UserContext)
 
   const [usersPosts, setUsersPosts] = useState([]);
-  // const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState({})
 
   // useEffect(() => {
-  //   getCurrentUser()
-  //     .then(setCurrentUser)
+  //    getPosts()
   // }, [])
 
-  // useEffect(() => {
-  //   getPostByUser(currentUser.id)
-  //   .then(setUsersPosts)
-  // }, [currentUser]);
-
-
   useEffect(() => {
-    const filteredPostsByUser = posts.filter(
-      (post) => post.created_by_current_user == true
-    );
-    setUsersPosts(filteredPostsByUser);
-  }, [posts]);
+    getCurrentUser()
+      .then(setCurrentUser)
+      .then(() => {
+        getPostByUser(1)
+      })
+      .then(setUsersPosts)
+
+  }, []);
+
+  console.log(currentUser.id)
+  console.log(usersPosts)
+
+  // useEffect(() => {
+
+  //   const filteredPostsByUser = posts.filter(
+  //     (post) => post.created_by_current_user == true 
+
+  //   );
+  //   setUsersPosts(filteredPostsByUser);
+  // }, [posts]);
 
   return (
     <>
       <h2>My Posts</h2>
-      {usersPosts.map((p) => {
+      {/* {usersPosts.map((p) => {
         return (
           <div key={p.id} className="container__card">
             <p>
@@ -44,10 +51,10 @@ export const UsersPosts = (props) => {
             </p>
             <p>{p.user.user.first_name}</p>
             <p>{p.category.label}</p>
-            {p.created_by_current_user ? <DeleteItem postId={p.id} /> : <></>}
+           
           </div>
         );
-      }).reverse()}
+      }).reverse()} */}
     </>
   );
 };
