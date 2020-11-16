@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "./PostProvider";
 import { ReactionList } from "../Reactions/ReactionList";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { DeleteTagItem } from "../utils/DeleteTagItem";
 import { TagPostContext } from "../Tags/TagPostProvider";
 import { TagContext } from "../Tags/TagProvider";
@@ -14,7 +14,7 @@ export const PostDetails = (props) => {
   const {tag, tags, getTags} = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
   const { getCurrentUser } = useContext(UserContext);
-
+  const history = useHistory()
   
 
   //state variable and variables needed to make tag management work

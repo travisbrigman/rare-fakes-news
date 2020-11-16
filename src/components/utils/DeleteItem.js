@@ -1,11 +1,12 @@
 //delete button component with confirmation modal
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { PostContext } from "../Posts/PostProvider";
 import "./DeleteItem.css"
 
 export const DeleteItem = ({ postId }) => {
   const { deletePost } = useContext(PostContext);
-
+  const history = useHistory()
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
@@ -18,8 +19,11 @@ export const DeleteItem = ({ postId }) => {
   //This function deletes an entry in the Post table.
   //Lastly the function calls the close function which resets our modal state.
   const deleteThisPost = () => {
-    deletePost(postId);
-    onClose();
+    deletePost(postId)
+    .then(() => {
+      history.push("/home")
+    }
+    )
   };
 
   return (
