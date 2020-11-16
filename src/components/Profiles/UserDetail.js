@@ -19,8 +19,8 @@ export const UserDetail = (props) => {
     useEffect(() => {
       
         if (props.match.params.hasOwnProperty("userId")) {
+            getSubscriptions()
             getUserById(parseInt(props.match.params.userId))
-            // getSubscriptions()
             .then(setUser)
             
         } else {
@@ -31,7 +31,7 @@ export const UserDetail = (props) => {
     }, [])
 
 
-
+console.log(subscriptions)
     useEffect(() => {
         const myID = parseInt(user.id)
         const authorID = parseInt(props.match.params.userId)

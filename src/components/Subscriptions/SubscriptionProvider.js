@@ -8,15 +8,21 @@ export const SubscriptionProvider = (props) => {
     const [subscription, setSubscription] = useState({})
 
     const getSubscriptions = () => {
-        return fetch("http://localhost:8088/subscriptions")
+        return fetch("http://localhost:8000/subscriptions", {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                "Content-Type": "application/json",
+              }
+            })
             .then(res => res.json())
             .then(setSubscriptions)
     }
 
     const createSubscription = subscription => {
-        return fetch("http://localhost:8088/subscriptions", {
+        return fetch("http://localhost:8000/subscriptions", {
             method: "POST",
             headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(subscription)
@@ -26,9 +32,10 @@ export const SubscriptionProvider = (props) => {
     }
 
     const unsubscribe = (subscriptionId) => {
-        return fetch(`http://localhost:8088/subscriptions/${subscriptionId}/unsubscribe`, {
+        return fetch(`http://localhost:8000/subscriptions/${subscriptionId}/unsubscribe`, {
             method: "PUT",
             headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(subscription)
