@@ -109,10 +109,22 @@ export const PostProvider = (props) => {
         })
             .then(getPosts)
     }
+//TODO:change to put
+    const approvePost = (postId) => {
+      return fetch(`http://localhost:8000/posts/${postId}/approve`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,  
+        },
+        body: JSON.stringify(postId)
+      })
+      .then(getPosts)
+    }
 
     return (
         <PostContext.Provider value={{
-            post, setPost, posts, addPost, getPosts, setPosts,
+            post, setPost, posts, addPost, approvePost,  getPosts, setPosts,
             getPostById, updatePost, getPostByTag, getPostByCat, getPostByUser,
             deletePost, postTags, getTagsByPost
             

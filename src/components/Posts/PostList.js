@@ -8,7 +8,7 @@ import { DeleteItem } from "../utils/DeleteItem";
 
 
 export const PostList = (props) => {
-    const {posts, getPosts} = useContext(PostContext)
+    const {approvePost, posts, getPosts} = useContext(PostContext)
     const { loggedInUser } = useContext(UserContext);
 
     console.log(posts);
@@ -31,6 +31,7 @@ export const PostList = (props) => {
                     </Link>
                     <p>{p.user.user.first_name}</p>
                     <p>{p.category.label}</p>
+                    <button onClick={() => {approvePost(p.id)}}>APPROVE</button>
                 </div>
             }).reverse() : null
         }
