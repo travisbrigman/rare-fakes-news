@@ -12,13 +12,14 @@ export const UsersPosts = (props) => {
   const [usersPosts, setUsersPosts] = useState([]);
 
   useEffect(() => {
+    debugger
     getPostByUser(loggedInUser)
   }, []);
 
 
   useEffect(() => {
     const filteredPostsByUser = posts.filter(
-      (post) => post.user_id === loggedInUser
+      (post) => post.user.id === loggedInUser
     );
     setUsersPosts(filteredPostsByUser);
   }, [posts, loggedInUser]);

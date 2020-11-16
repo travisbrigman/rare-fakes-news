@@ -29,12 +29,13 @@ export const PostProvider = (props) => {
             .then(res => res.json())
     }
 
-    const getPostByUser = (userId) => {
-        return fetch(`http://localhost:8000/posts?user_id=${userId}` , {
+    const getPostByUser = (user) => {
+        return fetch(`http://localhost:8000/posts?user_id=${user}` , {
             headers: {
               Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
               "Content-Type": "application/json",   
-            }
+            } ,
+            body: JSON.stringify(user)
           })
             .then(res => res.json())
             .then(setPosts)
