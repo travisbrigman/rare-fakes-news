@@ -20,7 +20,7 @@ export const UsersPosts = (props) => {
     getCurrentUser()
       .then(setCurrentUser)
       .then(() => {
-        getPostByUser(1)
+        getPostByUser(currentUser)
       })
       .then(setUsersPosts)
 
