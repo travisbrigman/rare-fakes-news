@@ -16,6 +16,8 @@ export const PostDetails = (props) => {
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
+  const [filteredTags, setFilteredTags] = useState([])
+  const [stateTagIDArr, setTagIDArr] = useState([])
 
   //other variables defined through useRef and the URL
   const tagPostId = useRef(null);
@@ -28,17 +30,8 @@ export const PostDetails = (props) => {
     getTagsByPost(postId);
   }, [TagPosts]);
 
-
-  //takes what is selected in the tag management dropdown and sets the state variable with that value
-  const handleChange = (e) => {
-    setSelectedTagPostId(parseInt(e.target.value));
-  };
-
-
-  //filters tags that haven't been selected yet to be options for adding
-
-  const [filteredTags, setFilteredTags] = useState([])
   useEffect(() => {
+    //filters tags that haven't been selected yet to be options for adding
     const tagIDs = tags.map(t => t.id)
     const postTagIDs = postTags.map(pt => pt.id)
     const diffIDs = tagIDs.filter(t => !postTagIDs.includes(t))
@@ -48,22 +41,24 @@ export const PostDetails = (props) => {
     setFilteredTags(filteredTagObjs)
   }, [postTags])
 
+
   //state variable and functions to show/hide the tag management feature
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(undefined);
-
-  //IDs of tags to be added get stored in this variable
-  const [stateTagIDArr, setTagIDArr] = useState([])
-
+  
+  //takes what is selected in the tag management dropdown and sets the state variable with that value
+  const handleChange = (e) => {
+    setSelectedTagPostId(parseInt(e.target.value));
+  };
+  
   const handleAddTags = (browserEvent) => {
     const stateCopyID = stateTagIDArr.slice()
     let newTagItem = parseInt(browserEvent.target.value)
     stateCopyID.push(newTagItem)
+    //IDs of tags to be added get stored in this variable
     setTagIDArr(stateCopyID)
   }
-
-
 
   return (
     <>
@@ -109,17 +104,14 @@ export const PostDetails = (props) => {
         {/* Tag Management JSX */}
         {open && (
           <>
-            <select
-              name="tagManagement"
-              className="form-control"
-              ref={tagPostId}
-              onChange={handleChange}
-            >
+            <select name="tagManagement" className="form-control"
+                ref={tagPostId} onChange={handleChange}>
               <option value="0">Select a Tag To Delete</option>
-              {postTags.map((tag) => (
-                <option key={tag.id} value={tag.tagPost.id}>
-                  {tag.tag}
-                </option>
+                {
+                  postTags.map((tag) => (
+                    <option key={tag.id} value={tag.tagPost.id}>
+                      {tag.tag}
+                    </option>
               ))}
             </select>
             <button onClick={onClose}>Cancel</button>
