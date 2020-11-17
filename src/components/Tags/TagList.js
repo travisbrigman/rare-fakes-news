@@ -37,6 +37,9 @@ export const TagList = ({ props }) => {
                         return(<>
                         <div>{tag.label}</div>
                         {currentUser.user.is_staff ? <DeleteTag tagId= {tag.id}/> : <></>}
+                        <div className="new_tag_btn_container"> <Link to={`/edittag/${tag.id}`}>
+                        <button onClick={() => localStorage.setItem("currentLabel", tag.label)} className="new_tag_btn">Edit Tag</button>
+                </Link></div>
                         </>)
                     })
                 }

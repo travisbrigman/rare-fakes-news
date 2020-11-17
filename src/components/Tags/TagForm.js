@@ -30,7 +30,6 @@ export const TagForm = (props) => {
             label: tag.tag
         })
             .then(() => props.history.push("/tags")) //takes user to tag list page
-            debugger
     }
 
 

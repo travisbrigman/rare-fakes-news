@@ -28,7 +28,6 @@ export const DeleteTag = ({ tagId }) => {
     }
     )
   };
-  console.log(history)
   return (
     <>
       <button onClick={onOpen}>DELETE</button>

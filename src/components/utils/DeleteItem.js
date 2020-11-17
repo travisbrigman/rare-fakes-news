@@ -8,7 +8,7 @@ export const DeleteItem = ({ postId }) => {
   const { deletePost } = useContext(PostContext);
   const history = useHistory()
   const params = useParams()
-  console.log(params)
+
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
@@ -27,7 +27,7 @@ export const DeleteItem = ({ postId }) => {
     }
     )
   };
-  console.log(history)
+
   return (
     <>
       <button onClick={onOpen}>DELETE</button>
