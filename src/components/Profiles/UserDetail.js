@@ -9,9 +9,9 @@ import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 export const UserDetail = (props) => {
     const { user, getUserById, getUsers, getCurrentUser, setUser } = useContext(UserContext)
   
-    const { subscription, setSubscription, 
-            subscriptions, getSubscriptionsByAuthor, 
-            unSubscribe, createSubscription } = useContext(SubscriptionContext)
+    const { subscription, getMostRecentSubscriptionByAuthor, 
+            unsubscribe, createSubscription } = useContext(SubscriptionContext)
+
 
     const [subStatus, setSubStatus] = useState(false) //subscription state set to false
   
@@ -19,54 +19,41 @@ export const UserDetail = (props) => {
     useEffect(() => {
       
         if (props.match.params.hasOwnProperty("userId")) {
-            getSubscriptionsByAuthor(parseInt(props.match.params.userId))
+            getMostRecentSubscriptionByAuthor(parseInt(props.match.params.userId))
             getUserById(parseInt(props.match.params.userId))
             .then(setUser)
-            
-        } else {
-           getCurrentUser()
-           .then(setUser)
-        }
-       
-    }, [])
-
-
-console.log(subscriptions)
-    useEffect(() => {
-        const myID = parseInt(user.id)
-        const authorID = parseInt(props.match.params.userId)
-        const mostRecent = subscriptions.slice(-1)
-        if (mostRecent !== undefined && mostRecent.ended_on === null) { 
-            setSubStatus(true)
-            setSubscription(mostRecent)
-        } else {
-            setSubStatus(false)
-            setSubscription({found: false})
-        }
-    }, [subscriptions])
+            } else {
+                getCurrentUser()
+                .then(setUser)
+            }
+        }, [])
+        
+        useEffect(() => {
+            if (subscription.ended_on !== null) { 
+                setSubStatus(false)
+            } else {
+                setSubStatus(true)
+            }
+    },[subscription])
 
     const changeSubStatus = (subscription) => {
-        const myID = parseInt(user.id)
         const authorID = parseInt(props.match.params.userId)
-        if(subscription.hasOwnProperty("id") && subscription.end === null) { //if end === null, user is still subscribed and can unsubscribe
+        if(subscription.ended_on === null) { //if end === null, user is still subscribed and can unsubscribe
             console.log("I am going to UNSUBSCRIBE")
-            // unSubscribe(subscription.id)
-            // .then(() => {
-            //     props.history.push('/home')
-            //     window.alert("You are now UNsubscribed!")
-            // })
+            unsubscribe(authorID)
+            .then(() => {
+                window.alert("You are now UNsubscribed!")
+                props.history.push('/home')
+            })
         } else {
             console.log("I am going to SUBSCRIBE")
-            // createSubscription({ //user can create a subscription
-            //     user_id: myID,
-            //     subscribe_id: authorID,
-            //     begin: Date.now(),
-            //     end: null
-            // })
-            // .then(() => {
-            //     props.history.push('/home')
-            //     window.alert("You are now subscribed!")
-            // })
+            createSubscription({ //user can create a subscription
+                author_id: authorID
+            })
+            .then(() => {
+                window.alert("You are now subscribed!")
+                props.history.push('/home')
+            })
         }
     }
 
