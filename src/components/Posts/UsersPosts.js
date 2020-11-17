@@ -29,14 +29,16 @@ export const UsersPosts = (props) => {
       {usersPosts.map((p) => {
         return (
           <div key={p.id} className="container__card">
-            <p>
-              <Link to={{pathname:`posts/${p.id}`}}>
-              <strong>{p.title}</strong>
-              </Link>
-            </p>
-            <p>{p.user.display_name}</p>
-            <p>{p.category.type}</p>
-            {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
+            <div className="container__cardMain">              
+              <p>
+                <Link to={{pathname:`posts/${p.id}`}}>
+                <strong>{p.title}</strong>
+                </Link>
+              </p>
+              <p>{p.user.display_name}</p>
+              <p>{p.category.type}</p>
+              {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
+            </div>
           </div>
         );
       }).reverse()}

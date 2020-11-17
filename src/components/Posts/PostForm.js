@@ -94,7 +94,11 @@ export const PostForm = (props) => {
 
     return (
         <>
-            <h2>New Post</h2>
+            {editMode
+            ? <h2>Edit Post</h2>
+            : <h2>New Post</h2>
+            }
+            
             <form>
                 <fieldset>
                     <div className="form-group">

@@ -73,44 +73,60 @@ export const PostDetails = (props) => {
     <>
       {/* Post Detail JSX */}
       <section className="container__card">
-        <h3 className="post__title">{post.title}</h3>
-        <div className="post__content">{post.content}</div>
-       <div key={post.id} className="post_date">
-          Published on: {new Date(post.publication_date).toLocaleDateString("en-US")}
-        </div>
-        <div>
+        <section className="container__cardMain">          
+          <h3 className="post__title">{post.title}</h3>
+          <div className="post__content">{post.content}</div>
+          <div key={post.id} className="post_date">
+            Published: {new Date(post.publication_date).toLocaleDateString("en-US")}
+          </div>
+
+          <div>
+            {post.created_by_current_user 
+            ? (
+              <>              
+                <div className="post_author">
+                  By: {post.user.user.first_name}
+                </div>
+
+                <button onClick={() => props.history.push(`/posts/edit/${post.id}`)}>
+                  edit
+                </button>
+
+                {post.user.id === user.id ? <DeleteItem postId= {post.id}/> : <></>}
+              </>
+            ) 
+            : (
+              <Link to={{ pathname: `/profiles/${post.user.id}` }}>
+                <div className="post_author">
+                  By: {post.user.user.first_name}
+                </div>
+              </Link>
+            )
+            }
+          </div>
+        </section>
+
+        <section className="container__cardRight">          
+          <div>
+            {postTags.map((postTag) => {
+              return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null              
+            })}
+
+            {post.created_by_current_user 
+            ? (
+              <button onClick={onOpen}>
+                  Manage Tags
+                </button>
+            )
+            : ("")
+            }
+          </div>
+        </section>
         
-          {post.created_by_current_user ? (
-            <>
-           
-              <div className="post_author">
-                Author: {post.user.user.first_name} (you!)
-              </div>
-             
-              <button
-                onClick={() => props.history.push(`/posts/edit/${post.id}`)}
-              >
-                edit
-              </button>
-              <button onClick={onOpen}>Manage Post Tags</button>
-            </>
-          ) : (
-            <Link to={{ pathname: `/profiles/${post.user.id}` }}>
-              <div className="post_author">
-                Author: {post.user.user.first_name}
-              </div>
-            </Link>
-          )}
-        </div>
-        {post.user.id === user.id ? <DeleteItem postId= {post.id}/> : <></>}
-        <div>
-          {postTags.map((postTag) => {
-            return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null
-             
-          })}
-        </div>
-        {/* Tag Management JSX */}
-       
+
+
+        
+        {/* Tag Management JSX */}       
         {open && (
           <>
             <select
@@ -120,9 +136,9 @@ export const PostDetails = (props) => {
               onChange={handleChange}
             >
               <option value="0">Select a Tag To Delete</option>
-              {postTags.map((tag) => (
-                <option key={tag.id} value={tag.tagPost.id}>
-                  {tag.tag}
+              {postTags.map((pt) => (
+                <option key={pt.id} value={pt.tagPost.id}>
+                  {pt.tag}
                 </option>
               ))}
             </select>
