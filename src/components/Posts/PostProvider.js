@@ -109,15 +109,13 @@ export const PostProvider = (props) => {
         })
             .then(getPosts)
     }
-//TODO:change to put
     const approvePost = (postId) => {
       return fetch(`http://localhost:8000/posts/${postId}/approve`, {
-        method: "PATCH",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
           "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,  
         },
-        body: JSON.stringify(postId)
       })
       .then(getPosts)
     }
