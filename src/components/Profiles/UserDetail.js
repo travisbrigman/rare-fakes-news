@@ -23,8 +23,8 @@ export const UserDetail = (props) => {
                 .then(setSubscription)
                 .then(() => {
                     getUserById(parseInt(props.match.params.userId))
+                    .then(setUser)
                 })
-                .then(setUser)
             } else {
                 getCurrentUser()
                 .then(setUser)
