@@ -9,7 +9,6 @@ import { DeleteItem } from "../utils/DeleteItem";
 
 export const PostList = (props) => {
     const {posts, getPosts} = useContext(PostContext)
-    const { loggedInUser } = useContext(UserContext);
 
     useEffect(() => {
        getPosts()
