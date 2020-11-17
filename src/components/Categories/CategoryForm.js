@@ -5,6 +5,11 @@ import { CategoryContext } from "./CategoryProvider";
 
 export const CategoryForm = (props) => {
   const { category, getCategories, createCategory, setCategory } = useContext(CategoryContext)
+  
+  //gets the categories from the database upon initialization of the component
+  useEffect(() => {
+    getCategories()
+  }, []);
 
 
   //function that is called when a change happens in the form. It sets the state variable that is imported via context.
@@ -13,12 +18,6 @@ export const CategoryForm = (props) => {
   function handleChange(evt) {
     setCategory({ label: evt.target.value });
   }
-
-  //gets the categories from the database
-  useEffect(() => {
-    getCategories()
-   
-  }, []);
 
   //function that is called on click of the submit button
   //create category writes a new category object to the database.
@@ -32,21 +31,14 @@ export const CategoryForm = (props) => {
     <form className="categoryForm">
       <label>
         <div className="label">Category</div>
-        <input
-          type="text"
-          name="category"
-          value={category.category}
-          onChange={handleChange}
-        />
       </label>
-      <button
-        type="submit"
+      <input type="text" name="category" value={category.category} onChange={handleChange} />
+      <button type="submit"
         onClick={(evt) => {
-          evt.preventDefault();
-          constructNewCategory();
-        }}
-        className="btn btn-primary"
-      >
+            evt.preventDefault();
+            constructNewCategory();
+          }}
+          className="btn btn-primary">
         Save Update
       </button>
     </form>
