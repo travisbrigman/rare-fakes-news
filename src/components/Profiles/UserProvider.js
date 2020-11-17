@@ -33,7 +33,7 @@ export const UserProvider = (props) => {
            
     }
 
-    const getCurrentUser = () => {
+    const getCurrentUser = (userId) => {
         return fetch(`http://localhost:8000/currentuser`, {
             headers: {
                 Authorization: `Token ${localStorage.getItem("rare_user_id")}`,

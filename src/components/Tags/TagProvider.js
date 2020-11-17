@@ -28,6 +28,31 @@ export const TagProvider = (props) => {
       .then((res) => res.json())
   };
 
+  
+  const deleteTag = (tagId) => {
+    return fetch(`http://localhost:8000/tags/${tagId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(tagId),
+    })
+    .then(getTags)
+}
+
+const getTagById = (id) => {
+  return fetch(`http://localhost:8000/tags/${id}` , {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+        "Content-Type": "application/json",
+      }
+    })
+      .then(res => res.json())
+}
+
+
+
   return (
     <TagContext.Provider
       value={{
@@ -37,6 +62,8 @@ export const TagProvider = (props) => {
         getTags,
         setTags,
         createTag,
+        deleteTag,
+        getTagById
       }}
     >
       {props.children}
