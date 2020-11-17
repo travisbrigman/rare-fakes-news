@@ -7,8 +7,6 @@ import "./DeleteItem.css"
 export const DeleteItem = ({ postId }) => {
   const { deletePost } = useContext(PostContext);
   const history = useHistory()
-  const params = useParams()
-
   
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
@@ -25,11 +23,9 @@ export const DeleteItem = ({ postId }) => {
     deletePost(postId)
     .then(() => {
       history.push("/home")
-    }
-    )
+    })
   };
 
- 
   return (
     <>
       <button onClick={onOpen}>DELETE</button>
