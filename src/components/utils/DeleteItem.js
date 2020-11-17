@@ -9,6 +9,7 @@ export const DeleteItem = ({ postId }) => {
   const history = useHistory()
   const params = useParams()
 
+  
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
@@ -28,6 +29,7 @@ export const DeleteItem = ({ postId }) => {
     )
   };
 
+ 
   return (
     <>
       <button onClick={onOpen}>DELETE</button>
