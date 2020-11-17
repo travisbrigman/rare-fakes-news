@@ -7,7 +7,7 @@ import { TagContext } from "./TagProvider"
 export const TagForm = (props) => {
     // Use the required context providers for data
     const { tags, getTags, createTag, tag, setTag, updateTag, getTagById } = useContext(TagContext)
-    const editMode = props.match.url.split("/")[2]
+    const editMode = props.match.params.hasOwnProperty("tagId")
 
     const [tagObj, setTagObj] = useState({})
 
@@ -26,31 +26,24 @@ export const TagForm = (props) => {
         getTags()
     }, [])
 
-    useEffect(() => {
-        getTags()
-        if (editMode) {
-            getTagById(parseInt(props.match.params.tagId))
-                .then(setTagObj)
-        }
-    }, [])
-
+  
 
     const constructNewTag = () => {
 
         if (editMode) {
             updateTag( {
-                id: tagObj.id,
+                id: parseInt(props.match.params.tagId),
                 label: tagObj.label
             })
                 .then(() => {
-                    props.history.push(`/tags/${tagObj.id}`)
+                    props.history.push(`/tags`)
                 })
             } else {
 
         
         // POST
         createTag({
-            label: tag.tag
+            label: tagObj.label
         })
             .then(() => props.history.push("/tags")) //takes user to tag list page
     }
@@ -65,7 +58,7 @@ export const TagForm = (props) => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="tag">Enter tag name: </label>
-                    <input type="text" name="tag" required autoFocus className="form-control"
+                    <input type="text" name="label" required autoFocus className="form-control"
                         placeholder="ex: sports, politics, etc"
                         onChange={handleControlledInputChange}
                     />
