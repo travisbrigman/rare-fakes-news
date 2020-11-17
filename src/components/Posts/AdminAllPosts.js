@@ -1,20 +1,19 @@
 // import React, { useContext, useEffect } from "react"
-import  React, {useContext, useEffect} from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
 import { UserContext } from "../Profiles/UserProvider";
 import { DataGrid } from "@material-ui/data-grid";
 
 export const AdminAllPosts = () => {
+  const { approvePost, posts, getPosts } = useContext(PostContext);
+  console.log(posts);
 
-    const {approvePost, posts, getPosts} = useContext(PostContext)
-    console.log(posts);
+  useEffect(() => {
+    getPosts();
+  }, []);
 
-    useEffect(() => {
-        getPosts()
-     },[])
-
-     /*0:
+  /*0:
 approved: true
 category: {id: 3, label: "Self Help"}
 category_id: 3
@@ -31,28 +30,35 @@ user:
 first_name: "Steve" */
 
   const columns = [
-    { field: {posts.category.label}, headerName: "Category", width: 70 },
-    { field: "firstName", headerName: "First name", width: 130 },
-    { field: "lastName", headerName: "Last name", width: 130 },
+    { field: "title", headerName: "Title", width: 70 },
+    { field: "author", headerName: "Author", width: 130 },
+    { field: "date", headerName: "Date", width: 130 },
     {
-      field: "age",
-      headerName: "Age",
-      type: "number",
+      field: "category",
+      headerName: "Category",
       width: 90,
     },
     {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
+      field: "approved",
+      headerName: "Approved",
       width: 160,
-      valueGetter: (params) =>
-        `${params.getValue("firstName") || ""} ${
-          params.getValue("lastName") || ""
-        }`,
     },
   ];
 
+  const rows = [
+    posts.map((post) => {
+      return {
+        id: post.id,
+        title: post.title,
+        author: post.user.user.first_name,
+        date: post.publication_date,
+        category: post.category.label,
+        approved: post.approved,
+      };
+    }),
+  ];
+
+  /*
   const rows = [
     { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
     { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
@@ -64,6 +70,7 @@ first_name: "Steve" */
     { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
     { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
   ];
+*/
 
   return (
     <>

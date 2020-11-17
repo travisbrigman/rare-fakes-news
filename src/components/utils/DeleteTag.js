@@ -1,13 +1,14 @@
 //delete button component with confirmation modal
 import React, { useState, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { PostContext } from "../Posts/PostProvider";
+import { TagContext } from "../Tags/TagProvider"
 import "./DeleteItem.css"
 
-export const DeleteItem = ({ postId }) => {
-  const { deletePost } = useContext(PostContext);
+export const DeleteTag = ({ tagId }) => {
+  const { deleteTag } = useContext(TagContext);
   const history = useHistory()
-  
+  const params = useParams()
+
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
@@ -19,13 +20,14 @@ export const DeleteItem = ({ postId }) => {
   //function that is called when the delete button is clicked. 
   //This function deletes an entry in the Post table.
   //Lastly the function calls the close function which resets our modal state.
-  const deleteThisPost = () => {
-    deletePost(postId)
+  const deleteThisTag = () => {
+    deleteTag(tagId)
     .then(() => {
-      history.push("/home")
-    })
+        onClose()
+      history.push("/tags")
+    }
+    )
   };
-
   return (
     <>
       <button onClick={onOpen}>DELETE</button>
@@ -37,7 +39,7 @@ export const DeleteItem = ({ postId }) => {
             </h3>
             <p>Are you sure you want to delete?</p>
             <div>
-              <button onClick={deleteThisPost}> <strong>Delete</strong></button>
+              <button onClick={deleteThisTag}> <strong>Delete</strong></button>
               <button onClick={onClose}> Cancel </button>
             </div>
           </div>
