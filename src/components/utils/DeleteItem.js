@@ -25,6 +25,7 @@ export const DeleteItem = ({ postId }) => {
       history.push("/home")
     })
   };
+
   return (
     <>
       <button onClick={onOpen}>DELETE</button>
