@@ -79,6 +79,7 @@ export const UserDetail = (props) => {
             })
         }
     }
+
     
    
     return (

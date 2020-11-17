@@ -15,6 +15,7 @@ export const PostForm = (props) => {
     const [postObj, setPostObj] = useState({}) //defines and sets the state of the postObj in this module
     const [stateTagIDArr, setTagIDArr] = useState([])
     const [stateTagObjArr, setTagObjArr] = useState([])
+    const [selectedTag, setSelectedTag] = useState(0)
 
     const editMode = props.match.url.split("/")[2] === "edit" //checks url to see if editMode
 
@@ -184,12 +185,33 @@ export const PostForm = (props) => {
                             }
                         </div>
 
+                        
+                        <div className="container--checkboxes">
+                            {tags.map(t => {
+                                    return (   
+                                        <article className="checkboxSet">                                            
+                                            <input
+                                            type="checkbox"
+                                            value={t.id}
+                                            name="postTag"
+                                            checked={selectedTag === t.id}
+                                            onChange={handleTags} 
+                                            >
+                                            </input>
+                                                {" "}
+                                                #{t.label}
+                                        </article>                                     
+                                    )
+                                })
+                            }
+                        </div>
+
+
                         <button onClick={(evt) => {
-                            constructPost(evt)
-                        }}
+                            constructPost(evt)}}
                         >
                             Publish
-                    </button>
+                        </button>
                     </>
                 }
 

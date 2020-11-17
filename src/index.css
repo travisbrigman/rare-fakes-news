@@ -231,3 +231,19 @@ a {
 	width: 50%;
 	padding: 4rem 0 0 0;
 }
+
+
+.container--filters {
+	margin: 1rem;
+}
+
+.container--checkboxes {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	padding: 1rem;
+}
+
+.checkboxSet {
+	white-space: nowrap;
+}

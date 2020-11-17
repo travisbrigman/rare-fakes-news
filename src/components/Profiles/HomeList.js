@@ -74,7 +74,7 @@ const clearFilterButton = () => {
     <section className="threeFilterContainer" 
     style={{display: "flex", 
     }}>
-      <div className="container--filter" style={{margin: "1rem"}}>
+      <div className="container--filters">
         <h3>Filter by Category</h3>
         {categories.map((category) => {
           return (
@@ -95,7 +95,7 @@ const clearFilterButton = () => {
       </div>
 
       
-      <div className="container--filter" style={{margin: "1rem"}}>
+      <div className="container--filters">
         <h3>Filter by Tag</h3>
         {tags.map((tag) => {
           return (
@@ -116,7 +116,7 @@ const clearFilterButton = () => {
       </div>
 
 
-      <div className="container--filter" style={{margin: "1rem"}}>
+      <div className="container--filters">
         <h3>Filter by User</h3>
         {users.map((user) => {
           return (
