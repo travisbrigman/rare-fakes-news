@@ -36,8 +36,9 @@ export const UsersList = () => {
                                     }
                                     </div>
                                     <div className="activeColumn"> 
+                                    Active:
                                         {//check for active yes or no
-                                            u.user.is_active ? <p>yes</p> : <p>no</p>
+                                            u.user.is_active ? <p>✅</p> : <p>❎</p>
                                         }
                                     </div>
                                     <div className="staffColumn">
