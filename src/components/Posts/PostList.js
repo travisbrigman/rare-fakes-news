@@ -31,7 +31,7 @@ export const PostList = (props) => {
                     </Link>
                     <p>{p.user.user.first_name}</p>
                     <p>{p.category.label}</p>
-                    <button onClick={() => {approvePost(p.id)}}>APPROVE</button>
+                    
                 </div>
             }).reverse() : null
         }
