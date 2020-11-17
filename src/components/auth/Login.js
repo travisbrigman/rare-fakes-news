@@ -8,7 +8,6 @@ export const Login = (props) => {
     const user = useRef()
     const password = useRef()
     const invalidDialog = useRef()
-    const history = useHistory()
 
     // see if user already exists
     const existingUserCheck = () => {
