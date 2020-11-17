@@ -68,7 +68,6 @@ export const ApplicationViews = (props) => {
         {/************TAG MANAGEMENT****************** */}
         <TagProvider>
           <UserProvider>
-<<<<<<< HEAD
             <PostProvider>
               <CategoryProvider>
                 <TagPostProvider>
@@ -100,7 +99,6 @@ export const ApplicationViews = (props) => {
                 </TagPostProvider>
               </CategoryProvider>
             </PostProvider>
-=======
             <Route exact path="/tags/create" render={(props) => {
               return <TagForm {...props} />
             }}
@@ -109,7 +107,6 @@ export const ApplicationViews = (props) => {
               return <TagList {...props} />
             }}
             />
->>>>>>> 12a67c1a7a09d52838bdc9807dbdca4021cf144d
           </UserProvider>
         </TagProvider>
 

@@ -4,17 +4,10 @@ import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
 import { UserContext } from "../Profiles/UserProvider"
 
-<<<<<<< HEAD
-export const UsersPosts = (props) => {
-  const { posts, getPostByUser } = useContext(PostContext);
-  const { loggedInUser } = useContext(UserContext);
-  console.log(posts)
-=======
 
 export const UsersPosts = () => {
   const { getPostByUser} = useContext(PostContext);
   const { getCurrentUser, currentUser, setCurrentUser } = useContext(UserContext)
->>>>>>> 12a67c1a7a09d52838bdc9807dbdca4021cf144d
 
   const [usersPosts, setUsersPosts] = useState([]);
  
