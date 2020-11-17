@@ -4,9 +4,11 @@ import React, { useState } from "react"
 export const SubscriptionContext = React.createContext()
 
 export const SubscriptionProvider = (props) => {
-    const [subscription, setSubscription] = useState({})
 
-    const getMostRecentSubscriptionByAuthor = (id) => {
+    //function used in UserDetail.js
+    //If author_id = current user, will return an ARRAY of objects of people that follow you
+    //if author_id !== current user, will return an OBJECT that will tell the app whether or not you follow the author
+    const getSubscriptionByAuthor = (id) => {
         return fetch(`http://localhost:8000/subscriptions?author_id=${id}`, {
             headers: {
                 Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
@@ -14,7 +16,6 @@ export const SubscriptionProvider = (props) => {
               }
             })
             .then(res => res.json())
-            .then(setSubscription)
     }
 
     const createSubscription = subscriptionObj => {
@@ -42,7 +43,7 @@ export const SubscriptionProvider = (props) => {
 
     return (
         <SubscriptionContext.Provider value={{
-            subscription, getMostRecentSubscriptionByAuthor, setSubscription, createSubscription,
+            getSubscriptionByAuthor, createSubscription,
             unsubscribe
         }}>
             {props.children}
