@@ -1,63 +1,50 @@
 //module to handle all subscription data, getSubscriptions, createSubscriptions, unSubscribe, subscribeAgain
-import React, { useState } from "react"
+import React from "react"
 
 export const SubscriptionContext = React.createContext()
 
 export const SubscriptionProvider = (props) => {
-    const [subscriptions, setSubscriptions] = useState([])
-    const [subscription, setSubscription] = useState({})
 
-    const getSubscriptions = () => {
-        return fetch("http://localhost:8088/subscriptions")
+    //function used in UserDetail.js
+    //If author_id = current user, will return an ARRAY of objects of people that follow you
+    //if author_id !== current user, will return an OBJECT that will tell the app whether or not you follow the author
+    const getSubscriptionByAuthor = (id) => {
+        return fetch(`http://localhost:8000/subscriptions?author_id=${id}`, {
+            headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                "Content-Type": "application/json",
+              }
+            })
             .then(res => res.json())
-            .then(setSubscriptions)
     }
 
-    const createSubscription = subscription => {
-        return fetch("http://localhost:8088/subscriptions", {
+    const createSubscription = subscriptionObj => {
+        return fetch("http://localhost:8000/subscriptions", {
             method: "POST",
             headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(subscription)
+            body: JSON.stringify(subscriptionObj)
         })
             .then(res => res.json())
-            .then(getSubscriptions)
     }
 
-    const unSubscribe = (subscriptionId) => {
-        const subscription = {
-            end: Date.now()
-        }
-        return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
-            method: "PATCH",
+    const unsubscribe = (authorId) => {
+        return fetch(`http://localhost:8000/subscriptions/${authorId}/unsubscribe`, {
+            method: "PUT",
             headers: {
+                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify(subscription)
-        })
-            .then(getSubscriptions)
+        }})
     }
 
-    const subscribeAgain = (subscriptionId) => {
-        const subscription = {
-            end: null
-        }
-        return fetch(`http://localhost:8088/subscriptions/${subscriptionId}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(subscription)
-        })
-            .then(getSubscriptions)
-    }
+
 
     return (
         <SubscriptionContext.Provider value={{
-            subscription, setSubscription, subscriptions,
-            getSubscriptions, setSubscriptions, createSubscription,
-            unSubscribe, subscribeAgain
+            getSubscriptionByAuthor, createSubscription,
+            unsubscribe
         }}>
             {props.children}
         </SubscriptionContext.Provider>

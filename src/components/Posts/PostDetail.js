@@ -14,12 +14,10 @@ export const PostDetails = (props) => {
   const {tag, tags, getTags} = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
   const { getCurrentUser } = useContext(UserContext);
-  const history = useHistory()
   
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
-  const [usersPosts, setUsersPosts] = useState([]);
   const [user, setCurrentUser] = useState({});
   const tagPostId = useRef(null);
   const postId = parseInt(props.match.params.postId);

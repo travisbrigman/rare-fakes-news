@@ -86,13 +86,15 @@ export const ApplicationViews = (props) => {
           </SubscriptionProvider>
         </UserProvider>
 
-        {/************** CATEGORY MANAGEMENT ************* */}
+      {/************** CATEGORY MANAGEMENT ************* */}
+      <UserProvider>
         <CategoryProvider>
           <Route exact path="/categories" render={
             (props) => <CategoryList {...props} />} />
           <Route exact path="/categories/create" render={
             (props) => <CategoryForm {...props} />} />
         </CategoryProvider>
+      </UserProvider>
       </main>
     </>
 
