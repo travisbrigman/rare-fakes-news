@@ -24,7 +24,7 @@ export const DeleteCategory = ({categoryId}) => {
   const deleteThisCategory = () => {
     deleteCategory(categoryId)
      .then(() => {
-         history.push("/home")
+         history.push("/categories")
      }
      )
   };

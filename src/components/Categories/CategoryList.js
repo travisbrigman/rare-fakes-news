@@ -25,8 +25,6 @@ export const CategoryList = (props) => {
       })
   }, [])
 
-  console.log(currentUser)
-
   //this function is called on the click of the '+category' button
   // it takes us to a new route where a category creation form is rendered
   const toCreateCreateCategory = () => {

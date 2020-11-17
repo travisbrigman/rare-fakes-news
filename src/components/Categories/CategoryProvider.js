@@ -29,7 +29,7 @@ export const CategoryProvider = (props) => {
   };
 
   const deleteCategory = (categoryId) => {
-    return fetch(`http://localhost:8000/posts/${categoryId}`, {
+    return fetch(`http://localhost:8000/categories/${categoryId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
