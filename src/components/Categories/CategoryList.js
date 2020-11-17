@@ -12,13 +12,9 @@ export const CategoryList = (props) => {
   //gets the categories from the database
   useEffect(() => {
     getCategories()
-  
-  }, []);
-
-  useEffect(() => {
     getCurrentUser()
       .then(setCurrentUser)
-  }, [])
+  }, []);
 
   //this function is called on the click of the '+category' button
   // it takes us to a new route where a category creation form is rendered
@@ -30,11 +26,17 @@ export const CategoryList = (props) => {
     <div style={{ marginTop: "2rem" }}>
       <h3>Categories</h3>
       <div className="categoryList">
-        {categories.map((categoryObject) => {
-          return <><div key={categoryObject.id}>{categoryObject.label}</div> 
-          {currentUser.user.is_staff?             <DeleteCategory categoryId={categoryObject.id} /> : ""}
-          </>
-        })}
+        { //map through categories to display them
+          categories.map(categoryObject => {
+            return <>
+                    <div key={categoryObject.id}>{categoryObject.label}</div> 
+                    { //if and only if the current user is an admin, show the DELETE button
+                      currentUser.user.is_staff ?             
+                      <DeleteCategory categoryId={categoryObject.id} /> : ""
+                    }
+                  </>
+            })
+        }
       </div>
       <button onClick={toCreateCreateCategory}>+ Category</button>
     </div>
