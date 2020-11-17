@@ -3,25 +3,28 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
 import { UserContext } from "../Profiles/UserProvider"
-import { DeleteItem } from "../utils/DeleteItem";
 
-export const UsersPosts = (props) => {
-  const { posts, getPostByUser } = useContext(PostContext);
-  const { loggedInUser } = useContext(UserContext);
+
+export const UsersPosts = () => {
+  const { getPostByUser} = useContext(PostContext);
+  const { getCurrentUser, currentUser, setCurrentUser } = useContext(UserContext)
 
   const [usersPosts, setUsersPosts] = useState([]);
+ 
 
   useEffect(() => {
-    getPostByUser(loggedInUser)
-  }, []);
+    getCurrentUser()
+      .then(res => {
+        setCurrentUser(res)
+        const user = res
+        return user
+      })
+      .then((user) => 
+        getPostByUser(user.id))
 
+      .then(setUsersPosts)
+  }, [])
 
-  useEffect(() => {
-    const filteredPostsByUser = posts.filter(
-      (post) => post.user.id === loggedInUser
-    );
-    setUsersPosts(filteredPostsByUser);
-  }, [posts, loggedInUser]);
 
   return (
     <>
@@ -30,13 +33,13 @@ export const UsersPosts = (props) => {
         return (
           <div key={p.id} className="container__card">
             <p>
-              <Link to={{pathname:`posts/${p.id}`}}>
-              <strong>{p.title}</strong>
+              <Link to={{ pathname: `posts/${p.id}` }}>
+                <strong>{p.title}</strong>
               </Link>
             </p>
-            <p>{p.user.display_name}</p>
-            <p>{p.category.type}</p>
-            {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
+            <p>{p.user.user.first_name}</p>
+            <p>{p.category.label}</p>
+           
           </div>
         );
       }).reverse()}
