@@ -3,3 +3,9 @@
     justify-content: space-around;
     border: 1px solid black;
 }
+
+.staffColumn, .activeColumn, .nameColumn {
+    width: 33%;
+    border: 1px solid black;
+    padding: 1rem;
+}

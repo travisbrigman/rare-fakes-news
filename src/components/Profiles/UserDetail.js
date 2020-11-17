@@ -7,7 +7,7 @@ import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 
 
 export const UserDetail = (props) => {
-    const { user, getUserById, getUsers, getCurrentUser, setUser } = useContext(UserContext)
+    const { user, getUserById, getCurrentUser, setUser } = useContext(UserContext)
     const { getSubscriptionByAuthor, unsubscribe, createSubscription } = useContext(SubscriptionContext)
 
     const [subscription, setSubscription] = useState({})
