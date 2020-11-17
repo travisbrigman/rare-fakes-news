@@ -11,10 +11,10 @@ import { DeleteItem } from "../utils/DeleteItem";
 
 export const PostDetails = (props) => {
   const { getPostById, post, setPost, getTagsByPost, postTags, deletePost, posts, getPostByUser } = useContext(PostContext);
-  const {tag, tags, getTags} = useContext(TagContext)
+  const { tag, tags, getTags } = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
   const { getCurrentUser } = useContext(UserContext);
-  
+
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
@@ -45,10 +45,10 @@ export const PostDetails = (props) => {
     const postTagIDs = postTags.map(pt => pt.id)
     const diffIDs = tagIDs.filter(t => !postTagIDs.includes(t))
     const filteredTagObjs = diffIDs.map(id => {
-        return tags.find(t => t.id === id)
-        })
+      return tags.find(t => t.id === id)
+    })
     setFilteredTags(filteredTagObjs)
-  },[postTags])
+  }, [postTags])
 
   //state variable and functions to show/hide the tag management feature
   const [open, setOpen] = useState();
@@ -58,12 +58,12 @@ export const PostDetails = (props) => {
   //IDs of tags to be added get stored in this variable
   const [stateTagIDArr, setTagIDArr] = useState([])
 
-  const handleAddTags = (browserEvent) => {  
+  const handleAddTags = (browserEvent) => {
     const stateCopyID = stateTagIDArr.slice()
     let newTagItem = parseInt(browserEvent.target.value)
-     stateCopyID.push(newTagItem)
-    setTagIDArr(stateCopyID)    
-}
+    stateCopyID.push(newTagItem)
+    setTagIDArr(stateCopyID)
+  }
 
 
 
@@ -73,42 +73,42 @@ export const PostDetails = (props) => {
       <section className="container__card">
         <h3 className="post__title">{post.title}</h3>
         <div className="post__content">{post.content}</div>
-       <div key={post.id} className="post_date">
+        <div key={post.id} className="post_date">
           Published on: {new Date(post.publication_date).toLocaleDateString("en-US")}
         </div>
         <div>
-        
-          {post.created_by_current_user ? (
+          { //if current user wrote the post, show an edit button and a manage tag button
+            post.created_by_current_user ? (
             <>
-           
               <div className="post_author">
                 Author: {post.user.user.first_name} (you!)
               </div>
-             
-              <button
-                onClick={() => props.history.push(`/posts/edit/${post.id}`)}
-              >
+              <button onClick={() => props.history.push(`/posts/edit/${post.id}`)}>
                 edit
               </button>
               <button onClick={onOpen}>Manage Post Tags</button>
             </>
-          ) : (
-            <Link to={{ pathname: `/profiles/${post.user.id}` }}>
-              <div className="post_author">
-                Author: {post.user.user.first_name}
-              </div>
-            </Link>
-          )}
+          ) : ( //OTHERWISE just show the author name with a link to their profile
+              <Link to={{ pathname: `/profiles/${post.user.id}` }}>
+                <div className="post_author">
+                  Author: {post.user.user.first_name}
+                </div>
+              </Link>
+            )
+          }
         </div>
-        {post.user.id === user.id ? <DeleteItem postId= {post.id}/> : <></>}
+        {/* If current user wrote the post, show a delete post button */}
+        {post.user.id === user.id ? <DeleteItem postId={post.id} /> : <></>}
         <div>
-          {postTags.map((postTag) => {
-            return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null
-             
-          })}
+          { //map through postTags (tags related to this post)
+            postTags.map((postTag) => {
+              //if there are tags, show the tags
+              return postTag.tag.label ? <div># {postTag.tag.label}</div> : null
+              })
+          }
         </div>
+
         {/* Tag Management JSX */}
-       
         {open && (
           <>
             <select
@@ -140,31 +140,31 @@ export const PostDetails = (props) => {
               ))}
             </select>
             <div>
-                { stateTagIDArr.length === 0 ? "" : 
+              {stateTagIDArr.length === 0 ? "" :
                 stateTagIDArr.map(t => {
-                    const tagObj = tags.find(tag => tag.id === t)
-                return <div key={tagObj.id}>{tagObj.tag}
-                <button onClick={(evt) =>{
-                    evt.preventDefault()
-                    const arrCopyID = stateTagIDArr.slice()
-                    const index = arrCopyID.indexOf(tagObj.id)
-                    arrCopyID.splice(index, 1)
-                    setTagIDArr(arrCopyID)  
-                }}>x</button>
-                </div>
+                  const tagObj = tags.find(tag => tag.id === t)
+                  return <div key={tagObj.id}>{tagObj.tag}
+                    <button onClick={(evt) => {
+                      evt.preventDefault()
+                      const arrCopyID = stateTagIDArr.slice()
+                      const index = arrCopyID.indexOf(tagObj.id)
+                      arrCopyID.splice(index, 1)
+                      setTagIDArr(arrCopyID)
+                    }}>x</button>
+                  </div>
                 })
-                }
+              }
             </div>
             <button onClick={onClose}>Cancel</button>
             <button onClick={(evt) => {
-                evt.preventDefault()
-                stateTagIDArr.map(t => {
-                    createTagPost({
-                       tag_id: t,
-                       post_id: post.id
-                   })
-               })
-               onClose()
+              evt.preventDefault()
+              stateTagIDArr.map(t => {
+                createTagPost({
+                  tag_id: t,
+                  post_id: post.id
+                })
+              })
+              onClose()
             }}>ADD</button>
           </>
         )}
