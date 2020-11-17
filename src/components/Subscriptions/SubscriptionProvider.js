@@ -48,7 +48,7 @@ export const SubscriptionProvider = (props) => {
     return (
         <SubscriptionContext.Provider value={{
             subscription, setSubscription, subscriptions,
-            getSubscriptions, setSubscriptions, createSubscription,
+            getSubscriptionsByAuthor, setSubscriptions, createSubscription,
             unsubscribe
         }}>
             {props.children}
