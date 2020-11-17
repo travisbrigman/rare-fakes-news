@@ -86,14 +86,6 @@ export const ApplicationViews = (props) => {
           </SubscriptionProvider>
         </UserProvider>
 
-      {/**************** MY PROFILE ******************* */}
-      <UserProvider>
-        <SubscriptionProvider>
-          <Route exact path="/profile" render={
-            props => <UserDetail {...props} />} />
-        </SubscriptionProvider>
-      </UserProvider>
-
       {/************** CATEGORY MANAGEMENT ************* */}
       <UserProvider>
         <CategoryProvider>
