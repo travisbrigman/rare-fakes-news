@@ -43,7 +43,14 @@ export const PostForm = (props) => {
         setPostObj(newPost)
     }
 
-    const handleTags = (browserEvent) => {
+    // const handleTags = (browserEvent) => {
+    //     const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
+    //     let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
+    //     stateCopyID.push(newTagItem) //push into copy
+    //     setTagIDArr(stateCopyID)
+    // }
+
+    const handleSelectedTags = (browserEvent) => {
         const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
         let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
         stateCopyID.push(newTagItem) //push into copy
@@ -90,7 +97,6 @@ export const PostForm = (props) => {
                     })
             })
         }
-
     }
 
     return (
@@ -152,7 +158,7 @@ export const PostForm = (props) => {
                     }}>Save</button>
                     :
                     <>
-                        <fieldset>
+                        {/* <fieldset>
                             <div className="form-group">
                                 <label htmlFor="status">Tags: </label>
                                 <select name="id" value={tag.id} className="form-control"
@@ -166,7 +172,7 @@ export const PostForm = (props) => {
                                     }
                                 </select>
                             </div>
-                        </fieldset>
+                        </fieldset> */}
 
                         <div>
                             {stateTagIDArr.length === 0 ? "" :
@@ -195,7 +201,7 @@ export const PostForm = (props) => {
                                             value={t.id}
                                             name="postTag"
                                             checked={selectedTag === t.id}
-                                            onChange={handleTags} 
+                                            onChange={handleSelectedTags} 
                                             >
                                             </input>
                                                 {" "}

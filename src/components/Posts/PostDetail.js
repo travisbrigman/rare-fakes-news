@@ -112,14 +112,15 @@ export const PostDetails = (props) => {
               return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null              
             })}
 
-            {post.created_by_current_user 
+            {/* {post.created_by_current_user 
             ? (
               <button onClick={onOpen}>
                   Manage Tags
                 </button>
             )
             : ("")
-            }
+            } */}
+
           </div>
         </section>
         
@@ -127,7 +128,7 @@ export const PostDetails = (props) => {
 
         
         {/* Tag Management JSX */}       
-        {open && (
+        {/* {open && (
           <>
             <select
               name="tagManagement"
@@ -185,7 +186,8 @@ export const PostDetails = (props) => {
                onClose()
             }}>ADD</button>
           </>
-        )}
+        )} */}
+
       </section>
       <ReactionList {...props} />{/*Renders ReactionList*/}
     </>
