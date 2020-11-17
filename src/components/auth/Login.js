@@ -11,7 +11,6 @@ export const Login = (props) => {
     const history = useHistory()
 
     // see if user already exists
-
     const existingUserCheck = () => {
         return fetch(`http://localhost:8000/login`, {
             method: "POST",
@@ -33,7 +32,6 @@ export const Login = (props) => {
 
     const handleLogin = (e) => {
         e.preventDefault()
-
         existingUserCheck()
             .then(exists => {
                 if (exists.valid) {
@@ -59,11 +57,11 @@ export const Login = (props) => {
                     <h1>Rare</h1>
                     <h2>Sign In</h2>
                     <fieldset>
-                        <label htmlFor="inputUser"> User Name </label>
+                        <label htmlFor="inputUser"> Username: </label>
                         <input ref={user} type="text" id="userName" className="form-control" defaultValue="me@me.com" placeholder="Email address" required autoFocus />
                     </fieldset>
                     <fieldset>
-                        <label htmlFor="inputPassword"> password </label>
+                        <label htmlFor="inputPassword"> Password: </label>
                         <input ref={password} type="password" id="password" className="form-control" defaultValue="me" placeholder="Password" required />
                     </fieldset>
                     <fieldset>
