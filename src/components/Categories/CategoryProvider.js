@@ -52,7 +52,6 @@ export const CategoryProvider = (props) => {
         createCategory,
         deleteCategory
       }}
-
     >
       {props.children}
     </CategoryContext.Provider>
