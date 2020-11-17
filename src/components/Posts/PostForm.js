@@ -15,7 +15,7 @@ export const PostForm = (props) => {
     const [postObj, setPostObj] = useState({}) //defines and sets the state of the postObj in this module
     const [stateTagIDArr, setTagIDArr] = useState([])
     const [stateTagObjArr, setTagObjArr] = useState([])
-    const [selectedTag, setSelectedTag] = useState(0)
+    const [tagSelected, setTagSelected] = useState(0)
 
     const editMode = props.match.url.split("/")[2] === "edit" //checks url to see if editMode
 
@@ -152,73 +152,78 @@ export const PostForm = (props) => {
                     </div>
                 </fieldset>
 
-                {editMode
-                    ? <button onClick={(evt) => {
-                        constructPost(evt)
-                    }}>Save</button>
-                    :
-                    <>
-                        {/* <fieldset>
-                            <div className="form-group">
-                                <label htmlFor="status">Tags: </label>
-                                <select name="id" value={tag.id} className="form-control"
-                                    onChange={handleTags} 
-                                >
-                                    <option value="0">add some tags...</option>
-                                    {
-                                        tags.map(t => {
-                                            return <option key={t.id} value={t.id}>{t.label}</option>
-                                        })
-                                    }
-                                </select>
-                            </div>
-                        </fieldset> */}
-
-                        <div>
-                            {stateTagIDArr.length === 0 ? "" :
-                                stateTagIDArr.map(t => {
-                                    const tagObj = tags.find(tag => tag.id === t)
-                                    return <div key={tagObj.id}>{tagObj.label}
-                                        <button onClick={(evt) => {
-                                            evt.preventDefault()
-                                            const arrCopyID = stateTagIDArr.slice()
-                                            const index = arrCopyID.indexOf(tagObj.id)
-                                            arrCopyID.splice(index, 1)
-                                            setTagIDArr(arrCopyID)
-                                        }}>x</button>
-                                    </div>
-                                })
-                            }
-                        </div>
-
-                        
-                        <div className="container--checkboxes">
-                            {tags.map(t => {
-                                    return (   
-                                        <article className="checkboxSet">                                            
-                                            <input
-                                            type="checkbox"
-                                            value={t.id}
-                                            name="postTag"
-                                            checked={selectedTag === t.id}
-                                            onChange={handleSelectedTags} 
-                                            >
-                                            </input>
-                                                {" "}
-                                                #{t.label}
-                                        </article>                                     
-                                    )
-                                })
-                            }
-                        </div>
-
-
-                        <button onClick={(evt) => {
-                            constructPost(evt)}}
+                {/* <fieldset>
+                    <div className="form-group">
+                        <label htmlFor="status">Tags: </label>
+                        <select name="id" value={tag.id} className="form-control"
+                            onChange={handleTags} 
                         >
-                            Publish
-                        </button>
-                    </>
+                            <option value="0">add some tags...</option>
+                            {
+                                tags.map(t => {
+                                    return <option key={t.id} value={t.id}>{t.label}</option>
+                                })
+                            }
+                        </select>
+                    </div>
+                </fieldset> */}
+
+                {/* <div>
+                    {stateTagIDArr.length === 0 ? "" :
+                        stateTagIDArr.map(t => {
+                            const tagObj = tags.find(tag => tag.id === t)
+                            return <div key={tagObj.id}>{tagObj.label}
+                                <button onClick={(evt) => {
+                                    evt.preventDefault()
+                                    const arrCopyID = stateTagIDArr.slice()
+                                    const index = arrCopyID.indexOf(tagObj.id)
+                                    arrCopyID.splice(index, 1)
+                                    setTagIDArr(arrCopyID)
+                                }}>x</button>
+                            </div>
+                        })
+                    }
+                </div> */}
+
+                
+                <div className="container--checkboxes">
+                    {tags.map(t => {
+                            return (   
+                                <article className="checkboxGroup">
+                                    <div key={tag.id}>
+                                        <input
+                                        type="checkbox"
+                                        value={t.id}
+                                        name="postTag"
+                                        // checked={tagSelected === t.id}
+                                        onChange={handleSelectedTags} 
+                                        >
+                                        </input>
+                                        <label>                                            
+                                            {" #"}{t.label}
+                                        </label>
+                                    </div>                                            
+                                </article>                                     
+                            )
+                        })
+                    }
+                </div>
+
+
+
+                {editMode
+                    ? 
+                        <button onClick={(evt) => {
+                            constructPost(evt)
+                        }}>Save</button>    
+                    :
+                        <>
+                            <button onClick={(evt) => {
+                                constructPost(evt)}}
+                            >
+                                Publish
+                            </button>
+                        </>
                 }
 
             </form>
