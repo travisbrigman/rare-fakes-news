@@ -3,7 +3,6 @@ import React, { useEffect, useContext, useState } from "react";
 import { CategoryContext } from "./CategoryProvider";
 import { UserContext } from "../Profiles/UserProvider"
 import { DeleteCategory } from "../utils/DeleteCategory"
-import { useHistory } from "react-router-dom";
 
 export const CategoryList = (props) => {
   const {categories, getCategories} = useContext(CategoryContext)
@@ -18,11 +17,7 @@ export const CategoryList = (props) => {
 
   useEffect(() => {
     getCurrentUser()
-      .then(res => {
-        setCurrentUser(res)
-        const user = res
-        return user
-      })
+      .then(setCurrentUser)
   }, [])
 
   //this function is called on the click of the '+category' button
