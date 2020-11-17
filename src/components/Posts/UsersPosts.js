@@ -7,21 +7,21 @@ import { DeleteItem } from "../utils/DeleteItem";
 
 export const UsersPosts = (props) => {
   const { posts, getPostByUser } = useContext(PostContext);
-  const { loggedInUser } = useContext(UserContext);
+  const { getCurrentUser } = useContext(UserContext);
 
   const [usersPosts, setUsersPosts] = useState([]);
 
   useEffect(() => {
-    getPostByUser(loggedInUser)
+    getPostByUser(getCurrentUser)
   }, []);
 
 
   useEffect(() => {
     const filteredPostsByUser = posts.filter(
-      (post) => post.user.id === loggedInUser
+      (post) => post.user.id === getCurrentUser
     );
     setUsersPosts(filteredPostsByUser);
-  }, [posts, loggedInUser]);
+  }, [posts, getCurrentUser]);
 
   return (
     <>
@@ -36,7 +36,7 @@ export const UsersPosts = (props) => {
             </p>
             <p>{p.user.display_name}</p>
             <p>{p.category.type}</p>
-            {p.user_id === loggedInUser ? <DeleteItem postId= {p.id}/> : <></>}
+            {p.user_id === getCurrentUser ? <DeleteItem postId= {p.id}/> : <></>}
           </div>
         );
       }).reverse()}
