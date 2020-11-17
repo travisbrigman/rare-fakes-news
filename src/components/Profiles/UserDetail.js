@@ -47,14 +47,12 @@ export const UserDetail = (props) => {
     const changeSubStatus = (subscription) => {
         const authorID = parseInt(props.match.params.userId)
         if(subscription.ended_on === null) { //if end === null, user is still subscribed and can unsubscribe
-            console.log("I am going to UNSUBSCRIBE")
             unsubscribe(authorID)
             .then(() => {
                 window.alert("You are now UNsubscribed!")
                 props.history.push('/home')
             })
         } else {
-            console.log("I am going to SUBSCRIBE")
             createSubscription({ //user can create a subscription
                 author_id: authorID
             })
