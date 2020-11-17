@@ -110,7 +110,6 @@ export const PostForm = (props) => {
                         <input type="text" name="image_url" className="form-control"
                             placeholder="Image URL" value={postObj.image_url}
                             onChange={handleControlledInputChange}
-                            defaultValue=""
                         >
                         </input>
                     </div>
