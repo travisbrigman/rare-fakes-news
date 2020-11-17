@@ -1,24 +1,23 @@
-//displays details of a post, lets use add reactions (maximum one of each) to post, lets user edit post if they are the author, or see author's profile if it was written by another user
+/* displays details of a post, lets user add reactions (maximum one of each) to post, 
+lets user edit post if they are the author, or see author's profile if it was written by another user */
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "./PostProvider";
 import { ReactionList } from "../Reactions/ReactionList";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DeleteTagItem } from "../utils/DeleteTagItem";
 import { TagPostContext } from "../Tags/TagPostProvider";
 import { TagContext } from "../Tags/TagProvider";
-import { UserContext } from "../Profiles/UserProvider"
 import { DeleteItem } from "../utils/DeleteItem";
 
 export const PostDetails = (props) => {
-  const { getPostById, post, setPost, getTagsByPost, postTags, deletePost, posts, getPostByUser } = useContext(PostContext);
+  const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(PostContext);
   const { tag, tags, getTags } = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
-  const { getCurrentUser } = useContext(UserContext);
-
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
-  const [user, setCurrentUser] = useState({});
+
+  //other variables defined through useRef and the URL
   const tagPostId = useRef(null);
   const postId = parseInt(props.match.params.postId);
 
@@ -27,7 +26,6 @@ export const PostDetails = (props) => {
     getTags()
     getPostById(postId).then(setPost);
     getTagsByPost(postId);
-    getCurrentUser().then(setCurrentUser)
   }, [TagPosts]);
 
 
@@ -98,7 +96,7 @@ export const PostDetails = (props) => {
           }
         </div>
         {/* If current user wrote the post, show a delete post button */}
-        {post.user.id === user.id ? <DeleteItem postId={post.id} /> : <></>}
+        {post.created_by_current_user ? <DeleteItem postId={post.id} /> : <></>}
         <div>
           { //map through postTags (tags related to this post)
             postTags.map((postTag) => {
