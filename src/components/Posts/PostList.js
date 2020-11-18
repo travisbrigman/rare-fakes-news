@@ -25,7 +25,7 @@ export const PostList = (props) => {
                     <p>{p.title}</p>
                     </Link>
                     <p>{p.user.user.first_name}</p>
-                    <p>{p.category.label}</p>
+                    {p.category==null? "" :<p>{p.category.label}</p>}
                 </div>
             }).reverse() : null
         }

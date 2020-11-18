@@ -31,7 +31,7 @@ export const UsersPosts = () => {
               </Link>
             </p>
             <p>{p.user.user.first_name}</p>
-            <p>{p.category.label}</p>
+            {p.category==null? "" :<p>{p.category.label}</p>}
           </div>
         );
       }).reverse()}
