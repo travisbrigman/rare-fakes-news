@@ -31,11 +31,15 @@ export const TagList = ({ props }) => {
                     tags.map(tag => {
                         return (<>
                             <div>{tag.label}</div>
-                            {currentUser.user.is_staff ? <><DeleteTag tagId={tag.id} /> <div className="new_tag_btn_container"> <Link to={`/tags/edit/${tag.id}`}>
-                                <button className="new_tag_btn">Edit Tag</button>
-                            </Link></div></> : <></>}
-                            
-
+                            {currentUser.user.is_staff ? 
+                                <>
+                                <DeleteTag tagId={tag.id} /> 
+                                <div className="new_tag_btn_container"> 
+                                    <Link to={`/tags/edit/${tag.id}`}>
+                                        <button className="new_tag_btn">Edit Tag</button>
+                                    </Link>
+                                </div>
+                                </> : <></>}
                         </>)
                     })
 
