@@ -39,8 +39,6 @@ export const SubscriptionProvider = (props) => {
         }})
     }
 
-
-
     return (
         <SubscriptionContext.Provider value={{
             getSubscriptionByAuthor, createSubscription,
