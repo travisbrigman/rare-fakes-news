@@ -116,7 +116,7 @@ export const HomeList = (props) => {
                 checked={userSelected === user.id}
                 onClick={() => { filterAllPostsByUser(user.id) }}
               />{" "}
-              {user.display_name}
+              {user.user.username}
             </div>
           )
         })}
