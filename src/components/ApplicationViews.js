@@ -72,6 +72,9 @@ export const ApplicationViews = (props) => {
               return <TagForm {...props} />
             }}
             />
+            <Route exact path="/tags/edit/:tagId(\d+)"
+              render={(props) => <TagForm {...props} />}
+            />
             <Route exact path="/tags" render={(props) => {
               return <TagList {...props} />
             }}
@@ -94,6 +97,8 @@ export const ApplicationViews = (props) => {
           <Route exact path="/categories" render={
             (props) => <CategoryList {...props} />} />
           <Route exact path="/categories/create" render={
+            (props) => <CategoryForm {...props} />} />
+          <Route exact path="/editcategory/:categoryId(\d+)" render={
             (props) => <CategoryForm {...props} />} />
         </CategoryProvider>
       </UserProvider>
