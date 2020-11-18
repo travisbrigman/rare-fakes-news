@@ -26,10 +26,10 @@ export const UserDetail = (props) => {
                     .then(setUser)
                 })
             } else {
+                //get an ARRAY of objects to show how many people follow YOU
                 getCurrentUser()
-                .then(setUser)
-                .then(() => {
-                    //get an ARRAY of objects to show how many people follow YOU
+                .then((user) => {
+                    setUser(user)
                     getSubscriptionByAuthor(user.id)
                     .then(setSubscriptions)
                 })
@@ -63,7 +63,7 @@ export const UserDetail = (props) => {
         }
     }
 
-    
+    console.log(user)
    
     return (
         <>
