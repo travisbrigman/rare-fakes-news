@@ -13,7 +13,12 @@ export const TagPostProvider = (props) => {
     
 
   const getTagPosts = () => {
-    return fetch("http://localhost:8000/posttags")
+    return fetch("http://localhost:8000/posttags", {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
+    })
       .then((res) => res.json())
       .then(setTagPosts);
   };

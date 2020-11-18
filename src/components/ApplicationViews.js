@@ -56,6 +56,9 @@ export const ApplicationViews = (props) => {
                         <Route path="/profiles/:userId(\d+)"
                           render={props => <UserDetail {...props} />}
                         />
+                                              <Route path="/admin/posts"
+                        render={props => <AdminAllPosts {...props} />}
+                      />
                       </SubscriptionProvider>
                     </TagProvider>
                   </TagPostProvider>
@@ -68,37 +71,7 @@ export const ApplicationViews = (props) => {
         {/************TAG MANAGEMENT****************** */}
         <TagProvider>
           <UserProvider>
-            <PostProvider>
-              <CategoryProvider>
-                <TagPostProvider>
-                  <TagProvider>
-                    <SubscriptionProvider>
-                      <Route exact path="/home"
-                        render={(props) => <HomeList {...props} />}
-                      />
-                      <Route exact path="/posts/create"
-                        render={(props) => <PostForm {...props} />}
-                      />
-                      <Route exact path="/posts/edit/:postId(\d+)"
-                        render={(props) => <PostForm {...props} />}
-                      />
-                      <Route exact path="/myposts"
-                        render={(props) => <UsersPosts {...props} />}
-                      />
-                      <Route path="/posts/:postId(\d+)"
-                        render={(props) => <PostDetails {...props} />}
-                      />
-                      <Route path="/profiles/:userId(\d+)"
-                        render={props => <UserDetail {...props} />}
-                      />
-                      <Route path="/admin/posts"
-                        render={props => <AdminAllPosts {...props} />}
-                      />
-                    </SubscriptionProvider>
-                  </TagProvider>
-                </TagPostProvider>
-              </CategoryProvider>
-            </PostProvider>
+
             <Route exact path="/tags/create" render={(props) => {
               return <TagForm {...props} />
             }}

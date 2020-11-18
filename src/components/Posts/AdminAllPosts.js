@@ -1,32 +1,80 @@
 // import React, { useContext, useEffect } from "react"
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
-import { UserContext } from "../Profiles/UserProvider";
+import { Grommet, Box, DataTable, CheckBox } from 'grommet';
+
+import { columns } from './Columns';
+import { TagPostContext } from "../Tags/TagPostProvider";
+
+const controlledColumns = columns.map(col => ({ ...col }));
 
 export const AdminAllPosts = () => {
   const { approvePost, posts, getPosts } = useContext(PostContext);
-  console.log(posts);
+  const {TagPosts, getTagPosts} = useContext(TagPostContext)
+
+  console.log(TagPosts);
+
+    const [checked, setChecked] = useState([]);
+  
+    const onCheck = (event, value) => {
+      if (event.target.checked) {
+        setChecked([...checked, value]);
+      } else {
+        setChecked(checked.filter(item => item !== value));
+      }
+    };
+  
+    const onCheckAll = event =>
+      setChecked(event.target.checked ? posts.map(datum => datum.name) : []);
 
   useEffect(() => {
     getPosts();
+    getTagPosts();
   }, []);
+
+  const approvedChecked = () => {
+    checked.forEach(checkedPostId => {
+      approvePost(checkedPostId)
+    })
+    setChecked([])
+  }
+
 
   return (
     <>
-      {posts !== []
-        ? posts.map((post) => {
-            return (
-              <>
-                <div>
-                  {post.title} | {post.publication_date} | {post.category.label}{" "}
-                  | {post.user.user.first_name}
-                </div>
-                <div>{ !post.approved && <button onClick={() => {approvePost(post.id)}}>APPROVE</button>}</div>
-              </>
-            );
-          })
-        : null}
+    <Grommet >
+      <Box align="center" pad="medium">
+        <DataTable
+          columns={[
+            {
+              property: 'checkbox',
+              render: datum => (
+                <CheckBox
+                  key={datum.id}
+                  checked={checked.indexOf(datum.id) !== -1}
+                  onChange={e => onCheck(e, datum.id)}
+                />
+              ),
+              header: (
+                <CheckBox
+                  checked={checked.length === posts.length}
+                  indeterminate={
+                    checked.length > 0 && checked.length < posts.length
+                  }
+                  onChange={onCheckAll}
+                />
+              ),
+              sortable: false,
+            },
+            ...controlledColumns,
+          ].map(col => ({ ...col }))}
+          data={posts}
+          sortable
+          size="medium"
+        />
+      </Box>
+    </Grommet>
+    <button onClick={() => {approvedChecked()}}>APPROVE</button>
     </>
   );
 };
