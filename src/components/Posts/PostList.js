@@ -8,8 +8,6 @@ import { PostContext } from "./PostProvider"
 export const PostList = (props) => {
     const {posts, getPosts} = useContext(PostContext)
 
-    console.log(posts);
-
     useEffect(() => {
        getPosts()
     },[])

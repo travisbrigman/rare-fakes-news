@@ -24,7 +24,7 @@ export const AdminAllPosts = () => {
     };
   
     const onCheckAll = event =>
-      setChecked(event.target.checked ? posts.map(datum => datum.name) : []);
+      setChecked(event.target.checked ? posts.map(datum => datum.id) : []);
 
   useEffect(() => {
     getPosts();
