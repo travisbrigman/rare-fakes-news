@@ -21,7 +21,6 @@ export const PostForm = (props) => {
     useEffect(() => {
         getCategories()
         getTags()
-        // setState(postTags)
         if (editMode) {
             const postId = parseInt(props.match.params.postId)
             getTagsByPost(postId)
@@ -30,8 +29,7 @@ export const PostForm = (props) => {
         }
     }, [])
 
-    
-    
+      
     // useEffect(() => {
         //     const stateCopyObj = stateTagObjArr.slice() //make a copy of the TagObjArr
         //     const tagItems = stateTagIDArr.map(t => {
@@ -41,37 +39,30 @@ export const PostForm = (props) => {
             //     setTagObjArr(stateCopyObj) //set the state of the TagObjArr to what was pushed into stateCopyObj array
             // }, [stateTagIDArr])
             
-            const handleControlledInputChange = (browserEvent) => {
-                const newPost = Object.assign({}, postObj)
-                newPost[browserEvent.target.name] = browserEvent.target.value
-                setPostObj(newPost)
-            }
-            
-            const handleTagsSelected = (browserEvent) => {
-                const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
-                let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
-                stateCopyID.push(newTagItem) //push into copy
-                setTagIDArr(stateCopyID)
-            }
-            
-    const tagSelectedArray = []
-    const [state, setState] = useState([])
-    function handleChange(event) {
-        const value = event.target.checked
-        const tagObj = {[event.target.name]: value}
-        // if tagObj === 
-        
-        tagSelectedArray.push(tagObj)
-
-        console.log("tagSelectedArray>>",tagSelectedArray)
-        console.log("state>>",state)
-
-        // setState({
-        // ...state,
-        // [event.target.name]: value
-        // })
-        // console.log(state)
+    const handleControlledInputChange = (browserEvent) => {
+        const newPost = Object.assign({}, postObj)
+        newPost[browserEvent.target.name] = browserEvent.target.value
+        setPostObj(newPost)
     }
+    
+    const handleTagsSelected = (browserEvent) => {
+        const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
+        let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
+        stateCopyID.push(newTagItem) //push into copy
+        setTagIDArr(stateCopyID)
+    }
+            
+    const [checkedState, setCheckedState] = useState([])
+
+    function handleTagChange(event) {
+        const value = event.target.checked
+
+        setCheckedState({
+            ...checkedState,
+            [event.target.name]: value
+        })
+    }
+    console.log("checkedState>>",checkedState)
 
 
     const constructPost = (evt) => {
@@ -97,22 +88,39 @@ export const PostForm = (props) => {
                 category_id: parseInt(postObj.category_id),
                 publication_date: jsonDate,
                 image_url: postObj.image_url
-            }).then((postObj) => {
+            })
+            .then((postObj) => {
                 const tagPostPromises = [] //empty array of possible TagPosts
 
-                stateTagIDArr.map(t => {
+                const selectedTagsArray = []
+                
+                Object.keys(checkedState).forEach(key => selectedTagsArray.push({
+                    tagId: key,
+                    checked: checkedState[key]
+                })) 
+
+                const filteredTrue = selectedTagsArray.filter(t => t.checked === true)
+                
+                filteredTrue.map(t => {
                     tagPostPromises.push(
                         createTagPost({
-                            tag_id: t,
+                            tag_id: parseInt(t.tagId),
                             post_id: postObj.id
                         })
-                    ) //push any newly created tags to promises array
-                })
-                Promise.all(tagPostPromises)
+                        ) //push any newly created tags to promises array
+                    })
+                    Promise.all(tagPostPromises)
                     .then(() => {
                         props.history.push(`/posts/${postObj.id}`)
                     })
-            })
+                    
+                    // console.log("selectedTagsArray", selectedTagsArray)
+                    // console.log("filteredTrue", filteredTrue)
+                    // const tagIds = Object.keys(checkedState).map(Number)
+                    // console.log("tagIds", tagIds)
+                })
+
+
         }
     }
 
@@ -172,104 +180,23 @@ export const PostForm = (props) => {
                     </div>
                 </fieldset>
 
-                {/* <fieldset>
-                    <div className="form-group">
-                        <label htmlFor="status">Tags: </label>
-                        <select name="id" value={tag.id} className="form-control"
-                            onChange={handleTags} 
-                        >
-                            <option value="0">add some tags...</option>
-                            {
-                                tags.map(t => {
-                                    return <option key={t.id} value={t.id}>{t.label}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                </fieldset> */}
 
-                {/* <div>
-                    {stateTagIDArr.length === 0 ? "" :
-                        stateTagIDArr.map(t => {
-                            const tagObj = tags.find(tag => tag.id === t)
-                            return <div key={tagObj.id}>{tagObj.label}
-                                <button onClick={(evt) => {
-                                    evt.preventDefault()
-                                    const arrCopyID = stateTagIDArr.slice()
-                                    const index = arrCopyID.indexOf(tagObj.id)
-                                    arrCopyID.splice(index, 1)
-                                    setTagIDArr(arrCopyID)
-                                }}>x</button>
-                            </div>
-                        })
-                    }
-                </div> */}
-
-                {tags.map((t) => (
-                    <div>                        
-                        <input
-                        type="checkbox"
-                        name={t.id}
-                        value={t.id}
-                        checked={state[t.id]}
-                        onChange={handleChange}
-                        />
-                        <label>
-                        {t.label}
-                        </label>
-                    </div>
-                ))}
-
-                
-                {/* {editMode                     
-                    ?
-                        <div className="container--checkboxes">
-                            {tags.map(t => {
-                                    return (   
-                                        <article className="checkboxGroup">
-                                            <div key={tag.id}>
-                                                <input
-                                                type="checkbox"
-                                                value={t.label}
-                                                name={t.label}
-                                                // checked={postTags.tag_id === t.id}
-                                                checked={postTags[t.id]}
-                                                onChange={handleTagsSelected} 
-                                                >
-                                                </input>
-                                                <label style={{color: "red"}}>                                            
-                                                    {" #"}{t.label}
-                                                </label>
-                                            </div>                                            
-                                        </article>                                     
-                                    )
-                                })
-                            }
+                <div className="container--checkboxes">                    
+                    {tags.map((t) => (
+                        <div className="checkboxGroup">                        
+                            <input
+                            type="checkbox"
+                            name={t.id}
+                            value={t.id}
+                            checked={checkedState[t.id]}
+                            onChange={handleTagChange}
+                            />
+                            <label>
+                            {" #"}{t.label}
+                            </label>
                         </div>
-                    :
-                        <div className="container--checkboxes">
-                            {tags.map(t => {
-                                    return (   
-                                        <article className="checkboxGroup">
-                                            <div key={tag.id}>
-                                                <input
-                                                type="checkbox"
-                                                value={t.id}
-                                                name={t.label}
-                                                onChange={handleTagsSelected} 
-                                                >
-                                                </input>
-                                                <label>                                            
-                                                    {" #"}{t.label}
-                                                </label>
-                                            </div>                                            
-                                        </article>                                     
-                                    )
-                                })
-                            }
-                        </div>
-                } */}
-
+                    ))}
+                </div>
 
 
                 {editMode

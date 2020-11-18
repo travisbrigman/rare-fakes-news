@@ -121,84 +121,10 @@ export const PostDetails = (props) => {
         <section className="container__cardContentRight">          
           <div>
             {postTags.map((postTag) => {
-              return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null              
+              return  postTag.tag.label ? <div className="displayedTag"># {postTag.tag.label}</div>  : null              
             })}
-
-            {/* {post.created_by_current_user 
-            ? (
-              <button onClick={onOpen}>
-                  Manage Tags
-                </button>
-            )
-            : ("")
-            } */}
-
           </div>
         </section>
-        
-
-
-        
-        {/* Tag Management JSX */}       
-        {/* {open && (
-          <>
-            <select
-              name="tagManagement"
-              className="form-control"
-              ref={tagPostId}
-              onChange={handleChange}
-            >
-              <option value="0">Select a Tag To Delete</option>
-              {postTags.map((pt) => (
-                <option key={pt.id} value={pt.tagPost.id}>
-                  {pt.tag}
-                </option>
-              ))}
-            </select>
-            <button onClick={onClose}>Cancel</button>
-            <DeleteTagItem tagPostId={selectedTagPostId} postId={postId} />
-            <select
-              name="tagManagement"
-              className="form-control"
-              value={tag.id}
-              onChange={handleAddTags}
-            >
-              <option value="0">Select a Tag To Add</option>
-              {filteredTags.map(t => (
-                <option key={t.id} value={t.id}>
-                  {t.tag}
-                </option>
-              ))}
-            </select>
-            <div>
-                { stateTagIDArr.length === 0 ? "" : 
-                stateTagIDArr.map(t => {
-                    const tagObj = tags.find(tag => tag.id === t)
-                return <div key={tagObj.id}>{tagObj.tag}
-                <button onClick={(evt) =>{
-                    evt.preventDefault()
-                    const arrCopyID = stateTagIDArr.slice()
-                    const index = arrCopyID.indexOf(tagObj.id)
-                    arrCopyID.splice(index, 1)
-                    setTagIDArr(arrCopyID)  
-                }}>x</button>
-                </div>
-                })
-                }
-            </div>
-            <button onClick={onClose}>Cancel</button>
-            <button onClick={(evt) => {
-                evt.preventDefault()
-                stateTagIDArr.map(t => {
-                    createTagPost({
-                       tag_id: t,
-                       post_id: post.id
-                   })
-               })
-               onClose()
-            }}>ADD</button>
-          </>
-        )} */}
 
       </section>
       <ReactionList {...props} />{/*Renders ReactionList*/}

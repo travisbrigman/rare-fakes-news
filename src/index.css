@@ -259,3 +259,7 @@ a {
 	white-space: nowrap;
 	padding: 0 25px 0 0;
 }
+
+.displayedTag {
+	white-space: nowrap;
+}
