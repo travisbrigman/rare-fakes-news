@@ -7,8 +7,6 @@ export const UserProvider = (props) => {
     const [user, setUser] = useState({user:{}})
     const [currentUser, setCurrentUser] = useState({user:{}})
 
-    
-    
 
   const getUsers = () => {
     return fetch("http://localhost:8000/users" , {
@@ -27,10 +25,8 @@ export const UserProvider = (props) => {
                 Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
               }
-
         })
             .then(response => response.json())
-           
     }
 
     const getCurrentUser = (userId) => {
@@ -39,18 +35,15 @@ export const UserProvider = (props) => {
                 Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
               }
-
         })
-            .then(response => response.json())
-           
-            
+            .then(response => response.json())          
     }
 
     
     return (
         <UserContext.Provider value={{
-            users, getUsers, setUsers, 
-            user, setUser, getUserById, getCurrentUser, setCurrentUser, currentUser
+            users, getUsers, setUsers, user, setUser, 
+            getUserById, getCurrentUser, setCurrentUser, currentUser
         }}>
             {props.children}
         </UserContext.Provider>
