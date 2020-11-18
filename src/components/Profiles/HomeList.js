@@ -69,7 +69,7 @@ export const HomeList = (props) => {
     <section className="threeFilterContainer" 
     style={{display: "flex", 
     }}>
-      <div className="container--filter" style={{margin: "1rem"}}>
+      <div className="container--filters">
         <h3>Filter by Category</h3>
         {categories.map((category) => {
           return (
@@ -85,7 +85,8 @@ export const HomeList = (props) => {
         <div>{clearFilterButton()}</div>
       </div>
 
-      <div className="container--filter" style={{margin: "1rem"}}>
+      
+      <div className="container--filters">
         <h3>Filter by Tag</h3>
         {tags.map((tag) => {
           return (
@@ -104,7 +105,8 @@ export const HomeList = (props) => {
         <div>{clearFilterButton()}</div>
       </div>
 
-      <div className="container--filter" style={{margin: "1rem"}}>
+
+      <div className="container--filters">
         <h3>Filter by User</h3>
         {users.map((user) => {
           return (

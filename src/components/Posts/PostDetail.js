@@ -10,9 +10,9 @@ import { TagContext } from "../Tags/TagProvider";
 import { DeleteItem } from "../utils/DeleteItem";
 
 export const PostDetails = (props) => {
-  const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(PostContext);
+  const { getPostById, post, setPost, getTagsByPost, postTags} = useContext(PostContext);
   const { tag, tags, getTags } = useContext(TagContext)
-  const { TagPosts, createTagPost } = useContext(TagPostContext);
+  const { TagPosts } = useContext(TagPostContext);
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
@@ -44,8 +44,6 @@ export const PostDetails = (props) => {
 
   //state variable and functions to show/hide the tag management feature
   const [open, setOpen] = useState();
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(undefined);
   
   //takes what is selected in the tag management dropdown and sets the state variable with that value
   const handleChange = (e) => {
@@ -64,100 +62,63 @@ export const PostDetails = (props) => {
     <>
       {/* Post Detail JSX */}
       <section className="container__card">
-        <h3 className="post__title">{post.title}</h3>
-        <div className="post__content">{post.content}</div>
-        <div key={post.id} className="post_date">
-          Published on: {new Date(post.publication_date).toLocaleDateString("en-US")}
-        </div>
-        <div>
-          { //if current user wrote the post, show an edit button and a manage tag button
-            post.created_by_current_user ? (
-            <>
-              <div className="post_author">
-                Author: {post.user.user.first_name} (you!)
-              </div>
-              <button onClick={() => props.history.push(`/posts/edit/${post.id}`)}>
-                edit
-              </button>
-              <button onClick={onOpen}>Manage Post Tags</button>
-            </>
-          ) : ( //OTHERWISE just show the author name with a link to their profile
-              <Link to={{ pathname: `/profiles/${post.user.id}` }}>
-                <div className="post_author">
-                  Author: {post.user.user.first_name}
-                </div>
-              </Link>
-            )
-          }
-        </div>
-        {/* If current user wrote the post, show a delete post button */}
-        {post.created_by_current_user ? <DeleteItem postId={post.id} /> : <></>}
-        <div>
-          { //map through postTags (tags related to this post)
-            postTags.map((postTag) => {
-              //if there are tags, show the tags
-              return postTag.tag.label ? <div># {postTag.tag.label}</div> : null
-              })
-          }
-        </div>
+        <section className="container__cardContent">  
+          <section className="container__cardContentLeft"></section>        
+          <h3 className="post__title">{post.title}</h3>
 
-        {/* Tag Management JSX */}
-        {open && (
-          <>
-            <select name="tagManagement" className="form-control"
-                ref={tagPostId} onChange={handleChange}>
-              <option value="0">Select a Tag To Delete</option>
-                {
-                  postTags.map((tag) => (
-                    <option key={tag.id} value={tag.tagPost.id}>
-                      {tag.tag}
-                    </option>
-              ))}
-            </select>
-            <button onClick={onClose}>Cancel</button>
-            <DeleteTagItem tagPostId={selectedTagPostId} postId={postId} />
-            <select
-              name="tagManagement"
-              className="form-control"
-              value={tag.id}
-              onChange={handleAddTags}
-            >
-              <option value="0">Select a Tag To Add</option>
-              {filteredTags.map(t => (
-                <option key={t.id} value={t.id}>
-                  {t.tag}
-                </option>
-              ))}
-            </select>
-            <div>
-              {stateTagIDArr.length === 0 ? "" :
-                stateTagIDArr.map(t => {
-                  const tagObj = tags.find(tag => tag.id === t)
-                  return <div key={tagObj.id}>{tagObj.tag}
-                    <button onClick={(evt) => {
-                      evt.preventDefault()
-                      const arrCopyID = stateTagIDArr.slice()
-                      const index = arrCopyID.indexOf(tagObj.id)
-                      arrCopyID.splice(index, 1)
-                      setTagIDArr(arrCopyID)
-                    }}>x</button>
-                  </div>
-                })
-              }
-            </div>
-            <button onClick={onClose}>Cancel</button>
-            <button onClick={(evt) => {
-              evt.preventDefault()
-              stateTagIDArr.map(t => {
-                createTagPost({
-                  tag_id: t,
-                  post_id: post.id
-                })
-              })
-              onClose()
-            }}>ADD</button>
-          </>
-        )}
+          {/* if current user wrote the post, show an edit button */}
+          {post.created_by_current_user 
+          ? (
+              <section className="container__cardContentTop">              
+                <button onClick={() => props.history.push(`/posts/edit/${post.id}`)}>
+                  EDIT
+                </button>
+
+                {post.created_by_current_user ? <DeleteItem postId= {post.id}/> : <></>}
+              </section>
+          )
+          : (``)
+          }
+          
+          <img className="post__image" src={post.image_url} style={{width: `500px`}} alt="article"></img>
+          <div className="post__content">{post.content}</div>
+          <div key={post.id} className="post_date">
+            Published: {new Date(post.publication_date).toLocaleDateString("en-US")}
+          </div>
+
+          {/* If current user did not write the post, show the author name with a link to their profile*/}
+          <div>
+            {post.created_by_current_user 
+            ? (
+              <section className="container__cardContentBottom">
+                <div className="post_author">
+                  By: {post.user.user.first_name} (you)
+                </div>
+              </section>
+            ) 
+            : (
+            <section className="container__cardContentBottom">
+                <div className="post_author">
+                  {"By: "} 
+                  <Link to={{ pathname: `/profiles/${post.user.id}` }}>
+                      {post.user.user.first_name}
+                  </Link>
+                </div>
+                
+            </section>
+            )
+            }
+          </div>
+        </section>
+
+        <section className="container__cardContentRight">          
+          <div>
+            {postTags.map((postTag) => {
+              return  postTag.tag.label ? <div className="displayedTag"># {postTag.tag.label}</div>  : null              
+            })}
+          </div>
+        </section>
+
       </section>
       <ReactionList {...props} />{/*Renders ReactionList*/}
     </>

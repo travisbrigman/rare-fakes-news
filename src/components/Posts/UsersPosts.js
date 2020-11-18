@@ -25,16 +25,18 @@ export const UsersPosts = () => {
       {usersPosts.map((p) => {
         return (
           <div key={p.id} className="container__card">
-            <p>
-              <Link to={{ pathname: `posts/${p.id}` }}>
-                <strong>{p.title}</strong>
-              </Link>
-            </p>
-            <p>{p.user.user.first_name}</p>
-            {p.category==null? "" :<p>{p.category.label}</p>}
+            <div className="container__cardContent">
+              <p>
+                <Link to={{ pathname: `posts/${p.id}` }}>
+                  <strong>{p.title}</strong>
+                </Link>
+              </p>
+              <p>{p.user.user.first_name}</p>
+              {p.category==null? "" :<p>{p.category.label}</p>}
+            </div>
           </div>
-        );
+        )
       }).reverse()}
     </>
-  );
-};
+  )
+}

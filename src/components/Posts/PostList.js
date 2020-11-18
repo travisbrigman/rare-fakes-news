@@ -21,11 +21,13 @@ export const PostList = (props) => {
         {
             posts !== [] ? posts.map(p => {
                 return <div key={p.id} className="container__card">
-                    <Link to={{pathname:`/posts/${p.id}`}}>
-                    <p>{p.title}</p>
-                    </Link>
-                    <p>{p.user.user.first_name}</p>
-                    {p.category==null? "" :<p>{p.category.label}</p>}
+                    <div className="container__cardContent">    
+                        <Link to={{pathname:`/posts/${p.id}`}}>
+                        <p>{p.title}</p>
+                        </Link>
+                        <p>{p.user.user.first_name}</p>
+                        {p.category==null? "" :<p>{p.category.label}</p>}
+                    </div>
                 </div>
             }).reverse() : null
         }
