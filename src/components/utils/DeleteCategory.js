@@ -1,13 +1,15 @@
-//delete button component with confirmation modal
+//deletecategory component with confirmation modal
 import React, { useState, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { PostContext } from "../Posts/PostProvider";
-import "./DeleteItem.css"
+import { CategoryContext} from "../Categories/CategoryProvider";
+import "./DeleteItem.css";
 
-export const DeleteItem = ({ postId }) => {
-  const { deletePost } = useContext(PostContext);
+export const DeleteCategory = ({categoryId}) => {
+  const { deleteCategory} = useContext(CategoryContext);
   const history = useHistory()
-  
+  const params = useParams()
+ 
+
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
@@ -17,13 +19,14 @@ export const DeleteItem = ({ postId }) => {
   const showHideClassName = open ? "modal display-block" : "modal display-none";
 
   //function that is called when the delete button is clicked. 
-  //This function deletes an entry in the Post table.
+  //This function deletes an entry in the TagPost table.
   //Lastly the function calls the close function which resets our modal state.
-  const deleteThisPost = () => {
-    deletePost(postId)
-    .then(() => {
-      history.push("/home")
-    })
+  const deleteThisCategory = () => {
+    deleteCategory(categoryId)
+     .then(() => {
+         history.push("/categories")
+     }
+     )
   };
 
   return (
@@ -32,12 +35,13 @@ export const DeleteItem = ({ postId }) => {
       {open && (
         <div className={showHideClassName}>
           <div className="modal-main">
-            <h3>
-              Confirm
-            </h3>
+            <h3>Confirm</h3>
             <p>Are you sure you want to delete?</p>
             <div>
-              <button onClick={deleteThisPost}> <strong>Delete</strong></button>
+              <button onClick={deleteThisCategory}>
+                {" "}
+                <strong>Delete</strong>
+              </button>
               <button onClick={onClose}> Cancel </button>
             </div>
           </div>
