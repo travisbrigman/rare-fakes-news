@@ -18,6 +18,7 @@ import { ReactionProvider } from "./Reactions/ReactionProvider";
 import { PostDetails } from "./Posts/PostDetail";
 import { ReactionPostProvider } from "./Reactions/ReactionPostProvider";
 import { SubscriptionProvider } from "./Subscriptions/SubscriptionProvider"
+import { AdminAllPosts } from "./Posts/AdminAllPosts";
 import { UsersList } from "./Profiles/UsersList";
 import { UsersTable } from "./Profiles/UsersTable";
 
@@ -57,6 +58,9 @@ export const ApplicationViews = (props) => {
                         <Route path="/profiles/:userId(\d+)"
                           render={props => <UserDetail {...props} />}
                         />
+                                              <Route path="/admin/posts"
+                        render={props => <AdminAllPosts {...props} />}
+                      />
                       </SubscriptionProvider>
                     </TagProvider>
                   </TagPostProvider>
@@ -69,6 +73,7 @@ export const ApplicationViews = (props) => {
         {/************TAG MANAGEMENT****************** */}
         <TagProvider>
           <UserProvider>
+
             <Route exact path="/tags/create" render={(props) => {
               return <TagForm {...props} />
             }}

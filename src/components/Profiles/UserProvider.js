@@ -7,7 +7,6 @@ export const UserProvider = (props) => {
     const [user, setUser] = useState({user:{}})
     const [currentUser, setCurrentUser] = useState({user:{}})
 
-
   const getUsers = () => {
     return fetch("http://localhost:8000/users" , {
         headers: {
