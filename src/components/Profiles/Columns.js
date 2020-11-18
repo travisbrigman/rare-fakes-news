@@ -1,24 +1,24 @@
 export const columns = [
     {
-        property: 'user.user.first_name',
+        property: 'user.first_name',
         header: 'First Name',
     },
     {
-        property: 'user.user.last_name',
+        property: 'user.last_name',
         header: 'Last Name',
     },
     {
-        property: 'user.user.username',
+        property: 'user.username',
         header: 'Username',
     },
     {
-        property: 'user.user.is_active',
+        property: 'user.is_active',
         header: 'In/Active',
-        render: datum => datum.approved ? "✅" : "❎"
+        render: datum => datum.user.is_active ? "✅" : "❎"
     },
     {
-        property: 'user.user.is_staff',
+        property: 'user.is_staff',
         header: 'Admin or Author',
-        render: datum => datum.approved ? "Approved" : "Not Approved"
+        render: datum => datum.user.is_staff ? "Admin" : "Author"
     }
   ];

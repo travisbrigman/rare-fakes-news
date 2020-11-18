@@ -89,7 +89,6 @@ export const ApplicationViews = (props) => {
             <Route exact path="/profile" render={
               props => <UserDetail {...props} />} />
               <Route exact path="/users"><UsersList /></Route>
-              <Route exact path="/userstable"><UsersTable /></Route>
           </SubscriptionProvider>
         </UserProvider>
 

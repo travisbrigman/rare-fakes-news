@@ -27,10 +27,8 @@ export const UserProvider = (props) => {
                 Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
               }
-
         })
-            .then(response => response.json())
-           
+            .then(response => response.json()) 
     }
 
     const getCurrentUser = (userId) => {
@@ -39,11 +37,8 @@ export const UserProvider = (props) => {
                 Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
               }
-
         })
-            .then(response => response.json())
-           
-            
+            .then(response => response.json())     
     }
 
     

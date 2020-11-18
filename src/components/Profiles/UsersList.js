@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { UserContext } from "./UserProvider"
 import "./UsersList.css"
+import { UsersTable } from "./UsersTable"
 
 
 export const UsersList = () => {
@@ -20,7 +21,8 @@ export const UsersList = () => {
             { //DETERMINE VIEW BASED ON ADMIN/AUTHOR PRIVILEGES
                 user.user.is_staff ?
                     <div>
-                        {/* VIEW FOR STAFF */}
+                        <UsersTable users={users}/>
+                        {/* VIEW FOR STAFF
                         {  //map through users to generate content 
                             users.map(u => {
                                 return <div className="userContainer">
@@ -48,7 +50,7 @@ export const UsersList = () => {
                                     </div>
                                 </div>
                             })
-                        }
+                        } */}
                     </div> :
                     <div>
                         {/* VIEW FOR AUTHORS */}
