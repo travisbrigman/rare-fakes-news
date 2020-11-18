@@ -29,15 +29,6 @@ export const PostForm = (props) => {
         }
     }, [])
 
-      
-    // useEffect(() => {
-        //     const stateCopyObj = stateTagObjArr.slice() //make a copy of the TagObjArr
-        //     const tagItems = stateTagIDArr.map(t => {
-            //         return tags.find(tag => tag.id === t) //map through tagIDArr and return the tag object whose ID === t
-            //     })
-            //     stateCopyObj.push(tagItems)
-            //     setTagObjArr(stateCopyObj) //set the state of the TagObjArr to what was pushed into stateCopyObj array
-            // }, [stateTagIDArr])
             
     const handleControlledInputChange = (browserEvent) => {
         const newPost = Object.assign({}, postObj)
@@ -62,7 +53,6 @@ export const PostForm = (props) => {
             [event.target.name]: value
         })
     }
-    console.log("checkedState>>",checkedState)
 
 
     const constructPost = (evt) => {
@@ -113,11 +103,6 @@ export const PostForm = (props) => {
                     .then(() => {
                         props.history.push(`/posts/${postObj.id}`)
                     })
-                    
-                    // console.log("selectedTagsArray", selectedTagsArray)
-                    // console.log("filteredTrue", filteredTrue)
-                    // const tagIds = Object.keys(checkedState).map(Number)
-                    // console.log("tagIds", tagIds)
                 })
 
 
