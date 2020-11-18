@@ -51,6 +51,18 @@ const getTagById = (id) => {
       .then(res => res.json())
 }
 
+const updateTag = tag => {
+  return fetch(`http://localhost:8000/tags/${tag.id}`, {
+      method: "PUT",
+      headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      },
+      body: JSON.stringify(tag)
+  })
+      .then(getTags)
+}
+
 
 
   return (
@@ -63,7 +75,8 @@ const getTagById = (id) => {
         setTags,
         createTag,
         deleteTag,
-        getTagById
+        getTagById,
+        updateTag
       }}
     >
       {props.children}
