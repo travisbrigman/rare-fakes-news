@@ -7,7 +7,7 @@ import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 
 
 export const UserDetail = (props) => {
-    const { user, getUserById, getUsers, getCurrentUser, setUser } = useContext(UserContext)
+    const { user, getUserById, getCurrentUser, setUser } = useContext(UserContext)
     const { getSubscriptionByAuthor, unsubscribe, createSubscription } = useContext(SubscriptionContext)
 
     const [subscription, setSubscription] = useState({})
@@ -17,14 +17,14 @@ export const UserDetail = (props) => {
 
     useEffect(() => {
         if (props.match.params.hasOwnProperty("userId")) {
+            getUserById(parseInt(props.match.params.userId))
+            .then(setUser)
             //get the most recent sub OBJECT
             //this determines whether the current user follows the author of the UserDetail page
-            getSubscriptionByAuthor(parseInt(props.match.params.userId))
+            .then(() => {
+                getSubscriptionByAuthor(parseInt(props.match.params.userId))
                 .then(setSubscription)
-                .then(() => {
-                    getUserById(parseInt(props.match.params.userId))
-                    .then(setUser)
-                })
+            })
             } else {
                 getCurrentUser()
                 .then(setUser)
