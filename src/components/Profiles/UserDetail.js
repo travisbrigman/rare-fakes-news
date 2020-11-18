@@ -7,29 +7,28 @@ import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 
 
 export const UserDetail = (props) => {
-    const { user, getUserById, getUsers, getCurrentUser, setUser } = useContext(UserContext)
+    const { user, getUserById, getCurrentUser, setUser } = useContext(UserContext)
     const { getSubscriptionByAuthor, unsubscribe, createSubscription } = useContext(SubscriptionContext)
 
     const [subscription, setSubscription] = useState({})
     const [subscriptions, setSubscriptions] = useState([])
     const [subStatus, setSubStatus] = useState(false) //subscription state set to false
-  
 
     useEffect(() => {
         if (props.match.params.hasOwnProperty("userId")) {
             //get the most recent sub OBJECT
             //this determines whether the current user follows the author of the UserDetail page
-            getSubscriptionByAuthor(parseInt(props.match.params.userId))
-                .then(setSubscription)
-                .then(() => {
-                    getUserById(parseInt(props.match.params.userId))
-                    .then(setUser)
+            getUserById(parseInt(props.match.params.userId))
+                .then((user) => {
+                    setUser(user)
+                    getSubscriptionByAuthor(parseInt(props.match.params.userId))
+                        .then(setSubscription)
                 })
             } else {
+                //get an ARRAY of objects to show how many people follow YOU
                 getCurrentUser()
-                .then(setUser)
-                .then(() => {
-                    //get an ARRAY of objects to show how many people follow YOU
+                .then((user) => {
+                    setUser(user)
                     getSubscriptionByAuthor(user.id)
                     .then(setSubscriptions)
                 })
@@ -63,7 +62,6 @@ export const UserDetail = (props) => {
         }
     }
 
-    
    
     return (
         <>
@@ -74,7 +72,6 @@ export const UserDetail = (props) => {
                         <div>{user.user.first_name} {user.user.last_name}</div>
                         <div>subscribers: {subscriptions.length}</div>
                     </div>}
-                
                 {user.user.profile_image_url === "" || user.user.profile_image_url === undefined
                     ? <img src={defaultImg} style={{ width: `115px` }}></img>
                     : <img src={user.user.profile_image_url} style={{ width: `115px` }}></img>

@@ -1,13 +1,12 @@
 //delete button component with confirmation modal
 import React, { useState, useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { TagContext } from "../Tags/TagProvider"
 import "./DeleteItem.css"
 
 export const DeleteTag = ({ tagId }) => {
   const { deleteTag } = useContext(TagContext);
   const history = useHistory()
-  const params = useParams()
 
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
@@ -25,9 +24,9 @@ export const DeleteTag = ({ tagId }) => {
     .then(() => {
         onClose()
       history.push("/tags")
-    }
-    )
+    })
   };
+
   return (
     <>
       <button onClick={onOpen}>DELETE</button>

@@ -7,7 +7,7 @@ import "../utils/DeleteItem.css"
 
 export const TagForm = (props) => {
     // Use the required context providers for data
-    const { tags, getTags, createTag, tag, setTag, updateTag, getTagById } = useContext(TagContext)
+    const { createTag, updateTag, getTagById } = useContext(TagContext)
     const editMode = props.match.params.hasOwnProperty("tagId")
 
     //state variable and functions that change state of the state variable
@@ -29,11 +29,6 @@ export const TagForm = (props) => {
         newTag[event.target.name] = event.target.value    // Modify copy
         setTagObj(newTag)                                 // Set copy as new state
     }
-
-    // Get tags from API when component initializes
-    useEffect(() => {
-        getTags()
-    }, [])
 
     useEffect(() => {
         if (editMode) {
@@ -77,7 +72,6 @@ export const TagForm = (props) => {
                                     .then(() => {
                                         props.history.push(`/tags`)
                                     })
-
                             }}> <strong>Edit</strong></button>
                             <button onClick={onClose}> Cancel </button>
                         </div>

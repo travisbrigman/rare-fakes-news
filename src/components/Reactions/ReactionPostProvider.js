@@ -29,9 +29,7 @@ export const ReactionPostProvider = (props) => {
         })
             .then(res => res.json())
             .then(getReactionPosts)
-
     }
-
 
     return (
         <ReactionPostContext.Provider value={{
