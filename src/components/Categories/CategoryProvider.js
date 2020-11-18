@@ -38,7 +38,6 @@ export const CategoryProvider = (props) => {
     body: JSON.stringify(categoryId)
     })
         .then(getCategories)
-
   }
 
   const editCategory = category => {
@@ -76,7 +75,6 @@ const getCategoryById = (id) => {
         editCategory,
         getCategoryById
       }}
-
     >
       {props.children}
     </CategoryContext.Provider>

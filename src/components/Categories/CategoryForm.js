@@ -5,7 +5,7 @@ import "../utils/CategoryForm.css";
 
 
 export const CategoryForm = (props) => {
-  const { category, getCategories, createCategory, setCategory, editCategory, getCategoryById } = useContext(CategoryContext)
+  const { getCategories, createCategory, editCategory, getCategoryById } = useContext(CategoryContext)
   
   const editMode = props.match.url.split("/")[1] === "editcategory" //checks url to see if editMode
 
@@ -21,8 +21,6 @@ export const CategoryForm = (props) => {
   //gets the categories from the database
   useEffect(() => {
     getCategories()
-
-
   }, [])
 
   useEffect(() => {
@@ -44,8 +42,6 @@ export const CategoryForm = (props) => {
     newCategoryState[event.target.name] = event.target.value
     setCurrentCategory(newCategoryState)
   }
-
-
 
   return (
 
@@ -98,10 +94,6 @@ export const CategoryForm = (props) => {
           className="btn btn-primary"
         >Create New Category</button>
       }
-
-
-
-
     </fieldset>
 
   );

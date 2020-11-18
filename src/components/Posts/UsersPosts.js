@@ -6,25 +6,18 @@ import { UserContext } from "../Profiles/UserProvider"
 
 
 export const UsersPosts = () => {
-  const { getPostByUser} = useContext(PostContext);
-  const { getCurrentUser, currentUser, setCurrentUser } = useContext(UserContext)
+  const { getPostByUser } = useContext(PostContext);
+  const { getCurrentUser } = useContext(UserContext)
 
   const [usersPosts, setUsersPosts] = useState([]);
  
-
   useEffect(() => {
     getCurrentUser()
-      .then(res => {
-        setCurrentUser(res)
-        const user = res
-        return user
-      })
-      .then((user) => 
-        getPostByUser(user.id))
-
+    //returns res.json() that is immediately passed to the next .then()
+    //res.json() is the current user object
+      .then((user) => getPostByUser(user.id))
       .then(setUsersPosts)
   }, [])
-
 
   return (
     <>

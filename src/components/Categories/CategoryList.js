@@ -19,12 +19,8 @@ export const CategoryList = (props) => {
 
   useEffect(() => {
     getCurrentUser()
-      .then(res => {
-        setCurrentUser(res)
-        const user = res
-        return user
-      })
-  }, [])
+      .then(setCurrentUser)
+  }, []);
 
   //this function is called on the click of the '+category' button
   // it takes us to a new route where a category creation form is rendered
@@ -33,25 +29,30 @@ export const CategoryList = (props) => {
   };
 
   return (
-   
+
     <div style={{ marginTop: "2rem" }}>
       <h3>Categories</h3>
       <div className="categoryList">
         {categories.map((categoryObject) => {
           return <>
             <div key={categoryObject.id}>{categoryObject.label}</div>
-            {currentUser.user.is_staff ? <DeleteCategory categoryId={categoryObject.id} /> 
-
-            : ""}
-            {currentUser.user.is_staff? <div className="new_category_btn_container"><Link to={`/editcategory/${categoryObject.id}`}><button className="new_category_btn" >EDIT</button></Link></div>
-            : "" }
+            { //only shows edit and delete if the user is an admin
+              currentUser.user.is_staff ?
+                <>
+                  <DeleteCategory categoryId={categoryObject.id} />
+                  <div className="new_category_btn_container">
+                    <Link to={`/editcategory/${categoryObject.id}`}>
+                      <button className="new_category_btn" >EDIT</button>
+                    </Link>
+                  </div>
+                </>
+                : ""}
           </>
         })}
-      
-      <button onClick={toCreateCreateCategory}>+ Category</button>
+        <button onClick={toCreateCreateCategory}>+ Category</button>
+      </div>
     </div>
-    </div>
-   
-   
+
+
   )
 };

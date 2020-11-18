@@ -13,12 +13,9 @@ export const Register = (props) => {
     const passwordDialog = useRef()
     const bio = useRef()
 
-    
     const handleRegister = (e) => {
         e.preventDefault()
-        
         if (password.current.value === verifyPassword.current.value) {
-
             const newUser = {
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
@@ -27,8 +24,6 @@ export const Register = (props) => {
                 "password": password.current.value,
                 "bio": bio.current.value
             }
-
-
             return fetch("http://localhost:8000/register", {
                 method: "POST",
                 headers: {
@@ -54,7 +49,6 @@ export const Register = (props) => {
                 <div>Passwords do not match</div>
                 <button className="button--close" onClick={e => passwordDialog.current.close()}>Close</button>
             </dialog>
-
             <form className="form--login" onSubmit={handleRegister}>
                 <h1 className="h3 mb-3 font-weight-normal">Register an account</h1>
                 <fieldset>
@@ -66,7 +60,7 @@ export const Register = (props) => {
                     <input ref={lastName} type="text" name="lastName" className="form-control" placeholder="last name" />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="userName"> Display Name </label>
+                    <label htmlFor="userName"> Username </label>
                     <input ref={userName} type="text" name="userName" className="form-control" placeholder="display name" />
                 </fieldset>
                 <fieldset>

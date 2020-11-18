@@ -2,14 +2,11 @@
 import React, { useContext, useEffect } from "react"
 import {Link} from "react-router-dom"
 import { PostContext } from "./PostProvider"
-import { UserContext } from "../Profiles/UserProvider"
-import { DeleteItem } from "../utils/DeleteItem";
 
 
 
 export const PostList = (props) => {
     const {posts, getPosts} = useContext(PostContext)
-    const { loggedInUser } = useContext(UserContext);
 
     useEffect(() => {
        getPosts()
