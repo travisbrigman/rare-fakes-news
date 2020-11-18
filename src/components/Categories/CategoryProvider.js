@@ -38,7 +38,6 @@ export const CategoryProvider = (props) => {
     body: JSON.stringify(categoryId)
     })
         .then(getCategories)
-
   }
 
   const editCategory = category => {

@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react"
 import { TagContext } from "./TagProvider"
 import { UserContext } from "../Profiles/UserProvider"
 import { DeleteTag } from "../utils/DeleteTag";
-import Tag from "./Tag"
 import { Link } from "react-router-dom"
 
 
@@ -20,11 +19,7 @@ export const TagList = ({ props }) => {
 
     useEffect(() => {
         getCurrentUser()
-            .then(res => {
-                setCurrentUser(res)
-                const user = res
-                return user
-            })
+            .then(setCurrentUser)
     }, [])
 
 

@@ -1,12 +1,15 @@
 //handles all TagPost object data- getTagPosts, createTagPost, deleteTagPost
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import {PostContext} from "../Posts/PostProvider"
 
 export const TagPostContext = React.createContext();
 
 
 export const TagPostProvider = (props) => {
   const [TagPosts, setTagPosts] = useState([]);
-  const [TagPost, setTagPost] = useState({});    
+  const [TagPost, setTagPost] = useState({}); 
+  
+  const {getTagsByPost} = useContext(PostContext)
 
   const getTagPosts = () => {
     return fetch("http://localhost:8000/posttags")

@@ -7,10 +7,7 @@ import "../utils/DeleteItem.css"
 
 export const TagForm = (props) => {
     // Use the required context providers for data
-<<<<<<< HEAD
-    const { createTag, tag, setTag } = useContext(TagContext)
-=======
-    const { tags, getTags, createTag, tag, setTag, updateTag, getTagById } = useContext(TagContext)
+    const { createTag, updateTag, getTagById } = useContext(TagContext)
     const editMode = props.match.params.hasOwnProperty("tagId")
 
     //state variable and functions that change state of the state variable
@@ -22,7 +19,6 @@ export const TagForm = (props) => {
     const showHideClassName = open ? "modal display-block" : "modal display-none";
 
     const [tagObj, setTagObj] = useState({})
->>>>>>> main
 
     const handleControlledInputChange = (event) => {
         /*
@@ -33,31 +29,6 @@ export const TagForm = (props) => {
         newTag[event.target.name] = event.target.value    // Modify copy
         setTagObj(newTag)                                 // Set copy as new state
     }
-
-<<<<<<< HEAD
-    const constructNewTag = () => {
-        // POST
-        createTag({
-            label: tag.tag
-        })
-            .then(() => props.history.push("/tags")) //takes user to tag list page
-    }
-
-    return (
-        <form className="tagForm">
-            <h2 className="tagForm__title">Tag form</h2>
-            <fieldset>
-                <div className="form-group">
-                    <label htmlFor="tag">Enter tag name: </label>
-                    <input type="text" name="tag" required autoFocus className="form-control"
-                        placeholder="ex: sports, politics, etc"
-                        onChange={handleControlledInputChange}
-                    />
-=======
-    // Get tags from API when component initializes
-    useEffect(() => {
-        getTags()
-    }, [])
 
     useEffect(() => {
         if (editMode) {
@@ -101,12 +72,10 @@ export const TagForm = (props) => {
                                     .then(() => {
                                         props.history.push(`/tags`)
                                     })
-
                             }}> <strong>Edit</strong></button>
                             <button onClick={onClose}> Cancel </button>
                         </div>
                     </div>
->>>>>>> main
                 </div>
             )}
             {editMode ? "" : <button type="submit"

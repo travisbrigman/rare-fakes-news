@@ -1,13 +1,12 @@
 //deletecategory component with confirmation modal
 import React, { useState, useContext } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { CategoryContext} from "../Categories/CategoryProvider";
 import "./DeleteItem.css";
 
 export const DeleteCategory = ({categoryId}) => {
   const { deleteCategory} = useContext(CategoryContext);
   const history = useHistory()
-  const params = useParams()
  
 
   //state variable and functions that change state of the state variable
@@ -25,8 +24,7 @@ export const DeleteCategory = ({categoryId}) => {
     deleteCategory(categoryId)
      .then(() => {
          history.push("/categories")
-     }
-     )
+     })
   };
 
   return (
