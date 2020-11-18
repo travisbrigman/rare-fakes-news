@@ -18,11 +18,11 @@ export const UserDetail = (props) => {
         if (props.match.params.hasOwnProperty("userId")) {
             //get the most recent sub OBJECT
             //this determines whether the current user follows the author of the UserDetail page
-            getSubscriptionByAuthor(parseInt(props.match.params.userId))
-                .then(setSubscription)
-                .then(() => {
-                    getUserById(parseInt(props.match.params.userId))
-                    .then(setUser)
+            getUserById(parseInt(props.match.params.userId))
+                .then((user) => {
+                    setUser(user)
+                    getSubscriptionByAuthor(parseInt(props.match.params.userId))
+                        .then(setSubscription)
                 })
             } else {
                 //get an ARRAY of objects to show how many people follow YOU
