@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 
 
 export const TagList = ({ props }) => {
-    const { getTags, tags, deleteTag } = useContext(TagContext)
+    const { getTags, tags} = useContext(TagContext)
     const { getCurrentUser } = useContext(UserContext)
     const [currentUser, setCurrentUser] = useState({ user: {} })
 
@@ -37,8 +37,9 @@ export const TagList = ({ props }) => {
                         return (<>
                             <div>{tag.label}</div>
                             {currentUser.user.is_staff ? <><DeleteTag tagId={tag.id} /> <div className="new_tag_btn_container"> <Link to={`/tags/edit/${tag.id}`}>
-                                <button onClick={() => localStorage.setItem("currentLabel", tag.label)} className="new_tag_btn">Edit Tag</button>
+                                <button className="new_tag_btn">Edit Tag</button>
                             </Link></div></> : <></>}
+                            
 
                         </>)
                     })
