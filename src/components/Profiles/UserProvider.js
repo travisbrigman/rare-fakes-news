@@ -3,7 +3,7 @@ import React, { useState } from "react"
 export const UserContext = React.createContext();
 
 export const UserProvider = (props) => {
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([{user:{}}])
     const [user, setUser] = useState({user:{}})
     const [currentUser, setCurrentUser] = useState({user:{}})
 
@@ -26,7 +26,7 @@ export const UserProvider = (props) => {
                 "Content-Type": "application/json",
               }
         })
-            .then(response => response.json())
+            .then(response => response.json()) 
     }
 
     const getCurrentUser = () => {
@@ -36,7 +36,7 @@ export const UserProvider = (props) => {
                 "Content-Type": "application/json",
               }
         })
-            .then(response => response.json())          
+            .then(response => response.json())     
     }
 
     

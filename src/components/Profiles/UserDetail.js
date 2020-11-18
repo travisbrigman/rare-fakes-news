@@ -16,14 +16,14 @@ export const UserDetail = (props) => {
 
     useEffect(() => {
         if (props.match.params.hasOwnProperty("userId")) {
+            getUserById(parseInt(props.match.params.userId))
+            .then(setUser)
             //get the most recent sub OBJECT
             //this determines whether the current user follows the author of the UserDetail page
-            getUserById(parseInt(props.match.params.userId))
-                .then((user) => {
-                    setUser(user)
-                    getSubscriptionByAuthor(parseInt(props.match.params.userId))
-                        .then(setSubscription)
-                })
+            .then(() => {
+                getSubscriptionByAuthor(parseInt(props.match.params.userId))
+                .then(setSubscription)
+            })
             } else {
                 //get an ARRAY of objects to show how many people follow YOU
                 getCurrentUser()
