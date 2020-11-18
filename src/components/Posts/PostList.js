@@ -24,7 +24,7 @@ export const PostList = (props) => {
         {
             posts !== [] ? posts.map(p => {
                 return <div key={p.id} className="container__card">
-                    <div className="container__cardMain">                        
+                    <div className="container__cardContent">                        
                         <Link to={{pathname:`/posts/${p.id}`}}>
                         <p>{p.title}</p>
                         </Link>

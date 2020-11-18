@@ -32,7 +32,7 @@ export const UsersPosts = () => {
       {usersPosts.map((p) => {
         return (
           <div key={p.id} className="container__card">
-            <div className="container__cardMain">
+            <div className="container__cardContent">
               <p>
                 <Link to={{ pathname: `posts/${p.id}` }}>
                   <strong>{p.title}</strong>

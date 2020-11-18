@@ -11,14 +11,14 @@ import { DeleteItem } from "../utils/DeleteItem";
 
 export const PostDetails = (props) => {
   const { getPostById, post, setPost, getTagsByPost, postTags, deletePost, posts, getPostByUser } = useContext(PostContext);
-  const {tag, tags, getTags} = useContext(TagContext)
+  const { tag, tags, getTags } = useContext(TagContext)
   const { TagPosts, createTagPost } = useContext(TagPostContext);
   const { getCurrentUser } = useContext(UserContext);
   
 
   //state variable and variables needed to make tag management work
-  const [selectedTagPostId, setSelectedTagPostId] = useState(0);
-  const [user, setCurrentUser] = useState({});
+  const [ selectedTagPostId, setSelectedTagPostId ] = useState(0);
+  const [ user, setCurrentUser ] = useState({});
   const tagPostId = useRef(null);
   const postId = parseInt(props.match.params.postId);
 
@@ -71,8 +71,24 @@ export const PostDetails = (props) => {
     <>
       {/* Post Detail JSX */}
       <section className="container__card">
-        <section className="container__cardMain">          
+        <section className="container__cardContent">  
+          <section className="container__cardContentLeft"></section>        
           <h3 className="post__title">{post.title}</h3>
+
+          {post.created_by_current_user 
+          ? (
+              <section className="container__cardContentTop">              
+                <button onClick={() => props.history.push(`/posts/edit/${post.id}`)}>
+                  EDIT
+                </button>
+
+                {post.user.id === user.id ? <DeleteItem postId= {post.id}/> : <></>}
+              </section>
+          )
+          : (``)
+          }
+          
+          <img className="post__image" src={post.image_url} style={{width: `500px`}} alt="article"></img>
           <div className="post__content">{post.content}</div>
           <div key={post.id} className="post_date">
             Published: {new Date(post.publication_date).toLocaleDateString("en-US")}
@@ -81,30 +97,28 @@ export const PostDetails = (props) => {
           <div>
             {post.created_by_current_user 
             ? (
-              <>              
+              <section className="container__cardContentBottom">
                 <div className="post_author">
-                  By: {post.user.user.first_name}
+                  By: {post.user.user.first_name} (you)
                 </div>
-
-                <button onClick={() => props.history.push(`/posts/edit/${post.id}`)}>
-                  edit
-                </button>
-
-                {post.user.id === user.id ? <DeleteItem postId= {post.id}/> : <></>}
-              </>
+              </section>
             ) 
             : (
-              <Link to={{ pathname: `/profiles/${post.user.id}` }}>
+            <section className="container__cardContentBottom">
                 <div className="post_author">
-                  By: {post.user.user.first_name}
+                  {"By: "} 
+                  <Link to={{ pathname: `/profiles/${post.user.id}` }}>
+                      {post.user.user.first_name}
+                  </Link>
                 </div>
-              </Link>
+                
+            </section>
             )
             }
           </div>
         </section>
 
-        <section className="container__cardRight">          
+        <section className="container__cardContentRight">          
           <div>
             {postTags.map((postTag) => {
               return  postTag.tag.label ? <div># {postTag.tag.label}</div>  : null              

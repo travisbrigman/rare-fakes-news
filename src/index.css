@@ -215,23 +215,34 @@ a {
 	flex-direction: row;
 	background-color: #B8F2E6;
 	margin: 1rem;
-	padding: .5rem;
+	padding: 2rem;
+	width: 95%;
+}
+
+.container__cardContent {
+	display: flex;
+	flex-direction: column;
 	width: 100%;
 }
 
-.container__cardMain {
-	display: flex;
-	flex-direction: column;
-	width: 50%;
+.container__cardContentTop {	
 }
 
-.container__cardRight {
-	display: flex;
-	flex-direction: column;
-	width: 50%;
-	padding: 4rem 0 0 4rem;
+.container__cardContentLeft {
+	width: 70%;
 }
 
+.container__cardContentRight {
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	padding: 6rem 2rem 2rem 2rem;
+}
+
+.container__cardContentBottom {	
+	display: flex;
+	flex-direction: row;
+}
 
 .container--filters {
 	margin: 1rem;
@@ -240,10 +251,11 @@ a {
 .container--checkboxes {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
+	flex-wrap: wrap;
 	padding: 1rem;
 }
 
 .checkboxGroup {
 	white-space: nowrap;
+	padding: 0 25px 0 0;
 }
