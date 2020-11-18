@@ -85,12 +85,8 @@ export const HomeList = (props) => {
         <div>{clearFilterButton()}</div>
       </div>
 
-<<<<<<< HEAD
       
       <div className="container--filters">
-=======
-      <div className="container--filter" style={{margin: "1rem"}}>
->>>>>>> main
         <h3>Filter by Tag</h3>
         {tags.map((tag) => {
           return (

@@ -12,7 +12,7 @@ import { DeleteItem } from "../utils/DeleteItem";
 export const PostDetails = (props) => {
   const { getPostById, post, setPost, getTagsByPost, postTags} = useContext(PostContext);
   const { tag, tags, getTags } = useContext(TagContext)
-  const { TagPosts, createTagPost } = useContext(TagPostContext);
+  const { TagPosts } = useContext(TagPostContext);
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
@@ -44,8 +44,6 @@ export const PostDetails = (props) => {
 
   //state variable and functions to show/hide the tag management feature
   const [open, setOpen] = useState();
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(undefined);
   
   //takes what is selected in the tag management dropdown and sets the state variable with that value
   const handleChange = (e) => {
@@ -68,6 +66,7 @@ export const PostDetails = (props) => {
           <section className="container__cardContentLeft"></section>        
           <h3 className="post__title">{post.title}</h3>
 
+          {/* if current user wrote the post, show an edit button */}
           {post.created_by_current_user 
           ? (
               <section className="container__cardContentTop">              
@@ -75,7 +74,7 @@ export const PostDetails = (props) => {
                   EDIT
                 </button>
 
-                {post.user.id === user.id ? <DeleteItem postId= {post.id}/> : <></>}
+                {post.created_by_current_user ? <DeleteItem postId= {post.id}/> : <></>}
               </section>
           )
           : (``)
@@ -87,6 +86,7 @@ export const PostDetails = (props) => {
             Published: {new Date(post.publication_date).toLocaleDateString("en-US")}
           </div>
 
+          {/* If current user did not write the post, show the author name with a link to their profile*/}
           <div>
             {post.created_by_current_user 
             ? (
