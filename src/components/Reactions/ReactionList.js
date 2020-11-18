@@ -8,22 +8,19 @@ import "./Reaction.css"
 export const ReactionList = (props) => {
     const { getReactions, reactions } = useContext(ReactionContext)
 
-
     // Initialization effect hook -> Go get tag data
     useEffect(() => {
         getReactions()
-
     }, [])
 
     return (
         <div style={{ margin: "1rem" }} className="reactionContainer">
             <h3>Reactions:</h3>
             <div className="reactions">
-                {
+                { //map through the reactions and pass the reaction obj and props down to the child component
                     reactions.map(reaction => <Reaction key={reaction.id} {...props} reaction={reaction} />)
                 }
             </div>
-
         </div>
     )
 }
