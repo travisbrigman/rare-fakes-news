@@ -3,18 +3,13 @@ import React, { useEffect, useContext, useState } from "react";
 import { CategoryContext } from "./CategoryProvider";
 import { UserContext } from "../Profiles/UserProvider"
 import { DeleteCategory } from "../utils/DeleteCategory"
-import { EditCategory } from "../utils/EditCategory"
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export const CategoryList = (props) => {
   const { categories, getCategories } = useContext(CategoryContext)
   const { getCurrentUser } = useContext(UserContext)
   const [currentUser, setCurrentUser] = useState({ user: {} })
-
-  const [open, setOpen] = useState();
-  const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(undefined);
 
   //gets the categories from the database
   useEffect(() => {
