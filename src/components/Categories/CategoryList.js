@@ -3,6 +3,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { CategoryContext } from "./CategoryProvider";
 import { UserContext } from "../Profiles/UserProvider"
 import { DeleteCategory } from "../utils/DeleteCategory"
+import { EditCategory } from "../utils/EditCategory"
 import { useHistory, Link } from "react-router-dom";
 
 
@@ -10,6 +11,10 @@ export const CategoryList = (props) => {
   const { categories, getCategories } = useContext(CategoryContext)
   const { getCurrentUser } = useContext(UserContext)
   const [currentUser, setCurrentUser] = useState({ user: {} })
+
+  const [open, setOpen] = useState();
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(undefined);
 
   //gets the categories from the database
   useEffect(() => {
@@ -33,22 +38,25 @@ export const CategoryList = (props) => {
   };
 
   return (
+   
     <div style={{ marginTop: "2rem" }}>
       <h3>Categories</h3>
       <div className="categoryList">
         {categories.map((categoryObject) => {
           return <>
-          <div key={categoryObject.id}>{categoryObject.label}</div>
+            <div key={categoryObject.id}>{categoryObject.label}</div>
             {currentUser.user.is_staff ? <DeleteCategory categoryId={categoryObject.id} /> 
-            
+
             : ""}
-            {currentUser.user.is_staff? <div className="new_category_btn_container"> <Link to={`/editcategory/${categoryObject.id}`}>
-              <button onClick={() => localStorage.setItem("currentLabel", categoryObject.label)} className="new_category_btn">Edit Category</button>
-            </Link></div> : "" }
+            {currentUser.user.is_staff? <div className="new_category_btn_container"><Link to={`/editcategory/${categoryObject.id}`}><button className="new_category_btn" >EDIT</button></Link></div>
+            : "" }
           </>
         })}
-      </div>
+      
       <button onClick={toCreateCreateCategory}>+ Category</button>
     </div>
-  );
+    </div>
+   
+   
+  )
 };
