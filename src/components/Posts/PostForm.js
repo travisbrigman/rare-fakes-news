@@ -21,7 +21,7 @@ export const PostForm = (props) => {
     useEffect(() => {
         getCategories()
         getTags()
-        setState(postTags)
+        // setState(postTags)
         if (editMode) {
             const postId = parseInt(props.match.params.postId)
             getTagsByPost(postId)
@@ -30,39 +30,47 @@ export const PostForm = (props) => {
         }
     }, [])
 
-    const [state, setState] = useState([])
-
-
+    
+    
     // useEffect(() => {
-    //     const stateCopyObj = stateTagObjArr.slice() //make a copy of the TagObjArr
-    //     const tagItems = stateTagIDArr.map(t => {
-    //         return tags.find(tag => tag.id === t) //map through tagIDArr and return the tag object whose ID === t
-    //     })
-    //     stateCopyObj.push(tagItems)
-    //     setTagObjArr(stateCopyObj) //set the state of the TagObjArr to what was pushed into stateCopyObj array
-    // }, [stateTagIDArr])
-
-    const handleControlledInputChange = (browserEvent) => {
-        const newPost = Object.assign({}, postObj)
-        newPost[browserEvent.target.name] = browserEvent.target.value
-        setPostObj(newPost)
-    }
-
-    const handleTagsSelected = (browserEvent) => {
-        const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
-        let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
-        stateCopyID.push(newTagItem) //push into copy
-        setTagIDArr(stateCopyID)
-    }
-
-
+        //     const stateCopyObj = stateTagObjArr.slice() //make a copy of the TagObjArr
+        //     const tagItems = stateTagIDArr.map(t => {
+            //         return tags.find(tag => tag.id === t) //map through tagIDArr and return the tag object whose ID === t
+            //     })
+            //     stateCopyObj.push(tagItems)
+            //     setTagObjArr(stateCopyObj) //set the state of the TagObjArr to what was pushed into stateCopyObj array
+            // }, [stateTagIDArr])
+            
+            const handleControlledInputChange = (browserEvent) => {
+                const newPost = Object.assign({}, postObj)
+                newPost[browserEvent.target.name] = browserEvent.target.value
+                setPostObj(newPost)
+            }
+            
+            const handleTagsSelected = (browserEvent) => {
+                const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
+                let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
+                stateCopyID.push(newTagItem) //push into copy
+                setTagIDArr(stateCopyID)
+            }
+            
+    const tagSelectedArray = []
+    const [state, setState] = useState([])
     function handleChange(event) {
-        const value =
-            event.target.type === "checkbox" ? event.target.checked : event.target.value;
-            setState({
-            ...state,
-            [event.target.name]: value
-            })
+        const value = event.target.checked
+        const tagObj = {[event.target.name]: value}
+        // if tagObj === 
+        
+        tagSelectedArray.push(tagObj)
+
+        console.log("tagSelectedArray>>",tagSelectedArray)
+        console.log("state>>",state)
+
+        // setState({
+        // ...state,
+        // [event.target.name]: value
+        // })
+        // console.log(state)
     }
 
 
@@ -105,7 +113,6 @@ export const PostForm = (props) => {
                         props.history.push(`/posts/${postObj.id}`)
                     })
             })
-            console.log(state)
         }
     }
 
@@ -203,6 +210,7 @@ export const PostForm = (props) => {
                         <input
                         type="checkbox"
                         name={t.id}
+                        value={t.id}
                         checked={state[t.id]}
                         onChange={handleChange}
                         />
@@ -213,7 +221,7 @@ export const PostForm = (props) => {
                 ))}
 
                 
-                {editMode                     
+                {/* {editMode                     
                     ?
                         <div className="container--checkboxes">
                             {tags.map(t => {
@@ -260,7 +268,7 @@ export const PostForm = (props) => {
                                 })
                             }
                         </div>
-                }
+                } */}
 
 
 
