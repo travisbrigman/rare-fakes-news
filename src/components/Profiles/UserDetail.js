@@ -13,7 +13,6 @@ export const UserDetail = (props) => {
     const [subscription, setSubscription] = useState({})
     const [subscriptions, setSubscriptions] = useState([])
     const [subStatus, setSubStatus] = useState(false) //subscription state set to false
-  
 
     useEffect(() => {
         if (props.match.params.hasOwnProperty("userId")) {
@@ -26,10 +25,10 @@ export const UserDetail = (props) => {
                 .then(setSubscription)
             })
             } else {
+                //get an ARRAY of objects to show how many people follow YOU
                 getCurrentUser()
-                .then(setUser)
-                .then(() => {
-                    //get an ARRAY of objects to show how many people follow YOU
+                .then((user) => {
+                    setUser(user)
                     getSubscriptionByAuthor(user.id)
                     .then(setSubscriptions)
                 })
@@ -63,7 +62,6 @@ export const UserDetail = (props) => {
         }
     }
 
-    
    
     return (
         <>
@@ -74,7 +72,6 @@ export const UserDetail = (props) => {
                         <div>{user.user.first_name} {user.user.last_name}</div>
                         <div>subscribers: {subscriptions.length}</div>
                     </div>}
-                
                 {user.user.profile_image_url === "" || user.user.profile_image_url === undefined
                     ? <img src={defaultImg} style={{ width: `115px` }}></img>
                     : <img src={user.user.profile_image_url} style={{ width: `115px` }}></img>

@@ -17,12 +17,10 @@ export const ReactionProvider = (props) => {
             .then(setReactions)
     }
 
-
     return (
         <ReactionContext.Provider value={{
             reaction, setReaction, reactions,
             getReactions, setReactions
-
         }}>
             {props.children}
         </ReactionContext.Provider>

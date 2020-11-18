@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from "react"
 import { TagContext } from "./TagProvider"
 import { UserContext } from "../Profiles/UserProvider"
 import { DeleteTag } from "../utils/DeleteTag";
-import Tag from "./Tag"
 import { Link } from "react-router-dom"
 
 
@@ -20,11 +19,7 @@ export const TagList = ({ props }) => {
 
     useEffect(() => {
         getCurrentUser()
-            .then(res => {
-                setCurrentUser(res)
-                const user = res
-                return user
-            })
+            .then(setCurrentUser)
     }, [])
 
 
@@ -36,11 +31,15 @@ export const TagList = ({ props }) => {
                     tags.map(tag => {
                         return (<>
                             <div>{tag.label}</div>
-                            {currentUser.user.is_staff ? <><DeleteTag tagId={tag.id} /> <div className="new_tag_btn_container"> <Link to={`/tags/edit/${tag.id}`}>
-                                <button className="new_tag_btn">Edit Tag</button>
-                            </Link></div></> : <></>}
-                            
-
+                            {currentUser.user.is_staff ? 
+                                <>
+                                <DeleteTag tagId={tag.id} /> 
+                                <div className="new_tag_btn_container"> 
+                                    <Link to={`/tags/edit/${tag.id}`}>
+                                        <button className="new_tag_btn">Edit Tag</button>
+                                    </Link>
+                                </div>
+                                </> : <></>}
                         </>)
                     })
 
