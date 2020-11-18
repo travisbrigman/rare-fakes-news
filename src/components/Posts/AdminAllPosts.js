@@ -12,7 +12,6 @@ export const AdminAllPosts = () => {
   const { approvePost, posts, getPosts } = useContext(PostContext);
   const {TagPosts, getTagPosts} = useContext(TagPostContext)
 
-  console.log(TagPosts);
 
     const [checked, setChecked] = useState([]);
   
