@@ -32,6 +32,9 @@ export const NavBar = () => {
                 <Link className="navbar__link" to="/profile">My Profile</Link>
             </li>
             <li className="navbar__item">
+                <Link className="navbar__link" to="/users">All Users</Link>
+            </li >
+            <li className="navbar__item">
                 <Link className="navbar__link" to="/tags">Tag Management</Link>
             </li>
             <li className="navbar__item">

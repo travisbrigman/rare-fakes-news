@@ -19,6 +19,8 @@ import { PostDetails } from "./Posts/PostDetail";
 import { ReactionPostProvider } from "./Reactions/ReactionPostProvider";
 import { SubscriptionProvider } from "./Subscriptions/SubscriptionProvider"
 import { AdminAllPosts } from "./Posts/AdminAllPosts";
+import { UsersList } from "./Profiles/UsersList";
+import { UsersTable } from "./Profiles/UsersTable";
 
 export const ApplicationViews = (props) => {
   return (
@@ -91,6 +93,7 @@ export const ApplicationViews = (props) => {
           <SubscriptionProvider>
             <Route exact path="/profile" render={
               props => <UserDetail {...props} />} />
+              <Route exact path="/users"><UsersList /></Route>
           </SubscriptionProvider>
         </UserProvider>
 
