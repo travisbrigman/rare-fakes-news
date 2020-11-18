@@ -7,18 +7,15 @@ import { TagContext } from "../Tags/TagProvider"
 import { UserContext } from "../Profiles/UserProvider"
 
 export const HomeList = (props) => {
-  const {
-    categories,
-    getCategories,
-  } = useContext(CategoryContext)
-
+  const {categories, getCategories} = useContext(CategoryContext)
   const { getPosts, posts, setPosts, getPostByCat, getPostByUser, getPostByTag } = useContext(PostContext)
   const { tags, getTags } = useContext(TagContext)
+  const { users, getUsers } = useContext(UserContext)
+
   //state variable that tracks what category is selected in the radio buttons
   const [categorySelected, setCategorySelected] = useState(0)
   const [tagSelected, setTagSelected] = useState(0)
 
-  const { users, getUsers } = useContext(UserContext)
   const [userSelected, setUserSelected] = useState(0)
 
   //useEffects to fetch posts, categories, users
@@ -39,7 +36,6 @@ export const HomeList = (props) => {
     getPostByCat(catId)
     setCategorySelected(catId)
   }
-  
    
   const filterAllPostsByTag = (tagId) => {
     getPostByTag(tagId)
@@ -47,26 +43,25 @@ export const HomeList = (props) => {
   }
 
   //fetches posts by user id, changes state variable of userSelected
-  
   const filterAllPostsByUser = (userId) => {
     getPostByUser(userId)
     setUserSelected(userId)
   }
 
-//resets the state variables tracking the radio buttons
-const clearFilterButton = () => {
-  return (
-    <button
-      onClick={() => {
-        getPosts().then(setPosts(posts))
-        setCategorySelected("")
-        setTagSelected("")
-        setUserSelected("")
-      }}
-    >
-      Clear Filter
-    </button>
-  )}
+  //resets the state variables tracking the radio buttons
+  const clearFilterButton = () => {
+    return (
+      <button
+        onClick={() => {
+          getPosts().then(setPosts(posts))
+          setCategorySelected("")
+          setTagSelected("")
+          setUserSelected("")
+        }}
+      >
+        Clear Filter
+      </button>
+    )}
 
 
   return (
@@ -79,10 +74,7 @@ const clearFilterButton = () => {
         {categories.map((category) => {
           return (
             <div key={category.id}>
-              <input
-                type="radio"
-                value={category.id}
-                name="categories"
+              <input type="radio" value={category.id} name="categories"
                 checked={categorySelected === category.id}
                 onClick={() => { filterAllPostsByCat(category.id) }}
               />{" "}
@@ -90,11 +82,9 @@ const clearFilterButton = () => {
             </div>
           )
         })}
-
         <div>{clearFilterButton()}</div>
       </div>
 
-      
       <div className="container--filter" style={{margin: "1rem"}}>
         <h3>Filter by Tag</h3>
         {tags.map((tag) => {
@@ -111,10 +101,8 @@ const clearFilterButton = () => {
             </div>
           )
         })}
-      
         <div>{clearFilterButton()}</div>
       </div>
-
 
       <div className="container--filter" style={{margin: "1rem"}}>
         <h3>Filter by User</h3>
@@ -132,11 +120,9 @@ const clearFilterButton = () => {
             </div>
           )
         })}
-      
         <div>{clearFilterButton()}</div>
       </div>
       </section>
-
 
       <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>Dashboard</h1>
       <PostList {...props} />

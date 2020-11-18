@@ -4,9 +4,7 @@ import { ReactionPostContext } from "../Reactions/ReactionPostProvider"
 import { PostContext } from "../Posts/PostProvider"
 
 
-
 export const Reaction = (props) => {
-    const { posts, getPosts } = useContext(PostContext)
     const { createReactionPost, getReactionPosts, ReactionPosts } = useContext(ReactionPostContext)
 
     const [reactionCount, setReactionCount] = useState([]) //array of RP objects
@@ -15,8 +13,6 @@ export const Reaction = (props) => {
 
     useEffect(() => {
         getReactionPosts()
-        getPosts()
-
     }, [])
 
     useEffect(() => {
@@ -30,19 +26,15 @@ export const Reaction = (props) => {
         const matchingReactionCount = filteredRP.filter(rp => {
             //filter through RP obj arr for this post to find the RP objs whose reaction_id matches the id of the reaction of this current module 
             return rp.reaction.id === props.reaction.id
-
         }) || []
         setReactionCount(matchingReactionCount)
-
     }, [filteredRP])
-
 
     const constructOneTimeReactionPostObj = () => { //create an RP object
         const checkForExistingReaction = filteredRP.find(rp => { //see if it already exists
             if (rp.user_id === parseInt(localStorage.getItem("rare_user_id"))) { //see if current user already had this reaction
                 return rp.reaction.id === props.reaction.id
             }
-
         })
 
         if (checkForExistingReaction === undefined) { //if no RP obj found, let user add a reaction
@@ -50,10 +42,8 @@ export const Reaction = (props) => {
                 reaction_id: props.reaction.id,
                 post_id: postId
             })
-        }
-        else {
+        } else {
             window.alert("You've already selected this reaction!")
-
         }
     }
 
@@ -61,14 +51,10 @@ export const Reaction = (props) => {
         <section className="reaction">
             <button title={props.reaction.label} onClick={() => {
                 constructOneTimeReactionPostObj()
-
-
             }}>{props.reaction.image_url}</button>
             <div className="reactionCount">{reactionCount.length}</div>
-
         </section>
     )
-
 }
 
 

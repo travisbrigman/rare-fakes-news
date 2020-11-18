@@ -38,7 +38,6 @@ export const PostProvider = (props) => {
            
           })
             .then(res => res.json())
-            // .then(setPosts)
     }
 
     const getPostByTag = (tagId) => {
@@ -124,8 +123,7 @@ export const PostProvider = (props) => {
         <PostContext.Provider value={{
             post, setPost, posts, addPost, approvePost,  getPosts, setPosts,
             getPostById, updatePost, getPostByTag, getPostByCat, getPostByUser,
-            deletePost, postTags, getTagsByPost
-            
+            deletePost, postTags, getTagsByPost      
         }}>
             {props.children}
         </PostContext.Provider>
