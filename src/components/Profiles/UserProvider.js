@@ -29,7 +29,7 @@ export const UserProvider = (props) => {
             .then(response => response.json())
     }
 
-    const getCurrentUser = (userId) => {
+    const getCurrentUser = () => {
         return fetch(`http://localhost:8000/currentuser`, {
             headers: {
                 Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
