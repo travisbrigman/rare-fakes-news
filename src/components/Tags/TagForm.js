@@ -6,7 +6,7 @@ import { TagContext } from "./TagProvider"
 
 export const TagForm = (props) => {
     // Use the required context providers for data
-    const { tags, getTags, createTag, tag, setTag } = useContext(TagContext)
+    const { createTag, tag, setTag } = useContext(TagContext)
 
     const handleControlledInputChange = (event) => {
         /*
@@ -18,12 +18,6 @@ export const TagForm = (props) => {
         setTag(newTag)                                 // Set copy as new state
     }
 
-    // Get tags from API when component initializes
-    useEffect(() => {
-        getTags()
-    }, [])
-
-
     const constructNewTag = () => {
         // POST
         createTag({
@@ -31,8 +25,6 @@ export const TagForm = (props) => {
         })
             .then(() => props.history.push("/tags")) //takes user to tag list page
     }
-
-
 
     return (
         <form className="tagForm">

@@ -6,6 +6,7 @@ export const TagContext = React.createContext();
 export const TagProvider = (props) => {
   const [tags, setTags] = useState([]);
   const [tag, setTag] = useState({});
+  
   const getTags = () => {
     return fetch("http://localhost:8000/tags", {
       headers: {
