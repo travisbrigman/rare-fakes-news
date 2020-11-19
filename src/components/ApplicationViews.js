@@ -22,6 +22,7 @@ import { UsersList } from "./Profiles/UsersList";
 import { CommentList } from "./Comments/Comments"
 import { UsersTable } from "./Profiles/UsersTable";
 import { CommentProvider } from "./Comments/CommentProvider";
+import { CommentForm } from "./Comments/CommentForm"
 
 export const ApplicationViews = (props) => {
   return (
@@ -51,7 +52,7 @@ export const ApplicationViews = (props) => {
                         <Route exact path="/posts/edit/:postId(\d+)"
                           render={(props) => <PostForm {...props} />}
                         />
-                        <Route exact path="/posts/comments/:tagId(\d+)"
+                        <Route exact path="/posts/comments/:postId(\d+)"
                           render={(props) => <CommentList {...props} />}
                         />
                         <Route exact path="/myposts"
@@ -59,6 +60,9 @@ export const ApplicationViews = (props) => {
                         />
                         <Route path="/posts/:postId(\d+)"
                           render={(props) => <PostDetails {...props} />}
+                        />
+                         <Route path="/posts/comments/create(\d+)"
+                          render={(props) => <CommentForm {...props} />}
                         />
                         <Route path="/profiles/:userId(\d+)"
                           render={props => <UserDetail {...props} />}

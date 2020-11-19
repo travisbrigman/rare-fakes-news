@@ -1,25 +1,28 @@
 //child of HomeList, list of all posts, user can delete only their own post
 import React, { useContext, useEffect } from "react"
 import {Link} from "react-router-dom"
+import { PostContext } from "../Posts/PostProvider"
 import { CommentContext } from "./CommentProvider"
 
 
 
 export const CommentList = (props) => {
-    const {comments, getComments} = useContext(CommentContext)
-
     
+    const {comments, getComments} = useContext(CommentContext)
+    const {post} = useContext(PostContext)
+
+    const postId = parseInt(props.match.params.postId)
     
     console.log(comments)
     useEffect(() => {
-       getComments()
+       getComments(postId)
+
     },[])
-    debugger
 
     return (
         <>
         <h2>Comments</h2>
-        <Link to={{pathname:`posts/comments/create`}}>
+        <Link to={{pathname:`posts/comments/${post.id}/create`}}>
         create comment
         </Link>
         {
