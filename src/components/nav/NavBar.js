@@ -1,11 +1,20 @@
 //renders nav links that redirect user to various paths
-import React from "react"
+import React, { useContext, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
+import { UserContext } from "../Profiles/UserProvider"
 import "./NavBar.css"
 import Logo from "./rare.jpeg"
 
 export const NavBar = () => {
     const history = useHistory()
+
+    const { getCurrentUser, setCurrentUser, currentUser } = useContext(UserContext)
+
+    useEffect(() => {
+        getCurrentUser().then( res =>
+            setCurrentUser(res)
+        )
+    }, [])
 
     return (
         <section className="container--navbar">            
@@ -31,6 +40,12 @@ export const NavBar = () => {
             <li className="navbar__item">
                 <Link className="navbar__link" to="/categories">Category Management</Link>
             </li >
+            {currentUser.user.is_staff ? 
+            <li className="navbar__item">
+                <Link className="navbar__link" to="/admin/posts">Post Management</Link>
+            </li >
+             : null}
+            
             {
                 (localStorage.getItem("rare_user_id") !== null) ?
                     <li className="navbar__item">
