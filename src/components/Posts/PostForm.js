@@ -24,30 +24,39 @@ export const PostForm = (props) => {
     let selectedTagsArray = []
     let filteredTrue = []
     let filteredFalse = []
+    const checkedObj = {}
 
     useEffect(() => {
         getCategories()
         getTags()
         if (editMode) {
+            // setCheckedState({})
+
             getPostById(postId)
             .then(setPostObj)
 
             getTagsByPost(postId)
             .then(postTags.forEach(pt => {
-                setCheckedState({
-                    ...checkedState,
-                    [pt.id]: true
-                })
-                filteredTrue.push({
-                    [pt.id]: true
-                })
-                return filteredTrue            
-            }))
-            .then(setCheckedState(filteredTrue))
+                // setCheckedState({
+                //     ...checkedState,
+                //     [pt.id]: true
+                // })
 
-            console.log("postId >>",postId)
-            console.log("postTags >>",postTags)
-            // console.log("filteredTrue >>",filteredTrue)
+                // filteredTrue.push({
+                //     [pt.id]: true
+                // })
+
+                return filteredTrue.forEach(obj => {
+                    checkedObj[obj.id] = true
+                })            
+            }))
+            .then(setCheckedState(checkedObj))
+
+            console.log("checkedObj >>",checkedObj)
+            console.log("filteredTrue >>",filteredTrue)
+            console.log("checkedState >>",checkedState)
+            // console.log("postId >>",postId)
+            // console.log("postTags >>",postTags)
         } 
     }, [])
 
@@ -98,7 +107,11 @@ export const PostForm = (props) => {
                 publication_date: postObj.publication_date,
                 image_url: postObj.image_url
             })
-            .then((postObj) => {
+            .then(() => {
+                postTags.forEach(tagPostObj => {
+                        deleteTagPost(tagPostObj.id, tagPostObj.post_id)
+                    })
+
                 const tagPostPromises = [] //empty array of possible TagPosts
                 
                 Object.keys(checkedState).forEach(key => 
@@ -108,8 +121,11 @@ export const PostForm = (props) => {
                 })) 
 
                 filteredTrue = selectedTagsArray.filter(t => t.checked === true)
-                filteredFalse = selectedTagsArray.filter(t => t.checked === false)
-                
+
+                selectedTagsArray.filter(filteredObj => {
+                    return filteredObj.tagId
+                })
+
                 filteredTrue.map(t => {
                     tagPostPromises.push(
                         createTagPost({
@@ -117,46 +133,14 @@ export const PostForm = (props) => {
                             post_id: postObj.id
                         })
                     ) //push any newly created tags to promises array
-                })
+                })                    
 
-                // const XXX = filteredFalse.forEach(object => 
-                //     tagPostArr.filter(tagPostArr.tag_id === object.tagId)
-                // )
+                // postTags.forEach(tagPostObj => {
+                //     filteredFalse.filter(filteredObj => {
+                //         return filteredObj.tagId === tagPostObj.tag_id}) 
 
-            //    tagPostArr.forEach(tagPostObj => 
-            //         filteredFalse.filter(filteredObj => {
-            //             return filteredObj.tagId === tagPostObj.tag_id})
-            //             .then(deleteTagPost(tagPostObj.id))
-            //     )
-
-               
-            // debugger
-            // const TestVar = postTags.forEach(tagPostObj => {
-            //         filteredFalse.filter(filteredObj => {
-            //             return filteredObj.tagId === tagPostObj.tag_id})                    
-            //         })
-            //     console.log("TestVar>>",TestVar)
-
-                postTags.forEach(tagPostObj => {
-                    filteredFalse.filter(filteredObj => {
-                        return filteredObj.tagId === tagPostObj.tag_id}) 
-
-                        console.log("tagPostObj.id>>",tagPostObj.id)
-                        console.log("tagPostObj.post_id>>",tagPostObj.post_id)
-
-                        deleteTagPost(tagPostObj.id, tagPostObj.post_id)
-
-                    })
-
-                // deleteTagPost(tagPostObj.id)
-
-                // XXX.forEach(obj => {
-                //     deleteTagPost(obj.id)
-                // })
-
-                // filteredFalse.filter(t => {
-                //     t.tagId === tagPostArr.tag_id
-                // })
+                //         deleteTagPost(tagPostObj.id, tagPostObj.post_id)
+                //     })
 
                 Promise.all(tagPostPromises)
                 .then(() => {
