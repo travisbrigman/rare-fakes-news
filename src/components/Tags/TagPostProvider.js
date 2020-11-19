@@ -30,7 +30,7 @@ export const TagPostProvider = (props) => {
       }
     })
       .then((res) => res.json())
-      .then(setTagPosts)
+      //.then(setTagPosts)
   };
 
   const createTagPost = (TagPost) => {

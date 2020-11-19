@@ -12,7 +12,9 @@ export const HomeList = (props) => {
   const { getPosts, posts, setPosts, getPostByCat, getPostByUser } = useContext(PostContext)
   const { tags, getTags } = useContext(TagContext)
   const { users, getUsers } = useContext(UserContext)
-  const {TagPosts, getPostTagsByTags, getTagPosts} = useContext(TagPostContext)
+  const {TagPosts, getPostTagsByTags, getTagPosts, setTagPosts} = useContext(TagPostContext)
+
+  const [arrOfPosts, setArrOfPosts] = useState([])
 
   //state variable that tracks what category is selected in the radio buttons
   const [categorySelected, setCategorySelected] = useState(0)
@@ -22,15 +24,24 @@ export const HomeList = (props) => {
 
   //useEffects to fetch posts, categories, users
   useEffect(() => {
-    getPosts().then(getCategories())
-    getTags()
-    getUsers()
-    getTagPosts()
+    getPosts()
+    .then(getCategories)
+    .then(getTags)
+    .then(getUsers)
+    .then(getTagPosts)
   }, [])
 
-  // useEffect(() => {
-  //   setPosts(posts)
-  // }, [posts])
+  useEffect(() => {
+    setArrOfPosts(posts)
+  },[posts])
+  useEffect(() => {
+    if( tagSelected !== 0) {
+      const newPostArray = TagPosts.map(TagPost => {
+         return TagPost.post
+      })
+      setArrOfPosts(newPostArray)
+    }
+  }, [TagPosts])
 
 //triggered when a user clicks the various category radio buttons
 //fires off a database call that fetches posts by the category id associated with them
@@ -43,11 +54,9 @@ export const HomeList = (props) => {
   const filterAllPostsByTag = (tagId) => {
     setTagSelected(tagId)   //displays radio button as "selected"
     getPostTagsByTags(tagId)
-    .then(() => {
-      const filtered = posts.filter(p => {
-        return TagPosts.find(tp => tp.post_id === p.id)})
-      setPosts(filtered)
-    })
+    .then((res) => {
+      return setTagPosts(res)
+    })      
   }
 
   //fetches posts by user id, changes state variable of userSelected
@@ -71,7 +80,6 @@ export const HomeList = (props) => {
         Clear Filter
       </button>
     )}
-
 
   return (
     <>
@@ -119,7 +127,7 @@ export const HomeList = (props) => {
         <h3>Filter by User</h3>
         {users.map((user) => {
           return (
-            <div key={user.id}>
+            <div key={`user${user.id}`}>
               <input
                 type="radio"
                 value={user.id}
@@ -137,7 +145,7 @@ export const HomeList = (props) => {
       </section>
 
       <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>Dashboard</h1>
-      <PostList {...props} />
+      <PostList arrOfPosts={arrOfPosts} />
     </>
   )
   

@@ -5,12 +5,7 @@ import { PostContext } from "./PostProvider"
 
 
 
-export const PostList = (props) => {
-    const {posts, getPosts} = useContext(PostContext)
-
-    useEffect(() => {
-       getPosts()
-    },[])
+export const PostList = ({arrOfPosts}) => {
 
     return (
         <>
@@ -19,14 +14,14 @@ export const PostList = (props) => {
         create post
         </Link>
         {
-            posts !== [] ? posts.map(p => {
-                return <div key={p.id} className="container__card">
+            arrOfPosts !== [] ? arrOfPosts.map(p => {
+                return <div key={`post${p.id}`} className="container__card">
                     <div className="container__cardContent">    
                         <Link to={{pathname:`/posts/${p.id}`}}>
                         <p>{p.title}</p>
                         </Link>
-                        <p>{p.user.user.first_name}</p>
-                        {p.category==null? "" :<p>{p.category.label}</p>}
+                        {/* <p>{p.user.user.first_name}</p> */}
+                        {/* {p.category==null? "" :<p>{p.category.label}</p>} */}
                     </div>
                 </div>
             }).reverse() : null
