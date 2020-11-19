@@ -7,7 +7,7 @@ import { TagPostContext } from "../Tags/TagPostProvider"
 
 
 export const PostForm = (props) => {
-    const { addPost, updatePost, getPostById } = useContext(PostContext)
+    const { addPost, updatePost, getPostById, postTags, getTagsByPost } = useContext(PostContext)
     const { categories, getCategories } = useContext(CategoryContext)
     const { tag, tags, getTags } = useContext(TagContext)
     const { createTagPost } = useContext(TagPostContext)
@@ -22,32 +22,38 @@ export const PostForm = (props) => {
         getCategories()
         getTags()
         if (editMode) {
-            getPostById(parseInt(props.match.params.postId))
+            const postId = parseInt(props.match.params.postId)
+            getTagsByPost(postId)
+            getPostById(postId)
                 .then(setPostObj)
         }
     }, [])
 
-    useEffect(() => {
-        const stateCopyObj = stateTagObjArr.slice() //make a copy of the TagObjArr
-        const tagItems = stateTagIDArr.map(t => {
-            return tags.find(tag => tag.id === t) //map through tagIDArr and return the tag object whose ID === t
-        })
-        stateCopyObj.push(tagItems)
-        setTagObjArr(stateCopyObj) //set the state of the TagObjArr to what was pushed into stateCopyObj array
-    }, [stateTagIDArr])
-
+            
     const handleControlledInputChange = (browserEvent) => {
         const newPost = Object.assign({}, postObj)
         newPost[browserEvent.target.name] = browserEvent.target.value
         setPostObj(newPost)
     }
-
-    const handleTags = (browserEvent) => {
+    
+    const handleTagsSelected = (browserEvent) => {
         const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
         let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
         stateCopyID.push(newTagItem) //push into copy
         setTagIDArr(stateCopyID)
     }
+            
+    const [checkedState, setCheckedState] = useState([])
+
+    function handleTagChange(event) {
+        const value = event.target.checked
+
+        setCheckedState({
+            ...checkedState,
+            [event.target.name]: value
+        })
+    }
+
 
     const constructPost = (evt) => {
         evt.preventDefault()
@@ -72,29 +78,45 @@ export const PostForm = (props) => {
                 category_id: parseInt(postObj.category_id),
                 publication_date: jsonDate,
                 image_url: postObj.image_url
-            }).then((postObj) => {
+            })
+            .then((postObj) => {
                 const tagPostPromises = [] //empty array of possible TagPosts
 
-                stateTagIDArr.map(t => {
+                const selectedTagsArray = []
+                
+                Object.keys(checkedState).forEach(key => selectedTagsArray.push({
+                    tagId: key,
+                    checked: checkedState[key]
+                })) 
+
+                const filteredTrue = selectedTagsArray.filter(t => t.checked === true)
+                
+                filteredTrue.map(t => {
                     tagPostPromises.push(
                         createTagPost({
-                            tag_id: t,
+                            tag_id: parseInt(t.tagId),
                             post_id: postObj.id
                         })
-                    ) //push any newly created tags to promises array
-                })
-                Promise.all(tagPostPromises)
+                        ) //push any newly created tags to promises array
+                    })
+                    Promise.all(tagPostPromises)
                     .then(() => {
                         props.history.push(`/posts/${postObj.id}`)
                     })
-            })
-        }
+                })
 
+
+        }
     }
 
     return (
         <>
-            <h2>New Post</h2>
+            {editMode
+            ? <h2>Edit Post</h2>
+            : <h2>New Post</h2>
+            }
+            
+            
             <form>
                 <fieldset>
                     <div className="form-group">
@@ -105,6 +127,7 @@ export const PostForm = (props) => {
                         </input>
                     </div>
                 </fieldset>
+
                 <fieldset>
                     <div className="form-group">
                         <input type="text" name="image_url" className="form-control"
@@ -114,6 +137,7 @@ export const PostForm = (props) => {
                         </input>
                     </div>
                 </fieldset>
+
                 <fieldset>
                     <div className="form-group">
                         <textarea type="text" name="content" className="form-control"
@@ -123,7 +147,7 @@ export const PostForm = (props) => {
                         </textarea>
                     </div>
                 </fieldset>
-
+                
                 <fieldset>
                     <div className="form-group">
                         <select name="category_id" className="form-control"
@@ -140,50 +164,38 @@ export const PostForm = (props) => {
                     </div>
                 </fieldset>
 
-                {editMode
-                    ? <button onClick={(evt) => {
-                        constructPost(evt)
-                    }}>Save</button>
-                    :
-                    <>
-                        <fieldset>
-                            <div className="form-group">
-                                <label htmlFor="status">Tags: </label>
-                                <select name="id" value={tag.id} className="form-control"
-                                    onChange={handleTags} 
-                                >
-                                    <option value="0">add some tags...</option>
-                                    {
-                                        tags.map(t => {
-                                            return <option key={t.id} value={t.id}>{t.label}</option>
-                                        })
-                                    }
-                                </select>
-                            </div>
-                        </fieldset>
-                        <div>
-                            {stateTagIDArr.length === 0 ? "" :
-                                stateTagIDArr.map(t => {
-                                    const tagObj = tags.find(tag => tag.id === t)
-                                    return <div key={tagObj.id}>{tagObj.label}
-                                        <button onClick={(evt) => {
-                                            evt.preventDefault()
-                                            const arrCopyID = stateTagIDArr.slice()
-                                            const index = arrCopyID.indexOf(tagObj.id)
-                                            arrCopyID.splice(index, 1)
-                                            setTagIDArr(arrCopyID)
-                                        }}>x</button>
-                                    </div>
-                                })
-                            }
+
+                <div className="container--checkboxes">                    
+                    {tags.map((t) => (
+                        <div className="checkboxGroup">                        
+                            <input
+                            type="checkbox"
+                            name={t.id}
+                            value={t.id}
+                            checked={checkedState[t.id]}
+                            onChange={handleTagChange}
+                            />
+                            <label>
+                            {" #"}{t.label}
+                            </label>
                         </div>
+                    ))}
+                </div>
+
+
+                {editMode
+                    ? 
                         <button onClick={(evt) => {
                             constructPost(evt)
-                        }}
-                        >
-                            Publish
-                    </button>
-                    </>
+                        }}>Save</button>    
+                    :
+                        <>
+                            <button onClick={(evt) => {
+                                constructPost(evt)}}
+                            >
+                                Publish
+                            </button>
+                        </>
                 }
             </form>
         </>

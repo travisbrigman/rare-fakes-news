@@ -211,7 +211,55 @@ a {
 } */
 
 .container__card {
+	display: flex;
+	flex-direction: row;
 	background-color: #B8F2E6;
 	margin: 1rem;
-	padding: .5rem;
+	padding: 2rem;
+	width: 95%;
+}
+
+.container__cardContent {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.container__cardContentTop {	
+}
+
+.container__cardContentLeft {
+	width: 70%;
+}
+
+.container__cardContentRight {
+	display: flex;
+	flex-direction: column;
+	width: 30%;
+	padding: 6rem 2rem 2rem 2rem;
+}
+
+.container__cardContentBottom {	
+	display: flex;
+	flex-direction: row;
+}
+
+.container--filters {
+	margin: 1rem;
+}
+
+.container--checkboxes {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	padding: 1rem;
+}
+
+.checkboxGroup {
+	white-space: nowrap;
+	padding: 0 25px 0 0;
+}
+
+.displayedTag {
+	white-space: nowrap;
 }
