@@ -80,9 +80,7 @@ export const HomeList = (props) => {
           setUserSelected("")
           getPosts().then(setPosts(posts))
         }}
-      >
-        Clear Filter
-      </Button>
+      />
     )}
 
   return (
