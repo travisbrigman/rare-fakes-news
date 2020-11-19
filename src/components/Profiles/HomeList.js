@@ -9,7 +9,7 @@ import { TagPostContext } from "../Tags/TagPostProvider";
 
 export const HomeList = (props) => {
   const {categories, getCategories} = useContext(CategoryContext)
-  const { getPosts, posts, setPosts, getPostByCat, getPostByUser, getPostByTag } = useContext(PostContext)
+  const { getPosts, posts, setPosts, getPostByCat, getPostByUser } = useContext(PostContext)
   const { tags, getTags } = useContext(TagContext)
   const { users, getUsers } = useContext(UserContext)
   const {TagPosts, getPostTagsByTags, getTagPosts} = useContext(TagPostContext)
@@ -17,8 +17,8 @@ export const HomeList = (props) => {
   //state variable that tracks what category is selected in the radio buttons
   const [categorySelected, setCategorySelected] = useState(0)
   const [tagSelected, setTagSelected] = useState(0)
-
   const [userSelected, setUserSelected] = useState(0)
+
 
   //useEffects to fetch posts, categories, users
   useEffect(() => {
@@ -28,9 +28,9 @@ export const HomeList = (props) => {
     getTagPosts()
   }, [])
 
-  useEffect(() => {
-    setPosts(posts)
-  }, [posts])
+  // useEffect(() => {
+  //   setPosts(posts)
+  // }, [posts])
 
 //triggered when a user clicks the various category radio buttons
 //fires off a database call that fetches posts by the category id associated with them
@@ -62,10 +62,10 @@ export const HomeList = (props) => {
     return (
       <button
         onClick={() => {
-          getPosts().then(setPosts(posts))
           setCategorySelected("")
           setTagSelected("")
           setUserSelected("")
+          getPosts().then(setPosts(posts))
         }}
       >
         Clear Filter
@@ -126,7 +126,6 @@ export const HomeList = (props) => {
                 name="user"
                 checked={userSelected === user.id}
                 onClick={() => {
-                  console.log(user.id)
                   filterAllPostsByUser(user.id) }}
               />{" "}
               {user.user.username}
