@@ -104,7 +104,7 @@ export const PostForm = (props) => {
                 
                 Object.keys(checkedState).forEach(key => 
                     selectedTagsArray.push({
-                        tagId: key,
+                        tagId: parseInt(key),
                         checked: checkedState[key]
                 })) 
 
@@ -130,11 +130,13 @@ export const PostForm = (props) => {
             //             .then(deleteTagPost(tagPostObj.id))
             //     )
 
-               const XXX = postTags.forEach(tagPostObj => 
+               
+            debugger
+            const TestVar = postTags.forEach(tagPostObj => {
                     filteredFalse.filter(filteredObj => {
                         return filteredObj.tagId === tagPostObj.tag_id})                    
-                )
-                console.log("XXX>>",XXX)
+                    })
+                console.log("TestVar>>",TestVar)
 
                 // deleteTagPost(tagPostObj.id)
 
@@ -148,7 +150,8 @@ export const PostForm = (props) => {
 
                 Promise.all(tagPostPromises)
                 .then(() => {
-                    props.history.push(`/posts/${postObj.id}`)
+                    props.history.push(`/posts`)
+                    // props.history.push(`/posts/${postObj.id}`)
                 })
             })
         } else {
