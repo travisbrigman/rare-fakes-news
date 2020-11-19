@@ -36,13 +36,13 @@ export const PostForm = (props) => {
             getTagsByPost(postId)
             .then(postTags.forEach(pt => {
                 setCheckedState({
-                    // ...checkedState,
+                    ...checkedState,
                     [pt.id]: true
                 })
-                // filteredTrue.push({
-                //     [pt.id]: true
-                // })
-                // return filteredTrue            
+                filteredTrue.push({
+                    [pt.id]: true
+                })
+                return filteredTrue            
             }))
             .then(setCheckedState(filteredTrue))
 
