@@ -6,6 +6,7 @@ import { CategoryContext } from "../Categories/CategoryProvider";
 import { TagContext } from "../Tags/TagProvider"
 import { UserContext } from "../Profiles/UserProvider"
 import { TagPostContext } from "../Tags/TagPostProvider";
+import { Box, Button, Heading, RadioButton } from "grommet";
 
 export const HomeList = (props) => {
   const {categories, getCategories} = useContext(CategoryContext)
@@ -44,9 +45,9 @@ export const HomeList = (props) => {
     }
   }, [TagPosts])
 
-//triggered when a user clicks the various category radio buttons
-//fires off a database call that fetches posts by the category id associated with them
-//changes the state of the categorySelected state variable
+  //triggered when a user clicks the various category radio buttons
+  //fires off a database call that fetches posts by the category id associated with them
+  //changes the state of the categorySelected state variable
   const filterAllPostsByCat = (catId) => {
     setCategorySelected(catId)
     getPostByCat(catId)
@@ -71,7 +72,8 @@ export const HomeList = (props) => {
   //resets the state variables tracking the radio buttons
   const clearFilterButton = () => {
     return (
-      <button
+      <Button
+        label="Clear Filter"
         onClick={() => {
           setCategorySelected("")
           setTagSelected("")
@@ -80,75 +82,72 @@ export const HomeList = (props) => {
         }}
       >
         Clear Filter
-      </button>
+      </Button>
     )}
 
   return (
     <>
-    <section className="threeFilterContainer" 
-    style={{display: "flex", 
-    }}>
-      <div className="container--filters">
-        <h3>Filter by Category</h3>
-        {categories.map((category) => {
-          return (
-            <div key={category.id}>
-              <input type="radio" value={category.id} name="categories"
+      <Box className="threeFilterContainer" direction="row-responsive">
+        <Box className="container--filters" direction="column">
+          <Heading level="4">Filter by Category</Heading>
+          {categories.map((category) => {
+            return (
+              <RadioButton
+                key={category.id}
+                label={category.label}
+                name="categories"
+                value={category.id}
                 checked={categorySelected === category.id}
-                onClick={() => { filterAllPostsByCat(category.id) }}
-              />{" "}
-              {category.label}
-            </div>
-          )
-        })}
-        <div>{clearFilterButton()}</div>
-      </div>
+                onChange={() => {
+                  filterAllPostsByCat(category.id);
+                }}
+              />
+            );
+          })}
+          <Box margin="small">{clearFilterButton()}</Box>
+        </Box>
 
-      
-      <div className="container--filters">
-        <h3>Filter by Tag</h3>
-        {tags.map((tag) => {
-          return (
-            <div key={`tag${tag.id}`}>
-              <input
-              type="radio"
-              value={tag.id}
-              name="tags"
-              checked={tagSelected === tag.id}
-              onClick={() => { filterAllPostsByTag(tag.id) }}
-            />{" "}
-            #{tag.label}
-            </div>
-          )
-        })}
-        <div>{clearFilterButton()}</div>
-      </div>
+        <Box className="container--filters" direction="column">
+          <Heading level="4">Filter by Tag</Heading>
+          {tags.map((tag) => {
+            return (
+              <RadioButton
+                key={tag.id}
+                label={tag.label}
+                name="tags"
+                value={tag.id}
+                checked={tagSelected === tag.id}
+                onChange={() => {
+                  filterAllPostsByTag(tag.id);
+                }}
+              />
+            );
+          })}
+          <Box margin="small">{clearFilterButton()}</Box>
+        </Box>
 
-
-      <div className="container--filters">
-        <h3>Filter by User</h3>
-        {users.map((user) => {
-          return (
-            <div key={`user${user.id}`}>
-              <input
-                type="radio"
+        <Box className="container--filters" direction="column">
+          <Heading level="4">Filter by User</Heading>
+          {users.map((user) => {
+            return (
+              <RadioButton
+                key={user.id}
+                label={user.user.username}
+                name="users"
                 value={user.id}
-                name="user"
                 checked={userSelected === user.id}
-                onClick={() => {
-                  filterAllPostsByUser(user.id) }}
-              />{" "}
-              {user.user.username}
-            </div>
-          )
-        })}
-        <div>{clearFilterButton()}</div>
-      </div>
-      </section>
+                onChange={() => {
+                  filterAllPostsByUser(user.id);
+                }}
+              />
+            );
+          })}
+          <Box margin="small">{clearFilterButton()}</Box>
+        </Box>
+      </Box>
 
-      <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>Dashboard</h1>
+      <h1 style={{ margin: "2rem 0rem 2rem 0rem" }}>Dashboard</h1>
       <PostList arrOfPosts={arrOfPosts} />
     </>
-  )
-  
-}
+  );
+};
