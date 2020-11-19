@@ -5,12 +5,14 @@ import { PostContext } from "../Posts/PostProvider";
 import { CategoryContext } from "../Categories/CategoryProvider";
 import { TagContext } from "../Tags/TagProvider"
 import { UserContext } from "../Profiles/UserProvider"
+import { TagPostContext } from "../Tags/TagPostProvider";
 
 export const HomeList = (props) => {
   const {categories, getCategories} = useContext(CategoryContext)
   const { getPosts, posts, setPosts, getPostByCat, getPostByUser, getPostByTag } = useContext(PostContext)
   const { tags, getTags } = useContext(TagContext)
   const { users, getUsers } = useContext(UserContext)
+  const {TagPosts, getPostTagsByTags, getTagPosts} = useContext(TagPostContext)
 
   //state variable that tracks what category is selected in the radio buttons
   const [categorySelected, setCategorySelected] = useState(0)
@@ -23,6 +25,7 @@ export const HomeList = (props) => {
     getPosts().then(getCategories())
     getTags()
     getUsers()
+    getTagPosts()
   }, [])
 
   useEffect(() => {
@@ -38,14 +41,20 @@ export const HomeList = (props) => {
   }
    
   const filterAllPostsByTag = (tagId) => {
-    getPostByTag(tagId)
     setTagSelected(tagId)   //displays radio button as "selected"
+    getPostTagsByTags(tagId)
+    .then(() => {
+      const filtered = posts.filter(p => {
+        return TagPosts.find(tp => tp.post_id === p.id)})
+      setPosts(filtered)
+    })
   }
 
   //fetches posts by user id, changes state variable of userSelected
   const filterAllPostsByUser = (userId) => {
-    getPostByUser(userId)
     setUserSelected(userId)
+    getPostByUser(userId)
+    .then(setPosts)
   }
 
   //resets the state variables tracking the radio buttons
@@ -114,9 +123,11 @@ export const HomeList = (props) => {
               <input
                 type="radio"
                 value={user.id}
-                name="users"
+                name="user"
                 checked={userSelected === user.id}
-                onClick={() => { filterAllPostsByUser(user.id) }}
+                onClick={() => {
+                  console.log(user.id)
+                  filterAllPostsByUser(user.id) }}
               />{" "}
               {user.user.username}
             </div>

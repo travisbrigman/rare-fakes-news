@@ -12,9 +12,25 @@ export const TagPostProvider = (props) => {
   const {getTagsByPost} = useContext(PostContext)
 
   const getTagPosts = () => {
-    return fetch("http://localhost:8000/posttags")
+    return fetch("http://localhost:8000/posttags", {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
+    })
       .then((res) => res.json())
       .then(setTagPosts);
+  };
+
+  const getPostTagsByTags = (tagId) => {
+    return fetch(`http://localhost:8000/posttags?tag_id=${tagId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
+    })
+      .then((res) => res.json())
+      .then(setTagPosts)
   };
 
   const createTagPost = (TagPost) => {
@@ -49,7 +65,8 @@ export const TagPostProvider = (props) => {
         getTagPosts,
         setTagPosts,
         createTagPost,
-        deleteTagPost
+        deleteTagPost,
+        getPostTagsByTags
       }}
     >
       {props.children}
