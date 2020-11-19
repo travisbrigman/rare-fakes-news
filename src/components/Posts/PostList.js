@@ -1,26 +1,20 @@
 //child of HomeList, list of all posts, user can delete only their own post
-import React, { useContext, useEffect } from "react"
+import React from "react"
 import {Link} from "react-router-dom"
-import { PostContext } from "./PostProvider"
+import { Anchor, Box, Button, Card, CardFooter, CardHeader, Heading, Text } from "grommet"
+import { Edit } from "grommet-icons"
 
 
 
-export const PostList = (props) => {
-    const {posts, getPosts} = useContext(PostContext)
-
-    useEffect(() => {
-       getPosts()
-    },[])
+export const PostList = ({arrOfPosts}) => {
 
     return (
         <>
-        <h2>Posts</h2>
-        <Link to={{pathname:`posts/create`}}>
-        create post
-        </Link>
+        <Heading level="2">Posts</Heading>
+        <Button primary icon={<Edit />} as={Link} to={{pathname:`posts/create`}} label="Create Post"/>
         {
-            posts !== [] ? posts.map(p => {
-                return <div key={p.id} className="container__card">
+            arrOfPosts !== [] ? arrOfPosts.map(p => {
+                return <div key={`post${p.id}`} className="container__card">
                     <div className="container__cardContent">    
                         <Link to={{pathname:`/posts/${p.id}`}}>
                         <p>{p.title}</p>

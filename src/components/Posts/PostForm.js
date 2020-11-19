@@ -148,7 +148,7 @@ export const PostForm = (props) => {
                 })
             })
         } else {
-            const jsonDate = ((new Date(Date.now())).toJSON()).slice(0,10)
+            const jsonDate = ((new Date(Date.now())).toJSON()).slice(0, 10)
             addPost({
                 title: postObj.title,
                 content: postObj.content,
@@ -187,8 +187,8 @@ export const PostForm = (props) => {
     return (
         <>
             {editMode
-            ? <h2>Edit Post</h2>
-            : <h2>New Post</h2>
+                ? <h2>Edit Post</h2>
+                : <h2>New Post</h2>
             }
             
             <form>
@@ -221,12 +221,12 @@ export const PostForm = (props) => {
                         </textarea>
                     </div>
                 </fieldset>
-                
+
                 <fieldset>
                     <div className="form-group">
                         <select name="category_id" className="form-control"
-                            value={postObj.category_id} 
-                            onChange={handleControlledInputChange} 
+                            value={postObj.category_id}
+                            onChange={handleControlledInputChange}
                         >
                             <option value="0">Category Select</option>
                             {
@@ -239,24 +239,6 @@ export const PostForm = (props) => {
                 </fieldset>
 
 
-                <div className="container--checkboxes">                    
-                    {tags.map((t) => (
-                        <div className="checkboxGroup">                        
-                            <input
-                            type="checkbox"
-                            name={t.id}
-                            value={t.id}
-                            checked={checkedState[t.id]}
-                            onChange={handleTagChange}
-                            />
-                            <label>
-                            {" #"}{t.label}
-                            </label>
-                        </div>
-                    ))}
-                </div>
-
-
                 {editMode   //if in edit mode, displays a Save button, otherwise displays a Publish button
                     ? 
                         <button onClick={(evt) => {constructPost(evt)}}>
@@ -267,6 +249,25 @@ export const PostForm = (props) => {
                             Publish
                         </button>
                 }
+                
+
+                <div className="container--checkboxes">
+                    {tags.map((t) => (
+                        <div className="checkboxGroup">
+                            <input
+                                type="checkbox"
+                                name={t.id}
+                                value={t.id}
+                                checked={checkedState[t.id]}
+                                onChange={handleTagChange}
+                            />
+                            <label>
+                                {" #"}{t.label}
+                            </label>
+                        </div>
+                    ))}
+                </div>
+
             </form>
         </>
     )
