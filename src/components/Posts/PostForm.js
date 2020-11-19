@@ -20,6 +20,7 @@ export const PostForm = (props) => {
     const [tagPostArr, setTagPostArr] = useState([])
 
     const editMode = props.match.url.split("/")[2] === "edit" //checks url to see if editMode
+    const postId = parseInt(props.match.params.postId)
     let selectedTagsArray = []
     let filteredTrue = []
     let filteredFalse = []
@@ -28,8 +29,6 @@ export const PostForm = (props) => {
         getCategories()
         getTags()
         if (editMode) {
-            const postId = parseInt(props.match.params.postId)
-
             getPostById(postId)
             .then(setPostObj)
 
@@ -161,8 +160,7 @@ export const PostForm = (props) => {
 
                 Promise.all(tagPostPromises)
                 .then(() => {
-                    props.history.push(`/posts`)
-                    // props.history.push(`/posts/${postObj.id}`)
+                    props.history.push(`/posts/${postId}`)
                 })
             })
         } else {
