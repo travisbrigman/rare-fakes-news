@@ -131,12 +131,23 @@ export const PostForm = (props) => {
             //     )
 
                
-            debugger
-            const TestVar = postTags.forEach(tagPostObj => {
+            // debugger
+            // const TestVar = postTags.forEach(tagPostObj => {
+            //         filteredFalse.filter(filteredObj => {
+            //             return filteredObj.tagId === tagPostObj.tag_id})                    
+            //         })
+            //     console.log("TestVar>>",TestVar)
+
+                postTags.forEach(tagPostObj => {
                     filteredFalse.filter(filteredObj => {
-                        return filteredObj.tagId === tagPostObj.tag_id})                    
+                        return filteredObj.tagId === tagPostObj.tag_id}) 
+
+                        console.log("tagPostObj.id>>",tagPostObj.id)
+                        console.log("tagPostObj.post_id>>",tagPostObj.post_id)
+
+                        deleteTagPost(tagPostObj.id, tagPostObj.post_id)
+
                     })
-                console.log("TestVar>>",TestVar)
 
                 // deleteTagPost(tagPostObj.id)
 
