@@ -79,6 +79,7 @@ export const PostDetails = (props) => {
               <button onClick={() => props.history.push(`/posts/edit/${post.id}`)}>
                 edit
               </button>
+              <button onClick={() => props.history.push(`/posts/comments/${post.id}`)}>Comments</button>
               <button onClick={onOpen}>Manage Post Tags</button>
             </>
           ) : ( //OTHERWISE just show the author name with a link to their profile

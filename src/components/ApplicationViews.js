@@ -19,7 +19,9 @@ import { PostDetails } from "./Posts/PostDetail";
 import { ReactionPostProvider } from "./Reactions/ReactionPostProvider";
 import { SubscriptionProvider } from "./Subscriptions/SubscriptionProvider"
 import { UsersList } from "./Profiles/UsersList";
+import { CommentList } from "./Comments/Comments"
 import { UsersTable } from "./Profiles/UsersTable";
+import { CommentProvider } from "./Comments/CommentProvider";
 
 export const ApplicationViews = (props) => {
   return (
@@ -39,6 +41,7 @@ export const ApplicationViews = (props) => {
                   <TagPostProvider>
                     <TagProvider>
                       <SubscriptionProvider>
+                        <CommentProvider>
                         <Route exact path="/home"
                           render={(props) => <HomeList {...props} />}
                         />
@@ -47,6 +50,9 @@ export const ApplicationViews = (props) => {
                         />
                         <Route exact path="/posts/edit/:postId(\d+)"
                           render={(props) => <PostForm {...props} />}
+                        />
+                        <Route exact path="/posts/comments/:tagId(\d+)"
+                          render={(props) => <CommentList {...props} />}
                         />
                         <Route exact path="/myposts"
                           render={(props) => <UsersPosts {...props} />}
@@ -57,6 +63,7 @@ export const ApplicationViews = (props) => {
                         <Route path="/profiles/:userId(\d+)"
                           render={props => <UserDetail {...props} />}
                         />
+                        </CommentProvider>
                       </SubscriptionProvider>
                     </TagProvider>
                   </TagPostProvider>
@@ -88,21 +95,21 @@ export const ApplicationViews = (props) => {
           <SubscriptionProvider>
             <Route exact path="/profile" render={
               props => <UserDetail {...props} />} />
-              <Route exact path="/users"><UsersList /></Route>
+            <Route exact path="/users"><UsersList /></Route>
           </SubscriptionProvider>
         </UserProvider>
 
-      {/************** CATEGORY MANAGEMENT ************* */}
-      <UserProvider>
-        <CategoryProvider>
-          <Route exact path="/categories" render={
-            (props) => <CategoryList {...props} />} />
-          <Route exact path="/categories/create" render={
-            (props) => <CategoryForm {...props} />} />
-          <Route exact path="/editcategory/:categoryId(\d+)" render={
-            (props) => <CategoryForm {...props} />} />
-        </CategoryProvider>
-      </UserProvider>
+        {/************** CATEGORY MANAGEMENT ************* */}
+        <UserProvider>
+          <CategoryProvider>
+            <Route exact path="/categories" render={
+              (props) => <CategoryList {...props} />} />
+            <Route exact path="/categories/create" render={
+              (props) => <CategoryForm {...props} />} />
+            <Route exact path="/editcategory/:categoryId(\d+)" render={
+              (props) => <CategoryForm {...props} />} />
+          </CategoryProvider>
+        </UserProvider>
       </main>
     </>
 
