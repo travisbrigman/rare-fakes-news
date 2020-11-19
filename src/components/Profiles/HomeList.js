@@ -109,7 +109,7 @@ export const HomeList = (props) => {
         <h3>Filter by Tag</h3>
         {tags.map((tag) => {
           return (
-            <div>
+            <div key={`tag${tag.id}`}>
               <input
               type="radio"
               value={tag.id}
