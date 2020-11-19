@@ -7,6 +7,8 @@ import { PostContext } from "./PostProvider"
 
 export const PostList = ({arrOfPosts}) => {
 
+    console.log(arrOfPosts)
+
     return (
         <>
         <h2>Posts</h2>
@@ -20,8 +22,8 @@ export const PostList = ({arrOfPosts}) => {
                         <Link to={{pathname:`/posts/${p.id}`}}>
                         <p>{p.title}</p>
                         </Link>
-                        {/* <p>{p.user.user.first_name}</p> */}
-                        {/* {p.category==null? "" :<p>{p.category.label}</p>} */}
+                        <p>{p.user.user.first_name}</p>
+                        {p.category==null? "" :<p>{p.category.label}</p>}
                     </div>
                 </div>
             }).reverse() : null

@@ -48,8 +48,9 @@ export const HomeList = (props) => {
 //fires off a database call that fetches posts by the category id associated with them
 //changes the state of the categorySelected state variable
   const filterAllPostsByCat = (catId) => {
-    getPostByCat(catId)
     setCategorySelected(catId)
+    getPostByCat(catId)
+    .then(setArrOfPosts)
   }
    
   const filterAllPostsByTag = (tagId) => {
@@ -64,7 +65,7 @@ export const HomeList = (props) => {
   const filterAllPostsByUser = (userId) => {
     setUserSelected(userId)
     getPostByUser(userId)
-    .then(setPosts)
+    .then(setArrOfPosts)
   }
 
   //resets the state variables tracking the radio buttons
