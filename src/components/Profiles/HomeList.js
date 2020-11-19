@@ -34,6 +34,7 @@ export const HomeList = (props) => {
   useEffect(() => {
     setArrOfPosts(posts)
   },[posts])
+  
   useEffect(() => {
     if( tagSelected !== 0) {
       const newPostArray = TagPosts.map(TagPost => {
