@@ -33,13 +33,9 @@ export const PostForm = (props) => {
                 postTagsArrayToObj[pt.tag_id] = true
             }))
             .then(setCheckedState(postTagsArrayToObj))
-
-            console.log("checkedState >>",checkedState)
         } 
     }, [])
-    
-    console.log("checkedState >>",checkedState)
-    
+        
             
     const handleControlledInputChange = (browserEvent) => {
         const newPost = Object.assign({}, postObj)
