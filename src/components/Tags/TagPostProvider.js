@@ -46,8 +46,11 @@ export const TagPostProvider = (props) => {
   };
 
   const deleteTagPost = (tagPostId, postId) => {
-    return fetch(`http://localhost:8000/postags/${tagPostId}`, {
-        method: "DELETE"
+    return fetch(`http://localhost:8000/posttags/${tagPostId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        }
     })
     .then(getTagPosts)
     .then(getTagsByPost(postId))
