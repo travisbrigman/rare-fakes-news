@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { UserContext } from "./UserProvider"
 import defaultImg from "./Images/default.png"
 import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
+import { Box, Heading } from "grommet"
 
 
 
@@ -65,13 +66,13 @@ export const UserDetail = (props) => {
    
     return (
         <>
-            <section>
+            <Box>
                 {props.match.params.hasOwnProperty("userId") ?
-                    <h1>{user.user.username}'s Profile</h1> :<div>
-                        <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</h1>
-                        <div>{user.user.first_name} {user.user.last_name}</div>
-                        <div>subscribers: {subscriptions.length}</div>
-                    </div>}
+                    <Heading level="1">{user.user.username}'s Profile</Heading> :<Box>
+                        <Heading level="1" style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</Heading>
+                        <Box>{user.user.first_name} {user.user.last_name}</Box>
+                        <Box>subscribers: {subscriptions.length}</Box>
+                    </Box>}
                 {user.user.profile_image_url === "" || user.user.profile_image_url === undefined
                     ? <img src={defaultImg} style={{ width: `115px` }}></img>
                     : <img src={user.user.profile_image_url} style={{ width: `115px` }}></img>
@@ -80,7 +81,7 @@ export const UserDetail = (props) => {
                 <div>Username: {user.user.username}</div>
                 <div>email: {user.user.email}</div>
                 <div>Creation Date: {new Date(user.user.date_joined).toLocaleDateString('en-US')}</div>
-            </section>
+            </Box>
             <div>
                 {props.match.params.hasOwnProperty("userId") ?
                     subStatus ?
