@@ -39,8 +39,8 @@ export const DeleteItem = ({ postId }) => {
             </h3>
             <p>Are you sure you want to delete?</p>
             <div>
-              <button onClick={deleteThisPost}> <strong>Delete</strong></button>
-              <button onClick={onClose}> Cancel </button>
+              <Button primary margin="small" label="Delete" onClick={deleteThisPost} />
+              <Button secondary margin="small" label="Cancel" onClick={onClose} />
             </div>
           </div>
         </div>
