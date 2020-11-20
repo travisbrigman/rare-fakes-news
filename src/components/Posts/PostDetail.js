@@ -68,10 +68,13 @@ export const PostDetails = (props) => {
           <section className="container__cardContentLeft"></section>        
           <h3 className="post__title">{post.title}</h3>
 
+          {post.category==null? "" :<p>{post.category.label}</p>}
+
+
           {/* if current user wrote the post, show an edit button */}
           {post.created_by_current_user 
           ? (
-              <section className="container__cardContentTop">              
+            <section className="container__cardContentTop">              
                 <Button icon={<Edit />} onClick={() => props.history.push(`/posts/edit/${post.id}`)}/>
                
 
@@ -79,9 +82,10 @@ export const PostDetails = (props) => {
               </section>
           )
           : (``)
-          }
+        }
           
           <img className="post__image" src={post.image_url} style={{width: `500px`}} alt="article"></img>
+          <ReactionList {...props} />{/*Renders ReactionList*/}
           <div className="post__content">{post.content}</div>
           <div key={post.id} className="post_date">
             Published: {new Date(post.publication_date).toLocaleDateString("en-US")}
@@ -121,7 +125,6 @@ export const PostDetails = (props) => {
         </section>
 
       </section>
-      <ReactionList {...props} />{/*Renders ReactionList*/}
     </>
   );
 };
