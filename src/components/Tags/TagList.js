@@ -33,7 +33,7 @@ export const TagList = ({ props }) => {
                     tags.map(tag => {
                         return (<>
                             <Box direction = "row" align = "center" pad="small">
-                            <div>{tag.label}</div>
+                        <div>{"# "}{tag.label}</div>
                             {currentUser.user.is_staff ? 
                                 <>
                                 <DeleteTag tagId={tag.id} /> 
