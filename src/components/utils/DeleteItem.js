@@ -2,6 +2,8 @@
 import React, { useState, useContext } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { PostContext } from "../Posts/PostProvider";
+import { Button } from "grommet"
+import { Trash } from "grommet-icons"
 import "./DeleteItem.css"
 
 export const DeleteItem = ({ postId }) => {
@@ -28,7 +30,7 @@ export const DeleteItem = ({ postId }) => {
 
   return (
     <>
-      <button onClick={onOpen}>DELETE</button>
+      <Button icon={<Trash />} onClick={onOpen} />
       {open && (
         <div className={showHideClassName}>
           <div className="modal-main">
@@ -37,8 +39,8 @@ export const DeleteItem = ({ postId }) => {
             </h3>
             <p>Are you sure you want to delete?</p>
             <div>
-              <button onClick={deleteThisPost}> <strong>Delete</strong></button>
-              <button onClick={onClose}> Cancel </button>
+              <Button primary margin="small" label="Delete" onClick={deleteThisPost} />
+              <Button secondary margin="small" label="Cancel" onClick={onClose} />
             </div>
           </div>
         </div>

@@ -2,6 +2,8 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { TagContext } from "../Tags/TagProvider"
+import { Button } from "grommet"
+import { Trash } from "grommet-icons"
 import "./DeleteItem.css"
 
 export const DeleteTag = ({ tagId }) => {
@@ -29,7 +31,7 @@ export const DeleteTag = ({ tagId }) => {
 
   return (
     <>
-      <button onClick={onOpen}>DELETE</button>
+      <Button icon={<Trash />} onClick={onOpen} />
       {open && (
         <div className={showHideClassName}>
           <div className="modal-main">
@@ -38,8 +40,8 @@ export const DeleteTag = ({ tagId }) => {
             </h3>
             <p>Are you sure you want to delete?</p>
             <div>
-              <button onClick={deleteThisTag}> <strong>Delete</strong></button>
-              <button onClick={onClose}> Cancel </button>
+              <Button primary margin="small" label="Delete" onClick={deleteThisTag}/>
+              <Button secondary margin="small" label="Cancel" onClick={onClose} />
             </div>
           </div>
         </div>
