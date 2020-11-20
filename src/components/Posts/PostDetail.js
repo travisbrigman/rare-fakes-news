@@ -8,6 +8,8 @@ import { DeleteTagItem } from "../utils/DeleteTagItem";
 import { TagPostContext } from "../Tags/TagPostProvider";
 import { TagContext } from "../Tags/TagProvider";
 import { DeleteItem } from "../utils/DeleteItem";
+import { Anchor, Box, Button, Card, CardFooter, CardHeader, Heading, Text } from "grommet"
+import { Edit } from "grommet-icons"
 
 export const PostDetails = (props) => {
   const { getPostById, post, setPost, getTagsByPost, postTags} = useContext(PostContext);
@@ -60,12 +62,13 @@ export const PostDetails = (props) => {
 
   return (
     <>
+    
       {/* Post Detail JSX */}
       <section className="container__card">
         <section className="container__cardContent">  
           <section className="container__cardContentLeft"></section>        
-          <h3 className="post__title">{post.title}</h3>
-
+          <Heading level = "2">{post.title}</Heading>
+          
           {/* if current user wrote the post, show an edit button */}
           {post.created_by_current_user 
           ? (
