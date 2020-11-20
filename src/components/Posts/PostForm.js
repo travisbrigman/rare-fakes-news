@@ -14,25 +14,21 @@ export const PostForm = (props) => {
     const { createTagPost, deleteTagPost } = useContext(TagPostContext)
 
     const [postObj, setPostObj] = useState({}) //defines and sets the state of the postObj in this module
-    const [stateTagIDArr, setTagIDArr] = useState([])
-    const [stateTagObjArr, setTagObjArr] = useState([])
     const [checkedState, setCheckedState] = useState([])
-    const [tagPostArr, setTagPostArr] = useState([])
+    // const [stateTagIDArr, setTagIDArr] = useState([])
+    // const [stateTagObjArr, setTagObjArr] = useState([])
+    // const [tagPostArr, setTagPostArr] = useState([])
 
     const editMode = props.match.url.split("/")[2] === "edit" //checks url to see if editMode
     const postId = parseInt(props.match.params.postId)
-    let selectedTagsArray = []
+    let checkedTagsArray = []
     let filteredTrue = []
-    let filteredFalse = []
-    const checkedObj = {}
     const postTagsArrayToObj = {}
 
     useEffect(() => {
         getCategories()
         getTags()
         if (editMode) {
-            // setCheckedState({})
-
             getPostById(postId)
             .then(setPostObj)
             
@@ -42,16 +38,10 @@ export const PostForm = (props) => {
             }))
             .then(setCheckedState(postTagsArrayToObj))
 
-            console.log("checkedObj >>",checkedObj)
-            console.log("filteredTrue >>",filteredTrue)
             console.log("checkedState >>",checkedState)
-            // console.log("postId >>",postId)
-            // console.log("postTags >>",postTags)
         } 
     }, [])
-
-
-    console.log("postObj >>",postObj)
+    
     console.log("checkedState >>",checkedState)
     
             
@@ -85,23 +75,24 @@ export const PostForm = (props) => {
                 image_url: postObj.image_url
             })
             .then(() => {
-                postTags.forEach(tagPostObj => {
-                        deleteTagPost(tagPostObj.id, tagPostObj.post_id)
-                    })
-
                 const tagPostPromises = [] //empty array of possible TagPosts
                 
                 Object.keys(checkedState).forEach(key => 
-                    selectedTagsArray.push({
+                    checkedTagsArray.push({
                         tagId: parseInt(key),
                         checked: checkedState[key]
-                })) 
-
-                filteredTrue = selectedTagsArray.filter(t => t.checked === true)
-
-                selectedTagsArray.filter(filteredObj => {
-                    return filteredObj.tagId
-                })
+                    })) 
+                    
+                    filteredTrue = checkedTagsArray.filter(t => t.checked === true)
+                    
+                    checkedTagsArray.filter(filteredObj => {
+                        return filteredObj.tagId
+                    })
+                    
+                    
+                postTags.forEach(tagPostObj => {
+                        deleteTagPost(tagPostObj.id, tagPostObj.post_id)
+                    })
 
                 filteredTrue.map(t => {
                     tagPostPromises.push(
@@ -130,12 +121,12 @@ export const PostForm = (props) => {
                 const tagPostPromises = [] //empty array of possible TagPosts
                 
                 Object.keys(checkedState).forEach(key => 
-                    selectedTagsArray.push({
+                    checkedTagsArray.push({
                         tagId: key,
                         checked: checkedState[key]
                 })) 
 
-                filteredTrue = selectedTagsArray.filter(t => t.checked === true)
+                filteredTrue = checkedTagsArray.filter(t => t.checked === true)
                 
                 filteredTrue.map(t => {
                     tagPostPromises.push(
