@@ -48,7 +48,7 @@ export const PostProvider = (props) => {
             }
           })
             .then(res => res.json())
-            .then(setPosts)
+            .then(setPostTags)
     }
 
     const getTagsByPost = (postId) => {
@@ -70,7 +70,7 @@ export const PostProvider = (props) => {
             }
           })
             .then(res => res.json())
-            .then(setPosts)
+            //.then(setPosts)
     }
 
     const addPost = post => {

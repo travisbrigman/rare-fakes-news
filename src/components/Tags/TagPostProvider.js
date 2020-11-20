@@ -22,6 +22,17 @@ export const TagPostProvider = (props) => {
       .then(setTagPosts);
   };
 
+  const getPostTagsByTags = (tagId) => {
+    return fetch(`http://localhost:8000/posttags?tag_id=${tagId}`, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+      }
+    })
+      .then((res) => res.json())
+      //.then(setTagPosts)
+  };
+
   const createTagPost = (TagPost) => {
     return fetch("http://localhost:8000/posttags", {
       method: "POST",
@@ -35,8 +46,11 @@ export const TagPostProvider = (props) => {
   };
 
   const deleteTagPost = (tagPostId, postId) => {
-    return fetch(`http://localhost:8000/postags/${tagPostId}`, {
-        method: "DELETE"
+    return fetch(`http://localhost:8000/posttags/${tagPostId}`, {
+        method: "DELETE",
+        headers: {
+          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        }
     })
     .then(getTagPosts)
     .then(getTagsByPost(postId))
@@ -54,7 +68,8 @@ export const TagPostProvider = (props) => {
         getTagPosts,
         setTagPosts,
         createTagPost,
-        deleteTagPost
+        deleteTagPost,
+        getPostTagsByTags
       }}
     >
       {props.children}
