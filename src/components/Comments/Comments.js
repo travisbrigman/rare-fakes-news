@@ -22,16 +22,23 @@ export const CommentList = (props) => {
     return (
         <>
         <h2>Comments</h2>
-        <Link to={{pathname:`posts/comments/${post.id}/create`}}>
-        create comment
-        </Link>
+        <div><Link to={{pathname:`/home`}}>Back to posts</Link></div>
         {
             comments !== [] ? comments.map(c => {
-                return <div key={c.id} className="container__card">
-                    <p>{c.subject}</p>
-                    <p>{c.content}</p>
-                    <p>{c.created_on}</p>
+                return <>
+                <div key={c.id} className="container__card">
+                    <p>Subject: {c.subject}</p>
+                
+                    <p>Content: {c.content}</p>
+
+                    <p>Created On: {c.created_on}</p>
+
+                    <p>Author: {c.author.username}</p>
+                    
                 </div>
+               
+                </>
+                
             }).reverse() : null
         }
         </>
