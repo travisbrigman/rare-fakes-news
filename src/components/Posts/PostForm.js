@@ -25,6 +25,7 @@ export const PostForm = (props) => {
     let filteredTrue = []
     let filteredFalse = []
     const checkedObj = {}
+    const postTagsArrayToObj = {}
 
     useEffect(() => {
         getCategories()
@@ -34,23 +35,12 @@ export const PostForm = (props) => {
 
             getPostById(postId)
             .then(setPostObj)
-
+            
             getTagsByPost(postId)
             .then(postTags.forEach(pt => {
-                // setCheckedState({
-                //     ...checkedState,
-                //     [pt.id]: true
-                // })
-
-                // filteredTrue.push({
-                //     [pt.id]: true
-                // })
-
-                return filteredTrue.forEach(obj => {
-                    checkedObj[obj.id] = true
-                })            
+                postTagsArrayToObj[pt.tag_id] = true
             }))
-            .then(setCheckedState(checkedObj))
+            .then(setCheckedState(postTagsArrayToObj))
 
             console.log("checkedObj >>",checkedObj)
             console.log("filteredTrue >>",filteredTrue)
@@ -60,12 +50,6 @@ export const PostForm = (props) => {
         } 
     }, [])
 
-    // useEffect(() => {
-    //     const postId = parseInt(props.match.params.postId)
-    //     getTagsByPost(postId)
-    //     .then(setTagPostArr)
-    //     console.log("tagPostArr >>",tagPostArr)
-    // }, [])
 
     console.log("postObj >>",postObj)
     console.log("checkedState >>",checkedState)
@@ -76,14 +60,7 @@ export const PostForm = (props) => {
         newPost[browserEvent.target.name] = browserEvent.target.value
         setPostObj(newPost)
     }
-    
-    // const handleTagsSelected = (browserEvent) => {
-    //     const stateCopyID = stateTagIDArr.slice() //make a copy of the state var array of TagIDs
-    //     let newTagItem = parseInt(browserEvent.target.value) //grab the ID of the tag from the select
-    //     stateCopyID.push(newTagItem) //push into copy
-    //     setTagIDArr(stateCopyID)
-    // }
-            
+          
 
     function handleTagChange(event) {
         const value = event.target.checked
@@ -134,13 +111,6 @@ export const PostForm = (props) => {
                         })
                     ) //push any newly created tags to promises array
                 })                    
-
-                // postTags.forEach(tagPostObj => {
-                //     filteredFalse.filter(filteredObj => {
-                //         return filteredObj.tagId === tagPostObj.tag_id}) 
-
-                //         deleteTagPost(tagPostObj.id, tagPostObj.post_id)
-                //     })
 
                 Promise.all(tagPostPromises)
                 .then(() => {
