@@ -1,6 +1,7 @@
 //Form to let user create a new category
 import React, { useEffect, useContext, useState, useHistory } from "react";
 import { CategoryContext } from "./CategoryProvider";
+import { Button, Box } from "grommet"
 import "../utils/CategoryForm.css";
 
 
@@ -55,7 +56,7 @@ export const CategoryForm = (props) => {
           onChange={handleChange}
         />
       </label>
-      {editMode ? <button className="new_category_btn" onClick={onOpen}>EDIT</button> : ""}
+      {editMode ? <Button primary margin="small" label="EDIT" className="new_category_btn" onClick={onOpen}/> : ""}
 
       {open && (
 
@@ -64,17 +65,16 @@ export const CategoryForm = (props) => {
             <h3>Confirm</h3>
             <p>Are you sure you want to make these changes?</p>
             <div>
-              <button onClick={() => {
+              <Button primary label="Edit" onClick={() => {
                 editCategory({
                   id: props.match.params.categoryId,
                   label: currentCategory.label
                 }).then(() => {
                   props.history.push("/categories")
                 })
-              }}>
-                <strong>Edit</strong>
-              </button>
-              <button onClick={onClose}> Cancel </button>
+              }}/>
+           
+              <Button margin="small" secondary label="Cancel" onClick={onClose}/>
             </div>
           </div>
         </div>
@@ -82,7 +82,7 @@ export const CategoryForm = (props) => {
 
       )}
       {editMode ? "" :
-        <button
+        <Button primary label = "Create New Category"
           type="submit"
           onClick={(evt) => {
             evt.preventDefault();
@@ -91,8 +91,8 @@ export const CategoryForm = (props) => {
             })
               .then(() => props.history.push("/categories"))
           }}
-          className="btn btn-primary"
-        >Create New Category</button>
+         
+        />
       }
     </fieldset>
 

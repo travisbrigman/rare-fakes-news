@@ -2,6 +2,8 @@
 import React, { useEffect, useContext, useState } from "react";
 import { CategoryContext } from "./CategoryProvider";
 import { UserContext } from "../Profiles/UserProvider"
+import { Button, Box } from "grommet"
+import { Edit, Add} from "grommet-icons"
 import { DeleteCategory } from "../utils/DeleteCategory"
 import { Link } from "react-router-dom";
 
@@ -32,9 +34,11 @@ export const CategoryList = (props) => {
 
     <div style={{ marginTop: "2rem" }}>
       <h3>Categories</h3>
+     
       <div className="categoryList">
         {categories.map((categoryObject) => {
           return <>
+          <Box direction="row" align="center" pad="small">
             <div key={categoryObject.id}>{categoryObject.label}</div>
             { //only shows edit and delete if the user is an admin
               currentUser.user.is_staff ?
@@ -42,15 +46,17 @@ export const CategoryList = (props) => {
                   <DeleteCategory categoryId={categoryObject.id} />
                   <div className="new_category_btn_container">
                     <Link to={`/editcategory/${categoryObject.id}`}>
-                      <button className="new_category_btn" >EDIT</button>
+                      <Button icon={<Edit />} className="new_category_btn" />
                     </Link>
                   </div>
                 </>
                 : ""}
+                </Box>
           </>
         })}
-        <button onClick={toCreateCreateCategory}>+ Category</button>
+        <Button primary icon={<Add />} onClick={toCreateCreateCategory} label="Category"/>
       </div>
+    
     </div>
 
 

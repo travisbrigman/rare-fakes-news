@@ -5,6 +5,8 @@ import { PostContext } from "./PostProvider";
 import { ReactionList } from "../Reactions/ReactionList";
 import { Link } from "react-router-dom";
 import { DeleteTagItem } from "../utils/DeleteTagItem";
+import { Button, Box } from "grommet"
+import { Edit, Trash} from "grommet-icons"
 import { TagPostContext } from "../Tags/TagPostProvider";
 import { TagContext } from "../Tags/TagProvider";
 import { DeleteItem } from "../utils/DeleteItem";
@@ -70,9 +72,8 @@ export const PostDetails = (props) => {
           {post.created_by_current_user 
           ? (
               <section className="container__cardContentTop">              
-                <button onClick={() => props.history.push(`/posts/edit/${post.id}`)}>
-                  EDIT
-                </button>
+                <Button icon={<Edit />} onClick={() => props.history.push(`/posts/edit/${post.id}`)}/>
+               
 
                 {post.created_by_current_user ? <DeleteItem postId= {post.id}/> : <></>}
               </section>

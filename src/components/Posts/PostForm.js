@@ -3,6 +3,7 @@ import React, { useEffect, useContext, useState } from "react"
 import { PostContext } from "./PostProvider"
 import { CategoryContext } from "../Categories/CategoryProvider"
 import { TagContext } from "../Tags/TagProvider"
+import { Button, Box } from "grommet"
 import { TagPostContext } from "../Tags/TagPostProvider"
 
 
@@ -192,13 +193,11 @@ export const PostForm = (props) => {
 
                 {editMode   //if in edit mode, displays a Save button, otherwise displays a Publish button
                     ? 
-                        <button onClick={(evt) => {constructPost(evt)}}>
-                            Save
-                        </button>    
+                        <Button primary margin="small" label="Save" onClick={(evt) => {constructPost(evt)}} />
+                       
                     :
-                        <button onClick={(evt) => {constructPost(evt)}}>
-                            Publish
-                        </button>
+                        <Button primary margin="small" label="Publish" onClick={(evt) => {constructPost(evt)}} />
+                       
                 }
                 
 
