@@ -14,7 +14,7 @@ export const PostList = ({arrOfPosts}) => {
         <Button primary icon={<Edit />} as={Link} to={{pathname:`posts/create`}} label="Create Post"/>
         {
             arrOfPosts !== [] ? arrOfPosts.map(p => {
-                return <Box key={`post${p.id}`} width="medium" >
+                return <Box key={`post${p.id}`} width="medium">
                 <Card className="container__cardContent" background="light-1" margin="small" pad="xsmall">    
                         <Anchor as={Link} to={{pathname:`/posts/${p.id}`}}>
                         <CardHeader>{p.title}</CardHeader>
