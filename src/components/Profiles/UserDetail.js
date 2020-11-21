@@ -2,6 +2,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { UserContext } from "./UserProvider"
 import defaultImg from "./Images/default.png"
+import { Button, Box } from "grommet"
 import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 import { Box, Heading } from "grommet"
 
@@ -85,12 +86,12 @@ export const UserDetail = (props) => {
             <div>
                 {props.match.params.hasOwnProperty("userId") ?
                     subStatus ?
-                        <button onClick={() => {
+                        <Button primary margin="small" label="unsubscribe!" onClick={() => {
                             changeSubStatus(subscription)
-                        }} >unsubscribe!</button> :
-                        <button onClick={() => {
+                        }} /> :
+                        <Button primary margin="small" label="subscribe" onClick={() => {
                             changeSubStatus(subscription)
-                        }}>subscribe</button>
+                        }}/>
                     : ""
                 }
             </div>

@@ -2,8 +2,8 @@
 import React, { useContext, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { UserContext } from "../Profiles/UserProvider"
-import "./NavBar.css"
 import Logo from "./rare.jpeg"
+import "./NavBar.css"
 
 export const NavBar = () => {
     const history = useHistory()
@@ -49,12 +49,12 @@ export const NavBar = () => {
             {
                 (localStorage.getItem("rare_user_id") !== null) ?
                     <li className="navbar__item">
-                        <button className="navbar__item__fakeLink"
+                        <Link className="navbar__item__fakeLink"
                             onClick={() => {
                                 localStorage.removeItem("rare_user_id")
                                 history.push({ pathname: "/" })
                             }}
-                        >Logout</button>
+                        >Logout</Link>
                     </li> :
                     <>
                         <li className="nav-item">

@@ -2,6 +2,8 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { CategoryContext} from "../Categories/CategoryProvider";
+import { Button } from "grommet"
+import { Trash } from "grommet-icons"
 import "./DeleteItem.css";
 
 export const DeleteCategory = ({categoryId}) => {
@@ -29,18 +31,16 @@ export const DeleteCategory = ({categoryId}) => {
 
   return (
     <>
-      <button onClick={onOpen}>DELETE</button>
+      <Button icon={<Trash />} onClick={onOpen} />
       {open && (
         <div className={showHideClassName}>
           <div className="modal-main">
             <h3>Confirm</h3>
             <p>Are you sure you want to delete?</p>
             <div>
-              <button onClick={deleteThisCategory}>
-                {" "}
-                <strong>Delete</strong>
-              </button>
-              <button onClick={onClose}> Cancel </button>
+              <Button primary margin ="small" onClick={deleteThisCategory} label="Delete" />
+            
+              <Button secondary margin="small" onClick={onClose} label="Cancel" />
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 //form to create a new tag
 import React, { useContext, useEffect, useState } from "react"
 import { TagContext } from "./TagProvider"
+import { Button, Box } from "grommet"
 import "../utils/DeleteItem.css"
 
 
@@ -54,7 +55,7 @@ export const TagForm = (props) => {
                 />
 
             </div>
-            {editMode ? <button onClick={onOpen}>EDIT</button> : "" }
+            {editMode ? <Button primary margin="small" label="EDIT" onClick={onOpen}/> : "" }
 
             {open && (
                 <div className={showHideClassName}>
@@ -64,7 +65,7 @@ export const TagForm = (props) => {
             </h3>
                         <p>Are you sure you want to make these changes?</p>
                         <div>
-                            <button onClick={() => {
+                            <Button primary label="Edit" onClick={() => {
                                 updateTag({
                                     id: parseInt(props.match.params.tagId),
                                     label: tagObj.label
@@ -72,13 +73,13 @@ export const TagForm = (props) => {
                                     .then(() => {
                                         props.history.push(`/tags`)
                                     })
-                            }}> <strong>Edit</strong></button>
-                            <button onClick={onClose}> Cancel </button>
+                            }}/>
+                            <Button secondary margin="small" label="Cancel" onClick={onClose}/>
                         </div>
                     </div>
                 </div>
             )}
-            {editMode ? "" : <button type="submit"
+            {editMode ? "" : <Button primary label="Create New Tag" type="submit"
                 onClick={evt => {
                     evt.preventDefault()
                     createTag({
@@ -87,9 +88,8 @@ export const TagForm = (props) => {
                         .then(() => props.history.push("/tags"))
                 }}
 
-                className="btn btn-primary">
-                Create Tag
-                </button>}
+                />
+               }
         </fieldset>
     )
 }
