@@ -2,9 +2,8 @@
 import React, { useContext, useEffect, useState } from "react"
 import { UserContext } from "./UserProvider"
 import defaultImg from "./Images/default.png"
-import { Button, Box } from "grommet"
+import { Button, Box, Heading } from "grommet"
 import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
-import { Box, Heading } from "grommet"
 
 
 

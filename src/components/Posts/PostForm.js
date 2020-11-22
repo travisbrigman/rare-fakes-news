@@ -1,5 +1,4 @@
 //form that allows users to create and edit a post
-<<<<<<< HEAD
 import React, { useEffect, useContext, useState } from "react";
 import { PostContext } from "./PostProvider";
 import { CategoryContext } from "../Categories/CategoryProvider";
@@ -12,19 +11,11 @@ import {
   Form,
   FormField,
   Heading,
+  Select,
   TextArea,
   TextInput,
 } from "grommet";
 import { Edit, Save } from "grommet-icons";
-=======
-import React, { useEffect, useContext, useState } from "react"
-import { PostContext } from "./PostProvider"
-import { CategoryContext } from "../Categories/CategoryProvider"
-import { TagContext } from "../Tags/TagProvider"
-import { Button, Box } from "grommet"
-import { TagPostContext } from "../Tags/TagPostProvider"
-
->>>>>>> main
 
 export const PostForm = (props) => {
   const {
@@ -65,7 +56,9 @@ export const PostForm = (props) => {
 
   const handleControlledInputChange = (browserEvent) => {
     const newPost = Object.assign({}, postObj);
-    newPost[browserEvent.target.name] = browserEvent.target.value;
+    browserEvent.target.name === "category_id"
+      ? (newPost[browserEvent.target.name] = browserEvent.value)
+      : (newPost[browserEvent.target.name] = browserEvent.target.value);
     setPostObj(newPost);
   };
 
@@ -153,13 +146,15 @@ export const PostForm = (props) => {
           ); //push any newly created tags to promises array
         });
 
-<<<<<<< HEAD
+        console.log("tagPostPromises", tagPostPromises);
         Promise.all(tagPostPromises).then(() => {
           props.history.push(`/posts/${postObj.id}`);
         });
       });
     }
   };
+
+  console.log(postObj);
 
   return (
     <>
@@ -170,79 +165,70 @@ export const PostForm = (props) => {
       )}
 
       <Form>
-        <FormField>
-          <TextInput
-            type="text"
-            name="title"
-            className="form-control"
-            placeholder="Title"
-            value={postObj.title}
-            onChange={handleControlledInputChange}
-          ></TextInput>
-        </FormField>
-        <FormField>
-          <TextInput
-            type="text"
-            name="image_url"
-            className="form-control"
-            placeholder="Image URL"
-            value={postObj.image_url}
-            onChange={handleControlledInputChange}
-          ></TextInput>
-        </FormField>
-        <FormField>
-          <TextArea
-          fill={true}
-            type="text"
-            name="content"
-            className="form-control"
-            placeholder="Article content"
-            value={postObj.content}
-            onChange={handleControlledInputChange}
-            size="xlarge"
-          ></TextArea>
-        </FormField>
-        <FormField>
-          <select
-            name="category_id"
-            className="form-control"
-            value={postObj.category_id}
-            onChange={handleControlledInputChange}
+        <Box width="medium">
+          <FormField>
+            <TextInput
+              type="text"
+              name="title"
+              className="form-control"
+              placeholder="Title"
+              value={postObj.title}
+              onChange={handleControlledInputChange}
+            ></TextInput>
+          </FormField>
+        </Box>
+        <Box width="large">
+          <FormField>
+            <TextInput
+              type="text"
+              name="image_url"
+              className="form-control"
+              placeholder="Image URL"
+              value={postObj.image_url}
+              onChange={handleControlledInputChange}
+            ></TextInput>
+          </FormField>
+        </Box>
+        <Box width="xlarge" height="medium">
+          <FormField contentProps={{ width: "xlarge", height: "medium" }}>
+            <TextArea
+              fill="true"
+              type="text"
+              name="content"
+              className="form-control"
+              placeholder="Article content"
+              value={postObj.content}
+              onChange={handleControlledInputChange}
+            ></TextArea>
+          </FormField>
+        </Box>
+        <Box name="categoriesAndTags" direction="row-responsive">
+          <Box margin="small" width="small" basis="1/3">
+            <FormField>
+              <Select
+                id={categories.id}
+                name="category_id"
+                placeholder="Categories"
+                labelKey="label"
+                valueKey={{ key: "id", reduce: true }}
+                options={categories}
+                onChange={handleControlledInputChange}
+              />
+            </FormField>
+          </Box>
+          <Box
+            className="container--checkboxes"
+            direction="row-responsive"
+            margin="medium"
+            wrap={true}
           >
-            <option value="0">Category Select</option>
-            {categories.map((c) => {
-              return (
-                <option key={c.id} value={c.id}>
-                  {c.label}
-                </option>
-              );
-            })}
-          </select>
-        </FormField>
-
-        {editMode ? ( //if in edit mode, displays a Save button, otherwise displays a Publish button
-          <Button
-            primary
-            icon={<Save />}
-            label="Save"
-            onClick={(evt) => {
-              constructPost(evt);
-            }}
-          />
-        ) : (
-          <Button
-            primary
-            icon={<Edit />}
-            label="Publish"
-            onClick={(evt) => {
-              constructPost(evt);
-            }}
-          />
-        )}
-        
-          <Box className="container--checkboxes" direction="row-responsive">
             {tags.map((t) => (
-              <Box key={t.id} className="checkboxGroup">
+              <Box
+                key={t.id}
+                className="checkboxGroup"
+                margin="xsmall"
+                direction="row-responsive"
+              >
                 <CheckBox
                   label={t.label}
                   type="checkbox"
@@ -251,102 +237,34 @@ export const PostForm = (props) => {
                   checked={checkedState[t.id]}
                   onChange={handleTagChange}
                 />
-                {/* <label>
-                                        {" #"}{t.label}
-                                    </label> */}
               </Box>
             ))}
           </Box>
+        </Box>
+        <Box justify="end" margin="medium" width="small">
+          {editMode ? ( //if in edit mode, displays a Save button, otherwise displays a Publish button
+            <Button
+              fill={false}
+              primary
+              icon={<Save />}
+              label="Save"
+              onClick={(evt) => {
+                constructPost(evt);
+              }}
+            />
+          ) : (
+            <Button
+              fill={false}
+              primary
+              icon={<Edit />}
+              label="Publish"
+              onClick={(evt) => {
+                constructPost(evt);
+              }}
+            />
+          )}
+        </Box>
       </Form>
     </>
   );
 };
-=======
-    return (
-        <>
-            {editMode
-                ? <h2>Edit Post</h2>
-                : <h2>New Post</h2>
-            }
-            
-            <form>
-                <fieldset>
-                    <div className="form-group">
-                        <input type="text" name="title" className="form-control"
-                            placeholder="Title" value={postObj.title}
-                            onChange={handleControlledInputChange}
-                        >
-                        </input>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <div className="form-group">
-                        <input type="text" name="image_url" className="form-control"
-                            placeholder="Image URL" value={postObj.image_url}
-                            onChange={handleControlledInputChange}
-                        >
-                        </input>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <div className="form-group">
-                        <textarea type="text" name="content" className="form-control"
-                            placeholder="Article content" value={postObj.content}
-                            onChange={handleControlledInputChange}
-                        >
-                        </textarea>
-                    </div>
-                </fieldset>
-
-                <fieldset>
-                    <div className="form-group">
-                        <select name="category_id" className="form-control"
-                            value={postObj.category_id}
-                            onChange={handleControlledInputChange}
-                        >
-                            <option value="0">Category Select</option>
-                            {
-                                categories.map(c => {
-                                    return <option key={c.id} value={c.id}>{c.label}</option>
-                                })
-                            }
-                        </select>
-                    </div>
-                </fieldset>
-
-
-                {editMode   //if in edit mode, displays a Save button, otherwise displays a Publish button
-                    ? 
-                        <Button primary margin="small" label="Save" onClick={(evt) => {constructPost(evt)}} />
-                       
-                    :
-                        <Button primary margin="small" label="Publish" onClick={(evt) => {constructPost(evt)}} />
-                       
-                }
-                
-
-                <div className="container--checkboxes">
-                    {tags.map((t) => (
-                        <div className="checkboxGroup">
-                            <input
-                                type="checkbox"
-                                name={t.id}
-                                value={t.id}
-                                checked={checkedState[t.id]}
-                                onChange={handleTagChange}
-                            />
-                            <label>
-                                {" #"}{t.label}
-                            </label>
-                        </div>
-                    ))}
-                </div>
-
-            </form>
-        </>
-    )
-
-}
->>>>>>> main
