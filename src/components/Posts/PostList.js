@@ -3,7 +3,7 @@ import React from "react"
 import {Link} from "react-router-dom"
 import { Anchor, Box, Button, Card, CardFooter, CardHeader, Heading, Text } from "grommet"
 import { Edit } from "grommet-icons"
-
+import TimeAgo from 'timeago-react'; 
 
 
 export const PostList = ({arrOfPosts}) => {
@@ -11,18 +11,21 @@ export const PostList = ({arrOfPosts}) => {
     return (
         <>
         <Heading level="2">Posts</Heading>
-        <Button primary icon={<Edit />} as={Link} to={{pathname:`posts/create`}} label="Create Post"/>
+        <Button primary icon={<Edit />} as={Link} to={{pathname:`posts/create`}} label="Create Post" margin="small"/>
         {
             arrOfPosts !== [] ? arrOfPosts.map(p => {
-                return <div key={`post${p.id}`} className="container__card">
-                    <div className="container__cardContent">    
-                        <Link to={{pathname:`/posts/${p.id}`}}>
-                        <p>{p.title}</p>
-                        </Link>
-                        <p>{p.user.user.first_name}</p>
-                        {p.category==null? "" :<p>{p.category.label}</p>}
-                    </div>
-                </div>
+                return <Card key={`post${p.id}`} className="container__card" width="medium">
+                    <Box className="container__cardContent" margin="xsmall">    
+                        <Anchor as={Link} to={{pathname:`/posts/${p.id}`}}>
+                        <Text size="large">{p.title}</Text>
+                        </Anchor>
+                        <Text color="text-xweak" size="small">
+                        <TimeAgo datetime={p.publication_date}/>
+                        </Text>
+                        <Text weight="bold" color="text-weak">{p.user.user.first_name}</Text>
+                        {p.category==null? "" :<Text color="text-xweak" size="small">{p.category.label}</Text>}
+                    </Box>
+                </Card>
             }).reverse() : null
         }
         </>
