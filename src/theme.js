@@ -52,7 +52,7 @@ export const theme = {
         "selected-text": "status-critical",
         "status-critical": "#FF4040",
         "status-warning": "#FFAA15",
-        "status-ok": "#00C781",
+        "status-ok": "#999999",
         "status-unknown": "#CCCCCC",
         "status-disabled": "#CCCCCC",
         "graph-0": "brand",
@@ -166,5 +166,17 @@ export const theme = {
       "font": {
         "family": "\"PT Serif\""
       }
+    },
+    anchor: {
+      textDecoration: 'none',
+      fontWeight: 500,
+      color: {
+        dark: 'white',
+        light: 'neutral-2',
+      },
+      hover: {
+        textDecoration: 'none',
+        fontWeight: 700,
+      },
     }
   }
