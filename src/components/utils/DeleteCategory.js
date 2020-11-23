@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 import { CategoryContext } from "../Categories/CategoryProvider";
 import { Box, Button, Heading, Layer, Text } from "grommet";
 import { Trash } from "grommet-icons";
-// import "./DeleteItem.css";
 
 export const DeleteCategory = ({ categoryId }) => {
   const { deleteCategory } = useContext(CategoryContext);
@@ -14,9 +13,6 @@ export const DeleteCategory = ({ categoryId }) => {
   const [open, setOpen] = useState();
   const onOpen = () => setOpen(true);
   const onClose = () => setOpen(undefined);
-
-  //toggles the CSS class name depending on if the modal is open or not
-  const showHideClassName = open ? "modal display-block" : "modal display-none";
 
   //function that is called when the delete button is clicked.
   //This function deletes an entry in the TagPost table.
@@ -32,17 +28,19 @@ export const DeleteCategory = ({ categoryId }) => {
       <Button icon={<Trash />} onClick={onOpen} />
       {open && (
         <Layer
-          className={showHideClassName}
           onEsc={onClose}
+          onClickOutside={onClose}
           responsive={true}
-          plain
+          position="center"
         >
-          <Box width="medium" size="small" margin="small" className="modal-main">
-            <Heading size="3" margin="xsmall">Confirm</Heading>
+          <Box width="medium" size="small" margin="small">
+            <Heading size="3" margin="xsmall">
+              Confirm
+            </Heading>
             <Text margin="xsmall">Are you sure you want to delete?</Text>
             <Box size="small" direction="row-responsive">
               <Button
-              size="small"
+                size="small"
                 primary
                 margin="small"
                 onClick={deleteThisCategory}
@@ -50,7 +48,7 @@ export const DeleteCategory = ({ categoryId }) => {
               />
 
               <Button
-              size="small"
+                size="small"
                 secondary
                 margin="small"
                 onClick={onClose}

@@ -4,7 +4,6 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "./PostProvider";
 import { ReactionList } from "../Reactions/ReactionList";
 import { Link } from "react-router-dom";
-import { DeleteTagItem } from "../utils/DeleteTagItem";
 import { Button, Box } from "grommet"
 import { Edit, Trash} from "grommet-icons"
 import { TagPostContext } from "../Tags/TagPostProvider";
