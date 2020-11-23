@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
 import { UserContext } from "../Profiles/UserProvider"
+import { Anchor, Box, Button, Card, CardBody, CardFooter, CardHeader, Heading, Text } from "grommet"
 
 
 export const UsersPosts = () => {
@@ -21,20 +22,22 @@ export const UsersPosts = () => {
 
   return (
     <>
-      <h2>My Posts</h2>
+      <Heading level="2">My Posts</Heading>
       {usersPosts.map((p) => {
         return (
-          <div key={p.id} className="container__card">
-            <div className="container__cardContent">
-              <p>
-                <Link to={{ pathname: `posts/${p.id}` }}>
-                  <strong>{p.title}</strong>
-                </Link>
-              </p>
-              <p>{p.user.user.first_name}</p>
-              {p.category==null? "" :<p>{p.category.label}</p>}
-            </div>
-          </div>
+          <Box key={p.id} width="medium" >
+            <Card  className="container__cardContent" margin="small" pad="xsmall" background="light-1">
+              <CardHeader>
+                <Anchor as={Link} to={{ pathname: `posts/${p.id}` }}>
+                  <CardHeader>{p.title}</CardHeader>
+                </Anchor>
+              </CardHeader>
+              <CardBody>
+              {p.category==null? "" :<Text>{p.category.label}</Text>}
+              </CardBody>
+              <CardFooter>{p.user.user.first_name}</CardFooter>
+            </Card>
+          </Box>
         )
       }).reverse()}
     </>

@@ -86,9 +86,9 @@ export const Login = (props) => {
           <FormField label="Email address" htmlFor="inputEmail">
             <TextInput
               ref={user}
-              type="email"
-              id="email"
-              placeholder="Email address"
+              type="text"
+              id="username"
+              placeholder="User Name"
               required
             />
           </FormField>

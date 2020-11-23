@@ -2,7 +2,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { UserContext } from "./UserProvider"
 import defaultImg from "./Images/default.png"
-import { Button, Box } from "grommet"
+import { Button, Box, Heading, Text, Avatar } from "grommet"
 import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
 
 
@@ -66,26 +66,38 @@ export const UserDetail = (props) => {
    
     return (
         <>
-            <section>
+            <Box>
                 {props.match.params.hasOwnProperty("userId") ?
-                    <h1>{user.user.username}'s Profile</h1> :<div>
-                        <h1 style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</h1>
-                        <div>{user.user.first_name} {user.user.last_name}</div>
-                        <div>subscribers: {subscriptions.length}</div>
-                    </div>}
+                    <Heading level="1">{user.user.username}'s Profile</Heading> :<Box>
+                        <Heading level="1" style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</Heading>
+                        <Text size="large" color="text" weight="bold" textAlign="start" margin="xsmall">{user.user.first_name} {user.user.last_name}</Text>
+                        <Box direction="row">
+                        <Text color="text" weight="bold" textAlign="start" margin="xsmall">subscribers:</Text> 
+                        <Text color="text-weak" textAlign="end" margin="xsmall">{subscriptions.length}</Text>
+                        </Box>
+                    </Box>}
                 {user.user.profile_image_url === "" || user.user.profile_image_url === undefined
-                    ? <img src={defaultImg} style={{ width: `115px` }}></img>
-                    : <img src={user.user.profile_image_url} style={{ width: `115px` }}></img>
+                    ? <Avatar size="large" src={defaultImg} alt="default avatar smiley"></Avatar>
+                    : <Avatar size="large" src={user.user.profile_image_url} alt="user's avatar"></Avatar>
                 }
-                <div>{user.user.profile_image_url}</div>
-                <div>Username: {user.user.username}</div>
-                <div>email: {user.user.email}</div>
-                <div>Creation Date: {new Date(user.user.date_joined).toLocaleDateString('en-US')}</div>
-            </section>
-            <div>
+                <Box direction="row">
+                <Text color="text" weight="bold" textAlign="start" margin="xsmall">Username:</Text>
+                <Text color="text-weak" textAlign="end" margin="xsmall">{user.user.username}</Text>
+                </Box>
+
+                <Box direction="row">
+                <Text color="text" weight="bold" textAlign="start" margin="xsmall">email:</Text> 
+                <Text color="text-weak" textAlign="end" margin="xsmall">{user.user.email}</Text>
+                </Box>
+                <Box direction="row">
+                <Text color="text" weight="bold" textAlign="start" margin="xsmall" >Creation Date:</Text> 
+                <Text color="text-weak" textAlign="end" margin="xsmall">{new Date(user.user.date_joined).toLocaleDateString('en-US')}</Text>
+                </Box>
+            </Box>
+            <Box>
                 {props.match.params.hasOwnProperty("userId") ?
                     subStatus ?
-                        <Button primary margin="small" label="unsubscribe!" onClick={() => {
+                        <Button margin="small" label="unsubscribe!" onClick={() => {
                             changeSubStatus(subscription)
                         }} /> :
                         <Button primary margin="small" label="subscribe" onClick={() => {
@@ -93,7 +105,7 @@ export const UserDetail = (props) => {
                         }}/>
                     : ""
                 }
-            </div>
+            </Box>
         </>
     )
 }

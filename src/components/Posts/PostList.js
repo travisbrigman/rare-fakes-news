@@ -14,19 +14,16 @@ export const PostList = ({arrOfPosts}) => {
         <Button primary icon={<Edit />} as={Link} to={{pathname:`posts/create`}} label="Create Post" margin="small"/>
         {
             arrOfPosts !== [] ? arrOfPosts.map(p => {
-                return <Card key={`post${p.id}`} className="container__card" width="medium">
-                    <Box className="container__cardContent" margin="xsmall">    
+                return <Box key={`post${p.id}`} width="medium">
+                <Card className="container__cardContent" background="light-1" margin="small" pad="xsmall">    
                         <Anchor as={Link} to={{pathname:`/posts/${p.id}`}}>
-                        <Text size="large">{p.title}</Text>
+                        <CardHeader>{p.title}</CardHeader>
                         </Anchor>
-                        <Text color="text-xweak" size="small">
-                        <TimeAgo datetime={p.publication_date}/>
-                        </Text>
-                        <Text weight="bold" color="text-weak">{p.user.user.first_name}</Text>
-                        {p.category==null? "" :<Text color="text-xweak" size="small">{p.category.label}</Text>}
+                        <CardFooter>{p.user.user.first_name}</CardFooter>
+                        {p.category==null? "" :<Text>{p.category.label}</Text>}
+                    </Card>
                     </Box>
-                </Card>
-            }).reverse() : null
+             }).reverse() : null
         }
         </>
     )
