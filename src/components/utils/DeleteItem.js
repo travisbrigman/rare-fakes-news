@@ -7,14 +7,13 @@ import { Trash } from "grommet-icons"
 import "./DeleteItem.css"
 
 
-export const DeleteItem = ({ postId }) => {
+export const DeleteItem = ({ onOpen, postId }) => {
   console.log("deleteItemComponent");
   const { deletePost } = useContext(PostContext);
   const history = useHistory()
-  
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
-  const onOpen = () => setOpen(true);
+  // const onOpen = () => setOpen(true);
   const onClose = () => setOpen(undefined);
 
   //toggles the CSS class name depending on if the modal is open or not
