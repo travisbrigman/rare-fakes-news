@@ -6,7 +6,9 @@ import { Button } from "grommet"
 import { Trash } from "grommet-icons"
 import "./DeleteItem.css"
 
+
 export const DeleteItem = ({ postId }) => {
+  console.log("deleteItemComponent");
   const { deletePost } = useContext(PostContext);
   const history = useHistory()
   
@@ -30,7 +32,7 @@ export const DeleteItem = ({ postId }) => {
 
   return (
     <>
-      <Button icon={<Trash />} onClick={onOpen} />
+      {/* <Button icon={<Trash />} onClick={onOpen} /> */}
       {open && (
         <div className={showHideClassName}>
           <div className="modal-main">

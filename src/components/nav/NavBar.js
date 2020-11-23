@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { UserContext } from "../Profiles/UserProvider"
-import Logo from "./rare.jpeg"
+import Logo from "../nav/RareStampLogo2.svg"
 import "./NavBar.css"
 
 export const NavBar = () => {

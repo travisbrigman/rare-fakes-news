@@ -2,11 +2,12 @@
 lets user edit post if they are the author, or see author's profile if it was written by another user */
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { PostContext } from "./PostProvider";
+import { DeleteItemContext } from "../utils/DeleteItem"
 import { ReactionList } from "../Reactions/ReactionList";
 import { Link } from "react-router-dom";
 import { DeleteTagItem } from "../utils/DeleteTagItem";
-import { Button, Box } from "grommet"
-import { Edit, Trash} from "grommet-icons"
+import { Button, Box, Heading, Image, Text, Menu } from "grommet"
+import { Edit, More, Trash} from "grommet-icons"
 import { TagPostContext } from "../Tags/TagPostProvider";
 import { TagContext } from "../Tags/TagProvider";
 import { DeleteItem } from "../utils/DeleteItem";
@@ -58,73 +59,98 @@ export const PostDetails = (props) => {
     stateCopyID.push(newTagItem)
     //IDs of tags to be added get stored in this variable
     setTagIDArr(stateCopyID)
+
   }
+      const deletePost = () => {
+        console.log("deletePost");
+        return <DeleteItem postId={post.id}/>
+      }
 
   return (
     <>
       {/* Post Detail JSX */}
-      <section className="container__card">
-        <section className="container__cardContent">  
-          <section className="container__cardContentLeft"></section>        
-          <h3 className="post__title">{post.title}</h3>
+      <Box className="container__card">
+        <Box className="container__cardContent">  
+          <Heading level="3" className="post__title">{post.title}</Heading>
+          {post.created_by_current_user ? 
+          (
+            <Box width="xsmall">
+          <Menu
+              icon={<More />}
+              hoverIndicator
+              items={[ 
+                {
+                icon: <Box><Edit/></Box>,
+                onClick: () => props.history.push(`/posts/edit/${post.id}`),
+                },
+                {
+                  icon: <Box><Trash/></Box>,
+                  onClick: () => deletePost()
+                } 
+              ]}
+            />
+            </Box>
+          ) : null
+            }
 
-          {post.category==null? "" :<p>{post.category.label}</p>}
+          {post.category==null? "" :<Text>{post.category.label}</Text>}
 
 
           {/* if current user wrote the post, show an edit button */}
           {post.created_by_current_user 
           ? (
-            <section className="container__cardContentTop">              
+            <Box direction="row-responsive" className="container__cardContentTop">              
                 <Button icon={<Edit />} onClick={() => props.history.push(`/posts/edit/${post.id}`)}/>
                
 
                 {post.created_by_current_user ? <DeleteItem postId= {post.id}/> : <></>}
-              </section>
+              </Box>
           )
           : (``)
         }
+
           
-          <img className="post__image" src={post.image_url} style={{width: `500px`}} alt="article"></img>
+          <Image className="post__image" src={post.image_url} style={{width: `500px`}} alt="article"></Image>
           <ReactionList {...props} />{/*Renders ReactionList*/}
-          <div className="post__content">{post.content}</div>
-          <div key={post.id} className="post_date">
+          <Text className="post__content">{post.content}</Text>
+          <Text key={post.id} className="post_date">
             Published: {new Date(post.publication_date).toLocaleDateString("en-US")}
-          </div>
+          </Text>
 
           {/* If current user did not write the post, show the author name with a link to their profile*/}
-          <div>
+          <Box>
             {post.created_by_current_user 
             ? (
-              <section className="container__cardContentBottom">
-                <div className="post_author">
+              <Box className="container__cardContentBottom">
+                <Text className="post_author">
                   By: {post.user.user.first_name} (you)
-                </div>
-              </section>
+                </Text>
+              </Box>
             ) 
             : (
-            <section className="container__cardContentBottom">
-                <div className="post_author">
+            <Box className="container__cardContentBottom">
+                <Text className="post_author">
                   {"By: "} 
                   <Link to={{ pathname: `/profiles/${post.user.id}` }}>
                       {post.user.user.first_name}
                   </Link>
-                </div>
+                </Text>
                 
-            </section>
+            </Box>
             )
             }
-          </div>
-        </section>
+          </Box>
+        </Box>
 
-        <section className="container__cardContentRight">          
-          <div>
+        <Box className="container__cardContentRight">          
+          <Box>
             {postTags.map((postTag) => {
-              return  postTag.tag.label ? <div className="displayedTag"># {postTag.tag.label}</div>  : null              
+              return  postTag.tag.label ? <Text className="displayedTag"># {postTag.tag.label}</Text>  : null              
             })}
-          </div>
-        </section>
+          </Box>
+        </Box>
 
-      </section>
+      </Box>
     </>
   );
 };
