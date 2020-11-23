@@ -21,6 +21,7 @@ import { SubscriptionProvider } from "./Subscriptions/SubscriptionProvider"
 import { AdminAllPosts } from "./Posts/AdminAllPosts";
 import { UsersList } from "./Profiles/UsersList";
 import { UsersTable } from "./Profiles/UsersTable";
+import { DeleteItem } from "./utils/DeleteItem";
 
 export const ApplicationViews = (props) => {
   return (

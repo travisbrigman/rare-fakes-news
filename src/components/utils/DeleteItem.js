@@ -5,13 +5,14 @@ import { PostContext } from "../Posts/PostProvider";
 import { Box, Button, Heading, Layer, Text } from "grommet"
 import { Trash } from "grommet-icons"
 
-export const DeleteItem = ({ postId }) => {
+
+export const DeleteItem = ({ onOpen, postId }) => {
+  console.log("deleteItemComponent");
   const { deletePost } = useContext(PostContext);
   const history = useHistory()
-  
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
-  const onOpen = () => setOpen(true);
+  // const onOpen = () => setOpen(true);
   const onClose = () => setOpen(undefined);
 
   //function that is called when the delete button is clicked. 
@@ -26,7 +27,7 @@ export const DeleteItem = ({ postId }) => {
 
   return (
     <>
-      <Button icon={<Trash />} onClick={onOpen} />
+      {/* <Button icon={<Trash />} onClick={onOpen} /> */}
       {open && (
         <Layer onEsc={onClose} onClickOutside={onClose} responsive={true} position="center">
           <Box  margin="xsmall">
