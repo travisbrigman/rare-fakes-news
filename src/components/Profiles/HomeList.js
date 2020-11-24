@@ -142,7 +142,7 @@ export const HomeList = (props) => {
       </Box>
           <Box width="small" margin="small">{clearFilterButton()}</Box>
 
-      <h1 style={{ margin: "2rem 0rem 2rem 0rem" }}>Dashboard</h1>
+      {/* <h1 style={{ margin: "2rem 0rem 2rem 0rem" }}>Dashboard</h1> */}
       <PostList arrOfPosts={arrOfPosts} />
     </>
   );

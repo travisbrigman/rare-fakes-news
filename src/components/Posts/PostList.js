@@ -18,7 +18,7 @@ import TimeAgo from "timeago-react";
 export const PostList = ({ arrOfPosts }) => {
   return (
     <>
-      <Heading level="2">Posts</Heading>
+      <Heading level="1">All Posts</Heading>
       <Button
         primary
         icon={<Edit />}

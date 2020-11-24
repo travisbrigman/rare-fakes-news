@@ -15,15 +15,15 @@ export const theme = {
         },
         "background-back": {
           "dark": "#111111",
-          "light": "#FAFAFA"
+          "light": "#FAFAFA"  //not used? 
         },
         "background-front": {
           "dark": "#222222",
-          "light": "#D9D9D9"
-        },
+          "light": "#D9D9D9" // not used; apply to table background? 
+        },                   // consider steel blue greys: #EDF2F4 (lighter) or #DCE5EA (darker)...and greys: #D9D9D9 (original), #EDEDED (lighter), #E1E1E1 (darker)
         "background-contrast": {
           "dark": "#FFFFFF11",
-          "light": "#E7E7E7"
+          "light": "#ECECEC" // HomeList footer (author)
         },
         "text": {
           "dark": "#EEEEEE",
@@ -49,8 +49,8 @@ export const theme = {
         "active-background": "background-contrast",
         "active-text": "text-strong",
         "selected-background": {
-          "light": "#CAD8DF",
-          "dark": "focus"
+          "light": "background-contrast",
+          "dark": "background-contrast"
         },
         "selected-text": {
           "light": "text",

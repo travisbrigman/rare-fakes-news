@@ -24,7 +24,7 @@ export const TagList = ({ props }) => {
   return (
     <Box className="tag_container">
       <Heading level="1" className="heading">
-        Tags
+        Tag
       </Heading>
       <Box direction="row-responsive" margin="small">
         <List data={tags}>
