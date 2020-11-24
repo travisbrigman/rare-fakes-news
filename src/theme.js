@@ -10,7 +10,7 @@ export const theme = {
           "light": "#3A5A40"
         },
         "background": {
-          "dark": "#cce3de",
+          "dark": "#353535",
           "light": "#FAFAFA"
         },
         "background-back": {
@@ -48,8 +48,14 @@ export const theme = {
         "control": "brand",
         "active-background": "background-contrast",
         "active-text": "text-strong",
-        "selected-background": "status-warning",
-        "selected-text": "status-critical",
+        "selected-background": {
+          "light": "#CAD8DF",
+          "dark": "focus"
+        },
+        "selected-text": {
+          "light": "text",
+          "dark": "text"
+        },
         "status-critical": "#FF4040",
         "status-warning": "#FFAA15",
         "status-ok": "#999999",
