@@ -27,14 +27,16 @@ export const TagList = ({ props }) => {
         Tags
       </Heading>
       <Box direction="row-responsive" margin="small">
+        <Box background="background-contrast" elevation="large">
         <List data={tags}>
           {(datum) => (
-            <Box direction="row-responsive" gap="medium" align="center">
+            <Box direction="row-responsive" gap="medium" align="center" >
               <Text weight="bold">#</Text>
               <Text weight="bold">{datum.label}</Text>
             </Box>
           )}
         </List>
+        </Box>
         <Box>
           {tags.map((tag) => {
             return (

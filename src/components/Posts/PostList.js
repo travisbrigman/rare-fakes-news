@@ -17,8 +17,9 @@ import TimeAgo from "timeago-react";
 
 export const PostList = ({ arrOfPosts }) => {
   return (
-    <>
+    <Box margin={{"left":"medium"}} elevation="small" pad="medium">
       <Heading level="2">Posts</Heading>
+      <Box width="60%">
       <Button
         primary
         icon={<Edit />}
@@ -27,6 +28,7 @@ export const PostList = ({ arrOfPosts }) => {
         label="Create Post"
         margin="small"
       />
+      </Box>
       {arrOfPosts !== []
         ? arrOfPosts
             .map((p) => {
@@ -70,6 +72,6 @@ export const PostList = ({ arrOfPosts }) => {
             })
             .reverse()
         : null}
-    </>
+    </Box>
   );
 };

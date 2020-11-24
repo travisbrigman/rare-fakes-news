@@ -95,7 +95,7 @@ export const HomeList = (props) => {
           direction="column"
           margin="small"
           pad="xsmall"
-          round="xsmall"
+          elevation="small"
         >
           <Heading level="4">Filter by Category</Heading>
           {categories.map((category) => {
@@ -119,7 +119,7 @@ export const HomeList = (props) => {
           direction="column"
           margin="small"
           pad="xsmall"
-          round="xsmall"
+          elevation="small"
         >
           <Heading level="4">Filter by Tag</Heading>
           {tags.map((tag) => {
@@ -143,7 +143,7 @@ export const HomeList = (props) => {
           direction="column"
           margin="small"
           pad="xsmall"
-          round="xsmall"
+          elevation="small"
         >
           <Heading level="4">Filter by User</Heading>
           {users.map((user) => {

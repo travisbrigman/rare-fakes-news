@@ -42,7 +42,8 @@ export const AdminAllPosts = () => {
 
   return (
     <>
-      <Box align="center" pad="medium">
+      <Box align="center" elevation="large">
+        
         <DataTable
           background="background-contrast"
           columns={[
@@ -73,7 +74,7 @@ export const AdminAllPosts = () => {
           size="medium"
         />
       </Box>
-    <Button primary label="Approve"icon={<Compliance/>} onClick={() => {approvedChecked()}} />
+    <Button primary label="Approve"icon={<Compliance/>} onClick={() => {approvedChecked()}} margin="small" />
     </>
   );
 };

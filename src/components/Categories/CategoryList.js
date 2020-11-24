@@ -32,7 +32,9 @@ export const CategoryList = (props) => {
       <Heading level="1">Categories</Heading>
 
       <Box className="categoryList" direction="row">
+        <Box background="background-contrast" elevation="small">
         <List data={categories} primaryKey="label" />
+        </Box>
         <Box>
           {categories.map((categoryObject) => {
             return (
