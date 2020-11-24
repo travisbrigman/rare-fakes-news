@@ -1,8 +1,9 @@
 // import React, { useContext, useEffect } from "react"
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "./PostProvider";
-import { Grommet, Box, DataTable, CheckBox, Button } from 'grommet';
+import { Grommet, Box, DataTable, CheckBox, Button, Heading } from 'grommet';
 import { Compliance } from "grommet-icons"
+
 
 import { columns } from './Columns';
 import { TagPostContext } from "../Tags/TagPostProvider";
@@ -42,8 +43,8 @@ export const AdminAllPosts = () => {
 
   return (
     <>
-      <Box align="center" elevation="large">
-        
+      <Heading level="1">Manage Posts</Heading>
+      <Box align="center" pad="medium"elevation="large">
         <DataTable
           background="background-contrast"
           columns={[

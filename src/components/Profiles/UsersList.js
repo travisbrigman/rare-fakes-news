@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { UserContext } from "./UserProvider"
 import "./UsersList.css"
 import { UsersTable } from "./UsersTable"
+import { Heading } from "grommet"
+
 
 
 export const UsersList = () => {
@@ -17,7 +19,7 @@ export const UsersList = () => {
 
     return (
         <>
-            <h1>All Users</h1>
+            <Heading level="1">All Users</Heading>
             { //DETERMINE VIEW BASED ON ADMIN/AUTHOR PRIVILEGES
                 user.user.is_staff ?
                     <div>

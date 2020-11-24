@@ -37,7 +37,7 @@ export const NavBar = () => {
             
             {
                 (localStorage.getItem("rare_user_id") !== null) ?
-                        <Anchor as={Link} className="navbar__item__fakeLink"
+                        <Anchor color="text-weak" as={Link} className="navbar__item__fakeLink"
                             onClick={() => {
                                 localStorage.removeItem("rare_user_id")
                                 history.push({ pathname: "/" })

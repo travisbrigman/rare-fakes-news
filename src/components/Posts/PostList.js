@@ -18,7 +18,7 @@ import TimeAgo from "timeago-react";
 export const PostList = ({ arrOfPosts }) => {
   return (
     <Box margin={{"left":"medium"}}  pad="medium" >
-      <Heading level="2">Posts</Heading>
+      <Heading level="1">All Posts</Heading>
       <Box width="60%">
       <Button
         primary
@@ -51,14 +51,17 @@ export const PostList = ({ arrOfPosts }) => {
                       </CardHeader>
                     </Anchor>
                     <CardBody>
+                        <Box direction="row" align="baseline" justify="between">
+                        <Text>By: {p.user.user.first_name}</Text>
                       <Text size="xsmall" color="xweak">
                         <TimeAgo datetime={p.publication_date} />
                       </Text>
+                      </Box>
                       <Text size="small" truncate={true}>
                         {p.content}
                       </Text>
                     </CardBody>
-                    <CardFooter round="xsmall" pad="xsmall" gap="none">By: {p.user.user.first_name}</CardFooter>
+                    {/* <CardFooter round="xsmall" pad="xsmall" gap="none">By: {p.user.user.first_name}</CardFooter> */}
                     {p.category == null ? (
                       ""
                     ) : (
