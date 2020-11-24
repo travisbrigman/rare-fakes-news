@@ -21,18 +21,18 @@ export const NavBar = () => {
                 <Image alignSelf="center" src={Logo} />
                 <Box>
                     <Box margin={{bottom:"medium"}}>
-                <Heading size="1" margin={{bottom: "0"}}>Rare</Heading>
-                <Text weight="normal">For the Discerning...</Text>
+                <Heading color="text-weak" size="1" margin={{bottom: "0"}}>Rare</Heading>
+                <Text color="text-weak" weight="normal">For the Discerning...</Text>
                 </Box>
                 <Box direction="row-responsive" gap="small" align="baseline">
-                <Anchor as={Link} className="navbar__link" to="/home" label="Home"/>
-                <Anchor as={Link} className="navbar__link" to="/myposts" label="My Posts"/>
-                <Anchor as={Link} className="navbar__link" to="/profile"label="My Profile"/>
-                <Anchor as={Link} className="navbar__link" to="/users" label="All Users"/>
-                <Anchor as={Link} className="navbar__link" to="/tags" label="Tag Management"/>
-                <Anchor as={Link} className="navbar__link" to="/categories" label="Category Management"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/home" label="Home"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/myposts" label="My Posts"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/profile"label="My Profile"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/users" label="All Users"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/tags" label="Tag Management"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/categories" label="Category Management"/>
             {currentUser.user.is_staff ? 
-                <Anchor as={Link} className="navbar__link" to="/admin/posts" label="Post Management"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/admin/posts" label="Post Management"/>
              : null}
             
             {

@@ -17,7 +17,7 @@ import TimeAgo from "timeago-react";
 
 export const PostList = ({ arrOfPosts }) => {
   return (
-    <Box margin={{"left":"medium"}} elevation="small" pad="medium">
+    <Box margin={{"left":"medium"}}  pad="medium" >
       <Heading level="2">Posts</Heading>
       <Box width="60%">
       <Button

@@ -15,7 +15,7 @@ export const theme = {
       },
       "background-back": {
         dark: "#111111",
-        light: "#FAFAFA", //not used?
+        light: "#FAFAFA",
       },
       "background-front": {
         dark: "#222222",
@@ -23,7 +23,7 @@ export const theme = {
       },
       "background-contrast": {
         dark: "#FFFFFF11",
-        light: "#ECECEC", // HomeList footer (author)
+        light: "#F1F1F1", // HomeList footer (author)
       },
       text: {
         dark: "#EEEEEE",
