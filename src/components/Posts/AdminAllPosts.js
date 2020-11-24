@@ -44,7 +44,7 @@ export const AdminAllPosts = () => {
   return (
     <>
       <Heading level="1">Manage Posts</Heading>
-      <Box align="center" pad="medium"elevation="large">
+      <Box align="center" elevation="large">
         <DataTable
           background="background-contrast"
           columns={[

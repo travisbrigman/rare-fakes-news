@@ -172,7 +172,8 @@ export const theme = {
   heading: {
     font: {
       family: '"PT Serif"',
-    },
+    }
+  },
   
   anchor: {
     textDecoration: "none",
@@ -187,4 +188,4 @@ export const theme = {
     },
   },
 }
-}
+
