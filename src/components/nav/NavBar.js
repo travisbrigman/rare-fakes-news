@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { UserContext } from "../Profiles/UserProvider"
 import Logo from "../nav/RareStampLogo2.svg"
-import { Anchor, Image, Nav } from "grommet"
+import { Anchor, Box, Heading, Image, Nav, Text } from "grommet"
 
 export const NavBar = () => {
     const history = useHistory()
@@ -17,10 +17,14 @@ export const NavBar = () => {
     }, [])
 
     return (
-        <section className="container--navbar">            
         <Nav direction="row-responsive" background="brand" className="navbar" pad="small" align="baseline">
-                <Image className="navbar__logo" src={Logo} />
-
+                <Image alignSelf="center" src={Logo} />
+                <Box>
+                    <Box margin={{bottom:"medium"}}>
+                <Heading size="1" margin={{bottom: "0"}}>Rare</Heading>
+                <Text weight="normal">For the Discerning...</Text>
+                </Box>
+                <Box direction="row-responsive" gap="small" align="baseline">
                 <Anchor as={Link} className="navbar__link" to="/home" label="Home"/>
                 <Anchor as={Link} className="navbar__link" to="/myposts" label="My Posts"/>
                 <Anchor as={Link} className="navbar__link" to="/profile"label="My Profile"/>
@@ -44,7 +48,9 @@ export const NavBar = () => {
                             <Anchor as={Link} className="nav-link" to="/login" label="Login"/>
                             <Anchor as={Link} className="nav-link" to="/register" label="Register"/>
                     </>
-            }        </Nav>
-        </section>
+            }       
+            </Box> 
+            </Box>
+            </Nav>
     )
 }

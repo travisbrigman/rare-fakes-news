@@ -85,8 +85,8 @@ export const HomeList = (props) => {
 
   return (
     <>
-      <Box className="threeFilterContainer" direction="row-responsive">
-        <Box className="container--filters" direction="column" margin="small">
+      <Box className="threeFilterContainer" direction="row-responsive" justify="center">
+        <Box background="background-contrast" direction="column" margin="small" pad="xsmall" round="xsmall">
           <Heading level="4">Filter by Category</Heading>
           {categories.map((category) => {
             return (
@@ -104,7 +104,7 @@ export const HomeList = (props) => {
           })}
         </Box>
 
-        <Box className="container--filters" direction="column" margin="small">
+        <Box background="background-contrast" direction="column" margin="small" pad="xsmall" round="xsmall">
           <Heading level="4">Filter by Tag</Heading>
           {tags.map((tag) => {
             return (
@@ -122,7 +122,7 @@ export const HomeList = (props) => {
           })}
         </Box>
 
-        <Box className="container--filters" direction="column" margin="small">
+        <Box background="background-contrast" direction="column" margin="small" pad="xsmall" round="xsmall">
           <Heading level="4">Filter by User</Heading>
           {users.map((user) => {
             return (
@@ -139,10 +139,9 @@ export const HomeList = (props) => {
             );
           })}
         </Box>
-      </Box>
           <Box width="small" margin="small">{clearFilterButton()}</Box>
+      </Box>
 
-      <h1 style={{ margin: "2rem 0rem 2rem 0rem" }}>Dashboard</h1>
       <PostList arrOfPosts={arrOfPosts} />
     </>
   );

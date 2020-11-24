@@ -6,14 +6,9 @@ import { Box, Button, Heading, Layer, Text } from "grommet"
 import { Trash } from "grommet-icons"
 
 
-export const DeleteItem = ({ onOpen, postId }) => {
-  console.log("deleteItemComponent");
+export const DeleteItem = ({ open, onClose, postId }) => {
   const { deletePost } = useContext(PostContext);
   const history = useHistory()
-  //state variable and functions that change state of the state variable
-  const [open, setOpen] = useState();
-  // const onOpen = () => setOpen(true);
-  const onClose = () => setOpen(undefined);
 
   //function that is called when the delete button is clicked. 
   //This function deletes an entry in the Post table.

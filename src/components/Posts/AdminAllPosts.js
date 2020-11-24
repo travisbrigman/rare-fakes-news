@@ -42,9 +42,9 @@ export const AdminAllPosts = () => {
 
   return (
     <>
-    <Grommet >
       <Box align="center" pad="medium">
         <DataTable
+          background="background-contrast"
           columns={[
             {
               property: 'checkbox',
@@ -73,8 +73,7 @@ export const AdminAllPosts = () => {
           size="medium"
         />
       </Box>
-    </Grommet>
-    <Button icon={<Compliance/>} onClick={() => {approvedChecked()}} />
+    <Button primary label="Approve"icon={<Compliance/>} onClick={() => {approvedChecked()}} />
     </>
   );
 };

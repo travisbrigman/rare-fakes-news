@@ -209,6 +209,7 @@ export const PostForm = (props) => {
                 id={categories.id}
                 name="category_id"
                 placeholder="Categories"
+                value={postObj.category_id}
                 labelKey="label"
                 valueKey={{ key: "id", reduce: true }}
                 options={categories}

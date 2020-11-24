@@ -18,6 +18,11 @@ export const PostDetails = (props) => {
   const { tag, tags, getTags } = useContext(TagContext);
   const { TagPosts } = useContext(TagPostContext);
 
+    //state variable and functions that change state of the state variable
+    const [open, setOpen] = useState();
+    const onOpen = () => setOpen(true);
+    const onClose = () => setOpen(undefined);
+
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
   const [filteredTags, setFilteredTags] = useState([]);
@@ -46,7 +51,7 @@ export const PostDetails = (props) => {
   }, [postTags]);
 
   //state variable and functions to show/hide the tag management feature
-  const [open, setOpen] = useState();
+  // const [open, setOpen] = useState();
 
   //takes what is selected in the tag management dropdown and sets the state variable with that value
   const handleChange = (e) => {
@@ -61,15 +66,10 @@ export const PostDetails = (props) => {
     setTagIDArr(stateCopyID);
   };
 
-  const onOpen = () => setOpen(true);
-
-  const deletePost = () => {
-    console.log("deletePost");
-    return <DeleteItem onOpen={onOpen} postId={post.id} />;
-  };
 
   return (
     <>
+    <DeleteItem open={open} onClose={onClose}/>
       {/* Post Detail JSX */}
       <Box className="container__card">
         <Box className="container__cardContent">
@@ -100,7 +100,7 @@ export const PostDetails = (props) => {
                           <Trash />
                         </Box>
                       ),
-                      onClick: () => deletePost(),
+                      onClick: () => onOpen(),
                     },
                   ]}
                 />
