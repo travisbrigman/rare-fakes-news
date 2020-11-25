@@ -1,6 +1,7 @@
 import React from "react"
-import { Favorite, Help, Info, Like, Trophy } from "grommet-icons"
+import { Favorite, Info, Like } from "grommet-icons"
 import { MyIcon } from "../utils/MyIcon"
+import { Questioning } from "../utils/Questioning"
 
 export const reactionIcons = [
     {
@@ -16,7 +17,7 @@ export const reactionIcons = [
     {
         "id": 3,
         "label": "curious",
-        "image_url": <Help/>
+        "image_url": <Questioning/>
     },
     {
         "id": 4,
@@ -26,6 +27,6 @@ export const reactionIcons = [
     {
         "id": 5,
         "label": "celebrate",
-        "image_url": <Trophy/>
+        "image_url": <MyIcon/>
     }
 ]
