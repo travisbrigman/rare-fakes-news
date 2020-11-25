@@ -1,78 +1,54 @@
-import React, { useContext, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { UserContext } from "./UserProvider"
-import "./UsersList.css"
-import { UsersTable } from "./UsersTable"
-import { Heading } from "grommet"
-
-
+import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { UserContext } from "./UserProvider";
+import "./UsersList.css";
+import { UsersTable } from "./UsersTable";
+import { Anchor, Box, Heading, List, Text } from "grommet";
 
 export const UsersList = () => {
-    const { users, getUsers, user, getCurrentUser, setUser } = useContext(UserContext)
-
-    useEffect(() => {
-        getUsers()
-        getCurrentUser()
-            .then(setUser)
-    }, [])
+  const { users, getUsers, user, getCurrentUser, setUser } = useContext(
+    UserContext
+  );
 
 
-    return (
-        <>
-            <Heading level="1">All Users</Heading>
-            { //DETERMINE VIEW BASED ON ADMIN/AUTHOR PRIVILEGES
-                user.user.is_staff ?
-                    <div>
-                        <UsersTable users={users}/>
-                        {/* VIEW FOR STAFF
-                        {  //map through users to generate content 
-                            users.map(u => {
-                                return <div className="userContainer">
-                                    <div className="nameColumn">
-                                    { //different route for current user than other users
-                                        u.id === user.id ?
-                                        <Link to={{ pathname: "/profile" }}>
-                                                <p>{u.user.first_name} {u.user.last_name}</p>
-                                            </Link> :
-                                            <Link to={{ pathname: `/profiles/${u.id}` }}>
-                                                <p>{u.user.first_name} {u.user.last_name}</p>
-                                            </Link>
-                                    }
-                                    </div>
-                                    <div className="activeColumn"> 
-                                    Active:
-                                        {//check for active yes or no
-                                            u.user.is_active ? <p>✅</p> : <p>❎</p>
-                                        }
-                                    </div>
-                                    <div className="staffColumn">
-                                        {//check for author/admin
-                                            u.user.is_staff ? <p>admin</p> : <p>author</p>
-                                        }
-                                    </div>
-                                </div>
-                            })
-                        } */}
-                    </div> :
-                    <div>
-                        {/* VIEW FOR AUTHORS */}
-                        { /* map through users to generate content */
-                            users.map(u => {
-                                return <div className="userContainer">
-                                    { //different route for current user than other users
-                                        u.id === user.id ?
-                                            <Link to={{ pathname: "/profile" }}>
-                                                <p>{u.user.first_name} {u.user.last_name}</p>
-                                            </Link> :
-                                            <Link to={{ pathname: `/profiles/${u.id}` }}>
-                                                <p>{u.user.first_name} {u.user.last_name}</p>
-                                            </Link>
-                                    }
-                                </div>
-                            })
-                        }
-                    </div>
-            }
-        </>
-    )
-}
+  useEffect(() => {
+    getUsers();
+    getCurrentUser().then(setUser);
+  }, []);
+  return (
+    <>
+      <Heading level="1">All Users</Heading>
+      {
+        //DETERMINE VIEW BASED ON ADMIN/AUTHOR PRIVILEGES
+        user.user.is_staff ? (
+          <div>
+            <UsersTable users={users} />
+          </div>
+        ) : (
+          <Box background="background-contrast" elevation="large">
+            {/* VIEW FOR AUTHORS */}
+            <List
+              data={users}
+              primaryKey={(item) =>
+                item.id !== user.id ? (
+                  <Anchor
+                    color="text"
+                    as={Link}
+                    to={{ pathname: `/profiles/${item.id}` }}
+                  >
+                    {item.user.first_name} {item.user.last_name}
+                  </Anchor>
+                ) : (
+                  <Anchor color="text" as={Link} to={{ pathname: "/profile" }}>
+                    {item.user.first_name} {item.user.last_name}
+                  </Anchor>
+                )
+              }
+            />
+
+          </Box>
+        )
+      }
+    </>
+  );
+};
