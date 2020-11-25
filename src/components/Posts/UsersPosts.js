@@ -24,6 +24,7 @@ export const UsersPosts = () => {
   return (
     <>
       <Heading level="1">My Posts</Heading>
+      {usersPosts.length===0 && ("You Haven't Written any Posts Yet")}
       {usersPosts.map((p) => {
         return (
           <Box key={p.id} width="medium" >

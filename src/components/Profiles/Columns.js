@@ -1,3 +1,6 @@
+import React from 'react'
+import { Checkmark, Close } from "grommet-icons";
+
 export const columns = [
     {
         property: 'user.first_name',
@@ -14,7 +17,7 @@ export const columns = [
     {
         property: 'user.is_active',
         header: 'In/Active',
-        render: datum => datum.user.is_active ? "✅" : "❎"
+        render: datum => datum.user.is_active ? <Checkmark color="brand"/> : <Close />
     },
     {
         property: 'user.is_staff',

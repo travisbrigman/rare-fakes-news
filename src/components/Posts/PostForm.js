@@ -154,8 +154,6 @@ export const PostForm = (props) => {
     }
   };
 
-  console.log(postObj);
-
   return (
     <>
       {editMode ? (
@@ -165,8 +163,8 @@ export const PostForm = (props) => {
       )}
 
       <Form>
-        <Box width="medium">
-          <FormField>
+        <Box width="medium" background="background-contrast" elevation="xsmall" margin="xsmall">
+          <FormField margin="xsmall">
             <TextInput
               type="text"
               name="title"
@@ -177,8 +175,8 @@ export const PostForm = (props) => {
             ></TextInput>
           </FormField>
         </Box>
-        <Box width="large">
-          <FormField>
+        <Box width="large" background="background-contrast" elevation="xsmall" margin="xsmall">
+          <FormField margin="xsmall">
             <TextInput
               type="text"
               name="image_url"
@@ -189,8 +187,8 @@ export const PostForm = (props) => {
             ></TextInput>
           </FormField>
         </Box>
-        <Box width="xlarge" height="medium">
-          <FormField contentProps={{ width: "xlarge", height: "medium" }}>
+        <Box width="xlarge" height="medium" background="background-contrast" elevation="xsmall" margin="xsmall">
+          <FormField contentProps={{ width: "xlarge", height: "medium" }} margin="xsmall">
             <TextArea
               fill="true"
               type="text"
@@ -202,7 +200,7 @@ export const PostForm = (props) => {
             ></TextArea>
           </FormField>
         </Box>
-        <Box name="categoriesAndTags" direction="row-responsive">
+        <Box name="categoriesAndTags" direction="row-responsive" background="background-contrast" elevation="xsmall" margin="xsmall">
           <Box margin="small" width="small" basis="1/3">
             <FormField>
               <Select

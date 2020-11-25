@@ -5,7 +5,7 @@ import { PostContext } from "./PostProvider";
 import { DeleteItemContext } from "../utils/DeleteItem";
 import { ReactionList } from "../Reactions/ReactionList";
 import { Link } from "react-router-dom";
-import { Button, Box, Heading, Image, Text, Menu } from "grommet";
+import { Button, Box, Heading, Image, Text, Menu, Anchor } from "grommet";
 import { Edit, More, Trash } from "grommet-icons";
 import { TagPostContext } from "../Tags/TagPostProvider";
 import { TagContext } from "../Tags/TagProvider";
@@ -159,14 +159,15 @@ export const PostDetails = (props) => {
               ) : (
                 <Text
                   size="small"
-                  color="weak"
+                  color="text-weak"
                   margin="small"
                   className="post_author"
                 >
                   {"By: "}
-                  <Link to={{ pathname: `/profiles/${post.user.id}` }}>
+                  <Anchor color="text-weak" as={Link} label={post.user.user.first_name} to={{ pathname: `/profiles/${post.user.id}` }}/>
+                  {/* <Link to={{ pathname: `/profiles/${post.user.id}` }}>
                     {post.user.user.first_name}
-                  </Link>
+                  </Link> */}
                 </Text>
               )}
             </Box>

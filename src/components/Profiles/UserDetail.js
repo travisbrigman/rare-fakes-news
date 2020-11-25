@@ -4,6 +4,7 @@ import { UserContext } from "./UserProvider"
 import defaultImg from "./Images/default.png"
 import { Button, Box, Heading, Text, Avatar } from "grommet"
 import { SubscriptionContext } from "../Subscriptions/SubscriptionProvider"
+import { SubscriptionModal } from "./SubscriptionModal"
 
 
 
@@ -14,6 +15,11 @@ export const UserDetail = (props) => {
     const [subscription, setSubscription] = useState({})
     const [subscriptions, setSubscriptions] = useState([])
     const [subStatus, setSubStatus] = useState(false) //subscription state set to false
+
+        //state variable and functions that change state of the state variable
+        const [open, setOpen] = useState();
+        const onOpen = () => setOpen(true);
+        const onClose = () => setOpen(undefined);
 
     useEffect(() => {
         if (props.match.params.hasOwnProperty("userId")) {
@@ -49,16 +55,19 @@ export const UserDetail = (props) => {
         if(subscription.ended_on === null) { //if end === null, user is still subscribed and can unsubscribe
             unsubscribe(authorID)
             .then(() => {
-                window.alert("You are now UNsubscribed!")
-                props.history.push('/home')
+                
+                onOpen()
+                // window.alert("You are now UNsubscribed!")
+                // props.history.push('/home')
             })
         } else {
             createSubscription({ //user can create a subscription
                 author_id: authorID
             })
             .then(() => {
-                window.alert("You are now subscribed!")
-                props.history.push('/home')
+                onOpen()
+                // window.alert("You are now subscribed!")
+                // props.history.push('/home')
             })
         }
     }
@@ -66,6 +75,7 @@ export const UserDetail = (props) => {
    
     return (
         <>
+        <SubscriptionModal open={open} onClose={onClose} subStatus={subStatus}/>
             <Box>
                 {props.match.params.hasOwnProperty("userId") ?
                     <Heading level="1">{user.user.username}'s Profile</Heading> :<Box>
