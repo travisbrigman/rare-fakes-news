@@ -146,7 +146,6 @@ export const PostForm = (props) => {
           ); //push any newly created tags to promises array
         });
 
-        console.log("tagPostPromises", tagPostPromises);
         Promise.all(tagPostPromises).then(() => {
           props.history.push(`/posts/${postObj.id}`);
         });

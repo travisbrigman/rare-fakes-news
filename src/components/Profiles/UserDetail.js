@@ -72,7 +72,6 @@ export const UserDetail = (props) => {
         }
     }
 
-   
     return (
         <>
         <SubscriptionModal open={open} onClose={onClose} subStatus={subStatus}/>

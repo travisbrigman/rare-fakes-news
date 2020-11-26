@@ -14,7 +14,6 @@ export const UsersTable = () => {
 
 
 
-console.log(users)
   return (
     <>
       <Box align="center"  elevation="large">
