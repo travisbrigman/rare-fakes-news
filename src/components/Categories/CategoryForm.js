@@ -1,8 +1,7 @@
 //Form to let user create a new category
 import React, { useEffect, useContext, useState, useHistory } from "react";
 import { CategoryContext } from "./CategoryProvider";
-import { Button, Box } from "grommet"
-import "../utils/CategoryForm.css";
+import { Button, Box, Text, TextInput, Heading, Layer } from "grommet"
 
 
 export const CategoryForm = (props) => {
@@ -46,25 +45,31 @@ export const CategoryForm = (props) => {
 
   return (
 
-    <fieldset>
-      <label htmlFor="label">
-        <div className="label">Category</div>
-        <input
+    <Box align="center" alignContent="center">
+      <Box htmlFor="label">
+        <Heading level="2" className="label">Category</Heading>
+        <Box margin="small">
+        <TextInput
           type="text"
           name="label"
           value={currentCategory.label}
           onChange={handleChange}
         />
-      </label>
+        </Box>
       {editMode ? <Button primary margin="small" label="EDIT" className="new_category_btn" onClick={onOpen}/> : ""}
+      </Box>
 
       {open && (
 
-        <div className={showHideClassName}>
-          <div className="modal-main">
-            <h3>Confirm</h3>
-            <p>Are you sure you want to make these changes?</p>
-            <div>
+        <Layer onEsc={onClose}
+        onClickOutside={onClose}
+        responsive={true}
+        position="center"
+        >
+          <Box width="medium" size="small" margin="small">
+            <Heading level="3">Confirm</Heading>
+            <Text>Are you sure you want to make these changes?</Text>
+            <Box size="small" direction="row-responsive">
               <Button primary label="Edit" onClick={() => {
                 editCategory({
                   id: props.match.params.categoryId,
@@ -72,12 +77,14 @@ export const CategoryForm = (props) => {
                 }).then(() => {
                   props.history.push("/categories")
                 })
-              }}/>
+              }}
+              margin="small"
+              />
            
               <Button margin="small" secondary label="Cancel" onClick={onClose}/>
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Layer>
 
 
       )}
@@ -94,7 +101,7 @@ export const CategoryForm = (props) => {
          
         />
       }
-    </fieldset>
+    </Box>
 
   );
 };

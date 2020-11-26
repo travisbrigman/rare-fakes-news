@@ -2,7 +2,9 @@
 import React, { useContext, useEffect } from "react"
 import { ReactionContext } from "./ReactionProvider"
 import { Reaction } from "./Reaction"
+import { reactionIcons } from "./ReactionIcons"
 import "./Reaction.css"
+import { Box } from "grommet"
 
 
 export const ReactionList = (props) => {
@@ -14,12 +16,12 @@ export const ReactionList = (props) => {
     }, [])
 
     return (
-        <div style={{ margin: "1rem" }} className="reactionContainer">
-            <div className="reactions">
+        <Box margin="small"  className="reactionContainer">
+            <Box gap="small" direction="row-responsive" className="reactions">
                 { //map through the reactions and pass the reaction obj and props down to the child component
-                    reactions.map(reaction => <Reaction key={reaction.id} {...props} reaction={reaction} />)
+                    reactionIcons.map(reaction => <Reaction key={reaction.id} {...props} reaction={reaction} />)
                 }
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }

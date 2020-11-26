@@ -2,8 +2,8 @@
 import React, { useContext, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 import { UserContext } from "../Profiles/UserProvider"
-import Logo from "./rare.jpeg"
-import "./NavBar.css"
+import Logo from "../nav/RareStampLogo2.svg"
+import { Anchor, Box, Heading, Image, Nav, Text } from "grommet"
 
 export const NavBar = () => {
     const history = useHistory()
@@ -17,54 +17,40 @@ export const NavBar = () => {
     }, [])
 
     return (
-        <section className="container--navbar">            
-        <ul className="navbar">
-            <li className="navbar__item">
-                <img className="navbar__logo" src={Logo} />
-            </li>
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/home">Home</Link>
-            </li>
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/myposts">My Posts</Link>
-            </li>
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/profile">My Profile</Link>
-            </li>
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/users">All Users</Link>
-            </li >
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/tags">Tag Management</Link>
-            </li>
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/categories">Category Management</Link>
-            </li >
+        <Nav direction="row-responsive" background="brand" className="navbar" pad="small" align="baseline">
+                <Image alignSelf="center" src={Logo} />
+                <Box>
+                    <Box margin={{bottom:"medium"}}>
+                <Heading color="text-weak" size="1" margin={{bottom: "0"}}>Rare</Heading>
+                <Text color="text-weak" weight="normal">For the Discerning...</Text>
+                </Box>
+                <Box direction="row-responsive" gap="small" align="baseline">
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/home" label="Home"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/myposts" label="My Posts"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/profile"label="My Profile"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/users" label="All Users"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/tags" label="Tag Management"/>
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/categories" label="Category Management"/>
             {currentUser.user.is_staff ? 
-            <li className="navbar__item">
-                <Link className="navbar__link" to="/admin/posts">Post Management</Link>
-            </li >
+                <Anchor color="text-weak" as={Link} className="navbar__link" to="/admin/posts" label="Post Management"/>
              : null}
             
             {
                 (localStorage.getItem("rare_user_id") !== null) ?
-                    <li className="navbar__item">
-                        <Link className="navbar__item__fakeLink"
+                        <Anchor color="text-weak" as={Link} className="navbar__item__fakeLink"
                             onClick={() => {
                                 localStorage.removeItem("rare_user_id")
                                 history.push({ pathname: "/" })
                             }}
-                        >Logout</Link>
-                    </li> :
+                        label="Logout"/>
+                     :
                     <>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register">Register</Link>
-                        </li>
+                            <Anchor as={Link} className="nav-link" to="/login" label="Login"/>
+                            <Anchor as={Link} className="nav-link" to="/register" label="Register"/>
                     </>
-            }        </ul>
-        </section>
+            }       
+            </Box> 
+            </Box>
+            </Nav>
     )
 }

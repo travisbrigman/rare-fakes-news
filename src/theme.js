@@ -10,20 +10,20 @@ export const theme = {
           "light": "#3A5A40"
         },
         "background": {
-          "dark": "#cce3de",
+          "dark": "#353535",
           "light": "#FAFAFA"
         },
         "background-back": {
           "dark": "#111111",
-          "light": "#FAFAFA"
+          "light": "#FAFAFA"  //not used? 
         },
         "background-front": {
           "dark": "#222222",
-          "light": "#D9D9D9"
-        },
+          "light": "#D9D9D9" // not used; apply to table background? 
+        },                   // consider steel blue greys: #EDF2F4 (lighter) or #DCE5EA (darker)...and greys: #D9D9D9 (original), #EDEDED (lighter), #E1E1E1 (darker)
         "background-contrast": {
           "dark": "#FFFFFF11",
-          "light": "#E7E7E7"
+          "light": "#ECECEC" // HomeList footer (author)
         },
         "text": {
           "dark": "#EEEEEE",
@@ -48,11 +48,17 @@ export const theme = {
         "control": "brand",
         "active-background": "background-contrast",
         "active-text": "text-strong",
-        "selected-background": "status-warning",
-        "selected-text": "status-critical",
+        "selected-background": {
+          "light": "background-contrast",
+          "dark": "background-contrast"
+        },
+        "selected-text": {
+          "light": "text",
+          "dark": "text"
+        },
         "status-critical": "#FF4040",
         "status-warning": "#FFAA15",
-        "status-ok": "#00C781",
+        "status-ok": "#999999",
         "status-unknown": "#CCCCCC",
         "status-disabled": "#CCCCCC",
         "graph-0": "brand",
@@ -118,53 +124,68 @@ export const theme = {
             "light": "status-critical"
           }
         },
-        "position": "inner",
-        "side": "bottom",
-        "style": "solid"
       },
-      "content": {
-        "pad": "small"
-      },
-      "disabled": {
-        "background": {
-          "color": "status-disabled",
-          "opacity": "medium"
-        }
-      },
-      "error": {
-        "color": "status-critical",
-        "margin": {
-          "vertical": "xsmall",
-          "horizontal": "small"
-        }
-      },
-      "help": {
-        "color": "dark-3",
-        "margin": {
-          "start": "small"
-        }
-      },
-      "info": {
-        "color": "text-xweak",
-        "margin": {
-          "vertical": "xsmall",
-          "horizontal": "small"
-        }
-      },
-      "label": {
-        "margin": {
-          "vertical": "xsmall",
-          "horizontal": "small"
-        }
-      },
-      "margin": {
-        "bottom": "small"
-      },
-      "round": "4px"
+      position: "inner",
+      side: "bottom",
+      style: "solid",
     },
-    "heading": {
-      "font": {
-        "family": "\"PT Serif\""
-      }
+    content: {
+      pad: "small",
+    },
+    disabled: {
+      background: {
+        color: "status-disabled",
+        opacity: "medium",
+      },
+    },
+    error: {
+      color: "status-critical",
+      margin: {
+        vertical: "xsmall",
+        horizontal: "small",
+      },
+    },
+    help: {
+      color: "dark-3",
+      margin: {
+        start: "small",
+      },
+    },
+    info: {
+      color: "text-xweak",
+      margin: {
+        vertical: "xsmall",
+        horizontal: "small",
+      },
+    },
+    label: {
+      margin: {
+        vertical: "xsmall",
+        horizontal: "small",
+      },
+    },
+    margin: {
+      bottom: "small",
+    },
+    round: "4px",
+  
+  heading: {
+    font: {
+      family: '"PT Serif"',
     }
-  }
+  },
+  
+  anchor: {
+    textDecoration: "none",
+    fontWeight: 500,
+    color: {
+      dark: "white",
+      light: "neutral-2",
+    },
+    hover: {
+      textDecoration: "none",
+      fontWeight: 700,
+    },
+  },
+}
+

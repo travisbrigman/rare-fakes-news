@@ -1,8 +1,8 @@
-// import React, { useContext, useEffect } from "react"
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "./PostProvider";
-import { Grommet, Box, DataTable, CheckBox, Button } from 'grommet';
+import { Grommet, Box, DataTable, CheckBox, Button, Heading } from 'grommet';
 import { Compliance } from "grommet-icons"
+
 
 import { columns } from './Columns';
 import { TagPostContext } from "../Tags/TagPostProvider";
@@ -42,9 +42,10 @@ export const AdminAllPosts = () => {
 
   return (
     <>
-    <Grommet >
-      <Box align="center" pad="medium">
+      <Heading level="1">Manage Posts</Heading>
+      <Box align="center" elevation="large">
         <DataTable
+          background="background-contrast"
           columns={[
             {
               property: 'checkbox',
@@ -73,8 +74,7 @@ export const AdminAllPosts = () => {
           size="medium"
         />
       </Box>
-    </Grommet>
-    <Button icon={<Compliance/>} onClick={() => {approvedChecked()}} />
+    <Button primary label="Approve"icon={<Compliance/>} onClick={() => {approvedChecked()}} margin="small" />
     </>
   );
 };

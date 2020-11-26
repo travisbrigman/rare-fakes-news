@@ -1,30 +1,80 @@
 //child of HomeList, list of all posts, user can delete only their own post
-import React from "react"
-import {Link} from "react-router-dom"
-import { Anchor, Box, Button, Card, CardFooter, CardHeader, Heading, Text } from "grommet"
-import { Edit } from "grommet-icons"
+import React from "react";
+import { Link } from "react-router-dom";
+import {
+  Anchor,
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Heading,
+  Text,
+} from "grommet";
+import { Edit } from "grommet-icons";
+import TimeAgo from "timeago-react";
 
-
-
-export const PostList = ({arrOfPosts}) => {
-
-    return (
-        <>
-        <Heading level="2">Posts</Heading>
-        <Button primary icon={<Edit />} as={Link} to={{pathname:`posts/create`}} label="Create Post"/>
-        {
-            arrOfPosts !== [] ? arrOfPosts.map(p => {
-                return <div key={`post${p.id}`} className="container__card">
-                    <div className="container__cardContent">    
-                        <Link to={{pathname:`/posts/${p.id}`}}>
-                        <p>{p.title}</p>
-                        </Link>
-                        <p>{p.user.user.first_name}</p>
-                        {p.category==null? "" :<p>{p.category.label}</p>}
-                    </div>
-                </div>
-            }).reverse() : null
-        }
-        </>
-    )
-}
+export const PostList = ({ arrOfPosts }) => {
+  return (
+    <Box margin={{"left":"medium"}}  pad="medium" >
+      <Heading level="1">All Posts</Heading>
+      <Box width="60%">
+      <Button
+        primary
+        icon={<Edit />}
+        as={Link}
+        to={{ pathname: `posts/create` }}
+        label="Create Post"
+        margin="small"
+      />
+      </Box>
+      {arrOfPosts !== []
+        ? arrOfPosts
+            .map((p) => {
+              return (
+                <Box key={`post${p.id}`} width="medium">
+                  <Card
+                    className="container__cardContent"
+                    background="light-1"
+                    margin="small"
+                    pad="xsmall"
+                    width="medium"
+                  >
+                    <Anchor
+                      color="brand"
+                      as={Link}
+                      to={{ pathname: `/posts/${p.id}` }}
+                    >
+                      <CardHeader>
+                        <Text weight="bold">{p.title}</Text>
+                      </CardHeader>
+                    </Anchor>
+                    <CardBody>
+                        <Box direction="row" align="baseline" justify="between">
+                        <Text>By: {p.user.user.first_name}</Text>
+                      <Text size="xsmall" color="xweak">
+                        <TimeAgo datetime={p.publication_date} />
+                      </Text>
+                      </Box>
+                      <Text size="small" truncate={true}>
+                        {p.content}
+                      </Text>
+                    </CardBody>
+                    {/* <CardFooter round="xsmall" pad="xsmall" gap="none">By: {p.user.user.first_name}</CardFooter> */}
+                    {p.category == null ? (
+                      ""
+                    ) : (
+                      <Text pad="xsmall" size="xsmall" color="xweak">
+                        {p.category.label}
+                      </Text>
+                    )}
+                  </Card>
+                </Box>
+              );
+            })
+            .reverse()
+        : null}
+    </Box>
+  );
+};

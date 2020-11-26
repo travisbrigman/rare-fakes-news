@@ -3,6 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
 import { UserContext } from "../Profiles/UserProvider"
+import { Anchor, Box, Button, Card, CardBody, CardFooter, CardHeader, Heading, Text } from "grommet"
+import TimeAgo from "timeago-react"
 
 
 export const UsersPosts = () => {
@@ -21,20 +23,37 @@ export const UsersPosts = () => {
 
   return (
     <>
-      <h2>My Posts</h2>
+      <Heading level="1">My Posts</Heading>
+      {usersPosts.length===0 && ("You Haven't Written any Posts Yet")}
       {usersPosts.map((p) => {
         return (
-          <div key={p.id} className="container__card">
-            <div className="container__cardContent">
-              <p>
-                <Link to={{ pathname: `posts/${p.id}` }}>
-                  <strong>{p.title}</strong>
-                </Link>
-              </p>
-              <p>{p.user.user.first_name}</p>
-              {p.category==null? "" :<p>{p.category.label}</p>}
-            </div>
-          </div>
+          <Box key={p.id} width="medium" >
+            <Card  className="container__cardContent" margin="small" pad="xsmall" background="light-1">
+                <Anchor 
+                  color="brand" 
+                  as={Link} 
+                  to={{ pathname: `posts/${p.id}` }}
+                >
+                  <CardHeader>
+                    <Text weight="bold">{p.title}</Text>
+                  </CardHeader>
+                </Anchor>
+                <CardBody>
+                      <Text size="xsmall" color="xweak">
+                        <TimeAgo datetime={p.publication_date} />
+                      </Text>
+                      <Text size="small" truncate={true}>
+                        {p.content}
+                      </Text>
+                    </CardBody>
+              <CardBody>
+                {/* <CardFooter>{p.user.user.first_name}</CardFooter> */}
+                {p.category==null
+                ? "" 
+                :<Text pad="xsmall" size="xsmall" color="xweak">{p.category.label}</Text>}
+              </CardBody>
+            </Card>
+          </Box>
         )
       }).reverse()}
     </>

@@ -14,11 +14,11 @@ export const UsersTable = () => {
 
 
 
-console.log(users)
   return (
     <>
-      <Box align="center" pad="medium">
+      <Box align="center"  elevation="large">
         <DataTable
+        background="background-contrast"
           columns={[
             ...controlledColumns,
           ].map(col => ({ ...col }))}
