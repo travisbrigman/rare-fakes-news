@@ -37,7 +37,7 @@ export const Login = (props) => {
       .then((user) => {
         return user !== undefined ? user : false;
       });
-  };
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
