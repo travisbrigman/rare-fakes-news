@@ -52,9 +52,9 @@ export const PostList = ({ arrOfPosts }) => {
                     </Anchor>
                     <CardBody>
                         <Box direction="row" align="baseline" justify="between">
-                        <Text>By: {p.user.user.first_name}</Text>
+                        <Text>By: {p.author.username}</Text>
                       <Text size="xsmall" color="xweak">
-                        <TimeAgo datetime={p.publication_date} />
+                        <TimeAgo datetime={p.publicationDate} />
                       </Text>
                       </Box>
                       <Text size="small" truncate={true}>

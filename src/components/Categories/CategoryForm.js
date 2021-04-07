@@ -80,7 +80,7 @@ export const CategoryForm = (props) => {
               }}
               margin="small"
               />
-           
+
               <Button margin="small" secondary label="Cancel" onClick={onClose}/>
             </Box>
           </Box>

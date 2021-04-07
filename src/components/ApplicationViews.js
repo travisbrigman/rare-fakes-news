@@ -59,7 +59,7 @@ export const ApplicationViews = (props) => {
                         <Route path="/profiles/:userId(\d+)"
                           render={props => <UserDetail {...props} />}
                         />
-                                              <Route path="/admin/posts"
+                        <Route path="/admin/posts"
                         render={props => <AdminAllPosts {...props} />}
                       />
                       </SubscriptionProvider>
