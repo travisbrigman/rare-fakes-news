@@ -79,7 +79,7 @@ export const ApplicationViews = (props) => {
               return <TagForm {...props} />
             }}
             />
-            <Route exact path="/tags/edit/:tagId(\d+)"
+            <Route exact path="/tags/edit/:tagId"
               render={(props) => <TagForm {...props} />}
             />
             <Route exact path="/tags" render={(props) => {
