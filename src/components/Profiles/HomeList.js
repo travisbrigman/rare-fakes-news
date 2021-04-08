@@ -33,6 +33,7 @@ export const HomeList = (props) => {
       .then(getTags)
       .then(getUsers)
       .then(getTagPosts);
+      console.log(TagPosts)
   }, []);
 
   useEffect(() => {
@@ -61,6 +62,7 @@ export const HomeList = (props) => {
     getPostTagsByTags(tagId).then((res) => {
       return setTagPosts(res);
     });
+    debugger
   };
 
   //fetches posts by user id, changes state variable of userSelected

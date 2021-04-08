@@ -23,7 +23,7 @@ export const TagPostProvider = (props) => {
   };
 
   const getPostTagsByTags = (tagId) => {
-    return fetch(`http://127.0.0.1:8080/posttags?tag_id=${tagId}`, {
+    return fetch(`http://127.0.0.1:8080/postTags?tag_id=${tagId}`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
