@@ -8,7 +8,7 @@ export const CategoryProvider = (props) => {
   const getCategories = () => {
     return fetch("http://127.0.0.1:8080/categories", {
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       }
     })
       .then((res) => res.json())
@@ -20,7 +20,7 @@ export const CategoryProvider = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       },
       body: JSON.stringify(category),
     })
@@ -33,7 +33,7 @@ export const CategoryProvider = (props) => {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
+            "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`,
         },
     body: JSON.stringify(categoryId)
     })
@@ -45,7 +45,7 @@ export const CategoryProvider = (props) => {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+            "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
         },
         body: JSON.stringify(category)
     })
@@ -55,7 +55,7 @@ export const CategoryProvider = (props) => {
 const getCategoryById = (id) => {
   return fetch(`http://127.0.0.1:8080/categories/${id}` , {
       headers: {
-        Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
       }
     })

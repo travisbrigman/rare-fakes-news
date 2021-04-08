@@ -12,10 +12,10 @@ export const TagPostProvider = (props) => {
   const {getTagsByPost} = useContext(PostContext)
 
   const getTagPosts = () => {
-    return fetch("http://localhost:8000/posttags", {
+    return fetch("http://127.0.0.1:8080/postTags", {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       }
     })
       .then((res) => res.json())
@@ -23,10 +23,10 @@ export const TagPostProvider = (props) => {
   };
 
   const getPostTagsByTags = (tagId) => {
-    return fetch(`http://localhost:8000/posttags?tag_id=${tagId}`, {
+    return fetch(`http://127.0.0.1:8080/posttags?tag_id=${tagId}`, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       }
     })
       .then((res) => res.json())
@@ -34,11 +34,11 @@ export const TagPostProvider = (props) => {
   };
 
   const createTagPost = (TagPost) => {
-    return fetch("http://localhost:8000/posttags", {
+    return fetch("http://127.0.0.1:8080/postTags", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       },
       body: JSON.stringify(TagPost),
     })
@@ -46,10 +46,10 @@ export const TagPostProvider = (props) => {
   };
 
   const deleteTagPost = (tagPostId, postId) => {
-    return fetch(`http://localhost:8000/posttags/${tagPostId}`, {
+    return fetch(`http://127.0.0.1:8080/posttags/${tagPostId}`, {
         method: "DELETE",
         headers: {
-          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+          "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
         }
     })
     .then(getTagPosts)

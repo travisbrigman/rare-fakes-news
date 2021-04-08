@@ -8,9 +8,9 @@ export const TagProvider = (props) => {
   const [tag, setTag] = useState({});
   
   const getTags = () => {
-    return fetch("http://localhost:8000/tags", {
+    return fetch("http://127.0.0.1:8080/tags", {
       headers: {
-        Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
       },
     })
       .then((res) => res.json())
@@ -18,10 +18,10 @@ export const TagProvider = (props) => {
   };
 
   const createTag = (tag) => {
-    return fetch("http://localhost:8000/tags", {
+    return fetch("http://127.0.0.1:8080/tags", {
       method: "POST",
       headers: {
-        Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(tag),
@@ -31,10 +31,10 @@ export const TagProvider = (props) => {
 
   
   const deleteTag = (tagId) => {
-    return fetch(`http://localhost:8000/tags/${tagId}`, {
+    return fetch(`http://127.0.0.1:8080/tags/${tagId}`, {
         method: "DELETE",
         headers: {
-          Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+          Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify(tagId),
@@ -43,9 +43,9 @@ export const TagProvider = (props) => {
 }
 
 const getTagById = (id) => {
-  return fetch(`http://localhost:8000/tags/${id}` , {
+  return fetch(`http://127.0.0.1:8080/tags/${id}` , {
       headers: {
-        Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
       }
     })
@@ -53,11 +53,11 @@ const getTagById = (id) => {
 }
 
 const updateTag = tag => {
-  return fetch(`http://localhost:8000/tags/${tag.id}`, {
+  return fetch(`http://127.0.0.1:8080/tags/${tag.id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",
-          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+          "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       },
       body: JSON.stringify(tag)
   })

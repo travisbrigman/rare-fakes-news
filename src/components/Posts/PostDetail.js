@@ -18,10 +18,10 @@ export const PostDetails = (props) => {
   const { tag, tags, getTags } = useContext(TagContext);
   const { TagPosts } = useContext(TagPostContext);
 
-    //state variable and functions that change state of the state variable
-    const [open, setOpen] = useState();
-    const onOpen = () => setOpen(true);
-    const onClose = () => setOpen(undefined);
+  //state variable and functions that change state of the state variable
+  const [open, setOpen] = useState();
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(undefined);
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
@@ -115,7 +115,7 @@ export const PostDetails = (props) => {
           ? (
             <Box direction="row-responsive" className="container__cardContentTop">              
                 <Button icon={<Edit />} onClick={() => props.history.push(`/posts/edit/${post.id}`)}/>
-               
+              
 
                 {post.created_by_current_user ? <DeleteItem postId= {post.id}/> : <></>}
               </Box>
@@ -154,7 +154,7 @@ export const PostDetails = (props) => {
                   margin="small"
                   className="post_author"
                 >
-                  By: {post.user.user.first_name} (you)
+                  By: {post.user} (you)
                 </Text>
               ) : (
                 <Text
@@ -164,7 +164,7 @@ export const PostDetails = (props) => {
                   className="post_author"
                 >
                   {"By: "}
-                  <Anchor color="text-weak" as={Link} label={post.user.user.first_name} to={{ pathname: `/profiles/${post.user.id}` }}/>
+                  <Anchor color="text-weak" as={Link} label={post.user} to={{ pathname: `/profiles/${post.author.id}` }}/>
                   {/* <Link to={{ pathname: `/profiles/${post.user.id}` }}>
                     {post.user.user.first_name}
                   </Link> */}
@@ -174,9 +174,9 @@ export const PostDetails = (props) => {
 
             <Box direction="row"  gap="small">
               {postTags.map((postTag) => {
-                return postTag.tag.label ? (
+                return postTag.tag ? (
                   <Text size="small" color="brand" margin="small" className="displayedTag">
-                    # {postTag.tag.label}
+                    # {postTag.tag}
                   </Text>
                 ) : null;
               })}

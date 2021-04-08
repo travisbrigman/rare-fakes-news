@@ -122,9 +122,10 @@ export const PostForm = (props) => {
       addPost({
         title: postObj.title,
         content: postObj.content,
-        category_id: parseInt(postObj.category_id),
+        category_id: postObj.category_id,
         publication_date: jsonDate,
-        image_url: postObj.image_url,
+        imageUrl: postObj.image_url,
+        approved: true
       }).then((postObj) => {
         const tagPostPromises = []; //empty array of possible TagPosts
 
@@ -140,8 +141,8 @@ export const PostForm = (props) => {
         filteredTrue.map((t) => {
           tagPostPromises.push(
             createTagPost({
-              tag_id: parseInt(t.tagId),
-              post_id: postObj.id,
+              tag: t.tagId,
+              post: postObj.id,
             })
           ); //push any newly created tags to promises array
         });

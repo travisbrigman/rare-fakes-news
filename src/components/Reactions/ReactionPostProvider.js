@@ -7,9 +7,9 @@ export const ReactionPostProvider = (props) => {
     const [ReactionPost, setReactionPost] = useState({})
 
     const getReactionPosts = () => {
-        return fetch("http://localhost:8000/postreactions", { 
+        return fetch("http://127.0.0.1:8080/postreactions", { 
             headers: {
-                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
             }
         })
@@ -19,11 +19,11 @@ export const ReactionPostProvider = (props) => {
  
 
     const createReactionPost = ReactionPost => {
-        return fetch("http://localhost:8000/postreactions", {
+        return fetch("http://127.0.0.1:8080/postreactions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+                "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
             },
             body: JSON.stringify(ReactionPost)
         })

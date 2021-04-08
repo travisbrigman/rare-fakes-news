@@ -11,7 +11,7 @@ export const SubscriptionProvider = (props) => {
     const getSubscriptionByAuthor = (id) => {
         return fetch(`http://localhost:8000/subscriptions?author_id=${id}`, {
             headers: {
-                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
               }
             })
@@ -22,7 +22,7 @@ export const SubscriptionProvider = (props) => {
         return fetch("http://localhost:8000/subscriptions", {
             method: "POST",
             headers: {
-                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(subscriptionObj)
@@ -34,7 +34,7 @@ export const SubscriptionProvider = (props) => {
         return fetch(`http://localhost:8000/subscriptions/${authorId}/unsubscribe`, {
             method: "PUT",
             headers: {
-                Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+                Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json"
         }})
     }

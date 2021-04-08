@@ -11,9 +11,6 @@ export const UsersTable = () => {
   useEffect(() => {
     getUsers()
   }, []);
-
-
-
   return (
     <>
       <Box align="center"  elevation="large">

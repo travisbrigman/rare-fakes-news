@@ -80,7 +80,7 @@ export const NavBar = () => {
             to="/categories"
             label="Category Management"
           />
-          {currentUser.user.is_staff ? (
+          {/* {currentUser.user.is_staff ? (
             <Anchor
               color="text-weak"
               as={Link}
@@ -88,7 +88,7 @@ export const NavBar = () => {
               to="/admin/posts"
               label="Post Management"
             />
-          ) : null}
+          ) : null} */}
 
           {localStorage.getItem("rare_user_id") !== null ? (
             <Anchor
