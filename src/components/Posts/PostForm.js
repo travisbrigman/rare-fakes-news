@@ -33,7 +33,7 @@ export const PostForm = (props) => {
   const [checkedState, setCheckedState] = useState([]);
 
   const editMode = props.match.url.split("/")[2] === "edit"; //checks url to see if editMode
-  const postId = parseInt(props.match.params.postId);
+  const postId = props.match.params.postId;
   let filteredTrue = [];
   let checkedTagsArray = [];
   const postTagsArrayToObj = {};
@@ -79,7 +79,7 @@ export const PostForm = (props) => {
         id: postObj.id,
         title: postObj.title,
         content: postObj.content,
-        category_id: parseInt(postObj.category_id),
+        category_id: postObj.category_id,
         publication_date: postObj.publication_date,
         image_url: postObj.image_url,
       })
@@ -93,7 +93,7 @@ export const PostForm = (props) => {
 
           Object.keys(checkedState).forEach((key) =>
             checkedTagsArray.push({
-              tagId: parseInt(key),
+              tagId: key,
               checked: checkedState[key],
             })
           );
@@ -107,7 +107,7 @@ export const PostForm = (props) => {
           filteredTrue.map((t) => {
             tagPostPromises.push(
               createTagPost({
-                tag_id: parseInt(t.tagId),
+                tag_id: t.tagId,
                 post_id: postObj.id,
               })
             ); //push any newly created tags to promises array

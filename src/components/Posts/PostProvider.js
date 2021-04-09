@@ -39,7 +39,26 @@ export const PostProvider = (props) => {
     approved: true,
     imageUrl: "",
   });
-  const [postTags, setPostTags] = useState([{ label: {} }]);
+  const [postTags, setPostTags] = useState(  [
+    {
+      post: {
+        author: { id: "" },
+        content:
+          "",
+        publicationDate: "",
+        category: { id: "" },
+        id: "",
+        title: "",
+        approved: true,
+        imageUrl: "",
+      },
+      tag: { label: "", id: "" },
+      id: "",
+    },
+  ]
+  );
+
+
 
   const getPosts = () => {
     return fetch("http://127.0.0.1:8080/posts", {
@@ -82,7 +101,7 @@ export const PostProvider = (props) => {
   };
 
   const getTagsByPost = (postId) => {
-    return fetch(`http://127.0.0.1:8080/posttags?post_id=${postId}`, {
+    return fetch(`http://127.0.0.1:8080/postTags?post_id=${postId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",

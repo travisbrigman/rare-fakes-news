@@ -38,7 +38,7 @@ export const CategoryList = (props) => {
         <Box>
           {categories.map((categoryObject) => {
             return (
-              <>
+              
                 <Box direction="row" align="center">
                   {
                     //only shows edit and delete if the user is an admin
@@ -59,7 +59,7 @@ export const CategoryList = (props) => {
                     // )
                   }
                 </Box>
-              </>
+              
             );
           })}
         </Box>

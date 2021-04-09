@@ -40,7 +40,7 @@ export const UsersPosts = () => {
                 </Anchor>
                 <CardBody>
                       <Text size="xsmall" color="xweak">
-                        <TimeAgo datetime={p.publication_date} />
+                        <TimeAgo datetime={p.publicationDate} />
                       </Text>
                       <Text size="small" truncate={true}>
                         {p.content}

@@ -7,7 +7,7 @@ export const ReactionProvider = (props) => {
     const [reaction, setReaction] = useState({})
 
     const getReactions = () => {
-        return fetch("http://127.0.0.1:8080/reactions" , {
+        return fetch("http://127.0.0.1:8080/postReactions" , {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
             "Content-Type": "application/json",

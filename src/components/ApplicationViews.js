@@ -47,7 +47,7 @@ export const ApplicationViews = (props) => {
                         <Route exact path="/posts/create"
                           render={(props) => <PostForm {...props} />}
                         />
-                        <Route exact path="/posts/edit/:postId(\d+)"
+                        <Route exact path="/posts/edit/:postId"
                           render={(props) => <PostForm {...props} />}
                         />
                         <Route exact path="/myposts"
@@ -56,7 +56,7 @@ export const ApplicationViews = (props) => {
                         <Route path="/posts/:postId"
                           render={(props) => <PostDetails {...props} />}
                         />
-                        <Route path="/profiles/:userId(\d+)"
+                        <Route path="/profiles/:userId"
                           render={props => <UserDetail {...props} />}
                         />
                         <Route path="/admin/posts"
@@ -105,7 +105,7 @@ export const ApplicationViews = (props) => {
             (props) => <CategoryList {...props} />} />
           <Route exact path="/categories/create" render={
             (props) => <CategoryForm {...props} />} />
-          <Route exact path="/editcategory/:categoryId(\d+)" render={
+          <Route exact path="/editcategory/:categoryId" render={
             (props) => <CategoryForm {...props} />} />
         </CategoryProvider>
       </UserProvider>

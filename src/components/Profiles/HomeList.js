@@ -62,7 +62,6 @@ export const HomeList = (props) => {
     getPostTagsByTags(tagId).then((res) => {
       return setTagPosts(res);
     });
-    debugger
   };
 
   //fetches posts by user id, changes state variable of userSelected

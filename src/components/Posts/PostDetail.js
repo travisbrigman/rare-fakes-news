@@ -30,7 +30,7 @@ export const PostDetails = (props) => {
 
   //other variables defined through useRef and the URL
   const tagPostId = useRef(null);
-  const postId = parseInt(props.match.params.postId);
+  const postId = props.match.params.postId
 
   //gets a post by the post ID and gets the tags associated with that post
   useEffect(() => {
@@ -55,7 +55,7 @@ export const PostDetails = (props) => {
 
   //takes what is selected in the tag management dropdown and sets the state variable with that value
   const handleChange = (e) => {
-    setSelectedTagPostId(parseInt(e.target.value));
+    setSelectedTagPostId(e.target.value);
   };
 
   const handleAddTags = (browserEvent) => {
@@ -66,10 +66,9 @@ export const PostDetails = (props) => {
     setTagIDArr(stateCopyID);
   };
 
-
   return (
     <>
-    <DeleteItem open={open} onClose={onClose}/>
+    <DeleteItem open={open} onClose={onClose} postId={post.id}/>
       {/* Post Detail JSX */}
       <Box className="container__card">
         <Box className="container__cardContent">
@@ -77,7 +76,7 @@ export const PostDetails = (props) => {
             <Heading level="2" className="post__title">
               {post.title}
             </Heading>
-            {post.created_by_current_user ? (
+            {/* {post.created_by_current_user ? ( */}
               <Box width="xsmall">
                 <Menu
                   icon={<More />}
@@ -105,7 +104,7 @@ export const PostDetails = (props) => {
                   ]}
                 />
               </Box>
-            ) : null}
+            {/* ) : null} */}
           </Box>
 
           {post.category == null ? "" : <Text >{post.category.label}</Text>}
@@ -126,7 +125,7 @@ export const PostDetails = (props) => {
           <Box size="small" height="small" animation="fadeIn" >
             <Image
               className="post__image"
-              src={post.image_url}
+              src={post.imageUrl}
               fit="cover"
               fill
               alt="article"
@@ -143,20 +142,20 @@ export const PostDetails = (props) => {
                 className="post_date"
               >
                 Published:{" "}
-                {new Date(post.publication_date).toLocaleDateString("en-US")}
+                {new Date(post.publicationDate).toLocaleDateString("en-US")}
               </Text>
 
               {/* If current user did not write the post, show the author name with a link to their profile*/}
-              {post.created_by_current_user ? (
+              {/* {post.created_by_current_user ? ( */}
                 <Text
                   size="small"
                   color="weak"
                   margin="small"
                   className="post_author"
                 >
-                  By: {post.user} (you)
+                  By: {post.author.username} (you)
                 </Text>
-              ) : (
+              {/* ) : ( */}
                 <Text
                   size="small"
                   color="text-weak"
@@ -164,19 +163,19 @@ export const PostDetails = (props) => {
                   className="post_author"
                 >
                   {"By: "}
-                  <Anchor color="text-weak" as={Link} label={post.user} to={{ pathname: `/profiles/${post.author.id}` }}/>
+                  <Anchor color="text-weak" as={Link} label={post.author.username} to={{ pathname: `/profiles/${post.author.id}` }}/>
                   {/* <Link to={{ pathname: `/profiles/${post.user.id}` }}>
                     {post.user.user.first_name}
                   </Link> */}
                 </Text>
-              )}
+              {/* )} */}
             </Box>
 
             <Box direction="row"  gap="small">
               {postTags.map((postTag) => {
-                return postTag.tag ? (
+                return postTag.label ? (
                   <Text size="small" color="brand" margin="small" className="displayedTag">
-                    # {postTag.tag}
+                    # {postTag.label}
                   </Text>
                 ) : null;
               })}
