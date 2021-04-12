@@ -39,7 +39,8 @@ export const Reaction = (props) => {
     const matchingReactionCount =
       filteredRP.filter((rp) => {
         //filter through RP obj arr for this post to find the RP objs whose reaction_id matches the id of the reaction of this current module
-        return rp.reaction.id === props.reaction.id;
+        let upperCaseID = props.reaction.id.toUpperCase()
+        return rp.reaction.id === upperCaseID;
       }) || [];
     setReactionCount(matchingReactionCount);
   }, [filteredRP]);
@@ -48,16 +49,15 @@ export const Reaction = (props) => {
     //create an RP object
     const checkForExistingReaction = filteredRP.find((rp) => {
       //see if it already exists
-      if (rp.user_id === localStorage.getItem("rare_user_id")) {
+      if (rp.user.id === localStorage.getItem("rare_user_id")) {
         //see if current user already had this reaction
         return rp.reaction.id === props.reaction.id;
       }
     });
-console.log(props.reaction)
     if (checkForExistingReaction === undefined) {
       //if no RP obj found, let user add a reaction
       createReactionPost({
-        reaction: props.reaction.id.toString(),
+        reaction: props.reaction.id,
         post: postId,
         user: currentUser.id
       });
