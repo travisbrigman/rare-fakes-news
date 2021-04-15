@@ -14,7 +14,6 @@ export const DeleteItem = ({ open, onClose, postId }) => {
   //This function deletes an entry in the Post table.
   //Lastly the function calls the close function which resets our modal state.
   const deleteThisPost = () => {
-    console.log(postId)
     deletePost(postId)
     .then(() => {
       history.push("/home")

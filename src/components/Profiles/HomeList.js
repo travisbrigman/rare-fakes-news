@@ -33,7 +33,6 @@ export const HomeList = (props) => {
       .then(getTags)
       .then(getUsers)
       .then(getTagPosts);
-      console.log(TagPosts)
   }, []);
 
   useEffect(() => {

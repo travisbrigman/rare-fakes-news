@@ -35,7 +35,6 @@ export const UserDetail = (props) => {
                 //get an ARRAY of objects to show how many people follow YOU
                 getCurrentUser()
                 .then((user) => {
-                    console.log(user)
                     setUser(user)
                     getSubscriptionByAuthor(user.id)
                     .then(setSubscriptions)

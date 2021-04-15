@@ -14,14 +14,14 @@ export const columns = [
         property: 'username',
         header: 'Username',
     },
-    // {
-    //     property: 'user.is_active',
-    //     header: 'In/Active',
-    //     render: datum => datum.user.is_active ? <Checkmark color="brand"/> : <Close />
-    // },
-    // {
-    //     property: 'user.is_staff',
-    //     header: 'Admin or Author',
-    //     render: datum => datum.user.is_staff ? "Admin" : "Author"
-    // }
+    {
+        property: 'isActive',
+        header: 'In/Active',
+        render: datum => datum.isActive ? <Checkmark color="brand"/> : <Close />
+    },
+    {
+        property: 'isStaff',
+        header: 'Admin or Author',
+        render: datum => datum.isStaff ? "Admin" : "Author"
+    }
   ];
