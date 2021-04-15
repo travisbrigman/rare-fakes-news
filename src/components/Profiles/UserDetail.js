@@ -23,18 +23,19 @@ export const UserDetail = (props) => {
 
     useEffect(() => {
         if (props.match.params.hasOwnProperty("userId")) {
-            getUserById(parseInt(props.match.params.userId))
+            getUserById(props.match.params.userId)
             .then(setUser)
             //get the most recent sub OBJECT
             //this determines whether the current user follows the author of the UserDetail page
             .then(() => {
-                getSubscriptionByAuthor(parseInt(props.match.params.userId))
+                getSubscriptionByAuthor(props.match.params.userId)
                 .then(setSubscription)
             })
             } else {
                 //get an ARRAY of objects to show how many people follow YOU
                 getCurrentUser()
                 .then((user) => {
+                    console.log(user)
                     setUser(user)
                     getSubscriptionByAuthor(user.id)
                     .then(setSubscriptions)
@@ -77,7 +78,7 @@ export const UserDetail = (props) => {
         <SubscriptionModal open={open} onClose={onClose} subStatus={subStatus}/>
             <Box>
                 {props.match.params.hasOwnProperty("userId") ?
-                    <Heading level="1">{user.user.username}'s Profile</Heading> :<Box>
+                    <Heading level="1">{user.username}'s Profile</Heading> :<Box>
                         <Heading level="1" style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</Heading>
                         <Text size="large" color="text" weight="bold" textAlign="start" margin="xsmall">{user.username}</Text>
                         <Box direction="row">

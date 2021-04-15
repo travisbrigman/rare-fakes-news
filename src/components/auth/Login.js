@@ -45,6 +45,7 @@ export const Login = (props) => {
   const handleLogin = (e) => {
     e.preventDefault();
     existingUserCheck().then((exists) => {
+      debugger
       if (!Object.entries(exists).isEmpty) {
         localStorage.setItem("rare_user_id", exists.value);
         props.history.push("/home");
