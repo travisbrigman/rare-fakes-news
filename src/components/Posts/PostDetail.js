@@ -65,6 +65,7 @@ export const PostDetails = (props) => {
     //IDs of tags to be added get stored in this variable
     setTagIDArr(stateCopyID);
   };
+  
 
   return (
     <>
@@ -108,19 +109,6 @@ export const PostDetails = (props) => {
           </Box>
 
           {post.category == null ? "" : <Text >{post.category.label}</Text>}
-
-          {/* if current user wrote the post, show an edit button */}
-          {post.createdByCurrentUser 
-          ? (
-            <Box direction="row-responsive" className="container__cardContentTop">              
-                <Button icon={<Edit />} onClick={() => props.history.push(`/posts/edit/${post.id}`)}/>
-              
-
-                {post.createdByCurrentUser ? <DeleteItem postId= {post.id}/> : <></>}
-              </Box>
-          )
-          : (``)
-        } 
 
           <Box size="small" height="small" animation="fadeIn" >
             <Image
