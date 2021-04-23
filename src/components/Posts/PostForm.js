@@ -29,7 +29,7 @@ export const PostForm = (props) => {
   const { tag, tags, getTags } = useContext(TagContext);
   const { createTagPost, deleteTagPost } = useContext(TagPostContext);
 
-  const [postObj, setPostObj] = useState({}); //defines and sets the state of the postObj in this module
+  const [postObj, setPostObj] = useState({category: {id: "", label: ""}}); //defines and sets the state of the postObj in this module
   const [checkedState, setCheckedState] = useState([]);
 
   const editMode = props.match.url.split("/")[2] === "edit"; //checks url to see if editMode
@@ -37,6 +37,7 @@ export const PostForm = (props) => {
   let filteredTrue = [];
   let checkedTagsArray = [];
   const postTagsArrayToObj = {};
+console.log(postObj);
 
   useEffect(() => {
     getCategories();
@@ -79,9 +80,9 @@ export const PostForm = (props) => {
         id: postObj.id,
         title: postObj.title,
         content: postObj.content,
-        category_id: postObj.category_id,
-        publication_date: postObj.publication_date,
-        image_url: postObj.image_url,
+        category_id: postObj.category.id,
+        publication_date: postObj.publicationDate,
+        image_url: postObj.imageUrl,
       })
         .then(
           postTags.forEach((tagPostObj) => {
@@ -122,9 +123,9 @@ export const PostForm = (props) => {
       addPost({
         title: postObj.title,
         content: postObj.content,
-        category_id: postObj.category_id,
+        category_id: postObj.category.id,
         publication_date: jsonDate,
-        imageUrl: postObj.image_url,
+        imageUrl: postObj.imageUrl,
         approved: true
       }).then((postObj) => {
         const tagPostPromises = []; //empty array of possible TagPosts
@@ -182,7 +183,7 @@ export const PostForm = (props) => {
               name="image_url"
               className="form-control"
               placeholder="Image URL"
-              value={postObj.image_url}
+              value={postObj.imageUrl}
               onChange={handleControlledInputChange}
             ></TextInput>
           </FormField>
@@ -207,7 +208,7 @@ export const PostForm = (props) => {
                 id={categories.id}
                 name="category_id"
                 placeholder="Categories"
-                value={postObj.category_id}
+                value={postObj.category.id}
                 labelKey="label"
                 valueKey={{ key: "id", reduce: true }}
                 options={categories}
