@@ -12,7 +12,7 @@ export const UsersPosts = () => {
   const { getCurrentUser } = useContext(UserContext)
 
   const [usersPosts, setUsersPosts] = useState([]);
- 
+
   useEffect(() => {
     getCurrentUser()
     //returns res.json() that is immediately passed to the next .then()

@@ -47,13 +47,13 @@ export const ApplicationViews = (props) => {
                         <Route exact path="/posts/create"
                           render={(props) => <PostForm {...props} />}
                         />
-                        <Route exact path="/posts/edit/:postId"
+                        <Route exact path="/posts/edit/:postId(^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$)"
                           render={(props) => <PostForm {...props} />}
                         />
                         <Route exact path="/myposts"
                           render={(props) => <UsersPosts {...props} />}
                         />
-                        <Route path="/posts/:postId"
+                        <Route path="/posts/:postId(^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$)"
                           render={(props) => <PostDetails {...props} />}
                         />
                         <Route path="/profiles/:userId"

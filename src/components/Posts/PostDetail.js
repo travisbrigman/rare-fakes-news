@@ -76,7 +76,7 @@ export const PostDetails = (props) => {
             <Heading level="2" className="post__title">
               {post.title}
             </Heading>
-            {/* {post.created_by_current_user ? ( */}
+            {post.createdByCurrentUser ? (
               <Box width="xsmall">
                 <Menu
                   icon={<More />}
@@ -104,23 +104,23 @@ export const PostDetails = (props) => {
                   ]}
                 />
               </Box>
-            {/* ) : null} */}
+            ) : null}
           </Box>
 
           {post.category == null ? "" : <Text >{post.category.label}</Text>}
 
           {/* if current user wrote the post, show an edit button */}
-          {/* {post.created_by_current_user 
+          {post.createdByCurrentUser 
           ? (
             <Box direction="row-responsive" className="container__cardContentTop">              
                 <Button icon={<Edit />} onClick={() => props.history.push(`/posts/edit/${post.id}`)}/>
               
 
-                {post.created_by_current_user ? <DeleteItem postId= {post.id}/> : <></>}
+                {post.createdByCurrentUser ? <DeleteItem postId= {post.id}/> : <></>}
               </Box>
           )
           : (``)
-        } */}
+        } 
 
           <Box size="small" height="small" animation="fadeIn" >
             <Image
@@ -146,7 +146,7 @@ export const PostDetails = (props) => {
               </Text>
 
               {/* If current user did not write the post, show the author name with a link to their profile*/}
-              {/* {post.created_by_current_user ? ( */}
+              {post.createdByCurrentUser ? (
                 <Text
                   size="small"
                   color="weak"
@@ -155,7 +155,7 @@ export const PostDetails = (props) => {
                 >
                   By: {post.author.username} (you)
                 </Text>
-              {/* ) : ( */}
+              ) : ( 
                 <Text
                   size="small"
                   color="text-weak"
@@ -164,11 +164,11 @@ export const PostDetails = (props) => {
                 >
                   {"By: "}
                   <Anchor color="text-weak" as={Link} label={post.author.username} to={{ pathname: `/profiles/${post.author.id}` }}/>
-                  {/* <Link to={{ pathname: `/profiles/${post.user.id}` }}>
-                    {post.user.user.first_name}
-                  </Link> */}
+                  <Link to={{ pathname: `/profiles/${post.author.id}` }}>
+                    {post.author.username}
+                  </Link>
                 </Text>
-              {/* )} */}
+              )} 
             </Box>
 
             <Box direction="row"  gap="small">
