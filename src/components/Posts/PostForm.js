@@ -47,6 +47,7 @@ export const PostForm = (props) => {
       getTagsByPost(postId)
         .then(
           postTags.forEach((pt) => {
+            console.log(pt);
             postTagsArrayToObj[pt.tag_id] = true;
           })
         )
@@ -60,7 +61,6 @@ export const PostForm = (props) => {
       ? (newPost.category.id = browserEvent.value)
       : (newPost[browserEvent.target.name] = browserEvent.target.value);
     setPostObj(newPost);
-    console.log(newPost);
   };
 
   function handleTagChange(event) {
@@ -82,7 +82,8 @@ export const PostForm = (props) => {
         content: postObj.content,
         category_id: postObj.category.id,
         publication_date: postObj.publicationDate,
-        image_url: postObj.imageUrl,
+        imageUrl: postObj.imageUrl,
+        approved: true
       })
         .then(
           postTags.forEach((tagPostObj) => {
@@ -108,8 +109,8 @@ export const PostForm = (props) => {
           filteredTrue.map((t) => {
             tagPostPromises.push(
               createTagPost({
-                tag_id: t.tagId,
-                post_id: postObj.id,
+                tag: t.tagId,
+                post: postObj.id,
               })
             ); //push any newly created tags to promises array
           });

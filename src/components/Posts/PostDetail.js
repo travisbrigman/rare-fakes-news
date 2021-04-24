@@ -15,6 +15,7 @@ export const PostDetails = (props) => {
   const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(
     PostContext
   );
+  console.log(postTags);
   const { tag, tags, getTags } = useContext(TagContext);
   const { TagPosts } = useContext(TagPostContext);
 
@@ -161,9 +162,9 @@ export const PostDetails = (props) => {
 
             <Box direction="row"  gap="small">
               {postTags.map((postTag) => {
-                return postTag.label ? (
+                return postTag.tag.label ? (
                   <Text size="small" color="brand" margin="small" className="displayedTag">
-                    # {postTag.label}
+                    # {postTag.tag.label}
                   </Text>
                 ) : null;
               })}
