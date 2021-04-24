@@ -29,7 +29,7 @@ export const PostForm = (props) => {
   const { tag, tags, getTags } = useContext(TagContext);
   const { createTagPost, deleteTagPost } = useContext(TagPostContext);
 
-  const [postObj, setPostObj] = useState({category: {id: "", label: ""}}); //defines and sets the state of the postObj in this module
+  const [postObj, setPostObj] = useState({category:{id: ""}}); //defines and sets the state of the postObj in this module
   const [checkedState, setCheckedState] = useState([]);
 
   const editMode = props.match.url.split("/")[2] === "edit"; //checks url to see if editMode
@@ -37,7 +37,6 @@ export const PostForm = (props) => {
   let filteredTrue = [];
   let checkedTagsArray = [];
   const postTagsArrayToObj = {};
-console.log(postObj);
 
   useEffect(() => {
     getCategories();
@@ -58,9 +57,10 @@ console.log(postObj);
   const handleControlledInputChange = (browserEvent) => {
     const newPost = Object.assign({}, postObj);
     browserEvent.target.name === "category_id"
-      ? (newPost[browserEvent.target.name] = browserEvent.value)
+      ? (newPost.category.id = browserEvent.value)
       : (newPost[browserEvent.target.name] = browserEvent.target.value);
     setPostObj(newPost);
+    console.log(newPost);
   };
 
   function handleTagChange(event) {
@@ -125,7 +125,7 @@ console.log(postObj);
         content: postObj.content,
         category_id: postObj.category.id,
         publication_date: jsonDate,
-        imageUrl: postObj.imageUrl,
+        imageUrl: postObj.image_url,
         approved: true
       }).then((postObj) => {
         const tagPostPromises = []; //empty array of possible TagPosts
@@ -209,8 +209,8 @@ console.log(postObj);
                 name="category_id"
                 placeholder="Categories"
                 value={postObj.category.id}
-                labelKey="label"
                 valueKey={{ key: "id", reduce: true }}
+                labelKey="label"
                 options={categories}
                 onChange={handleControlledInputChange}
               />

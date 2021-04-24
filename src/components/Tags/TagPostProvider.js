@@ -46,7 +46,7 @@ export const TagPostProvider = (props) => {
   };
 
   const deleteTagPost = (tagPostId, postId) => {
-    return fetch(`http://127.0.0.1:8080/posttags/${tagPostId}`, {
+    return fetch(`http://127.0.0.1:8080/postTags/${tagPostId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
