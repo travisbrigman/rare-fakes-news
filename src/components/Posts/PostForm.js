@@ -47,11 +47,10 @@ export const PostForm = (props) => {
       getTagsByPost(postId)
         .then(
           postTags.forEach((pt) => {
-            console.log(pt);
-            postTagsArrayToObj[pt.tag_id] = true;
+            postTagsArrayToObj[pt.tag.id] = true;
           })
         )
-        .then(setCheckedState(postTagsArrayToObj));
+        .then(setCheckedState(postTagsArrayToObj))
     }
   }, []);
 
