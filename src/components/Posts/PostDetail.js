@@ -15,13 +15,14 @@ export const PostDetails = (props) => {
   const { getPostById, post, setPost, getTagsByPost, postTags } = useContext(
     PostContext
   );
+  console.log(postTags);
   const { tag, tags, getTags } = useContext(TagContext);
   const { TagPosts } = useContext(TagPostContext);
 
-    //state variable and functions that change state of the state variable
-    const [open, setOpen] = useState();
-    const onOpen = () => setOpen(true);
-    const onClose = () => setOpen(undefined);
+  //state variable and functions that change state of the state variable
+  const [open, setOpen] = useState();
+  const onOpen = () => setOpen(true);
+  const onClose = () => setOpen(undefined);
 
   //state variable and variables needed to make tag management work
   const [selectedTagPostId, setSelectedTagPostId] = useState(0);
@@ -30,7 +31,7 @@ export const PostDetails = (props) => {
 
   //other variables defined through useRef and the URL
   const tagPostId = useRef(null);
-  const postId = parseInt(props.match.params.postId);
+  const postId = props.match.params.postId
 
   //gets a post by the post ID and gets the tags associated with that post
   useEffect(() => {
@@ -55,7 +56,7 @@ export const PostDetails = (props) => {
 
   //takes what is selected in the tag management dropdown and sets the state variable with that value
   const handleChange = (e) => {
-    setSelectedTagPostId(parseInt(e.target.value));
+    setSelectedTagPostId(e.target.value);
   };
 
   const handleAddTags = (browserEvent) => {
@@ -65,11 +66,11 @@ export const PostDetails = (props) => {
     //IDs of tags to be added get stored in this variable
     setTagIDArr(stateCopyID);
   };
-
+  
 
   return (
     <>
-    <DeleteItem open={open} onClose={onClose}/>
+    <DeleteItem open={open} onClose={onClose} postId={post.id}/>
       {/* Post Detail JSX */}
       <Box className="container__card">
         <Box className="container__cardContent">
@@ -77,7 +78,7 @@ export const PostDetails = (props) => {
             <Heading level="2" className="post__title">
               {post.title}
             </Heading>
-            {post.created_by_current_user ? (
+            {post.createdByCurrentUser ? (
               <Box width="xsmall">
                 <Menu
                   icon={<More />}
@@ -110,23 +111,10 @@ export const PostDetails = (props) => {
 
           {post.category == null ? "" : <Text >{post.category.label}</Text>}
 
-          {/* if current user wrote the post, show an edit button */}
-          {/* {post.created_by_current_user 
-          ? (
-            <Box direction="row-responsive" className="container__cardContentTop">              
-                <Button icon={<Edit />} onClick={() => props.history.push(`/posts/edit/${post.id}`)}/>
-               
-
-                {post.created_by_current_user ? <DeleteItem postId= {post.id}/> : <></>}
-              </Box>
-          )
-          : (``)
-        } */}
-
           <Box size="small" height="small" animation="fadeIn" >
             <Image
               className="post__image"
-              src={post.image_url}
+              src={post.imageUrl}
               fit="cover"
               fill
               alt="article"
@@ -143,20 +131,20 @@ export const PostDetails = (props) => {
                 className="post_date"
               >
                 Published:{" "}
-                {new Date(post.publication_date).toLocaleDateString("en-US")}
+                {new Date(post.publicationDate).toLocaleDateString("en-US")}
               </Text>
 
               {/* If current user did not write the post, show the author name with a link to their profile*/}
-              {post.created_by_current_user ? (
+              {post.createdByCurrentUser ? (
                 <Text
                   size="small"
                   color="weak"
                   margin="small"
                   className="post_author"
                 >
-                  By: {post.user.user.first_name} (you)
+                  By: {post.author.username} (you)
                 </Text>
-              ) : (
+              ) : ( 
                 <Text
                   size="small"
                   color="text-weak"
@@ -164,12 +152,12 @@ export const PostDetails = (props) => {
                   className="post_author"
                 >
                   {"By: "}
-                  <Anchor color="text-weak" as={Link} label={post.user.user.first_name} to={{ pathname: `/profiles/${post.user.id}` }}/>
-                  {/* <Link to={{ pathname: `/profiles/${post.user.id}` }}>
-                    {post.user.user.first_name}
-                  </Link> */}
+                  <Anchor color="text-weak" as={Link} label={post.author.username} to={{ pathname: `/profiles/${post.author.id}` }}/>
+                  <Link to={{ pathname: `/profiles/${post.author.id}` }}>
+                    {post.author.username}
+                  </Link>
                 </Text>
-              )}
+              )} 
             </Box>
 
             <Box direction="row"  gap="small">

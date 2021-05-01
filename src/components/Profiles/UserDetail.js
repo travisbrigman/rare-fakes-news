@@ -23,12 +23,12 @@ export const UserDetail = (props) => {
 
     useEffect(() => {
         if (props.match.params.hasOwnProperty("userId")) {
-            getUserById(parseInt(props.match.params.userId))
+            getUserById(props.match.params.userId)
             .then(setUser)
             //get the most recent sub OBJECT
             //this determines whether the current user follows the author of the UserDetail page
             .then(() => {
-                getSubscriptionByAuthor(parseInt(props.match.params.userId))
+                getSubscriptionByAuthor(props.match.params.userId)
                 .then(setSubscription)
             })
             } else {
@@ -77,31 +77,31 @@ export const UserDetail = (props) => {
         <SubscriptionModal open={open} onClose={onClose} subStatus={subStatus}/>
             <Box>
                 {props.match.params.hasOwnProperty("userId") ?
-                    <Heading level="1">{user.user.username}'s Profile</Heading> :<Box>
+                    <Heading level="1">{user.username}'s Profile</Heading> :<Box>
                         <Heading level="1" style={{margin: "2rem 0rem 2rem 0rem"}}>My Profile</Heading>
-                        <Text size="large" color="text" weight="bold" textAlign="start" margin="xsmall">{user.user.first_name} {user.user.last_name}</Text>
+                        <Text size="large" color="text" weight="bold" textAlign="start" margin="xsmall">{user.username}</Text>
                         <Box direction="row">
                         <Text color="text" weight="bold" textAlign="start" margin="xsmall">subscribers:</Text> 
                         <Text color="text-weak" textAlign="end" margin="xsmall">{subscriptions.length}</Text>
                         </Box>
                     </Box>}
-                {user.user.profile_image_url === "" || user.user.profile_image_url === undefined
+                {user.profileImageUrl === "" || user.profileImageUrl === undefined
                     ? <Avatar size="large" src={defaultImg} alt="default avatar smiley"></Avatar>
-                    : <Avatar size="large" src={user.user.profile_image_url} alt="user's avatar"></Avatar>
+                    : <Avatar size="large" src={user.profileImageUrl} alt="user's avatar"></Avatar>
                 }
                 <Box direction="row">
                 <Text color="text" weight="bold" textAlign="start" margin="xsmall">Username:</Text>
-                <Text color="text-weak" textAlign="end" margin="xsmall">{user.user.username}</Text>
+                <Text color="text-weak" textAlign="end" margin="xsmall">{user.username}</Text>
                 </Box>
 
                 <Box direction="row">
-                <Text color="text" weight="bold" textAlign="start" margin="xsmall">email:</Text> 
-                <Text color="text-weak" textAlign="end" margin="xsmall">{user.user.email}</Text>
+                <Text color="text" weight="bold" textAlign="start" margin="xsmall">bio:</Text> 
+                <Text color="text-weak" textAlign="end" margin="xsmall">{user.bio}</Text>
                 </Box>
-                <Box direction="row">
+                {/* <Box direction="row">
                 <Text color="text" weight="bold" textAlign="start" margin="xsmall" >Creation Date:</Text> 
                 <Text color="text-weak" textAlign="end" margin="xsmall">{new Date(user.user.date_joined).toLocaleDateString('en-US')}</Text>
-                </Box>
+                </Box> */}
             </Box>
             <Box>
                 {props.match.params.hasOwnProperty("userId") ?

@@ -150,7 +150,7 @@ export const HomeList = (props) => {
             return (
               <RadioButton
                 key={user.id}
-                label={user.user.username}
+                label={user.username}
                 name="users"
                 value={user.id}
                 checked={userSelected === user.id}

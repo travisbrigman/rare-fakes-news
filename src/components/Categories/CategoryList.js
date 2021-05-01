@@ -38,11 +38,11 @@ export const CategoryList = (props) => {
         <Box>
           {categories.map((categoryObject) => {
             return (
-              <>
+              
                 <Box direction="row" align="center">
                   {
                     //only shows edit and delete if the user is an admin
-                    currentUser.user.is_staff ? (
+                    currentUser.isStaff ? (
                       <>
                         <DeleteCategory categoryId={categoryObject.id} />
                         <div className="new_category_btn_container">
@@ -59,7 +59,7 @@ export const CategoryList = (props) => {
                     )
                   }
                 </Box>
-              </>
+              
             );
           })}
         </Box>

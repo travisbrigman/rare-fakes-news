@@ -41,7 +41,7 @@ export const TagList = ({ props }) => {
           {tags.map((tag) => {
             return (
               <>
-                {currentUser.user.is_staff ? (
+                {/* {currentUser.user.is_staff ? ( */}
                   <Box direction="row">
                     <DeleteTag tagId={tag.id} />
                     <Box className="new_tag_btn_container">
@@ -50,9 +50,9 @@ export const TagList = ({ props }) => {
                       </Link>
                     </Box>
                   </Box>
-                ) : (
-                  <></>
-                )}
+                {/* ) : ( */}
+                  {/* <></> */}
+                {/* // )} */}
               </>
             );
           })}

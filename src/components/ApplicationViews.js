@@ -47,19 +47,19 @@ export const ApplicationViews = (props) => {
                         <Route exact path="/posts/create"
                           render={(props) => <PostForm {...props} />}
                         />
-                        <Route exact path="/posts/edit/:postId(\d+)"
+                        <Route exact path="/posts/edit/:postId([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})"
                           render={(props) => <PostForm {...props} />}
                         />
                         <Route exact path="/myposts"
                           render={(props) => <UsersPosts {...props} />}
                         />
-                        <Route path="/posts/:postId(\d+)"
+                        <Route path="/posts/:postId([0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})"
                           render={(props) => <PostDetails {...props} />}
                         />
-                        <Route path="/profiles/:userId(\d+)"
+                        <Route path="/profiles/:userId"
                           render={props => <UserDetail {...props} />}
                         />
-                                              <Route path="/admin/posts"
+                        <Route path="/admin/posts"
                         render={props => <AdminAllPosts {...props} />}
                       />
                       </SubscriptionProvider>
@@ -79,7 +79,7 @@ export const ApplicationViews = (props) => {
               return <TagForm {...props} />
             }}
             />
-            <Route exact path="/tags/edit/:tagId(\d+)"
+            <Route exact path="/tags/edit/:tagId"
               render={(props) => <TagForm {...props} />}
             />
             <Route exact path="/tags" render={(props) => {
@@ -105,7 +105,7 @@ export const ApplicationViews = (props) => {
             (props) => <CategoryList {...props} />} />
           <Route exact path="/categories/create" render={
             (props) => <CategoryForm {...props} />} />
-          <Route exact path="/editcategory/:categoryId(\d+)" render={
+          <Route exact path="/editcategory/:categoryId" render={
             (props) => <CategoryForm {...props} />} />
         </CategoryProvider>
       </UserProvider>
