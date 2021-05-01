@@ -29,11 +29,11 @@ export const PostForm = (props) => {
   const { tag, tags, getTags } = useContext(TagContext);
   const { createTagPost, deleteTagPost } = useContext(TagPostContext);
 
-  const [postObj, setPostObj] = useState({}); //defines and sets the state of the postObj in this module
+  const [postObj, setPostObj] = useState({category:{id: ""}}); //defines and sets the state of the postObj in this module
   const [checkedState, setCheckedState] = useState([]);
 
   const editMode = props.match.url.split("/")[2] === "edit"; //checks url to see if editMode
-  const postId = parseInt(props.match.params.postId);
+  const postId = props.match.params.postId;
   let filteredTrue = [];
   let checkedTagsArray = [];
   const postTagsArrayToObj = {};
@@ -47,17 +47,17 @@ export const PostForm = (props) => {
       getTagsByPost(postId)
         .then(
           postTags.forEach((pt) => {
-            postTagsArrayToObj[pt.tag_id] = true;
+            postTagsArrayToObj[pt.tag.id] = true;
           })
         )
-        .then(setCheckedState(postTagsArrayToObj));
+        .then(setCheckedState(postTagsArrayToObj))
     }
   }, []);
 
   const handleControlledInputChange = (browserEvent) => {
     const newPost = Object.assign({}, postObj);
     browserEvent.target.name === "category_id"
-      ? (newPost[browserEvent.target.name] = browserEvent.value)
+      ? (newPost.category.id = browserEvent.value)
       : (newPost[browserEvent.target.name] = browserEvent.target.value);
     setPostObj(newPost);
   };
@@ -79,9 +79,10 @@ export const PostForm = (props) => {
         id: postObj.id,
         title: postObj.title,
         content: postObj.content,
-        category_id: parseInt(postObj.category_id),
-        publication_date: postObj.publication_date,
-        image_url: postObj.image_url,
+        category_id: postObj.category.id,
+        publication_date: postObj.publicationDate,
+        imageUrl: postObj.imageUrl,
+        approved: true
       })
         .then(
           postTags.forEach((tagPostObj) => {
@@ -93,7 +94,7 @@ export const PostForm = (props) => {
 
           Object.keys(checkedState).forEach((key) =>
             checkedTagsArray.push({
-              tagId: parseInt(key),
+              tagId: key,
               checked: checkedState[key],
             })
           );
@@ -107,8 +108,8 @@ export const PostForm = (props) => {
           filteredTrue.map((t) => {
             tagPostPromises.push(
               createTagPost({
-                tag_id: parseInt(t.tagId),
-                post_id: postObj.id,
+                tag: t.tagId,
+                post: postObj.id,
               })
             ); //push any newly created tags to promises array
           });
@@ -122,9 +123,10 @@ export const PostForm = (props) => {
       addPost({
         title: postObj.title,
         content: postObj.content,
-        category_id: parseInt(postObj.category_id),
+        category_id: postObj.category.id,
         publication_date: jsonDate,
-        image_url: postObj.image_url,
+        imageUrl: postObj.image_url,
+        approved: true
       }).then((postObj) => {
         const tagPostPromises = []; //empty array of possible TagPosts
 
@@ -140,8 +142,8 @@ export const PostForm = (props) => {
         filteredTrue.map((t) => {
           tagPostPromises.push(
             createTagPost({
-              tag_id: parseInt(t.tagId),
-              post_id: postObj.id,
+              tag: t.tagId,
+              post: postObj.id,
             })
           ); //push any newly created tags to promises array
         });
@@ -181,7 +183,7 @@ export const PostForm = (props) => {
               name="image_url"
               className="form-control"
               placeholder="Image URL"
-              value={postObj.image_url}
+              value={postObj.imageUrl}
               onChange={handleControlledInputChange}
             ></TextInput>
           </FormField>
@@ -206,9 +208,9 @@ export const PostForm = (props) => {
                 id={categories.id}
                 name="category_id"
                 placeholder="Categories"
-                value={postObj.category_id}
-                labelKey="label"
+                value={postObj.category.id}
                 valueKey={{ key: "id", reduce: true }}
+                labelKey="label"
                 options={categories}
                 onChange={handleControlledInputChange}
               />

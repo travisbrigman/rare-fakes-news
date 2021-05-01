@@ -12,8 +12,6 @@ export const UsersTable = () => {
     getUsers()
   }, []);
 
-
-
   return (
     <>
       <Box align="center"  elevation="large">

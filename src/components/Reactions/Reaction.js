@@ -4,15 +4,18 @@ import { ReactionPostContext } from "../Reactions/ReactionPostProvider";
 import { PostContext } from "../Posts/PostProvider";
 import { Box, Button } from "grommet";
 import { ReactionModal } from "./ReactionModal";
+import { UserContext } from "../Profiles/UserProvider";
 
 export const Reaction = (props) => {
   const { createReactionPost, getReactionPosts, ReactionPosts } = useContext(
     ReactionPostContext
   );
 
+  const {currentUser, getCurrentUser} = useContext(UserContext)
+
   const [reactionCount, setReactionCount] = useState([]); //array of RP objects
   const [filteredRP, setFilteredRP] = useState([]); //filtered array of RP objects for this post
-  const postId = parseInt(props.match.params.postId);
+  const postId = props.match.params.postId;
 
   //state variable and functions that change state of the state variable
   const [open, setOpen] = useState();
@@ -20,6 +23,7 @@ export const Reaction = (props) => {
   const onClose = () => setOpen(undefined);
 
   useEffect(() => {
+    getCurrentUser();
     getReactionPosts();
   }, []);
 
@@ -35,7 +39,8 @@ export const Reaction = (props) => {
     const matchingReactionCount =
       filteredRP.filter((rp) => {
         //filter through RP obj arr for this post to find the RP objs whose reaction_id matches the id of the reaction of this current module
-        return rp.reaction.id === props.reaction.id;
+        let upperCaseID = props.reaction.id.toUpperCase()
+        return rp.reaction.id === upperCaseID;
       }) || [];
     setReactionCount(matchingReactionCount);
   }, [filteredRP]);
@@ -44,17 +49,17 @@ export const Reaction = (props) => {
     //create an RP object
     const checkForExistingReaction = filteredRP.find((rp) => {
       //see if it already exists
-      if (rp.user_id === parseInt(localStorage.getItem("rare_user_id"))) {
+      if (rp.user.id === localStorage.getItem("rare_user_id")) {
         //see if current user already had this reaction
         return rp.reaction.id === props.reaction.id;
       }
     });
-
     if (checkForExistingReaction === undefined) {
       //if no RP obj found, let user add a reaction
       createReactionPost({
-        reaction_id: props.reaction.id,
-        post_id: postId,
+        reaction: props.reaction.id,
+        post: postId,
+        user: currentUser.id
       });
     } else {
       //setOpen(true)

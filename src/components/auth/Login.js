@@ -1,6 +1,6 @@
 //login page
 import React, { useRef, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Anchor,
   Box,
@@ -21,15 +21,18 @@ export const Login = (props) => {
 
   // see if user already exists
   const existingUserCheck = () => {
-    return fetch(`http://localhost:8000/login`, {
+    const userPass = `${user.current.value}:${password.current.value}`
+    const encodedUserPass = btoa(userPass)
+    return fetch(`http://127.0.0.1:8080/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Basic ${encodedUserPass}`
       },
-      body: JSON.stringify({
-        username: user.current.value,
-        password: password.current.value,
-      }),
+      // body: JSON.stringify({
+      //   username: user.current.value,
+      //   password: password.current.value,
+      // }),
     })
       .then((res) => {
         return res.json();
@@ -37,15 +40,15 @@ export const Login = (props) => {
       .then((user) => {
         return user !== undefined ? user : false;
       });
-  };
+  }
 
   const handleLogin = (e) => {
     e.preventDefault();
     existingUserCheck().then((exists) => {
-      if (exists.valid) {
-        localStorage.setItem("rare_user_id", exists.token);
+      if (!Object.entries(exists).isEmpty) {
+        localStorage.setItem("rare_user_id", exists.value);
         props.history.push("/home");
-      } else if (exists.valid != true) {
+      } else if (Object.entries(exists).isEmpty) {
         setShow(true);
       } else if (!exists) {
         setShowUser(true);

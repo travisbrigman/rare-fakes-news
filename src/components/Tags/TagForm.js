@@ -22,7 +22,7 @@ export const TagForm = (props) => {
     /*
             When changing a state object or array, always create a new one
             and change state instead of modifying current one
-        */
+    */
     const newTag = Object.assign({}, tagObj); // Create copy
     newTag[event.target.name] = event.target.value; // Modify copy
     setTagObj(newTag); // Set copy as new state
@@ -30,9 +30,9 @@ export const TagForm = (props) => {
 
   useEffect(() => {
     if (editMode) {
-      getTagById(parseInt(props.match.params.tagId)).then((tag) => {
+      getTagById(props.match.params.tagId).then((tag) => {
         setTagObj({
-          label: tag.label,
+          label: tag.label
         });
       });
     }
@@ -78,7 +78,7 @@ export const TagForm = (props) => {
                 label="Edit"
                 onClick={() => {
                   updateTag({
-                    id: parseInt(props.match.params.tagId),
+                    id: props.match.params.tagId,
                     label: tagObj.label,
                   }).then(() => {
                     props.history.push(`/tags`);

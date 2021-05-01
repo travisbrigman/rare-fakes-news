@@ -1,131 +1,189 @@
 //handles all Post data- getPosts, getPostsById, getPostsByUser, getPostByTag, getTagsByPost, getPostByCat, addPost, updatePost, deletePost
-import React, { useState } from "react"
+import React, { useState } from "react";
 
-export const PostContext = React.createContext()
+export const PostContext = React.createContext();
 
 export const PostProvider = (props) => {
-    const [posts, setPosts] = useState([{user:{user:{first_name: ""}}, category:{label:""}}])  
-    const [post, setPost] = useState({user:{user:{}}})
-    const [postTags, setPostTags] = useState([{tag:{}}])
+  const [posts, setPosts] = useState([
+    {
+      category: { id: "", label: "" },
+      author: {
+        username: "",
+        profileImageUrl: "",
+        id: "",
+        bio: "",
+        passwordHash: "",
+      },
+      content: "",
+      publicationDate: "",
+      id: "",
+      title: "",
+      approved: true,
+      imageUrl: "",
+    },
+  ]);
 
-    const getPosts = () => {
-        return fetch("http://localhost:8000/posts" , {
-            headers: {
-              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
-              "Content-Type": "application/json",
-            }
-          })
-            .then(res => res.json())
-            .then(setPosts)
-    }
+  const [post, setPost] = useState({
+    category: { id: "", label: "" },
+    author: {
+      username: "",
+      profileImageUrl: "",
+      id: "",
+      bio: "",
+      passwordHash: "",
+    },
+    content: "",
+    publicationDate: "",
+    id: "",
+    title: "",
+    approved: true,
+    imageUrl: "",
+  });
+  const [postTags, setPostTags] = useState(  [
+    {
+      post: {
+        author: { id: "" },
+        content:
+          "",
+        publicationDate: "",
+        category: { id: "" },
+        id: "",
+        title: "",
+        approved: true,
+        imageUrl: "",
+      },
+      tag: { label: "", id: "" },
+      id: "",
+    },
+  ]
+  );
 
-    const getPostById = (id) => {
-        return fetch(`http://localhost:8000/posts/${id}` , {
-            headers: {
-              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
-              "Content-Type": "application/json",
-            }
-          })
-            .then(res => res.json())
-    }
 
-    const getPostByUser = (userId) => {
-        return fetch(`http://localhost:8000/posts?user_id=${userId}` , {
-            headers: {
-              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
-              "Content-Type": "application/json",   
-            }
-           
-          })
-            .then(res => res.json())
-    }
 
-    const getPostByTag = (tagId) => {
-        return fetch(`http://localhost:8000/posts?tag_id=${tagId}` , {
-            headers: {
-              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
-              "Content-Type": "application/json",   
-            }
-          })
-            .then(res => res.json())
-            .then(setPostTags)
-    }
+  const getPosts = () => {
+    return fetch("http://127.0.0.1:8080/posts", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(setPosts);
+  };
 
-    const getTagsByPost = (postId) => {
-        return fetch(`http://localhost:8000/posttags?post_id=${postId}` , {
-            headers: {
-              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
-              "Content-Type": "application/json",   
-            }
-          })
-            .then(res => res.json())
-            .then(setPostTags)
-    }
+  const getPostById = (id) => {
+    return fetch(`http://127.0.0.1:8080/posts/${id}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+  };
 
-    const getPostByCat = (categoryId) => {
-        return fetch(`http://localhost:8000/posts?category_id=${categoryId}` , {
-            headers: {
-              Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
-              "Content-Type": "application/json",   
-            }
-          })
-            .then(res => res.json())
-            //.then(setPosts)
-    }
+  const getPostByUser = (userId) => {
+    return fetch(`http://127.0.0.1:8080/posts?user_id=${userId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+  };
 
-    const addPost = post => {
-        return fetch("http://localhost:8000/posts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
-              },
-            body: JSON.stringify(post)
-        })
-           .then(res => res.json())     
-    }
+  const getPostByTag = (tagId) => {
+    return fetch(`http://127.0.0.1:8080/posts?tag_id=${tagId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(setPostTags);
+  };
 
-    const updatePost = post => {
-        return fetch(`http://localhost:8000/posts/${post.id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
-            },
-            body: JSON.stringify(post)
-        })
-            .then(getPosts)
-    }
+  const getTagsByPost = (postId) => {
+    return fetch(`http://127.0.0.1:8080/postTags?post_id=${postId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then(setPostTags);
+  };
 
-    const deletePost = (postId) => {
-        return fetch(`http://localhost:8000/posts/${postId}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
-            },
-        body: JSON.stringify(postId)
-        })
-            .then(getPosts)
-    }
-    const approvePost = (postId) => {
-      return fetch(`http://localhost:8000/posts/${postId}/approve`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,  
-        },
-      })
-      .then(getPosts)
-    }
+  const getPostByCat = (categoryId) => {
+    return fetch(`http://127.0.0.1:8080/posts?category_id=${categoryId}`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => res.json());
+    //.then(setPosts)
+  };
 
-    return (
-        <PostContext.Provider value={{
-            post, setPost, posts, addPost, approvePost,  getPosts, setPosts,
-            getPostById, updatePost, getPostByTag, getPostByCat, getPostByUser,
-            deletePost, postTags, getTagsByPost      
-        }}>
-            {props.children}
-        </PostContext.Provider>
-    )
-}
+  const addPost = (post) => {
+    return fetch("http://127.0.0.1:8080/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+      },
+      body: JSON.stringify(post),
+    }).then((res) => res.json());
+  };
+
+  const updatePost = (post) => {
+    return fetch(`http://127.0.0.1:8080/posts/${post.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+      },
+      body: JSON.stringify(post),
+    }).then(getPosts);
+  };
+
+  const deletePost = (postId) => {
+    return fetch(`http://127.0.0.1:8080/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+      },
+      body: JSON.stringify(postId),
+    }).then(getPosts);
+  };
+  const approvePost = (postId) => {
+    return fetch(`http://localhost:8000/posts/${postId}/approve`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
+      },
+    }).then(getPosts);
+  };
+
+  return (
+    <PostContext.Provider
+      value={{
+        post,
+        setPost,
+        posts,
+        addPost,
+        approvePost,
+        getPosts,
+        setPosts,
+        getPostById,
+        updatePost,
+        getPostByTag,
+        getPostByCat,
+        getPostByUser,
+        deletePost,
+        postTags,
+        getTagsByPost,
+      }}
+    >
+      {props.children}
+    </PostContext.Provider>
+  );
+};

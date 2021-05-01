@@ -1,5 +1,5 @@
 export const theme = {
-    "name": "rare fake snooze",
+  "name": "rare fake snooze",
     "rounding": 4,
     "spacing": 24,
     "defaultMode": "light",

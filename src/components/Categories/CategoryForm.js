@@ -25,7 +25,7 @@ export const CategoryForm = (props) => {
 
   useEffect(() => {
     if (editMode) {
-      getCategoryById(parseInt(props.match.params.categoryId))
+      getCategoryById(props.match.params.categoryId)
         .then(category => {
           setCurrentCategory({
             label: category.label
@@ -80,7 +80,7 @@ export const CategoryForm = (props) => {
               }}
               margin="small"
               />
-           
+
               <Button margin="small" secondary label="Cancel" onClick={onClose}/>
             </Box>
           </Box>
@@ -98,7 +98,7 @@ export const CategoryForm = (props) => {
             })
               .then(() => props.history.push("/categories"))
           }}
-         
+        
         />
       }
     </Box>

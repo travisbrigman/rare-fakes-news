@@ -6,9 +6,9 @@ export const CategoryProvider = (props) => {
   const [category, setCategory] = useState({});
 
   const getCategories = () => {
-    return fetch("http://localhost:8000/categories", {
+    return fetch("http://127.0.0.1:8080/categories", {
       headers: {
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       }
     })
       .then((res) => res.json())
@@ -16,11 +16,11 @@ export const CategoryProvider = (props) => {
   };
 
   const createCategory = (category) => {
-    return fetch("http://localhost:8000/categories", {
+    return fetch("http://127.0.0.1:8080/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+        "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       },
       body: JSON.stringify(category),
     })
@@ -29,11 +29,11 @@ export const CategoryProvider = (props) => {
   };
 
   const deleteCategory = (categoryId) => {
-    return fetch(`http://localhost:8000/categories/${categoryId}`, {
+    return fetch(`http://127.0.0.1:8080/categories/${categoryId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Token ${localStorage.getItem("rare_user_id")}`,
+            "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`,
         },
     body: JSON.stringify(categoryId)
     })
@@ -41,11 +41,11 @@ export const CategoryProvider = (props) => {
   }
 
   const editCategory = category => {
-    return fetch(`http://localhost:8000/categories/${category.id}`, {
+    return fetch(`http://127.0.0.1:8080/categories/${category.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Token ${localStorage.getItem("rare_user_id")}`
+            "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
         },
         body: JSON.stringify(category)
     })
@@ -53,9 +53,9 @@ export const CategoryProvider = (props) => {
 }
 
 const getCategoryById = (id) => {
-  return fetch(`http://localhost:8000/categories/${id}` , {
+  return fetch(`http://127.0.0.1:8080/categories/${id}` , {
       headers: {
-        Authorization: `Token ${localStorage.getItem("rare_user_id")}`,
+        Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
       }
     })
