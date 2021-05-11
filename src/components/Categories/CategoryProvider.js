@@ -6,7 +6,7 @@ export const CategoryProvider = (props) => {
   const [category, setCategory] = useState({});
 
   const getCategories = () => {
-    return fetch("http://rare-vapor-server.herokuapp.com/categories", {
+    return fetch("https://rare-vapor-server.herokuapp.com/categories", {
       headers: {
         "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
       }
@@ -16,7 +16,7 @@ export const CategoryProvider = (props) => {
   };
 
   const createCategory = (category) => {
-    return fetch("http://rare-vapor-server.herokuapp.com/categories", {
+    return fetch("https://rare-vapor-server.herokuapp.com/categories", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const CategoryProvider = (props) => {
   };
 
   const deleteCategory = (categoryId) => {
-    return fetch(`http://rare-vapor-server.herokuapp.com/categories/${categoryId}`, {
+    return fetch(`https://rare-vapor-server.herokuapp.com/categories/${categoryId}`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
@@ -41,7 +41,7 @@ export const CategoryProvider = (props) => {
   }
 
   const editCategory = category => {
-    return fetch(`http://rare-vapor-server.herokuapp.com/categories/${category.id}`, {
+    return fetch(`https://rare-vapor-server.herokuapp.com/categories/${category.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export const CategoryProvider = (props) => {
 }
 
 const getCategoryById = (id) => {
-  return fetch(`http://rare-vapor-server.herokuapp.com/categories/${id}` , {
+  return fetch(`https://rare-vapor-server.herokuapp.com/categories/${id}` , {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",

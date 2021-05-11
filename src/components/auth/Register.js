@@ -21,7 +21,7 @@ export const Register = (props) => {
         bio: bio.current.value,
         profileImageUrl: profileImageUrl.current.value
       };
-      return fetch("http://rare-vapor-server.herokuapp.com/users", {
+      return fetch("https://rare-vapor-server.herokuapp.com/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

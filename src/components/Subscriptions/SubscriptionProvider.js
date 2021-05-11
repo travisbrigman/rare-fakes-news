@@ -9,7 +9,7 @@ export const SubscriptionProvider = (props) => {
     //If author_id = current user, will return an ARRAY of objects of people that follow you
     //if author_id !== current user, will return an OBJECT that will tell the app whether or not you follow the author
     const getSubscriptionByAuthor = (id) => {
-        return fetch(`http://rare-vapor-server.herokuapp.com/subscriptions?author_id=${id}`, {
+        return fetch(`https://rare-vapor-server.herokuapp.com/subscriptions?author_id=${id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const SubscriptionProvider = (props) => {
     }
 
     const createSubscription = subscriptionObj => {
-        return fetch("http://rare-vapor-server.herokuapp.com/subscriptions", {
+        return fetch("https://rare-vapor-server.herokuapp.com/subscriptions", {
             method: "POST",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
@@ -31,7 +31,7 @@ export const SubscriptionProvider = (props) => {
     }
 
     const unsubscribe = (authorId) => {
-        return fetch(`http://rare-vapor-server.herokuapp.com/subscriptions/${authorId}/unsubscribe`, {
+        return fetch(`https://rare-vapor-server.herokuapp.com/subscriptions/${authorId}/unsubscribe`, {
             method: "PUT",
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,

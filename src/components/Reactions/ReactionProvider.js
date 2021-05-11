@@ -7,7 +7,7 @@ export const ReactionProvider = (props) => {
     const [reaction, setReaction] = useState({})
 
     const getReactions = () => {
-        return fetch("http://rare-vapor-server.herokuapp.com/postReactions" , {
+        return fetch("https://rare-vapor-server.herokuapp.com/postReactions" , {
         headers: {
             Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
             "Content-Type": "application/json",

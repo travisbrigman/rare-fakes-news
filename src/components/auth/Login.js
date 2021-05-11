@@ -23,7 +23,7 @@ export const Login = (props) => {
   const existingUserCheck = () => {
     const userPass = `${user.current.value}:${password.current.value}`
     const encodedUserPass = btoa(userPass)
-    return fetch(`http://rare-vapor-server.herokuapp.com/login`, {
+    return fetch(`https://rare-vapor-server.herokuapp.com/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

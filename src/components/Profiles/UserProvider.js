@@ -8,7 +8,7 @@ export const UserProvider = (props) => {
     const [currentUser, setCurrentUser] = useState({user:{}})
 
     const getUsers = () => {
-        return fetch("http://rare-vapor-server.herokuapp.com/users" , {
+        return fetch("https://rare-vapor-server.herokuapp.com/users" , {
             headers: {
             Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
             "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const UserProvider = (props) => {
     };
 
     const getUserById = (id) => {
-        return fetch(`http://rare-vapor-server.herokuapp.com/users/${id}`, {
+        return fetch(`https://rare-vapor-server.herokuapp.com/users/${id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
@@ -29,7 +29,7 @@ export const UserProvider = (props) => {
     }
 
     const getCurrentUser = () => {
-        return fetch(`http://rare-vapor-server.herokuapp.com/currentuser`, {
+        return fetch(`https://rare-vapor-server.herokuapp.com/currentuser`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
