@@ -8,7 +8,7 @@ export const TagProvider = (props) => {
   const [tag, setTag] = useState({});
   
   const getTags = () => {
-    return fetch("http://127.0.0.1:8080/tags", {
+    return fetch("http://rare-vapor-server.herokuapp.com/tags", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
       },
@@ -18,7 +18,7 @@ export const TagProvider = (props) => {
   };
 
   const createTag = (tag) => {
-    return fetch("http://127.0.0.1:8080/tags", {
+    return fetch("http://rare-vapor-server.herokuapp.com/tags", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
@@ -31,7 +31,7 @@ export const TagProvider = (props) => {
 
   
   const deleteTag = (tagId) => {
-    return fetch(`http://127.0.0.1:8080/tags/${tagId}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/tags/${tagId}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
@@ -43,7 +43,7 @@ export const TagProvider = (props) => {
 }
 
 const getTagById = (id) => {
-  return fetch(`http://127.0.0.1:8080/tags/${id}` , {
+  return fetch(`http://rare-vapor-server.herokuapp.com/tags/${id}` , {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
@@ -53,7 +53,7 @@ const getTagById = (id) => {
 }
 
 const updateTag = tag => {
-  return fetch(`http://127.0.0.1:8080/tags/${tag.id}`, {
+  return fetch(`http://rare-vapor-server.herokuapp.com/tags/${tag.id}`, {
       method: "PUT",
       headers: {
           "Content-Type": "application/json",

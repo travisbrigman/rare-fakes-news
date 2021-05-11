@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { PostContext } from "./PostProvider";
-import { Grommet, Box, DataTable, CheckBox, Button, Heading } from 'grommet';
+import { Box, DataTable, CheckBox, Button, Heading } from 'grommet';
 import { Compliance } from "grommet-icons"
 
 

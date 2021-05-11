@@ -7,7 +7,7 @@ export const ReactionPostProvider = (props) => {
     const [ReactionPost, setReactionPost] = useState({})
 
     const getReactionPosts = () => {
-        return fetch("http://127.0.0.1:8080/postReactions", { 
+        return fetch("http://rare-vapor-server.herokuapp.com/postReactions", { 
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
                 "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export const ReactionPostProvider = (props) => {
 
 
     const createReactionPost = ReactionPost => {
-        return fetch("http://127.0.0.1:8080/postReactions", {
+        return fetch("http://rare-vapor-server.herokuapp.com/postReactions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
