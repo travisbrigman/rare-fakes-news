@@ -61,7 +61,7 @@ export const PostProvider = (props) => {
 
 
   const getPosts = () => {
-    return fetch("http://127.0.0.1:8080/posts", {
+    return fetch("http://rare-vapor-server.herokuapp.com/posts", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export const PostProvider = (props) => {
   };
 
   const getPostById = (id) => {
-    return fetch(`http://127.0.0.1:8080/posts/${id}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/posts/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
@@ -81,7 +81,7 @@ export const PostProvider = (props) => {
   };
 
   const getPostByUser = (userId) => {
-    return fetch(`http://127.0.0.1:8080/posts?user_id=${userId}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/posts?user_id=${userId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
@@ -90,7 +90,7 @@ export const PostProvider = (props) => {
   };
 
   const getPostByTag = (tagId) => {
-    return fetch(`http://127.0.0.1:8080/posts?tag_id=${tagId}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/posts?tag_id=${tagId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
@@ -101,7 +101,7 @@ export const PostProvider = (props) => {
   };
 
   const getTagsByPost = (postId) => {
-    return fetch(`http://127.0.0.1:8080/postTags?post_id=${postId}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/postTags?post_id=${postId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export const PostProvider = (props) => {
   };
 
   const getPostByCat = (categoryId) => {
-    return fetch(`http://127.0.0.1:8080/posts?category_id=${categoryId}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/posts?category_id=${categoryId}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("rare_user_id")}`,
         "Content-Type": "application/json",
@@ -122,7 +122,7 @@ export const PostProvider = (props) => {
   };
 
   const addPost = (post) => {
-    return fetch("http://127.0.0.1:8080/posts", {
+    return fetch("http://rare-vapor-server.herokuapp.com/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -133,7 +133,7 @@ export const PostProvider = (props) => {
   };
 
   const updatePost = (post) => {
-    return fetch(`http://127.0.0.1:8080/posts/${post.id}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/posts/${post.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -144,7 +144,7 @@ export const PostProvider = (props) => {
   };
 
   const deletePost = (postId) => {
-    return fetch(`http://127.0.0.1:8080/posts/${postId}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/posts/${postId}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

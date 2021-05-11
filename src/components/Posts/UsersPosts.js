@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { PostContext } from "./PostProvider";
 import { UserContext } from "../Profiles/UserProvider"
-import { Anchor, Box, Button, Card, CardBody, CardFooter, CardHeader, Heading, Text } from "grommet"
+import { Anchor, Box, Card, CardBody, CardHeader, Heading, Text } from "grommet"
 import TimeAgo from "timeago-react"
 
 
@@ -11,7 +11,24 @@ export const UsersPosts = () => {
   const { getPostByUser } = useContext(PostContext);
   const { getCurrentUser } = useContext(UserContext)
 
-  const [usersPosts, setUsersPosts] = useState([]);
+  const [usersPosts, setUsersPosts] = useState([
+    {
+      category: { id: "", label: "" },
+      author: {
+        username: "",
+        profileImageUrl: "",
+        id: "",
+        bio: "",
+        passwordHash: "",
+      },
+      content: "",
+      publicationDate: "",
+      id: "",
+      title: "",
+      approved: true,
+      imageUrl: "",
+    },
+  ]);
 
   useEffect(() => {
     getCurrentUser()
@@ -24,7 +41,7 @@ export const UsersPosts = () => {
   return (
     <>
       <Heading level="1">My Posts</Heading>
-      {usersPosts.length===0 && ("You Haven't Written any Posts Yet")}
+      {usersPosts.length === 0 && ("You Haven't Written any Posts Yet")}
       {usersPosts.map((p) => {
         return (
           <Box key={p.id} width="medium" >
@@ -47,7 +64,6 @@ export const UsersPosts = () => {
                       </Text>
                     </CardBody>
               <CardBody>
-                {/* <CardFooter>{p.user.user.first_name}</CardFooter> */}
                 {p.category==null
                 ? "" 
                 :<Text pad="xsmall" size="xsmall" color="xweak">{p.category.label}</Text>}

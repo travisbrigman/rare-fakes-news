@@ -28,7 +28,7 @@ export const PostList = ({ arrOfPosts }) => {
         margin="small"
       />
       </Box>
-      {arrOfPosts !== []
+      {!arrOfPosts.isEmpty
         ? arrOfPosts
             .map((p) => {
               return (

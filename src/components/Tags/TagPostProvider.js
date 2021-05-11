@@ -12,7 +12,7 @@ export const TagPostProvider = (props) => {
   const {getTagsByPost} = useContext(PostContext)
 
   const getTagPosts = () => {
-    return fetch("http://127.0.0.1:8080/postTags", {
+    return fetch("http://rare-vapor-server.herokuapp.com/postTags", {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
@@ -23,7 +23,7 @@ export const TagPostProvider = (props) => {
   };
 
   const getPostTagsByTags = (tagId) => {
-    return fetch(`http://127.0.0.1:8080/postTags?tag_id=${tagId}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/postTags?tag_id=${tagId}`, {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
@@ -34,7 +34,7 @@ export const TagPostProvider = (props) => {
   };
 
   const createTagPost = (TagPost) => {
-    return fetch("http://127.0.0.1:8080/postTags", {
+    return fetch("http://rare-vapor-server.herokuapp.com/postTags", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ export const TagPostProvider = (props) => {
   };
 
   const deleteTagPost = (tagPostId, postId) => {
-    return fetch(`http://127.0.0.1:8080/postTags/${tagPostId}`, {
+    return fetch(`http://rare-vapor-server.herokuapp.com/postTags/${tagPostId}`, {
         method: "DELETE",
         headers: {
           "Authorization": `Bearer ${localStorage.getItem("rare_user_id")}`
