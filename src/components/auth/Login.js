@@ -13,21 +13,24 @@ import {
 } from "grommet";
 
 export const Login = (props) => {
-  const user = useRef();
-  const password = useRef();
+  const [user, setUser] = useState("saoirse@gmail.com");
+  const [password, setPassword] = useState("lilbit2019");
+
+  const onPasswordChange = (event) => setPassword(event.target.value);
+  const onUserChange = (event) => setUser(event.target.value);
 
   const [show, setShow] = useState();
   const [showUser, setShowUser] = useState();
 
   // see if user already exists
   const existingUserCheck = () => {
-    const userPass = `${user.current.value}:${password.current.value}`
-    const encodedUserPass = btoa(userPass)
-    return fetch(`https://rare-vapor-server.herokuapp.com/login`, {
+    const userPass = `${user}:${password}`;
+    const encodedUserPass = btoa(userPass);
+    return fetch(`http://127.0.0.1:8080/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Basic ${encodedUserPass}`
+        Authorization: `Basic ${encodedUserPass}`,
       },
       // body: JSON.stringify({
       //   username: user.current.value,
@@ -40,7 +43,7 @@ export const Login = (props) => {
       .then((user) => {
         return user !== undefined ? user : false;
       });
-  }
+  };
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -87,7 +90,8 @@ export const Login = (props) => {
         <Form className="form--login" onSubmit={handleLogin}>
           <FormField label="Email address" htmlFor="inputEmail">
             <TextInput
-              ref={user}
+              value={user}
+              onChange={onUserChange}
               type="text"
               id="username"
               placeholder="User Name"
@@ -96,7 +100,8 @@ export const Login = (props) => {
           </FormField>
           <FormField label="Password" htmlFor="inputPassword">
             <TextInput
-              ref={password}
+              value={password}
+              onChange={onPasswordChange}
               type="password"
               id="password"
               placeholder="Password"
