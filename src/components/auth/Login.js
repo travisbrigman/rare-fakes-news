@@ -26,7 +26,7 @@ export const Login = (props) => {
   const existingUserCheck = () => {
     const userPass = `${user}:${password}`;
     const encodedUserPass = btoa(userPass);
-    return fetch(`http://127.0.0.1:8080/login`, {
+    return fetch(`https://rare-vapor-server.herokuapp.com/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
